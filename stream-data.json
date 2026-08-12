@@ -1,0 +1,52 @@
+{
+  "host": {
+    "name": "GUTA FLORES",
+    "role": ""
+  },
+  "cohost": {
+    "enabled": false,
+    "name": "",
+    "role": ""
+  },
+  "guest": {
+    "enabled": false,
+    "name": "",
+    "role": "",
+    "bio": "",
+    "socials": [
+      {
+        "icon": "",
+        "platform": "",
+        "handle": ""
+      },
+      {
+        "icon": "",
+        "platform": "",
+        "handle": ""
+      },
+      {
+        "icon": "",
+        "platform": "",
+        "handle": ""
+      }
+    ]
+  },
+  "solo": {
+    "descLabel": "Hoy",
+    "bio": "Bienvenidos, hoy buscamos nuevos artistas emergentes mientras escuchamos música !!!",
+    "tags": "#artistasemergentes #nuevamusica #charlemos",
+    "handle": ""
+  },
+  "motto": {
+    "phrase1": "",
+    "connector": "|",
+    "phrase2": "ESCUCHAMOS MÚSICA "
+  },
+  "ticker": [
+    {
+      "prefix": "",
+      "text": "ALITAS : GUTA.FLORES",
+      "highlight": true
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+/* Configuración general transparente */
+body {
+  background-color: transparent;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.tap-container {
+  position: relative;
+  width: 200px;
+  height: 250px;
+  background: transparent;
+}
+
+/* --- ANIMACIÓN DEL DEDO / MANO --- */
+.hand-wrapper {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 120px;
+  animation: tapMotion 1.4s infinite ease-in-out;
+  transform-origin: bottom center;
+}
+
+.hand-icon {
+  width: 100%;
+  height: 100%;
+  /* Puedes cambiar el color del contorno aquí o con stroke en el SVG */
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4)); /* Sombra suave opcional para destacar */
+}
+
+@keyframes tapMotion {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  40% {
+    /* El dedo baja a hacer tap */
+    transform: translateX(-50%) translateY(-25px) scale(0.92);
+  }
+  50% {
+    /* Momento exacto del toque */
+    transform: translateX(-50%) translateY(-32px) scale(0.85);
+  }
+  65% {
+    /* Vuelve a su posición */
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* --- ANIMACIÓN DE LOS CORAZONES --- */
+.hearts-burst {
+  position: absolute;
+  top: 75px; /* Ubicación en el punto exacto del tap */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 1px;
+}
+
+.heart {
+  position: absolute;
+  font-size: 20px;
+  color: #ff3366; /* Color de los corazones */
+  opacity: 0;
+  user-select: none;
+  animation: heartExplosion 1.4s infinite ease-out;
+}
+
+/* Dispersión individual de cada corazón */
+.h-1 { --tx: -40px; --ty: -60px; --rot: -20deg; --size: 22px; animation-delay: 0.48s; }
+.h-2 { --tx:  40px; --ty: -60px; --rot:  20deg; --size: 18px; animation-delay: 0.48s; }
+.h-3 { --tx: -70px; --ty: -30px; --rot: -40deg; --size: 26px; animation-delay: 0.50s; }
+.h-4 { --tx:  70px; --ty: -30px; --rot:  40deg; --size: 20px; animation-delay: 0.50s; }
+.h-5 { --tx: -20px; --ty: -90px; --rot: -10deg; --size: 28px; animation-delay: 0.52s; }
+.h-6 { --tx:  20px; --ty: -90px; --rot:  10deg; --size: 24px; animation-delay: 0.52s; }
+.h-7 { --tx: -55px; --ty: -80px; --rot: -30deg; --size: 16px; animation-delay: 0.54s; }
+.h-8 { --tx:  55px; --ty: -80px; --rot:  30deg; --size: 22px; animation-delay: 0.54s; }
+
+@keyframes heartExplosion {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    font-size: var(--size);
+    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(var(--rot)) scale(1.3);
+  }
+}

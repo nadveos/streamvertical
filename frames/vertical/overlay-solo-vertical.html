@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../../main.css">
+  <link rel="stylesheet" href="../../overlay-solo-vertical.css">
+  <link rel="stylesheet" href="../../transparent-mode.css">
+  <title>Guta Flores — Overlay Solo Vertical 9:16 (Frame Transparente)</title>
+</head>
+
+<body>
+
+  <!-- Marco General Animado -->
+  <div class="main-border">
+    <div class="main-inner">
+
+      <!-- HEADER: En Vivo / Nombre -->
+      <div class="top-header">
+        <span class="badge">● EN VIVO</span>
+        <span data-bind="host-name">Guta Flores</span>
+      </div>
+
+      <!-- LAYOUT PRINCIPAL 9:16 -->
+      <div class="solo-layout">
+
+        <!-- 1. ZONA MULTIMEDIA / TEXTO SUPERIOR (evento, título, logo) -->
+        <div class="top-info-zone">
+          <div class="event-badge">
+            <div class="badge-icon">🎙️</div>
+            <div class="badge-label">STREAM</div>
+          </div>
+          <div class="event-info">
+            <div class="event-title" data-bind="stream-title">EN VIVO HOY</div>
+            <div class="event-subtitle" data-bind="stream-subtitle">Música y Folklore Argentino</div>
+            <div class="event-date" data-bind="stream-date">📅 Todos los días</div>
+          </div>
+        </div>
+
+        <!-- Separador superior -->
+        <div class="zone-separator"></div>
+
+        <!-- 2. ZONA DE CÁMARA PRINCIPAL -->
+        <div class="cam-zone">
+          <div class="solo-cam-box">
+            <div class="cam-window"></div>
+
+            <!-- Esquinas decorativas de la cámara -->
+            <div class="cam-corner tl">
+              <svg viewBox="0 0 40 40">
+                <path d="M2 38 L2 2 L38 2" />
+              </svg>
+            </div>
+            <div class="cam-corner tr">
+              <svg viewBox="0 0 40 40">
+                <path d="M2 38 L2 2 L38 2" />
+              </svg>
+            </div>
+            <div class="cam-corner bl">
+              <svg viewBox="0 0 40 40">
+                <path d="M2 38 L2 2 L38 2" />
+              </svg>
+            </div>
+            <div class="cam-corner br">
+              <svg viewBox="0 0 40 40">
+                <path d="M2 38 L2 2 L38 2" />
+              </svg>
+            </div>
+
+            <!-- Indicador EN VIVO -->
+            <div class="live-indicator">
+              <div class="live-dot"></div>
+              <span class="live-text">EN VIVO</span>
+            </div>
+
+            <!-- Nombre sobre la cámara (degradado inferior) -->
+            <div class="name-tag-overlay">
+              <div class="name-role" data-bind="solo-role">🎙️ ANFITRIÓN / HOST</div>
+              <div class="name-main" data-bind="solo-name">GUTA FLORES</div>
+              <div class="name-social" data-bind="solo-handle">@gutafloresok</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Separador intermedio -->
+        <div class="zone-separator"></div>
+
+        <!-- BANNER DE FRASES / MOTTO BANNER -->
+        <div class="motto-banner">
+          <div class="motto-text-group">
+            <span class="motto-phrase highlight" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+            <span class="motto-connector" data-bind="motto-connector">Y</span>
+            <span class="motto-phrase" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+          </div>
+        </div>
+
+        <!-- Separador inferior -->
+        <div class="zone-separator"></div>
+
+        <!-- 3. ZONA TEXTO / INFO / SOCIALES -->
+        <div class="bottom-info-zone">
+          <div class="bottom-separator"></div>
+          <div class="bottom-content">
+
+            <!-- Descripción del stream -->
+            <div class="stream-desc">
+              <div class="desc-label" data-bind="solo-desc-label">📢 Hoy en el stream</div>
+              <div class="desc-text" data-bind="solo-bio">
+                ¡Bienvenidos al stream en vivo! Música argentina, folklore y mucho más.
+              </div>
+              <div class="desc-tags" data-bind="solo-tags">
+                <span class="desc-tag">#Folklore</span>
+                <span class="desc-tag">#Musica</span>
+                <span class="desc-tag">#GuitarreandoALaGorra</span>
+                <span class="desc-tag">#EnVivo</span>
+                <span class="desc-tag">#ArgentinaMusic</span>
+              </div>
+            </div>
+
+            <!-- Divisor -->
+            <div class="inner-divider"></div>
+
+            <!-- Redes sociales -->
+            <div class="social-zone">
+              <div class="social-zone-label">🌐 Seguinos</div>
+              <div data-bind="solo-socials">
+                <div class="social-row">
+                  <span class="social-icon">📸</span>
+                  <div class="social-info">
+                    <span class="social-platform">Instagram</span>
+                    <span class="social-handle">@gutaflores</span>
+                  </div>
+                </div>
+                <div class="social-row">
+                  <span class="social-icon">🎵</span>
+                  <div class="social-info">
+                    <span class="social-platform">TikTok</span>
+                    <span class="social-handle">@gutaflores</span>
+                  </div>
+                </div>
+                <div class="social-row">
+                  <span class="social-icon">▶️</span>
+                  <div class="social-info">
+                    <span class="social-platform">YouTube</span>
+                    <span class="social-handle">@gutaflores</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Decoraciones de esquina del marco global -->
+      <div class="corner-stripe-left"></div>
+      <div class="corner-stripe-right"></div>
+
+      <!-- 4. ZONA MULTIMEDIA (activa con JS cuando se necesite) -->
+      <div class="multimedia-zone" id="multimedia-zone">
+        <div class="mm-header-v">
+          <span class="mm-badge-v">🎬 MULTIMEDIA</span>
+          <span class="mm-title-v" data-bind="mm-title">VIDEO OFICIAL / PRESENTACIÓN</span>
+        </div>
+        <div class="mm-content-v">
+          <div class="mm-placeholder-v">
+            <div class="icon">📺</div>
+            <div class="label">Contenido Multimedia</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TICKER INFERIOR ANIMADO -->
+      <div class="ticker-bar-v">
+        <div class="ticker-label">
+          <span class="ticker-dot"></span>
+          ✨ DESTACADO
+        </div>
+        <div class="ticker-track">
+          <div class="ticker-content" data-bind="ticker-content">
+            🎙️ Transmisión en vivo: <span class="highlight" data-bind="host-name"></span>
+            <span class="sep">◆</span>
+            🌟 ¡Bienvenidos al stream!
+            <span class="sep">◆</span>
+            📲 Seguinos en redes: <span class="highlight">@gutaflores</span>
+            <span class="sep">◆</span>
+            🎶 Música, folklore y entretenimiento en vivo
+            <span class="sep">◆</span>
+            💬 ¡Dejá tu comentario y saludá!
+            <span class="sep">◆</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../../script-overlay.js"></script>
+</body>
+
+</html>

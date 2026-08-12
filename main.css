@@ -1,0 +1,458 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;900&display=swap');
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+    font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* =========================================================
+     MAIN BORDER — cubre 100% sin gaps transparentes
+     ========================================================= */
+.main-border {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 10px;
+    /* El fondo animado vive en ::before para poder aplicarle máscara SVG dinámica */
+    background: transparent;
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.8);
+    border-radius: 0;
+}
+
+/* =========================================================
+     CAPA DE ANIMACIÓN GLOBAL — pseudo-elemento independiente
+     La máscara SVG (--overlay-cutouts) genera agujeros reales
+     en las zonas marcadas con [data-cutout] en el HTML.
+     BLANCO = animación visible | NEGRO = agujero transparente
+     ========================================================= */
+.main-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+
+    background: linear-gradient(135deg,
+            #8B0000 0%,
+            #C0392B 15%,
+            #1A1A1A 25%,
+            #1A1A1A 30%,
+            #8B0000 40%,
+            #C0392B 55%,
+            #1A1A1A 65%,
+            #1A1A1A 70%,
+            #8B0000 85%,
+            #C0392B 100%);
+    background-size: 300% 300%;
+    animation: ponchoWave 8s ease infinite;
+
+    /* Máscara dinámica generada por overlay-engine.js */
+    -webkit-mask-image: var(--overlay-cutouts, none);
+    mask-image: var(--overlay-cutouts, none);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+}
+
+/* =========================================================
+     VENTANAS DE CONTENIDO — transparencia estricta
+     El agujero real lo hace la máscara del ::before, no el background
+     ========================================================= */
+.cam-window,
+.mm-window {
+    background: transparent !important;
+}
+
+.main-inner {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border-radius: 0;
+    position: relative;
+    border: 2px solid rgba(255, 215, 0, 0.25);
+}
+
+@keyframes ponchoWave {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* =========================================================
+     HEADER
+     ========================================================= */
+.top-header {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 15, 15, 0.9);
+    border: 2px solid #8B0000;
+    border-radius: 30px;
+    padding: 8px 36px;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(139, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.top-header .badge {
+    background: linear-gradient(135deg, #8B0000, #C0392B);
+    color: #FFF;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.7);
+    }
+
+    50% {
+        opacity: 0.85;
+        transform: scale(1.05);
+        box-shadow: 0 0 0 6px rgba(192, 57, 43, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(192, 57, 43, 0);
+    }
+}
+
+/* =========================================================
+     CAMERAS CONTAINER — Fila horizontal: host izquierda, invitado derecha
+     ========================================================= */
+.cameras-container {
+    position: absolute;
+    top: 72px;
+    left: 16px;
+    right: 16px;
+    bottom: 190px;   /* más margen abajo → sube el centro geométrico */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+/* =========================================================
+     CAMERA BOX — Proporción 16:9 limpia, lado a lado
+     Controlamos por ancho máximo para que aspect-ratio
+     determine una altura que quepa bien centrada verticalmente
+     ========================================================= */
+.cam-box {
+    width: 42vw;
+    max-width: 42vw;
+    flex-shrink: 0;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    border-radius: 16px;
+    background: transparent;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+    /* margin-bottom compensa el name-tag que cuelga 22px debajo */
+    margin: 0 0 26px 0;
+    align-self: center;
+}
+
+
+
+.cam-box::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 7px;
+    background: linear-gradient(45deg, #8B0000, #1A1A1A, #C0392B, #1A1A1A);
+    background-size: 200% 200%;
+    animation: borderGlow 6s ease infinite;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+@keyframes borderGlow {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 100% 100%;
+    }
+
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+.cam-window {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================================
+     NAME TAG
+     ========================================================= */
+.name-tag {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #0d0d0d 0%, #2a0000 50%, #0d0d0d 100%);
+    border: 2px solid #C0392B;
+    border-radius: 10px;
+    padding: 5px 22px;
+    min-width: 200px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.9), 0 0 10px rgba(192, 57, 43, 0.3);
+    z-index: 5;
+    white-space: nowrap;
+}
+
+.role-title {
+    color: #E74C3C;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.user-name {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 800;
+    margin-top: 2px;
+    letter-spacing: 1px;
+}
+
+/* =========================================================
+     CORNER STRIPES
+     ========================================================= */
+.corner-stripe-left {
+    position: absolute;
+    bottom: 72px;
+    left: 18px;
+    width: 120px;
+    height: 8px;
+    background: repeating-linear-gradient(90deg,
+            #8B0000, #8B0000 20px,
+            #1A1A1A 20px, #1A1A1A 30px,
+            #C0392B 30px, #C0392B 50px);
+    border-radius: 4px;
+    opacity: 0.75;
+}
+
+.corner-stripe-right {
+    position: absolute;
+    bottom: 72px;
+    right: 18px;
+    width: 120px;
+    height: 8px;
+    background: repeating-linear-gradient(90deg,
+            #C0392B, #C0392B 20px,
+            #1A1A1A 20px, #1A1A1A 30px,
+            #8B0000 30px, #8B0000 50px);
+    border-radius: 4px;
+    opacity: 0.75;
+}
+
+/* =========================================================
+     TICKER BAR — texto animado destacado
+     Compartido en todos los overlays
+     ========================================================= */
+.ticker-bar {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    height: 54px;
+    background: linear-gradient(90deg, #0d0d0d 0%, #1a0000 40%, #0d0d0d 100%);
+    border: 2px solid #C0392B;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 20;
+    box-shadow: 0 0 16px rgba(139, 0, 0, 0.6), inset 0 1px 0 rgba(255, 215, 0, 0.15);
+}
+
+.ticker-label {
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #8B0000, #C0392B);
+    color: #FFD700;
+    font-weight: 900;
+    font-size: 13px;
+    padding: 0 18px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    border-right: 2px solid #FFD700;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.ticker-dot {
+    width: 9px;
+    height: 9px;
+    background: #FFD700;
+    border-radius: 50%;
+    animation: tickerDotBlink 1.2s ease infinite;
+}
+
+@keyframes tickerDotBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+}
+
+.ticker-track {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* ✏️ EDITAR EL TEXTO en el HTML dentro de .ticker-content */
+.ticker-content {
+    display: inline-block;
+    white-space: nowrap;
+    color: #FFFFFF;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    animation: tickerRun 35s linear infinite;
+}
+
+.ticker-content span.highlight {
+    color: #FFD700;
+    font-weight: 900;
+}
+
+.ticker-content span.sep {
+    color: #C0392B;
+    margin: 0 12px;
+}
+
+@keyframes tickerRun {
+    0% {
+        transform: translateX(100vw);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* =========================================================
+     MOTTO BANNER — Frase destacada / Lema del stream
+     ========================================================= */
+.motto-banner {
+    position: absolute;
+    bottom: 68px;
+    left: 14px;
+    right: 14px;
+    background: linear-gradient(90deg, rgba(13, 13, 13, 0.92) 0%, rgba(42, 0, 0, 0.92) 50%, rgba(13, 13, 13, 0.92) 100%);
+    border: 1.5px solid #C0392B;
+    border-radius: 8px;
+    padding: 7px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), inset 0 0 12px rgba(139, 0, 0, 0.25);
+    z-index: 15;
+}
+
+.motto-text-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.motto-phrase {
+    color: #FFFFFF;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+}
+
+.motto-phrase.highlight {
+    color: #FFD700;
+    font-weight: 900;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.35);
+}
+
+.motto-connector {
+    background: linear-gradient(135deg, #8B0000, #C0392B);
+    color: #FFD700;
+    font-size: 12px;
+    font-weight: 900;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #FFD700;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    flex-shrink: 0;
+}

@@ -1,0 +1,29 @@
+﻿/* ============================================================
+   TRANSPARENT MODE — Fondo 100% transparente para capas OBS
+   ============================================================ */
+
+html,
+body {
+  background: transparent !important;
+}
+
+/* Contenedor raíz: transparente, sin fondo */
+.main-border {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Desactivar la capa de animación de fondo global (que va en test-bg.html) */
+.main-border::before {
+  display: none !important;
+}
+
+.main-inner {
+  background: transparent !important;
+}
+
+/* Ventanas de contenido 100% transparentes */
+.cam-window,
+.mm-window {
+  background: transparent !important;
+}
