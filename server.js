@@ -45,6 +45,7 @@ const OVERLAY_CONFIGS = {
   'animation_1_9x16': { file: 'animation-1.html', width: 1080, height: 1920 },
   'flyers': { file: 'flyers.html', width: 1080, height: 1350 },
   'overlay_invitacion': { file: 'overlay-invitacion.html', width: 1920, height: 1080 },
+  'likes_animation': { file: 'frames/animations/likes.html', width: 1080, height: 1920 },
 };
 
 async function captureOverlay(overlayKey) {

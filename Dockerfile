@@ -29,6 +29,10 @@ COPY stream-data.json .
 # Copiar subcarpetas de la carpeta frames (vertical y animations)
 COPY frames/vertical/ ./frames/vertical/
 COPY frames/animations/ ./frames/animations/
+COPY frames/animations/likes.html ./frames/animations/likes.html
+COPY frames/animations/likes.css ./frames/animations/likes.css
+COPY frames/animations/likes.html ./likes.html
+COPY frames/animations/likes.css ./likes.css
 
 # Exponer puerto 80
 EXPOSE 80

@@ -182,6 +182,9 @@
       <button type="button" onclick="captureOverlay('offline')" style="background: #555; font-size: 13px; padding: 10px;">
         📷 Offline
       </button>
+      <button type="button" onclick="captureOverlay('likes_animation')" style="background: #f43f5e; font-size: 13px; padding: 10px;">
+        💖 Likes Animation
+      </button>
     </div>
 
     <!-- ── Grabaciones WebM VP8/VP9 ── -->
@@ -204,6 +207,9 @@
       </button>
       <button type="button" onclick="recordWebmVideo('animation_1_9x16', 5000)" style="background: #be185d; font-size: 13px; padding: 12px; font-weight: 800; box-shadow: 0 4px 15px rgba(190, 24, 93, 0.5);">
         🎥 WebM — Animación 1 (3D + Corazones) 9:16 (5s) ⭐ HQ
+      </button>
+      <button type="button" onclick="recordWebmVideo('likes_animation', 4000)" style="background: #f43f5e; font-size: 13px; padding: 12px; font-weight: 800; box-shadow: 0 4px 15px rgba(244, 63, 94, 0.5);">
+        🎥 WebM — Animación Likes Tap (4s)
       </button>
       <button type="button" onclick="recordWebmVideo('overlay_9x16_vertical_solo', 5000)" style="background: #8e44ad; font-size: 13px; padding: 12px; font-weight: 800;">
         🎥 WebM — 9:16 Vertical Solo (5s)
@@ -292,6 +298,12 @@
         <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/offline.html</code>
         <button type="button" onclick="copyUrl('http://localhost:3000/offline.html')" style="background:#d35400; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
         <a href="http://localhost:3000/offline.html" target="_blank" class="btn-goto">Ir →</a>
+      </div>
+
+      <div style="display:flex; gap:6px; align-items:center;">
+        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/frames/animations/likes.html</code>
+        <button type="button" onclick="copyUrl('http://localhost:3000/frames/animations/likes.html')" style="background:#f43f5e; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+        <a href="http://localhost:3000/frames/animations/likes.html" target="_blank" class="btn-goto">Ir →</a>
       </div>
 
     </div>
