@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación Digital — Entrevista Musical</title>
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="overlay-invitacion.css">
+  <!-- Library for PNG Export -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+
+  <div class="app-container">
+    <!-- PANEL DE EDICIÓN LATERAL -->
+    <div class="controls-sidebar">
+      <div class="controls-title">
+        <span>✉️ Editor de Invitación</span>
+      </div>
+
+      <div class="form-group">
+        <label for="artistInput">Nombre del Artista / Banda</label>
+        <input type="text" id="artistInput" value="[Nombre del artista]" placeholder="Ej. Gustavo Cerati">
+      </div>
+
+      <div class="form-group">
+        <label for="hostInput">Firma del Anfitrión</label>
+        <input type="text" id="hostInput" value="GUTA FLORES" placeholder="Tu nombre">
+      </div>
+
+      <div class="form-group">
+        <label for="bodyInput">Mensaje de Invitación</label>
+        <textarea id="bodyInput" rows="12" style="resize: vertical;"></textarea>
+      </div>
+
+      <button class="btn-action" onclick="downloadImage()">
+        <span>📸 Descargar como Imagen (PNG)</span>
+      </button>
+
+      <button class="btn-action btn-secondary" onclick="copyText()">
+        <span>📋 Copiar Texto del Mensaje</span>
+      </button>
+    </div>
+
+    <!-- ÁREA DE PREVISUALIZACIÓN / OVERLAY DIGITAL -->
+    <div class="preview-area">
+      <div class="invitation-card" id="invitationCard">
+        <div class="card-header-badge">
+          <span class="badge-dot"></span>
+          <span>Invitación Especial — Entrevista & Travesía Musical</span>
+        </div>
+
+        <div class="invitation-body" id="invitationContent"></div>
+
+        <div class="invitation-footer">
+          <div class="signature-block">
+            <span class="sign-valediction">Un abrazo,</span>
+            <span class="sign-name" id="displayHostName" data-bind="host-name">GUTA FLORES</span>
+          </div>
+
+          <div class="brand-stamp">
+            <div class="brand-tag" data-bind="host-name">GUTA FLORES</div>
+            <div class="brand-sub">Hoster</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script-overlay.js"></script>
+  <script>
+    const defaultTemplate = `Hola [Nombre del artista], ¿cómo están?
+
+Te escribo porque sigo de cerca tu trabajo musical y me gustaría invitarte a ser parte de una entrevista especial que estamos produciendo sobre música y trayectoria. 
+
+La idea es tener una charla amena sobre tus inicios, el camino recorrido y compartir tu experiencia con artistas emergentes que están buscando su propio espacio.
+
+La grabación la realizamos de forma remota (vía vdo.ninja) y no tomaría más de 15 a 20 minutos. Luego, los fragmentos destacados se compartirán en nuestras redes (TikTok/Instagram/Facebook/Youtube) para darle visibilidad a tu proyecto y conectar con nueva audiencia.
+
+Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te quede. ¡Sería un verdadero gusto contar con vos!`;
+
+    const bodyInput = document.getElementById('bodyInput');
+    const artistInput = document.getElementById('artistInput');
+    const hostInput = document.getElementById('hostInput');
+    const invitationContent = document.getElementById('invitationContent');
+    const displayHostName = document.getElementById('displayHostName');
+
+    bodyInput.value = defaultTemplate;
+
+    // Cargar valores iniciales guardados desde el panel si existen
+    try {
+      const localStr = localStorage.getItem('streamData');
+      if (localStr) {
+        const data = JSON.parse(localStr);
+        if (data.guest && data.guest.name && data.guest.name.trim() !== '') {
+          artistInput.value = data.guest.name;
+        }
+        if (data.host && data.host.name && data.host.name.trim() !== '') {
+          hostInput.value = data.host.name;
+        }
+      }
+    } catch (e) { }
+
+    function renderCard() {
+      const artistName = artistInput.value.trim() || '[Nombre del artista]';
+      const hostName = hostInput.value.trim() || 'GUTA FLORES';
+
+      displayHostName.textContent = hostName;
+
+      let formattedText = bodyInput.value;
+
+      formattedText = formattedText.replace(/Hola\s+([^,]+),/i, function (match, p1) {
+        return `Hola <strong class="artist-highlight">${artistName}</strong>,`;
+      });
+
+      invitationContent.innerHTML = formattedText;
+    }
+
+    artistInput.addEventListener('input', renderCard);
+    hostInput.addEventListener('input', renderCard);
+    bodyInput.addEventListener('input', renderCard);
+
+    renderCard();
+
+    function downloadImage() {
+      const card = document.getElementById('invitationCard');
+      html2canvas(card, {
+        backgroundColor: '#0d0d0d',
+        scale: 2,
+        useCORS: true
+      }).then(canvas => {
+        const link = document.createElement('a');
+        const artist = artistInput.value.replace(/[^a-z0-9]/gi, '_').toLowerCase() || 'artista';
+        link.download = `Invitacion_Entrevista_${artist}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+
+    function copyText() {
+      const textToCopy = `${bodyInput.value}\n\nUn abrazo,\n${hostInput.value}`;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('¡Texto copiado al portapapeles!');
+      });
+    }
+  </script>
+</body>
+
+</html>

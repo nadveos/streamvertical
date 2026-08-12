@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Guta Flores — Offline</title>
+  <link rel="stylesheet" href="offline.css">
+</head>
+<body>
+
+  <!-- Capas de fondo -->
+  <div class="bg"></div>
+  <div class="scanlines"></div>
+  <div class="poncho-band poncho-band-top"></div>
+  <div class="poncho-band poncho-band-bottom"></div>
+
+  <!-- Anillos de pulso -->
+  <div class="rings-container">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+
+  <!-- Ornamentos esquinas -->
+  <div class="corner-orn c-tl">
+    <svg viewBox="0 0 60 60"><path d="M3 57 L3 3 L57 3"/><path d="M3 18 L18 3"/></svg>
+  </div>
+  <div class="corner-orn c-tr">
+    <svg viewBox="0 0 60 60"><path d="M3 57 L3 3 L57 3"/><path d="M3 18 L18 3"/></svg>
+  </div>
+  <div class="corner-orn c-bl">
+    <svg viewBox="0 0 60 60"><path d="M3 57 L3 3 L57 3"/><path d="M3 18 L18 3"/></svg>
+  </div>
+  <div class="corner-orn c-br">
+    <svg viewBox="0 0 60 60"><path d="M3 57 L3 3 L57 3"/><path d="M3 18 L18 3"/></svg>
+  </div>
+
+  <!-- Contenido central -->
+  <div class="center">
+    <div class="offline-badge">
+      <div class="offline-dot"></div>
+      <!-- ✏️ Cambiar texto del badge si querés -->
+      <span class="offline-badge-text">Sin señal</span>
+    </div>
+
+    <!-- ✏️ Nombre del canal -->
+    <div class="channel-name" data-bind="host-name">GUTA FLORES</div>
+    <div class="gold-line"></div>
+
+    <!-- ✏️ Mensaje principal -->
+    <div class="main-msg">ESTAMOS OFFLINE</div>
+    <div class="sub-msg">Volvemos muy pronto · Gracias por estar acá 🙏</div>
+
+    <!-- BANNER DE FRASES / MOTTO BANNER -->
+    <div style="margin-top: 30px; background: linear-gradient(90deg, rgba(15,5,5,0.95), rgba(50,12,12,0.95), rgba(15,5,5,0.95)); border-top: 2px solid rgba(255,215,0,0.5); border-bottom: 2px solid rgba(192,57,43,0.6); padding: 12px 30px; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.8);">
+      <span style="font-size: 17px; font-weight: 800; color: #FFD700; letter-spacing: 2px; text-transform: uppercase;" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+      <span style="font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #FFD700; background: rgba(255,215,0,0.15); border: 1.5px solid #FFD700; border-radius: 50%; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; font-weight: 900;" data-bind="motto-connector">Y</span>
+      <span style="font-size: 17px; font-weight: 800; color: #FFFFFF; letter-spacing: 2px; text-transform: uppercase;" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+    </div>
+  </div>
+
+  <!-- ✏️ Redes sociales — editá los handles y plataformas -->
+  <div class="socials">
+    <div class="social-item">
+      <span class="icon">📺</span>
+      <span>YouTube</span>
+      <span class="handle">@gutaflores</span>
+    </div>
+    <div class="social-item">
+      <span class="icon">📸</span>
+      <span>Instagram</span>
+      <span class="handle">@gutaflores</span>
+    </div>
+    <div class="social-item">
+      <span class="icon">🎵</span>
+      <span>TikTok</span>
+      <span class="handle">@gutaflores</span>
+    </div>
+  </div>
+
+  <script src="script-overlay.js"></script>
+</body>
+</html>

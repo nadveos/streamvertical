@@ -1,0 +1,213 @@
+    /* ============================================================
+       LAYOUT MULTIMEDIA AJUSTADO (BALANCEADO)
+       ============================================================ */
+
+    .main-border {
+      padding: 8px;
+    }
+
+    /* Columna izquierda consistente con main.css (30% ancho) */
+    .cameras-container {
+      top: 72px;
+      left: 14px;
+      bottom: 135px;
+      right: auto;
+      width: 28%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Override: cam-box dentro del multimedia debe ajustarse al ancho de columna
+       y tener un tamaño máximo razonable para no desbordar verticalmente */
+    .cameras-container .cam-box {
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 16 / 9;
+      flex-shrink: 1;
+      margin: 0 0 26px 0;
+    }
+
+    /* Divisor vertical posicionado según la columna izquierda */
+    .col-divider {
+      position: absolute;
+      top: 76px;
+      bottom: 135px;
+      left: calc(28% + 14px);
+      width: 2px;
+      background: linear-gradient(180deg,
+          transparent 0%,
+          rgba(192, 57, 43, 0.6) 20%,
+          #C0392B 50%,
+          rgba(192, 57, 43, 0.6) 80%,
+          transparent 100%);
+      border-radius: 1px;
+    }
+
+    /* Área derecha multimedia */
+    .multimedia-wrapper {
+      position: absolute;
+      top: 72px;
+      left: calc(28% + 28px);
+      right: 18px;
+      bottom: 135px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mm-container {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mm-header {
+      width: 100%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      padding: 0 4px;
+    }
+
+    .mm-badge {
+      background: linear-gradient(135deg, #1A1A1A, #2a0505);
+      border: 1.5px solid #C0392B;
+      border-radius: 20px;
+      color: #FFD700;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      box-shadow: 0 0 10px rgba(192, 57, 43, 0.3);
+    }
+
+    .mm-title {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .mm-frame {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: calc(100vh - 260px);
+      position: relative;
+      border-radius: 16px;
+      background: transparent;
+      box-shadow:
+        0 0 25px rgba(255, 215, 0, 0.15),
+        0 0 50px rgba(139, 0, 0, 0.3),
+        0 15px 35px rgba(0, 0, 0, 0.8);
+    }
+
+    .mm-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 8px;
+      background: linear-gradient(135deg,
+          #FFD700 0%, #8B0000 20%,
+          #1A1A1A 35%, #C0392B 55%,
+          #1A1A1A 70%, #FFD700 85%,
+          #8B0000 100%);
+      background-size: 300% 300%;
+      animation: mmGlow 7s ease infinite;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    @keyframes mmGlow {
+      0% {
+        background-position: 0% 0%;
+      }
+
+      50% {
+        background-position: 100% 100%;
+      }
+
+      100% {
+        background-position: 0% 0%;
+      }
+    }
+
+    .mm-window {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border-radius: 11px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mm-placeholder {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .mm-placeholder-icon {
+      font-size: 70px;
+      line-height: 1;
+    }
+
+    .mm-placeholder-text {
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    .mm-name-tag {
+      position: absolute;
+      bottom: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #0d0d0d 0%, #1a1000 50%, #0d0d0d 100%);
+      border: 2px solid #FFD700;
+      border-radius: 10px;
+      padding: 5px 24px;
+      text-align: center;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.9), 0 0 10px rgba(255, 215, 0, 0.25);
+      z-index: 5;
+    }
+
+    .mm-name-tag .role-title {
+      color: #FFD700;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .mm-name-tag .user-name {
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }

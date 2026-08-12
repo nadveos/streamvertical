@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Guta Flores — Pronto Empezamos</title>
+  <link rel="stylesheet" href="pronto-empezamos.css">
+</head>
+<body>
+
+  <!-- Fondos -->
+  <div class="bg"></div>
+  <div class="bg-glow"></div>
+  <div class="dots-overlay"></div>
+  <div class="poncho-band poncho-band-top"></div>
+  <div class="poncho-band poncho-band-bottom"></div>
+
+  <!-- Anillos de energía -->
+  <div class="rings-wrap">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+
+  <!-- Ornamentos esquinas -->
+  <div class="corner-orn c-tl">
+    <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
+  </div>
+  <div class="corner-orn c-tr">
+    <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
+  </div>
+  <div class="corner-orn c-bl">
+    <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
+  </div>
+  <div class="corner-orn c-br">
+    <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
+  </div>
+
+  <!-- Contenido central -->
+  <div class="center">
+
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      <span class="live-badge-text">🎬 Preparando transmisión</span>
+    </div>
+
+    <!-- ✏️ Nombre del canal -->
+    <div class="channel-name" data-bind="host-name">GUTA FLORES</div>
+
+    <div class="gold-line"></div>
+
+    <!-- ✏️ Mensaje principal -->
+    <div class="main-msg">PRONTO EMPEZAMOS</div>
+
+    <!-- ✏️ Subtítulo -->
+    <div class="sub-msg">¡Preparate que arrancamos enseguida! 🎙️</div>
+
+    <!-- BANNER DE FRASES / MOTTO BANNER -->
+    <div class="motto-banner" style="margin-top: 24px; border-radius: 10px; max-width: 780px;">
+      <div class="motto-text-group">
+        <span class="motto-phrase highlight" style="font-size: 16px;" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+        <span class="motto-connector" data-bind="motto-connector">Y</span>
+        <span class="motto-phrase" style="font-size: 16px;" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+      </div>
+    </div>
+
+    <!-- Barra de carga decorativa -->
+    <div class="progress-wrap">
+      <span class="progress-label">Cargando transmisión</span>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ✏️ Tarjetas de info del show — editá según cada emisión -->
+  <div class="show-info">
+    <div class="info-card">
+      <div class="label">🎙️ Conductor</div>
+      <div class="value" data-bind="host-name">Guta Flores</div>
+    </div>
+    <div class="info-card" data-bind="cohost-box" style="display:none;">
+      <div class="label" data-bind="cohost-role">🎙️ Co-Host</div>
+      <div class="value" data-bind="cohost-name"></div>
+    </div>
+    <div class="info-card" data-guest-box>
+      <div class="label">💬 Invitado</div>
+      <div class="value gold" data-bind="guest-name">Grupo Viento Andino</div>
+    </div>
+    <div class="info-card">
+      <div class="label">📅 Plataforma</div>
+      <div class="value">Tiktok Live</div>
+    </div>
+  </div>
+
+  <script src="script-overlay.js"></script>
+</body>
+</html>

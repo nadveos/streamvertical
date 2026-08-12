@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animación Tap Móvil - Transparente</title>
+    <link rel="stylesheet" href="animation.css">
+</head>
+
+<body>
+
+    <div class="phone">
+        <div class="screen" id="screen">
+            <h2 data-bind="host-name">Guta Flores</h2>
+            <p>¡Tocar pantalla da me gusta!</p>
+        </div>
+
+        <div class="finger" id="finger">👆</div>
+    </div>
+
+    <script src="script-overlay.js"></script>
+    <script>
+        const finger = document.getElementById('finger');
+        const screen = document.querySelector('.screen');
+
+        // Lista de emojis de corazones para variedad visual
+        const heartTypes = ['❤️', '💖', '💗', '💕'];
+
+        function createHeart(x, y) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+
+            // Seleccionar un tipo de corazón al azar
+            heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+
+            // Coordenadas iniciales centradas en el tap
+            heart.style.left = `${x}px`;
+            heart.style.top = `${y}px`;
+
+            // Variables dinámicas para trayectoria, tamaño y rotación
+            const randomX = (Math.random() - 0.5) * 220; // Mayor dispersión lateral
+            const randomScale = 1.0 + Math.random() * 0.7; // Escala más grande (1.0x a 1.7x)
+            const randomRot = (Math.random() - 0.5) * 80;  // Rotación en grados
+
+            heart.style.setProperty('--tx', `${randomX}px`);
+            heart.style.setProperty('--scale', randomScale);
+            heart.style.setProperty('--rot', `${randomRot}deg`);
+
+            screen.appendChild(heart);
+
+            // Eliminar elemento al finalizar animación
+            setTimeout(() => {
+                heart.remove();
+            }, 1300);
+        }
+
+        function triggerHearts() {
+            const rect = screen.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Generar 7 corazones en abanico
+            for (let i = 0; i < 7; i++) {
+                setTimeout(() => {
+                    createHeart(centerX, centerY);
+                }, i * 50);
+            }
+        }
+
+        // Disparar en el momento justo del tap (50% de la animación CSS)
+        finger.addEventListener('animationiteration', triggerHearts);
+
+        // Primer disparo al cargar
+        setTimeout(triggerHearts, 900);
+    </script>
+
+</body>
+
+</html>

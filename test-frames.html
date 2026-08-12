@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="main.css">
+  <title>Guta Flores — Frames Transparentes (Test)</title>
+  <style>
+    /* ============================================================
+       BODY Y FONDO: 100% TRANSPARENTE
+       No hay color de fondo en ninguna capa del contenedor raiz.
+       El fondo animado va en test-bg.html (capa separada en OBS).
+       ============================================================ */
+    html,
+    body {
+      background: transparent !important;
+    }
+
+    /* Contenedor raiz: sin fondo, sin sombra */
+    .main-border {
+      width: 100vw;
+      height: 100vh;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    /* Desactivar la capa de animacion global (va en test-bg.html) */
+    .main-border::before {
+      display: none !important;
+    }
+
+    /* Borde interno: solo el trazo dorado fino, sin fondo */
+    .main-inner {
+      background: transparent !important;
+    }
+
+    /* ============================================================
+       MARCOS DE CAMARA: borde grueso animado, interior transparente
+       Se aumenta el padding del ::after para cubrir posibles
+       desbordamientos de la camara de OBS.
+       ============================================================ */
+    .cam-box::after {
+      padding: 14px;
+      /* Original: 7px. Doble grosor para tapar desborde */
+    }
+
+    /* Interior del frame: completamente transparente */
+    .cam-window {
+      background: transparent !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main-border">
+    <div class="main-inner">
+
+      <!-- Header -->
+      <div class="top-header">
+        <span class="badge">● EN VIVO</span>
+        <span data-bind="host-name">Guta Flores</span>
+      </div>
+
+      <!-- Contenedor de Camaras -->
+      <div class="cameras-container">
+
+        <!-- Marco Host -->
+        <div class="cam-box">
+          <div class="cam-window"></div>
+          <div class="name-tag">
+            <div class="role-title" data-bind="host-role">🎙️ ANFITRIÓN / HOST</div>
+            <div class="user-name" data-bind="host-name">GUTA FLORES</div>
+          </div>
+        </div>
+
+        <!-- Marco Co-Host -->
+        <div class="cam-box" data-bind="cohost-box" style="display:none;">
+          <div class="cam-window"></div>
+          <div class="name-tag">
+            <div class="role-title" data-bind="cohost-role">🎙️ CO-HOST / CO-ANFITRIÓN</div>
+            <div class="user-name" data-bind="cohost-name"></div>
+          </div>
+        </div>
+
+        <!-- Marco Invitado -->
+        <div class="cam-box">
+          <div class="cam-window"></div>
+          <div class="name-tag">
+            <div class="role-title" data-bind="guest-role">💬 INVITADO</div>
+            <div class="user-name" data-bind="guest-name"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BANNER DE FRASES -->
+      <div class="motto-banner">
+        <div class="motto-text-group">
+          <span class="motto-phrase highlight" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+          <span class="motto-connector" data-bind="motto-connector">Y</span>
+          <span class="motto-phrase" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+        </div>
+      </div>
+
+      <!-- TICKER -->
+      <div class="ticker-bar">
+        <div class="ticker-label">
+          <span class="ticker-dot"></span>
+          ✨ DESTACADO
+        </div>
+        <div class="ticker-track">
+          <div class="ticker-content" data-bind="ticker-content">
+            🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
+            <span class="sep">◆</span>
+            🌟 ¡Bienvenidos al stream!
+            <span class="sep">◆</span>
+            📲 Seguinos en redes: <span class="highlight">@gutafloresok</span>
+            <span class="sep">◆</span>
+            🎶 Música, folklore y entretenimiento en vivo
+            <span class="sep">◆</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Sin overlay-engine.js: no se necesita mascara SVG, los frames son CSS puro -->
+  <script src="script-overlay.js"></script>
+
+</body>
+
+</html>

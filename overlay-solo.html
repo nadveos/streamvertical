@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="main.css">
+  <title>Guta Flores — Overlay Solo Horizontal</title>
+  <link rel="stylesheet" href="overlay-solo.css">
+</head>
+<body>
+
+  <div class="main-border">
+    <div class="main-inner">
+
+      <!-- Encabezado / Título -->
+      <div class="top-header">
+        <span class="badge">● EN VIVO</span>
+        <span data-bind="host-name">Guta Flores</span>
+      </div>
+
+      <!-- Franjas decorativas laterales -->
+      <div class="side-deco side-deco-left"></div>
+      <div class="side-deco side-deco-right"></div>
+
+      <!-- Cámara Principal Modo Solo (16:9 Centrado) -->
+      <div class="cam-solo-wrapper">
+        <div class="cam-solo-container">
+          <div class="cam-solo-box">
+            <div class="cam-window" data-cutout></div>
+
+            <div class="name-tag-solo">
+              <div class="role-title" data-bind="host-role">🎙️ ANFITRIÓN / HOST</div>
+              <div class="user-name" data-bind="host-name">GUTA FLORES</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANNER DE FRASES / MOTTO BANNER -->
+      <div class="motto-banner">
+        <div class="motto-text-group">
+          <span class="motto-phrase highlight" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+          <span class="motto-connector" data-bind="motto-connector">Y</span>
+          <span class="motto-phrase" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+        </div>
+      </div>
+
+      <!-- TICKER — Texto destacado animado (Sincronizado con Panel) -->
+      <div class="ticker-bar">
+        <div class="ticker-label">
+          <span class="ticker-dot"></span>
+          ✨ DESTACADO
+        </div>
+        <div class="ticker-track">
+          <div class="ticker-content" data-bind="ticker-content">
+            🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
+            <span class="sep">◆</span>
+            🌟 ¡Bienvenidos al stream!
+            <span class="sep">◆</span>
+            📲 Seguinos en redes: <span class="highlight">@gutaflores</span>
+            <span class="sep">◆</span>
+            🎶 Música, folklore y entretenimiento en vivo
+            <span class="sep">◆</span>
+            💬 ¡Dejá tu comentario y saludá!
+            <span class="sep">◆</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="overlay-engine.js"></script>
+  <script src="script-overlay.js"></script>
+</body>
+</html>

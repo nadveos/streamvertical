@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Flyers — Guta Flores Stream</title>
+  <link rel="stylesheet" href="main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="flyers.css">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <div class="top-nav">
+    <div class="nav-title">
+      🎨 Generador de Flyers — Redes Sociales
+    </div>
+    <div class="nav-links">
+      <a href="panel.html" class="nav-btn primary">🎛️ Panel de Control</a>
+      <a href="overlay-invitacion.html" class="nav-btn">✉️ Carta / Invitación Digital</a>
+      <a href="overlay.html" target="_blank" class="nav-btn">👁️ Ver Overlay 16:9</a>
+      <a href="overlay-vertical.html" target="_blank" class="nav-btn">📱 Ver Overlay 9:16</a>
+    </div>
+  </div>
+
+  <!-- App Layout -->
+  <div class="flyer-app">
+
+    <!-- Sidebar Inputs Form -->
+    <div class="sidebar">
+
+      <div class="card-section">
+        <div class="section-title">⚙️ Configuración del Flyer</div>
+        
+        <div class="form-group">
+          <label>Tipo de Evento / Encabezado</label>
+          <input type="text" id="inputEventBadge" value="🔴 PRÓXIMO LIVE EN VIVO">
+        </div>
+
+        <div class="form-group">
+          <label>Formato de Dimensiones</label>
+          <select id="inputAspectRatio" onchange="updateAspectRatio()">
+            <option value="portrait">📸 Retrato RRSS (1080x1350 — 4:5)</option>
+            <option value="story">📱 Historia / Reel (1080x1920 — 9:16)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">🖼️ Imágenes (Locales desde PC)</div>
+
+        <div class="form-group">
+          <label>Foto del Invitado / Artista</label>
+          <div class="file-input-wrapper">
+            <label class="file-btn" for="inputArtistPhoto">
+              📷 Subir Foto Artista
+            </label>
+            <input type="file" id="inputArtistPhoto" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)">
+            <img id="thumbArtistPhoto" class="file-preview-thumb" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400" alt="Preview">
+          </div>
+        </div>
+
+        <!-- Controles de Ajuste y Encuadre de Foto -->
+        <div class="form-group" style="margin-top:4px;">
+          <label>🔍 Zoom Foto: <span id="zoomValDisplay">100%</span></label>
+          <input type="range" id="inputPhotoZoom" min="100" max="350" value="100" step="5" oninput="updatePhotoTransform()">
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+          <div class="form-group">
+            <label>↔️ Desplazar X</label>
+            <input type="range" id="inputPhotoX" min="-150" max="150" value="0" step="1" oninput="updatePhotoTransform()">
+          </div>
+          <div class="form-group">
+            <label>↕️ Desplazar Y</label>
+            <input type="range" id="inputPhotoY" min="-150" max="150" value="0" step="1" oninput="updatePhotoTransform()">
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+          <button type="button" class="file-btn" style="border-style:solid; border-color:#555; color:#FFD700; font-size:11px; padding:5px 10px;" onclick="resetPhotoTransform()">
+            🔄 Resetear Posición
+          </button>
+        </div>
+        <p style="font-size:11px; color:#888; line-height:1.3; margin-top:2px;">
+          💡 <strong>Tip:</strong> Podés arrastrar la foto directamente con el mouse sobre el flyer.
+        </p>
+
+        <div class="form-group">
+          <label>Logo del Programa</label>
+          <div class="file-input-wrapper">
+            <label class="file-btn" for="inputProgramLogo">
+              🖼️ Subir Logo Programa
+            </label>
+            <input type="file" id="inputProgramLogo" accept="image/*" style="display:none;" onchange="handleLogoUpload(event)">
+            <img id="thumbProgramLogo" class="file-preview-thumb" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%238B0000'/><text x='50' y='55' font-size='40' text-anchor='middle' fill='%23FFD700'>🎙️</text></svg>" alt="Preview">
+          </div>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">👤 Artista e Información</div>
+
+        <div class="form-group">
+          <label>Nombre del Artista / Banda</label>
+          <input type="text" id="inputArtistName" value="GRUPO VIENTO ANDINO">
+        </div>
+
+        <div class="form-group">
+          <label>Género / Subtítulo</label>
+          <input type="text" id="inputArtistRole" value="MÚSICA & FOLKLORE NORTEÑO">
+        </div>
+
+        <div class="form-group">
+          <label>Día y Hora de la Emisión</label>
+          <input type="text" id="inputDateTime" value="📅 SÁBADO 16 DE AGOSTO — 21:00 HS">
+        </div>
+
+        <div class="form-group">
+          <label>Conducción (Host / Co-Host)</label>
+          <input type="text" id="inputHosts" value="🎙️ Guta Flores con Daniel Flores">
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">📡 Plataformas de Transmisión</div>
+        <div class="platforms-grid">
+          <label class="platform-checkbox">
+            <input type="checkbox" id="platYT" checked onchange="updatePlatforms()">
+            <span>🔴 YouTube</span>
+          </label>
+          <label class="platform-checkbox">
+            <input type="checkbox" id="platIG" checked onchange="updatePlatforms()">
+            <span>📸 Instagram</span>
+          </label>
+          <label class="platform-checkbox">
+            <input type="checkbox" id="platTK" checked onchange="updatePlatforms()">
+            <span>🎵 TikTok</span>
+          </label>
+          <label class="platform-checkbox">
+            <input type="checkbox" id="platFB" checked onchange="updatePlatforms()">
+            <span>💙 Facebook</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">📲 Usernames / Handles</div>
+
+        <div class="form-group">
+          <label>Handle del Programa / Host</label>
+          <input type="text" id="inputHostHandle" value="@gutafloresok">
+        </div>
+
+        <div class="form-group">
+          <label>Handle del Invitado</label>
+          <input type="text" id="inputGuestHandle" value="@vientoandinooficial">
+        </div>
+      </div>
+
+      <button class="btn-export" onclick="downloadFlyerPNG()">
+        📥 Descargar Flyer PNG (Alta Calidad)
+      </button>
+
+    </div>
+
+    <!-- Main Live Preview Canvas Area -->
+    <div class="preview-area">
+
+      <!-- Format Selection Tabs -->
+      <div class="tabs-header">
+        <button class="tab-btn active" id="tabNuestras" onclick="switchFlyerTab('nuestras')">
+          📣 1. Flyer Nuestras Redes
+        </button>
+        <button class="tab-btn" id="tabInvitado" onclick="switchFlyerTab('invitado')">
+          🎁 2. Flyer para el Invitado
+        </button>
+      </div>
+
+      <!-- Flyer Card Canvas (Rendered Live) -->
+      <div class="flyer-stage">
+        
+        <div id="flyerCard" class="flyer-card">
+          <div class="flyer-bg-poncho"></div>
+          
+          <div class="flyer-inner" id="flyerInner">
+
+            <!-- Top Header Brand -->
+            <div class="flyer-top-brand">
+              <img id="displayLogo" class="flyer-logo-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%238B0000'/><text x='50' y='55' font-size='40' text-anchor='middle' fill='%23FFD700'>🎙️</text></svg>" alt="Logo">
+              <div id="displayEventBadge" class="flyer-event-badge">🔴 PRÓXIMO LIVE EN VIVO</div>
+            </div>
+
+            <!-- Title Tag -->
+            <div id="displayTitleTag" class="flyer-title-tag">ENTREVISTA EN VIVO</div>
+
+            <!-- Artist Photo Frame (Draggable) -->
+            <div class="flyer-photo-frame" id="photoFrame" title="Arrastrá la foto para acomodarla">
+              <img id="displayArtistPhoto" class="flyer-photo-img" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400" alt="Artista">
+            </div>
+
+            <!-- Artist Name & Subtitle -->
+            <div>
+              <div id="displayArtistName" class="flyer-artist-name">GRUPO VIENTO ANDINO</div>
+              <div id="displayArtistRole" class="flyer-artist-role">MÚSICA & FOLKLORE NORTEÑO</div>
+            </div>
+
+            <!-- Date & Time Box -->
+            <div class="flyer-datetime-box">
+              <div id="displayDateTime" class="flyer-datetime-text">📅 SÁBADO 16 DE AGOSTO — 21:00 HS</div>
+            </div>
+
+            <!-- Hosts Line -->
+            <div id="displayHosts" class="flyer-hosts-line">
+              Conducción: <span class="highlight">Guta Flores con Daniel Flores</span>
+            </div>
+
+            <!-- Social Platforms Row -->
+            <div id="displayPlatformsRow" class="flyer-platforms-row">
+              <div class="platform-pill">🔴 YouTube</div>
+              <div class="platform-pill">📸 Instagram</div>
+              <div class="platform-pill">🎵 TikTok</div>
+              <div class="platform-pill">💙 Facebook</div>
+            </div>
+
+            <!-- Footer Handles -->
+            <div class="flyer-footer-handles">
+              <div>🎙️ <span id="displayHostHandle" class="handle-badge">@gutafloresok</span></div>
+              <div>💬 <span id="displayGuestHandle" class="handle-badge">@vientoandinooficial</span></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    let activeTab = 'nuestras';
+
+    // Sincronización de inputs de texto con la tarjeta live
+    const inputsMap = {
+      inputEventBadge: 'displayEventBadge',
+      inputArtistName: 'displayArtistName',
+      inputArtistRole: 'displayArtistRole',
+      inputDateTime:   'displayDateTime',
+      inputHostHandle: 'displayHostHandle',
+      inputGuestHandle:'displayGuestHandle'
+    };
+
+    Object.keys(inputsMap).forEach(inputId => {
+      const el = document.getElementById(inputId);
+      if (el) {
+        el.addEventListener('input', updateFlyerText);
+      }
+    });
+
+    document.getElementById('inputHosts').addEventListener('input', function() {
+      const val = this.value;
+      const hostsEl = document.getElementById('displayHosts');
+      if (activeTab === 'nuestras') {
+        hostsEl.innerHTML = 'Conducción: <span class="highlight">' + val + '</span>';
+      } else {
+        hostsEl.innerHTML = 'EN ENTREVISTA CON: <span class="highlight">' + val + '</span>';
+      }
+    });
+
+    function updateFlyerText() {
+      Object.keys(inputsMap).forEach(inputId => {
+        const inputEl = document.getElementById(inputId);
+        const displayEl = document.getElementById(inputsMap[inputId]);
+        if (inputEl && displayEl) {
+          displayEl.textContent = inputEl.value;
+        }
+      });
+    }
+
+    // Manejo de subida de imágenes locales desde la PC
+    function handlePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('displayArtistPhoto').src = e.target.result;
+          document.getElementById('thumbArtistPhoto').src = e.target.result;
+          resetPhotoTransform();
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Ajuste de encuadre y posición de la foto del artista
+    let photoState = { x: 0, y: 0, zoom: 1 };
+    let isDraggingPhoto = false;
+    let dragStart = { x: 0, y: 0 };
+
+    function updatePhotoTransform() {
+      const zoomVal = parseFloat(document.getElementById('inputPhotoZoom').value);
+      photoState.zoom = zoomVal / 100;
+      photoState.x = parseFloat(document.getElementById('inputPhotoX').value);
+      photoState.y = parseFloat(document.getElementById('inputPhotoY').value);
+
+      document.getElementById('zoomValDisplay').textContent = zoomVal + '%';
+
+      const img = document.getElementById('displayArtistPhoto');
+      if (img) {
+        img.style.setProperty('--photo-x', photoState.x + 'px');
+        img.style.setProperty('--photo-y', photoState.y + 'px');
+        img.style.setProperty('--photo-scale', photoState.zoom);
+        img.style.transform = `translate(${photoState.x}px, ${photoState.y}px) scale(${photoState.zoom})`;
+      }
+    }
+
+    function resetPhotoTransform() {
+      document.getElementById('inputPhotoZoom').value = 100;
+      document.getElementById('inputPhotoX').value = 0;
+      document.getElementById('inputPhotoY').value = 0;
+      updatePhotoTransform();
+    }
+
+    // Arrastre directo de foto con ratón o pantalla táctil
+    const photoFrame = document.getElementById('photoFrame');
+
+    if (photoFrame) {
+      photoFrame.addEventListener('mousedown', (e) => {
+        isDraggingPhoto = true;
+        dragStart = { x: e.clientX - photoState.x, y: e.clientY - photoState.y };
+        e.preventDefault();
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDraggingPhoto) return;
+        let newX = Math.round(e.clientX - dragStart.x);
+        let newY = Math.round(e.clientY - dragStart.y);
+
+        newX = Math.max(-150, Math.min(150, newX));
+        newY = Math.max(-150, Math.min(150, newY));
+
+        document.getElementById('inputPhotoX').value = newX;
+        document.getElementById('inputPhotoY').value = newY;
+        updatePhotoTransform();
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDraggingPhoto = false;
+      });
+
+      photoFrame.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          isDraggingPhoto = true;
+          dragStart = { x: e.touches[0].clientX - photoState.x, y: e.touches[0].clientY - photoState.y };
+        }
+      });
+
+      window.addEventListener('touchmove', (e) => {
+        if (!isDraggingPhoto || e.touches.length !== 1) return;
+        let newX = Math.round(e.touches[0].clientX - dragStart.x);
+        let newY = Math.round(e.touches[0].clientY - dragStart.y);
+
+        newX = Math.max(-150, Math.min(150, newX));
+        newY = Math.max(-150, Math.min(150, newY));
+
+        document.getElementById('inputPhotoX').value = newX;
+        document.getElementById('inputPhotoY').value = newY;
+        updatePhotoTransform();
+      });
+
+      window.addEventListener('touchend', () => {
+        isDraggingPhoto = false;
+      });
+    }
+
+    function handleLogoUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('displayLogo').src = e.target.result;
+          document.getElementById('thumbProgramLogo').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Actualizar plataformas seleccionadas
+    function updatePlatforms() {
+      const container = document.getElementById('displayPlatformsRow');
+      let html = '';
+      if (document.getElementById('platYT').checked) html += '<div class="platform-pill">🔴 YouTube</div>';
+      if (document.getElementById('platIG').checked) html += '<div class="platform-pill">📸 Instagram</div>';
+      if (document.getElementById('platTK').checked) html += '<div class="platform-pill">🎵 TikTok</div>';
+      if (document.getElementById('platFB').checked) html += '<div class="platform-pill">💙 Facebook</div>';
+      container.innerHTML = html;
+    }
+
+    // Alternar entre pestañas de formato (Nuestras Redes vs Para el Invitado)
+    function switchFlyerTab(tab) {
+      activeTab = tab;
+      document.getElementById('tabNuestras').classList.toggle('active', tab === 'nuestras');
+      document.getElementById('tabInvitado').classList.toggle('active', tab === 'invitado');
+      
+      const card = document.getElementById('flyerCard');
+      const titleTag = document.getElementById('displayTitleTag');
+      const hostsEl = document.getElementById('displayHosts');
+      const hostsInputVal = document.getElementById('inputHosts').value;
+
+      if (tab === 'nuestras') {
+        card.classList.remove('guest-version');
+        titleTag.textContent = 'ENTREVISTA EN VIVO';
+        hostsEl.innerHTML = 'Conducción: <span class="highlight">' + hostsInputVal + '</span>';
+      } else {
+        card.classList.add('guest-version');
+        titleTag.textContent = '¡ESTARÉ EN VIVO!';
+        hostsEl.innerHTML = 'EN ENTREVISTA CON: <span class="highlight">' + hostsInputVal + '</span>';
+      }
+    }
+
+    // Cambiar formato de dimensiones (4:5 Retrato vs 9:16 Historia)
+    function updateAspectRatio() {
+      const ratio = document.getElementById('inputAspectRatio').value;
+      const card = document.getElementById('flyerCard');
+      if (ratio === 'story') {
+        card.classList.add('vertical-format');
+      } else {
+        card.classList.remove('vertical-format');
+      }
+    }
+
+    // Exportar Flyer en PNG de alta resolución usando html2canvas
+    function downloadFlyerPNG() {
+      const card = document.getElementById('flyerCard');
+      
+      // Escalar temporalmente para render de alta resolución (2x)
+      html2canvas(card, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#000000'
+      }).then(canvas => {
+        const link = document.createElement('a');
+        const artistName = document.getElementById('inputArtistName').value.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        link.download = `flyer_${activeTab}_${artistName}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+
+    // Cargar datos por defecto desde stream-data.json si están disponibles
+    async function loadStreamDefaults() {
+      try {
+        const res = await fetch('stream-data.json?t=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          if (data.host && data.host.name) {
+            document.getElementById('inputHostHandle').value = '@' + data.host.name.toLowerCase().replace(/\s+/g, '');
+          }
+          if (data.guest && data.guest.name) {
+            document.getElementById('inputArtistName').value = data.guest.name.toUpperCase();
+            updateFlyerText();
+          }
+        }
+      } catch (e) {}
+    }
+    loadStreamDefaults();
+  </script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;900&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      letter-spacing: 3px;
+      color: #FFD700;
+      text-align: center;
+    }
+
+    .banner-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .banner-info {
+      font-size: 18px;
+      font-weight: 700;
+      color: #E74C3C;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .banner-frame {
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px rgba(139,0,0,0.4);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+    }
+
+    /* Estilos del Banner / Canvas */
+    .banner-bg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, #3a0000 0%, #1a0000 50%, #080808 100%);
+    }
+
+    .banner-poncho-border {
+      position: absolute;
+      inset: 0;
+      padding: 8px;
+      background: linear-gradient(135deg, #8B0000, #C0392B, #1A1A1A, #8B0000, #FFD700);
+      background-size: 200% 200%;
+      animation: ponchoGlow 8s ease infinite;
+    }
+
+    @keyframes ponchoGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .banner-inner {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, #2b0202 0%, #0a0202 70%, #000000 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Guía visual para Safe Area en YouTube */
+    .yt-safe-area-overlay {
+      position: absolute;
+      width: 1546px;
+      height: 423px;
+      border: 2px dashed rgba(255, 215, 0, 0.4);
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+    .yt-safe-area-overlay::before {
+      content: "SAFE AREA DISPOSITIVOS (1546x423)";
+      position: absolute;
+      top: 6px;
+      left: 12px;
+      font-size: 12px;
+      color: rgba(255, 215, 0, 0.6);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* Contenido Banner */
+    .banner-content {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .banner-title {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #FFFFFF;
+      line-height: 0.95;
+      letter-spacing: 6px;
+      text-shadow: 0 0 25px rgba(192, 57, 43, 0.8), 0 0 50px rgba(139, 0, 0, 0.5);
+    }
+
+    .banner-subtitle {
+      font-weight: 700;
+      color: #FFD700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+
+    .banner-divider {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #C0392B, #FFD700, #C0392B, transparent);
+      border-radius: 2px;
+      margin: 12px 0;
+    }
+
+    .banner-tags {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .banner-tag {
+      background: rgba(139, 0, 0, 0.4);
+      border: 1px solid #C0392B;
+      border-radius: 20px;
+      color: #FFF;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .banner-socials {
+      display: flex;
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .banner-social {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .banner-social span { color: #FFD700; }
+
+    /* DIMENSIONES POR PLATAFORMA */
+
+    /* 1. YouTube (2560x1440) - Escalado visual a 50% */
+    .yt-frame {
+      width: 1280px;
+      height: 720px;
+    }
+    .yt-frame .banner-title { font-size: 130px; }
+    .yt-frame .banner-subtitle { font-size: 26px; }
+    .yt-frame .banner-divider { width: 450px; }
+    .yt-frame .banner-tag { font-size: 16px; padding: 6px 20px; }
+    .yt-frame .banner-social { font-size: 18px; }
+
+    /* 2. Facebook (1640x924) - Escalado visual a 60% */
+    .fb-frame {
+      width: 984px;
+      height: 554px;
+    }
+    .fb-frame .banner-title { font-size: 100px; }
+    .fb-frame .banner-subtitle { font-size: 22px; }
+    .fb-frame .banner-divider { width: 350px; }
+    .fb-frame .banner-tag { font-size: 14px; padding: 5px 16px; }
+    .fb-frame .banner-social { font-size: 16px; }
+
+    /* 3. Twitch & Kick (1200x480) - 100% escala real */
+    .tk-frame {
+      width: 1200px;
+      height: 480px;
+    }
+    .tk-frame .banner-title { font-size: 100px; }
+    .tk-frame .banner-subtitle { font-size: 22px; }
+    .tk-frame .banner-divider { width: 360px; }
+    .tk-frame .banner-tag { font-size: 14px; padding: 5px 16px; }
+    .tk-frame .banner-social { font-size: 16px; }
+
+    /* 4. Twitter / X (1500x500) - Escalado visual a 70% */
+    .tw-frame {
+      width: 1050px;
+      height: 350px;
+    }
+    .tw-frame .banner-title { font-size: 85px; }
+    .tw-frame .banner-subtitle { font-size: 18px; }
+    .tw-frame .banner-divider { width: 300px; }
+    .tw-frame .banner-tag { font-size: 13px; padding: 4px 14px; }
+    .tw-frame .banner-social { font-size: 15px; }

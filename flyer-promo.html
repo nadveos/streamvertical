@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flyer Promocional de Contenido — Guta Flores Stream</title>
+  <link rel="stylesheet" href="main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="flyer-promo.css">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <div class="top-nav">
+    <div class="nav-title">
+      📢 Flyer Promocional de Contenido y Horarios
+    </div>
+    <div class="nav-links">
+      <a href="panel.html" class="nav-btn primary">🎛️ Panel de Control</a>
+      <a href="flyers.html" class="nav-btn">🎨 Flyers de Artistas</a>
+      <a href="overlay-invitacion.html" class="nav-btn">✉️ Invitaciones</a>
+      <a href="overlay.html" target="_blank" class="nav-btn">👁️ Ver Overlays</a>
+    </div>
+  </div>
+
+  <!-- Main App Layout -->
+  <div class="promo-app">
+
+    <!-- Sidebar Controls -->
+    <div class="sidebar">
+
+      <div class="card-section">
+        <div class="section-title">⚙️ Configuración General</div>
+        
+        <div class="form-group">
+          <label>Encabezado Superior</label>
+          <input type="text" id="inputPromoBadge" value="📡 TRANSMISIONES Y CONTENIDO">
+        </div>
+
+        <div class="form-group">
+          <label>Título Principal del Flyer</label>
+          <input type="text" id="inputPromoTitle" value="GUTA FLORES — LIVE SHOW">
+        </div>
+
+        <div class="form-group">
+          <label>Subtítulo / Eslogan</label>
+          <input type="text" id="inputPromoSubtitle" value="DIFUSIÓN MUSICAL & FOLKLORE EN VIVO">
+        </div>
+
+        <div class="form-group">
+          <label>Formato de Dimensiones</label>
+          <select id="inputAspectRatio" onchange="updateAspectRatio()">
+            <option value="portrait">📸 Retrato RRSS (1080x1350 — 4:5)</option>
+            <option value="story">📱 Historia / Reel (1080x1920 — 9:16)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">🖼️ Logo del Programa</div>
+
+        <div class="form-group">
+          <label>Subir Nuestro Logo (desde PC)</label>
+          <div class="file-input-wrapper" style="display:flex; align-items:center; gap:10px;">
+            <label class="file-btn" for="inputProgramLogo">
+              🖼️ Subir Archivo de Logo
+            </label>
+            <input type="file" id="inputProgramLogo" accept="image/*" style="display:none;" onchange="handleLogoUpload(event)">
+            <img id="thumbProgramLogo" class="file-preview-thumb" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%238B0000'/><text x='50' y='55' font-size='40' text-anchor='middle' fill='%23FFD700'>🎙️</text></svg>" alt="Preview">
+          </div>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">📅 Días y Horarios de Emisión</div>
+
+        <!-- Bloque 1 -->
+        <div class="schedule-item-box">
+          <div style="font-weight:900; font-size:12px; color:#FFD700;">📌 BLOQUE 1</div>
+          <div class="form-group">
+            <label>Modo</label>
+            <input type="text" id="schedType1" value="🔴 EN VIVO">
+          </div>
+          <div class="form-group">
+            <label>Día y Hora</label>
+            <input type="text" id="schedTime1" value="SÁBADOS — 21:00 HS">
+          </div>
+          <div class="form-group">
+            <label>Detalle / Descripción</label>
+            <input type="text" id="schedDesc1" value="Entrevistas a Artistas Especiales y Guitarreada a la Gorra 🪕">
+          </div>
+        </div>
+
+        <!-- Bloque 2 -->
+        <div class="schedule-item-box">
+          <div style="font-weight:900; font-size:12px; color:#FFD700;">📌 BLOQUE 2</div>
+          <div class="form-group">
+            <label>Modo</label>
+            <input type="text" id="schedType2" value="🎬 ESTRENO GRABACIÓN">
+          </div>
+          <div class="form-group">
+            <label>Día y Hora</label>
+            <input type="text" id="schedTime2" value="MIÉRCOLES — 20:00 HS">
+          </div>
+          <div class="form-group">
+            <label>Detalle / Descripción</label>
+            <input type="text" id="schedDesc2" value="Subida de Entrevistas completas con Artistas de renombre">
+          </div>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">📡 Redes y Handles de Emisión</div>
+
+        <div class="form-group">
+          <label>Handle Principal</label>
+          <input type="text" id="inputHostHandle" value="@gutafloresok">
+        </div>
+
+        <div class="form-group">
+          <label>Plataformas Activas</label>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:4px;">
+            <label style="font-size:12px; font-weight:700;"><input type="checkbox" id="platYT" checked onchange="renderPromo()"> 🔴 YouTube</label>
+            <label style="font-size:12px; font-weight:700;"><input type="checkbox" id="platIG" checked onchange="renderPromo()"> 📸 Instagram</label>
+            <label style="font-size:12px; font-weight:700;"><input type="checkbox" id="platTK" checked onchange="renderPromo()"> 🎵 TikTok</label>
+            <label style="font-size:12px; font-weight:700;"><input type="checkbox" id="platFB" checked onchange="renderPromo()"> 💙 Facebook</label>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-export" onclick="downloadPromoPNG()">
+        📥 Descargar Flyer Promocional (PNG)
+      </button>
+
+    </div>
+
+    <!-- Live Preview Stage -->
+    <div class="preview-area">
+      
+      <div id="promoCard" class="promo-card">
+        <div class="promo-bg-poncho"></div>
+
+        <div class="promo-inner">
+
+          <!-- Header -->
+          <div class="promo-header">
+            <img id="displayLogo" class="promo-logo-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%238B0000'/><text x='50' y='55' font-size='40' text-anchor='middle' fill='%23FFD700'>🎙️</text></svg>" alt="Logo">
+            <div id="displayPromoBadge" class="promo-badge">📡 TRANSMISIONES Y CONTENIDO</div>
+          </div>
+
+          <!-- Main Title -->
+          <div>
+            <div id="displayPromoTitle" class="promo-main-title">GUTA FLORES — LIVE SHOW</div>
+            <div id="displayPromoSubtitle" class="promo-subtitle">DIFUSIÓN MUSICAL & FOLKLORE EN VIVO</div>
+          </div>
+
+          <!-- Schedules Cards Grid -->
+          <div class="schedules-container">
+
+            <div class="schedule-card">
+              <div class="schedule-card-top">
+                <div id="displaySchedType1" class="schedule-type-badge">🔴 EN VIVO</div>
+                <div id="displaySchedTime1" class="schedule-day-time">SÁBADOS — 21:00 HS</div>
+              </div>
+              <div id="displaySchedDesc1" class="schedule-desc">Entrevistas a Artistas Especiales y Guitarreada a la Gorra 🪕</div>
+            </div>
+
+            <div class="schedule-card">
+              <div class="schedule-card-top">
+                <div id="displaySchedType2" class="schedule-type-badge">🎬 ESTRENO GRABACIÓN</div>
+                <div id="displaySchedTime2" class="schedule-day-time">MIÉRCOLES — 20:00 HS</div>
+              </div>
+              <div id="displaySchedDesc2" class="schedule-desc">Subida de Entrevistas completas con Artistas de renombre</div>
+            </div>
+
+          </div>
+
+          <!-- Motto Phrase Box -->
+          <div class="promo-motto-box">
+            🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS Y GUITARREAMOS A LA GORRA 🪕
+          </div>
+
+          <!-- Footer Platforms & Handles -->
+          <div class="promo-footer-platforms">
+            <div id="displayPlatformsRow" class="platforms-pills-row">
+              <div class="platform-pill">🔴 YouTube</div>
+              <div class="platform-pill">📸 Instagram</div>
+              <div class="platform-pill">🎵 TikTok</div>
+              <div class="platform-pill">💙 Facebook</div>
+            </div>
+            <div class="handles-row">
+              <span>Sintonizá y Seguinos en: <strong id="displayHostHandle" class="handle-badge">@gutafloresok</strong></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    const inputs = [
+      'inputPromoBadge', 'inputPromoTitle', 'inputPromoSubtitle',
+      'schedType1', 'schedTime1', 'schedDesc1',
+      'schedType2', 'schedTime2', 'schedDesc2',
+      'inputHostHandle'
+    ];
+
+    inputs.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', renderPromo);
+    });
+
+    function renderPromo() {
+      document.getElementById('displayPromoBadge').textContent = document.getElementById('inputPromoBadge').value;
+      document.getElementById('displayPromoTitle').textContent = document.getElementById('inputPromoTitle').value;
+      document.getElementById('displayPromoSubtitle').textContent = document.getElementById('inputPromoSubtitle').value;
+
+      document.getElementById('displaySchedType1').textContent = document.getElementById('schedType1').value;
+      document.getElementById('displaySchedTime1').textContent = document.getElementById('schedTime1').value;
+      document.getElementById('displaySchedDesc1').textContent = document.getElementById('schedDesc1').value;
+
+      document.getElementById('displaySchedType2').textContent = document.getElementById('schedType2').value;
+      document.getElementById('displaySchedTime2').textContent = document.getElementById('schedTime2').value;
+      document.getElementById('displaySchedDesc2').textContent = document.getElementById('schedDesc2').value;
+
+      document.getElementById('displayHostHandle').textContent = document.getElementById('inputHostHandle').value;
+
+      // Update platforms
+      const row = document.getElementById('displayPlatformsRow');
+      let html = '';
+      if (document.getElementById('platYT').checked) html += '<div class="platform-pill">🔴 YouTube</div>';
+      if (document.getElementById('platIG').checked) html += '<div class="platform-pill">📸 Instagram</div>';
+      if (document.getElementById('platTK').checked) html += '<div class="platform-pill">🎵 TikTok</div>';
+      if (document.getElementById('platFB').checked) html += '<div class="platform-pill">💙 Facebook</div>';
+      row.innerHTML = html;
+    }
+
+    function handleLogoUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('displayLogo').src = e.target.result;
+          document.getElementById('thumbProgramLogo').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function updateAspectRatio() {
+      const ratio = document.getElementById('inputAspectRatio').value;
+      const card = document.getElementById('promoCard');
+      if (ratio === 'story') {
+        card.classList.add('vertical-format');
+      } else {
+        card.classList.remove('vertical-format');
+      }
+    }
+
+    function downloadPromoPNG() {
+      const card = document.getElementById('promoCard');
+      html2canvas(card, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#000000'
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `flyer_promocional_grilla_${Date.now()}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+
+    async function loadDefaults() {
+      try {
+        const res = await fetch('stream-data.json?t=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          if (data.host && data.host.name) {
+            document.getElementById('inputPromoTitle').value = (data.host.name + ' — LIVE SHOW').toUpperCase();
+            document.getElementById('inputHostHandle').value = '@' + data.host.name.toLowerCase().replace(/\s+/g, '');
+            renderPromo();
+          }
+        }
+      } catch (e) {}
+    }
+    loadDefaults();
+  </script>
+</body>
+</html>

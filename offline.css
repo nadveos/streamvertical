@@ -1,0 +1,235 @@
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;900&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: 'Outfit', 'Segoe UI', sans-serif;
+      background: #080808;
+    }
+
+    /* ============================================================
+       FONDO ANIMADO — gradiente oscuro con resplandor rojo ambiental
+       ============================================================ */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%,
+        rgba(80, 0, 0, 0.55) 0%,
+        rgba(20, 0, 0, 0.4)  40%,
+        #080808 70%
+      );
+      animation: bgBreath 6s ease-in-out infinite;
+    }
+
+    @keyframes bgBreath {
+      0%, 100% { opacity: 0.8; }
+      50%       { opacity: 1;   }
+    }
+
+    /* Textura de líneas de escaneo */
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 0, 0, 0.06) 3px,
+        rgba(0, 0, 0, 0.06) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ============================================================
+       BANDAS PONCHO — decoración superior e inferior
+       ============================================================ */
+    .poncho-band {
+      position: fixed;
+      left: 0; right: 0;
+      height: 14px;
+      background: repeating-linear-gradient(
+        90deg,
+        #8B0000  0px,  #8B0000  40px,
+        #1A1A1A  40px, #1A1A1A  60px,
+        #C0392B  60px, #C0392B  100px,
+        #1A1A1A  100px,#1A1A1A  120px,
+        #FFD700  120px,#FFD700  130px,
+        #1A1A1A  130px,#1A1A1A  150px
+      );
+      z-index: 5;
+      opacity: 0.85;
+    }
+    .poncho-band-top    { top: 0; }
+    .poncho-band-bottom { bottom: 0; }
+
+    /* ============================================================
+       ANILLOS DE PULSO — detrás del logo
+       ============================================================ */
+    .rings-container {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 0; height: 0;
+      z-index: 2;
+    }
+
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(139, 0, 0, 0.5);
+      transform: translate(-50%, -50%);
+      animation: ringExpand 5s ease-out infinite;
+    }
+
+    .ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s;    }
+    .ring:nth-child(2) { width: 300px; height: 300px; animation-delay: 1.6s;  }
+    .ring:nth-child(3) { width: 300px; height: 300px; animation-delay: 3.2s;  }
+
+    @keyframes ringExpand {
+      0%   { transform: translate(-50%, -50%) scale(0.2); opacity: 0.8; border-color: rgba(192, 57, 43, 0.6); }
+      100% { transform: translate(-50%, -50%) scale(4.5); opacity: 0;   border-color: rgba(139, 0, 0, 0);     }
+    }
+
+    /* ============================================================
+       CONTENIDO CENTRAL
+       ============================================================ */
+    .center {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      z-index: 10;
+    }
+
+    /* Badge OFFLINE */
+    .offline-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(10, 10, 10, 0.85);
+      border: 1.5px solid #3a3a3a;
+      border-radius: 30px;
+      padding: 6px 20px;
+      margin-bottom: 28px;
+    }
+
+    .offline-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #555;
+      animation: offlineDot 3s ease-in-out infinite;
+    }
+
+    @keyframes offlineDot {
+      0%, 100% { background: #444; box-shadow: none; }
+      50%       { background: #666; box-shadow: 0 0 8px #555; }
+    }
+
+    .offline-badge-text {
+      color: #888;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* Nombre del canal */
+    .channel-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 110px;
+      color: #FFFFFF;
+      letter-spacing: 8px;
+      line-height: 1;
+      text-align: center;
+      text-shadow:
+        0 0 30px rgba(139, 0, 0, 0.7),
+        0 0 70px rgba(139, 0, 0, 0.3);
+    }
+
+    /* Línea decorativa dorada */
+    .gold-line {
+      width: 340px;
+      height: 2px;
+      background: linear-gradient(90deg,
+        transparent, #8B0000 20%, #FFD700 50%, #8B0000 80%, transparent
+      );
+      border-radius: 2px;
+      margin: 18px 0;
+    }
+
+    /* Mensaje principal */
+    .main-msg {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      color: #C0392B;
+      letter-spacing: 6px;
+      text-align: center;
+      text-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
+    }
+
+    .sub-msg {
+      font-size: 16px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* ============================================================
+       REDES SOCIALES — fila de íconos/texto
+       ============================================================ */
+    .socials {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 15, 15, 0.85);
+      border: 1.5px solid rgba(139, 0, 0, 0.4);
+      border-radius: 24px;
+      padding: 8px 20px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+    }
+
+    .social-item .icon { font-size: 18px; }
+    .social-item .handle { color: #FFD700; }
+
+    /* ============================================================
+       ORNAMENTOS ESQUINAS
+       ============================================================ */
+    .corner-orn {
+      position: fixed;
+      z-index: 6;
+    }
+    .c-tl { top: 22px; left: 22px; }
+    .c-tr { top: 22px; right: 22px; transform: scaleX(-1); }
+    .c-bl { bottom: 22px; left: 22px; transform: scaleY(-1); }
+    .c-br { bottom: 22px; right: 22px; transform: scale(-1); }
+
+    .corner-orn svg {
+      width: 60px; height: 60px;
+      fill: none; stroke: #8B0000; stroke-width: 2;
+      opacity: 0.5;
+      filter: drop-shadow(0 0 4px rgba(139, 0, 0, 0.5));
+    }

@@ -1,0 +1,183 @@
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@700;900&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Outfit', 'Segoe UI', sans-serif;
+    }
+
+    /* ============================================================
+       OVERLAY CONTAINER
+       ============================================================ */
+    .transition-overlay {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       STRIPES — Franjas de barrido RÁPIDAS
+       Duración total: 2.5s
+       0% - 35%: Entrada (Barrido rápido cubre pantalla ~0.85s)
+       35% - 50%: Pantalla 100% cubierta / Transición de escena (~0.4s)
+       50% - 85%: Salida (Barrido descubre la nueva escena)
+       85% - 100%: Transparente
+       ============================================================ */
+    .stripe {
+      position: absolute;
+      left: -100%;
+      width: 100%;
+      transform-origin: left center;
+      animation: stripeAnim 2.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+    }
+
+    /* Staggering ultrarrápido entre franjas (0.02s a 0.14s) */
+    .s1  { top: 0%;    height: 11.2%;  background: #1a0000; animation-delay: 0s;     }
+    .s2  { top: 11.1%; height: 11.2%;  background: #8B0000; animation-delay: 0.02s;  }
+    .s3  { top: 22.2%; height: 11.2%;  background: #141414; animation-delay: 0.04s;  }
+    .s4  { top: 33.3%; height: 11.2%;  background: #C0392B; animation-delay: 0.06s;  }
+    .s5  { top: 44.4%; height: 11.2%;  background: #1A0505; animation-delay: 0.08s;  }
+    .s6  { top: 55.5%; height: 11.2%;  background: #8B0000; animation-delay: 0.10s;  }
+    .s7  { top: 66.6%; height: 11.2%;  background: #111111; animation-delay: 0.12s;  }
+    .s8  { top: 77.7%; height: 11.2%;  background: #C0392B; animation-delay: 0.14s;  }
+    .s9  { top: 88.8%; height: 11.2%;  background: #1a0000; animation-delay: 0.16s;  }
+
+    @keyframes stripeAnim {
+      0%   { left: -100%; }
+      35%  { left: 0%;    }
+      50%  { left: 0%;    }
+      85%  { left: 100%;  }
+      100% { left: 100%;  }
+    }
+
+    /* ============================================================
+       GOLDEN ACCENT LINE
+       ============================================================ */
+    .golden-line {
+      position: absolute;
+      top: 50%;
+      left: -100%;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        #FFD700 20%,
+        #FFF8DC 50%,
+        #FFD700 80%,
+        transparent 100%
+      );
+      box-shadow: 0 0 16px #FFD700, 0 0 35px rgba(255, 215, 0, 0.6);
+      animation: goldenLineAnim 2.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+      animation-delay: 0.08s;
+      z-index: 5;
+    }
+
+    @keyframes goldenLineAnim {
+      0%   { left: -100%; opacity: 0; }
+      30%  { left: 0%;    opacity: 1; }
+      55%  { left: 0%;    opacity: 1; }
+      85%  { left: 100%;  opacity: 0; }
+      100% { left: 100%;  opacity: 0; }
+    }
+
+    /* ============================================================
+       LOGO CENTRAL
+       ============================================================ */
+    .center-logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+      animation: logoAnim 2.5s ease infinite;
+    }
+
+    @keyframes logoAnim {
+      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.85); filter: blur(8px); }
+      30%  { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0px); }
+      55%  { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0px); }
+      80%  { opacity: 0; transform: translate(-50%, -50%) scale(1.08); filter: blur(6px); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(1.08); filter: blur(6px); }
+    }
+
+    .logo-brand {
+      font-family: 'Bebas Neue', 'Outfit', sans-serif;
+      font-size: 88px;
+      color: #FFFFFF;
+      letter-spacing: 8px;
+      text-shadow:
+        0 0 20px rgba(192, 57, 43, 0.9),
+        0 0 50px rgba(139, 0, 0, 0.7);
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFD700;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+      margin-top: 6px;
+    }
+
+    .logo-divider {
+      width: 180px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #C0392B, #FFD700, #C0392B, transparent);
+      margin: 8px auto;
+      border-radius: 2px;
+    }
+
+    /* ============================================================
+       TEXTURA Y ORNAMENTOS
+       ============================================================ */
+    .poncho-texture {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 6px,
+        rgba(0, 0, 0, 0.15) 6px,
+        rgba(0, 0, 0, 0.15) 7px
+      );
+      z-index: 2;
+      pointer-events: none;
+      animation: textureAnim 2.5s ease infinite;
+    }
+
+    @keyframes textureAnim {
+      0%, 100% { opacity: 0; }
+      30%, 55% { opacity: 1; }
+    }
+
+    .corner {
+      position: absolute;
+      z-index: 6;
+      animation: cornerAnim 2.5s ease infinite;
+    }
+    .corner-tl { top: 24px; left: 24px; }
+    .corner-tr { top: 24px; right: 24px; transform: scaleX(-1); }
+    .corner-bl { bottom: 24px; left: 24px; transform: scaleY(-1); }
+    .corner-br { bottom: 24px; right: 24px; transform: scale(-1); }
+
+    @keyframes cornerAnim {
+      0%, 100% { opacity: 0; }
+      32%, 53%  { opacity: 1; }
+    }
+
+    .corner svg {
+      width: 60px;
+      height: 60px;
+      fill: none;
+      stroke: #C0392B;
+      stroke-width: 2.5;
+      filter: drop-shadow(0 0 6px rgba(192, 57, 43, 0.8));
+    }

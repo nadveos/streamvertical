@@ -1,0 +1,89 @@
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #121212;
+      color: #FFF;
+      padding: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 { color: #FFD700; margin-bottom: 20px; font-size: 24px; text-align: center; }
+    .card {
+      background: #1E1E1E;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #E74C3C;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    label { font-size: 12px; color: #AAA; font-weight: 600; }
+    input, textarea {
+      background: #0D0D0D;
+      border: 1px solid #444;
+      border-radius: 6px;
+      padding: 10px;
+      color: #FFF;
+      font-size: 14px;
+    }
+    input:focus, textarea:focus { border-color: #C0392B; outline: none; }
+    .social-row {
+      display: grid;
+      grid-template-columns: 60px 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    button {
+      background: linear-gradient(135deg, #8B0000, #C0392B);
+      color: #FFF;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
+    }
+    button:hover { background: linear-gradient(135deg, #A00000, #D63E2D); }
+    .btn-goto {
+      background: #1a4a1a !important;
+      box-shadow: 0 2px 8px rgba(0,180,0,0.3) !important;
+      border: 1px solid #2ecc71 !important;
+      color: #2ecc71 !important;
+      padding: 6px 12px !important;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      width: auto !important;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+    .btn-goto:hover { background: #225522 !important; }
+    .toast {
+      background: #27ae60;
+      color: white;
+      padding: 12px;
+      border-radius: 6px;
+      text-align: center;
+      margin-top: 10px;
+      display: none;
+    }

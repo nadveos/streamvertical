@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Móvil 3D Interactivo con Efecto Tap y Corazones</title>
+    <link rel="stylesheet" href="animation-1.css">
+</head>
+
+<body>
+
+    <div class="scene">
+        <div class="phone">
+            <div class="screen" id="screen">
+
+                <div class="ui-element">
+                    <div class="ui-title" data-bind="host-name">GUTA FLORES</div>
+                    <div class="ui-stats">
+                        <span>❤️ EN VIVO</span>
+                        <span>💬 STREAMING</span>
+                    </div>
+                </div>
+
+                <div class="ripple-container">
+                    <div class="ripple"></div>
+                </div>
+
+                <div class="finger-wrapper" id="fingerWrapper">
+                    <span class="finger">🫵</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const screen = document.getElementById('screen');
+        const fingerWrapper = document.getElementById('fingerWrapper');
+
+        const heartEmojis = ['❤️', '💖', '💗', '💕', '💓', '🔥'];
+
+        function createHeart(x, y) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+
+            heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+            heart.style.left = `${x}px`;
+            heart.style.top = `${y}px`;
+
+            // Posicionamiento 3D dinámico
+            const randomX = (Math.random() - 0.5) * 260; // Desplazamiento lateral
+            const randomZ = Math.random() * 150 + 20;     // Profundidad hacia la cámara
+            const randomScale = 0.9 + Math.random() * 0.9;
+            const randomRot = (Math.random() - 0.5) * 90;
+
+            heart.style.setProperty('--tx', `${randomX}px`);
+            heart.style.setProperty('--tz', `${randomZ}px`);
+            heart.style.setProperty('--scale', randomScale);
+            heart.style.setProperty('--rot', `${randomRot}deg`);
+
+            screen.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 1600);
+        }
+
+        function triggerHearts() {
+            const rect = screen.getBoundingClientRect();
+            const centerX = rect.width / 2;
+            const centerY = rect.height * 0.48;
+
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    createHeart(centerX, centerY);
+                }, i * 45);
+            }
+        }
+
+        // Sincronizar emisión de corazones con el toque del dedo
+        fingerWrapper.addEventListener('animationiteration', triggerHearts);
+        setTimeout(triggerHearts, 1000);
+    </script>
+
+    <script src="script-overlay.js"></script>
+</body>
+
+</html>

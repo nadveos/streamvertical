@@ -1,0 +1,243 @@
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            /* Fondo completamente transparente */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            perspective: 1200px;
+            /* Perspectiva para el efecto 3D */
+        }
+
+        /* --- CONTENEDOR 3D PRINCIPAL CON ROTACIÓN --- */
+        .scene {
+            position: relative;
+            width: 420px;
+            height: 780px;
+            transform-style: preserve-3d;
+            /* Animación continua de rotación suave en perspectiva */
+            animation: floatRotate 8s ease-in-out infinite alternate;
+        }
+
+        /* --- MARCO DEL MÓVIL EN PERSPECTIVA 3D --- */
+        .phone {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #0a0303;
+            border-radius: 50px;
+            border: 12px solid #8B0000;
+            box-shadow:
+                0 30px 70px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(192, 57, 43, 0.4),
+                inset 0 0 15px rgba(255, 215, 0, 0.1);
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        /* Isla Dinámica / Notch superior */
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 30px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 40;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Reflejo de cristal dinámico */
+        .phone::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(60deg,
+                    transparent 40%,
+                    rgba(255, 255, 255, 0.08) 45%,
+                    rgba(255, 255, 255, 0.15) 50%,
+                    transparent 54%);
+            pointer-events: none;
+            z-index: 35;
+        }
+
+        /* --- PANTALLA DEL TELÉFONO --- */
+        .screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #2a0404 0%, #110202 60%, #060000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 80px;
+            color: white;
+            text-align: center;
+            user-select: none;
+        }
+
+        .ui-element {
+            z-index: 10;
+            margin-bottom: 20px;
+        }
+
+        .ui-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #8B0000, #C0392B, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
+            margin-bottom: 6px;
+        }
+
+        .ui-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* --- DEDO 3D CON ANIMACIÓN DE TAP --- */
+        .finger-wrapper {
+            position: absolute;
+            top: 48%;
+            left: 52%;
+            z-index: 30;
+            transform-style: preserve-3d;
+            animation: tapSequence 2.2s infinite ease-in-out;
+        }
+
+        .finger {
+            font-size: 90px;
+            filter: drop-shadow(10px 15px 20px rgba(0, 0, 0, 0.7));
+            display: block;
+            transform: scaleX(-1) rotate(-15deg);
+        }
+
+        /* --- ONDA NEÓN (RIPPLE) --- */
+        .ripple-container {
+            position: absolute;
+            top: 48%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 15;
+        }
+
+        .ripple {
+            width: 100px;
+            height: 100px;
+            border: 3px solid #C0392B;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(192, 57, 43, 0.4) 0%, transparent 70%);
+            box-shadow: 0 0 20px #C0392B, inset 0 0 15px #C0392B;
+            animation: rippleEffect 2.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        /* --- CORAZONES FLOTANDO EN 3D --- */
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            z-index: 25;
+            font-size: 42px;
+            filter:
+                drop-shadow(0 0 10px rgba(255, 42, 109, 0.9)) drop-shadow(0 0 20px rgba(255, 117, 140, 0.6));
+            animation: floatUp3D 1.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+
+        /* --- ANIMACIONES CSS --- */
+
+        /* Rotación 3D del móvil similar al render de la imagen */
+        @keyframes floatRotate {
+            0% {
+                transform: rotateX(18deg) rotateY(-22deg) rotateZ(4deg) translateY(-10px);
+            }
+
+            50% {
+                transform: rotateX(12deg) rotateY(0deg) rotateZ(0deg) translateY(10px);
+            }
+
+            100% {
+                transform: rotateX(20deg) rotateY(22deg) rotateZ(-4deg) translateY(-10px);
+            }
+        }
+
+        /* Movimiento de pulsación del dedo */
+        @keyframes tapSequence {
+
+            0%,
+            100% {
+                transform: translate3d(20px, 30px, 60px) scale(1.1);
+            }
+
+            40% {
+                transform: translate3d(10px, 15px, 40px) scale(1.15);
+            }
+
+            50% {
+                transform: translate3d(0, 0, 0) scale(0.95);
+            }
+
+            60% {
+                transform: translate3d(15px, 20px, 50px) scale(1.05);
+            }
+        }
+
+        /* Expansión de la onda de energía */
+        @keyframes rippleEffect {
+
+            0%,
+            48% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(0.2);
+                opacity: 1;
+            }
+
+            80% {
+                transform: scale(2.2);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(2.2);
+                opacity: 0;
+            }
+        }
+
+        /* Elevación de corazones en eje Z (hacia la pantalla) */
+        @keyframes floatUp3D {
+            0% {
+                transform: translate3d(-50%, -50%, 0px) scale(0.3) rotate(0deg);
+                opacity: 1;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate3d(calc(-50% + var(--tx)),
+                        calc(-50% - 240px),
+                        var(--tz)) scale(var(--scale)) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
