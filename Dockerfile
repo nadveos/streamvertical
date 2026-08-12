@@ -8,11 +8,17 @@ WORKDIR /usr/share/nginx/html
 COPY test-bg.html .
 COPY overlay-vertical.html .
 COPY overlay-solo-vertical.html .
+COPY transition.html .
+COPY transition-vertical.html .
+COPY pronto-empezamos.html .
 
 # Copiar hojas de estilo CSS requeridas
 COPY main.css .
 COPY overlay-vertical.css .
 COPY overlay-solo-vertical.css .
+COPY transition.css .
+COPY transition-vertical.css .
+COPY pronto-empezamos.css .
 COPY transparent-mode.css .
 
 # Copiar scripts JS y datos dinámicos requeridos
