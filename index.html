@@ -1,13 +1,132 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>stream-vods</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overlays Transparentes — Guta Flores</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0d0e15;
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 850px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #38bdf8;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    p.subtitle {
+      color: #94a3b8;
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+    }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin: 25px 0 15px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid #1e293b;
+      padding-bottom: 8px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 16px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.15);
+    }
+    .card-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #f8fafc;
+      margin-bottom: 6px;
+    }
+    .card-path {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #38bdf8;
+      background: #0f172a;
+      padding: 4px 8px;
+      border-radius: 4px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎥 Overlays Transparentes OBS</h1>
+    <p class="subtitle">Despliegue oficial de marcos y animaciones transparentes para fuentes de navegador OBS Studio.</p>
+
+    <div class="section-title">📺 Marcos Horizontales 16:9</div>
+    <div class="grid">
+      <a href="frames/overlay.html" class="card" target="_blank">
+        <div class="card-title">🎙️ Overlay Principal</div>
+        <div class="card-path">/frames/overlay.html</div>
+      </a>
+      <a href="frames/overlay-solo.html" class="card" target="_blank">
+        <div class="card-title">👤 Overlay Solo</div>
+        <div class="card-path">/frames/overlay-solo.html</div>
+      </a>
+      <a href="frames/overlay-multimedia.html" class="card" target="_blank">
+        <div class="card-title">🎬 Overlay Multimedia</div>
+        <div class="card-path">/frames/overlay-multimedia.html</div>
+      </a>
+      <a href="frames/overlay-invitado.html" class="card" target="_blank">
+        <div class="card-title">💬 Overlay Invitado</div>
+        <div class="card-path">/frames/overlay-invitado.html</div>
+      </a>
+    </div>
+
+    <div class="section-title">📱 Marcos Verticales 9:16</div>
+    <div class="grid">
+      <a href="frames/vertical/overlay-vertical.html" class="card" target="_blank">
+        <div class="card-title">📲 Overlay Vertical</div>
+        <div class="card-path">/frames/vertical/overlay-vertical.html</div>
+      </a>
+      <a href="frames/vertical/overlay-solo-vertical.html" class="card" target="_blank">
+        <div class="card-title">📱 Overlay Solo Vertical</div>
+        <div class="card-path">/frames/vertical/overlay-solo-vertical.html</div>
+      </a>
+    </div>
+
+    <div class="section-title">✨ Animaciones Integradas</div>
+    <div class="grid">
+      <a href="frames/animations/likes.html" class="card" target="_blank">
+        <div class="card-title">❤️ Animación Likes</div>
+        <div class="card-path">/frames/animations/likes.html</div>
+      </a>
+    </div>
+  </div>
+</body>
 </html>
