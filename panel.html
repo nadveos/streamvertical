@@ -370,17 +370,24 @@
       }
 
       if (data.ticker) {
-        document.getElementById('tickerText').value = data.ticker.map(t => `${t.prefix || ''} | ${t.text}`).join('\n');
+        document.getElementById('tickerText').value = data.ticker.map(t => t.prefix ? `${t.prefix} | ${t.text}` : t.text).join('\n');
       }
     }
 
     async function saveData() {
       const tickerLines = document.getElementById('tickerText').value.split('\n').filter(l => l.trim() !== '');
       const tickerObj = tickerLines.map(l => {
-        const parts = l.split('|');
+        const idx = l.indexOf('|');
+        if (idx !== -1) {
+          return {
+            prefix: l.substring(0, idx).trim(),
+            text: l.substring(idx + 1).trim(),
+            highlight: true
+          };
+        }
         return {
-          prefix: parts[0] ? parts[0].trim() : '',
-          text: parts[1] ? parts[1].trim() : parts[0].trim(),
+          prefix: '',
+          text: l.trim(),
           highlight: true
         };
       });

@@ -230,6 +230,7 @@
       letter-spacing: 1.5px;
       background: #C0392B;
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-top: 2px;
     }

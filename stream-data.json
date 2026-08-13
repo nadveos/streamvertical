@@ -44,8 +44,38 @@
   },
   "ticker": [
     {
+      "prefix": "🎙️ Transmisión en vivo:",
+      "text": "GUTA FLORES",
+      "highlight": true
+    },
+    {
       "prefix": "",
-      "text": "ALITAS : GUTA.FLORES",
+      "text": "🌟 ¡Bienvenidos al stream!",
+      "highlight": true
+    },
+    {
+      "prefix": "📲 Seguinos en redes:",
+      "text": "@gutafloresok",
+      "highlight": true
+    },
+    {
+      "prefix": "",
+      "text": "🎶 Música, folklore y entretenimiento en vivo",
+      "highlight": true
+    },
+    {
+      "prefix": "",
+      "text": "💬 ¡Dejá tu comentario y saludá!",
+      "highlight": true
+    },
+    {
+      "prefix": "",
+      "text": "🔥 Guitarreadas a la gorra 🔥",
+      "highlight": true
+    },
+    {
+      "prefix": "☕ Alias MP / Cafecito:",
+      "text": "GUTA.FLORES",
       "highlight": true
     }
   ]
