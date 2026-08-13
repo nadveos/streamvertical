@@ -13,6 +13,14 @@
 (function () {
   'use strict';
 
+  // Determinar el directorio base de script-overlay.js para cargar stream-data.json
+  // correctamente incluso cuando el HTML se encuentra en subcarpetas (frames/, frames/vertical/, etc.)
+  var scriptEl = document.currentScript || document.querySelector('script[src*="script-overlay.js"]');
+  var scriptDir = '';
+  if (scriptEl && scriptEl.src) {
+    scriptDir = scriptEl.src.substring(0, scriptEl.src.lastIndexOf('/') + 1);
+  }
+
   var lastJsonString = '';
 
   function applyData(data) {
@@ -166,7 +174,9 @@
       } catch (e) {}
     }
 
-    fetch('stream-data.json?t=' + Date.now())
+    var fetchUrl = (scriptDir || '') + 'stream-data.json?t=' + Date.now();
+
+    fetch(fetchUrl)
       .then(function (res) {
         if (res.ok) return res.json();
       })
