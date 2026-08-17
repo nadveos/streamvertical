@@ -57,9 +57,10 @@
     });
 
     // ── 2. INVITADO ──────────────────────────────────────────────────────────
-    var guestName = (data.guest && data.guest.name) ? data.guest.name : '';
-    var guestRole = (data.guest && data.guest.role) ? data.guest.role : '💬 INVITADO ESPECIAL';
-    var guestBio  = (data.guest && data.guest.bio)  ? data.guest.bio  : '';
+    var guestName   = (data.guest && data.guest.name)   ? data.guest.name   : '';
+    var guestRole   = (data.guest && data.guest.role)   ? data.guest.role   : '💬 INVITADO ESPECIAL';
+    var guestBio    = (data.guest && data.guest.bio)    ? data.guest.bio    : '';
+    var guestEvents = (data.guest && data.guest.events) ? data.guest.events : '';
 
     document.querySelectorAll('[data-bind="guest-name"]').forEach(function (el) {
       el.textContent = guestName;
@@ -69,6 +70,10 @@
     });
     document.querySelectorAll('[data-bind="guest-bio"]').forEach(function (el) {
       el.textContent = guestBio;
+    });
+    document.querySelectorAll('[data-bind="guest-events"]').forEach(function (el) {
+      el.textContent = guestEvents;
+      el.style.display = guestEvents.trim() !== '' ? '' : 'none';
     });
 
     // Redes del invitado

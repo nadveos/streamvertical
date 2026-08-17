@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TikTok Live - Sonando Ahora</title>
+    <style>
+        body {
+            margin: 0;
+            background: transparent;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .ticker-box {
+            display: inline-flex;
+            align-items: flex-start;
+            background: rgba(15, 15, 15, 0.88);
+            padding: 10px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+            font-weight: 600;
+            font-size: 14px;
+            max-width: 360px;
+            line-height: 1.35;
+            backdrop-filter: blur(8px);
+        }
+
+        .icon {
+            margin-right: 10px;
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .text {
+            white-space: normal;
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ticker-box">
+        <span class="icon">🎵</span>
+        <span class="text" id="status-text">Iniciando...</span>
+    </div>
+
+    <script>
+        const APP_ID = 'tiktokoverlay';
+        const APP_NAME = 'TikTok Ticker Overlay';
+        const APP_VERSION = '1.0.0';
+
+        const statusText = document.getElementById('status-text');
+        let cachedToken = localStorage.getItem('ytm_token');
+        let isAuthenticating = false;
+        let updateTimeoutId = null;
+
+        // Función para programar la siguiente consulta controlada
+        function scheduleNextUpdate(ms) {
+            if (updateTimeoutId) clearTimeout(updateTimeoutId);
+            updateTimeoutId = setTimeout(updateTrack, ms);
+        }
+
+        // Función de autenticación
+        async function getAuthToken() {
+            if (cachedToken) return cachedToken;
+            if (isAuthenticating) return null;
+
+            isAuthenticating = true;
+
+            try {
+                // 1. Pedir código de autorización
+                const codeRes = await fetch('http://127.0.0.1:9863/api/v1/auth/requestcode', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ appId: APP_ID, appName: APP_NAME, appVersion: APP_VERSION })
+                });
+
+                if (codeRes.status === 403) {
+                    statusText.innerText = 'En YTMDesktop: Ve a Ajustes -> Integraciones y activa "Companion Authorization"';
+                    console.error('YTMDesktop rechazó la conexión (403). Verifica los permisos en YTMDesktop -> Ajustes -> Integraciones.');
+                    isAuthenticating = false;
+                    return null;
+                }
+
+                if (!codeRes.ok) throw new Error('Error al solicitar código (' + codeRes.status + ')');
+                const codeData = await codeRes.json();
+
+                if (codeData && codeData.code) {
+                    statusText.innerText = 'Acepta el permiso en la app YTMDesktop...';
+                    const code = codeData.code;
+
+                    // 2. Reintentar canjear el código por Token (esperando a que el usuario presione "Aceptar" en YTMDesktop)
+                    for (let i = 0; i < 20; i++) {
+                        await new Promise(resolve => setTimeout(resolve, 2500));
+
+                        try {
+                            const tokenRes = await fetch('http://127.0.0.1:9863/api/v1/auth/request', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ appId: APP_ID, code: code })
+                            });
+
+                            if (tokenRes.ok) {
+                                const tokenData = await tokenRes.json();
+                                if (tokenData && tokenData.token) {
+                                    cachedToken = tokenData.token;
+                                    localStorage.setItem('ytm_token', cachedToken);
+                                    isAuthenticating = false;
+                                    return cachedToken;
+                                }
+                            }
+                        } catch (e) {
+                            // Continuar esperando a que el usuario acepte
+                        }
+                    }
+                }
+            } catch (err) {
+                statusText.innerText = 'Esperando a YTMDesktop...';
+            }
+
+            isAuthenticating = false;
+            return null;
+        }
+
+        // Consulta del tema actual y cálculo dinámico de la siguiente petición
+        async function updateTrack() {
+            const token = await getAuthToken();
+            if (!token) {
+                scheduleNextUpdate(6000);
+                return;
+            }
+
+            try {
+                const res = await fetch('http://127.0.0.1:9863/api/v1/state', {
+                    headers: {
+                        'Authorization': token
+                    }
+                });
+
+                if (res.status === 401 || res.status === 403) {
+                    // Token denegado o expirado: resetear para solicitar nuevo permiso
+                    localStorage.removeItem('ytm_token');
+                    cachedToken = null;
+                    statusText.innerText = 'Permiso no válido, reintentando...';
+                    scheduleNextUpdate(5000);
+                    return;
+                }
+
+                if (res.status === 429) {
+                    statusText.innerText = 'Límite de peticiones (429). Esperando 15s...';
+                    scheduleNextUpdate(15000);
+                    return;
+                }
+
+                const data = await res.json();
+
+                // Extraer metadata del tema
+                const video = data.video || (data.player && data.player.video) || data.track;
+                const title = video?.title || video?.details?.title;
+                const author = video?.author || video?.details?.author || video?.artist;
+
+                const durationSeconds = video?.durationSeconds || video?.duration || 0;
+                const videoProgress = data.player?.videoProgress || data.player?.progress || 0;
+                const isPlaying = data.player?.trackState === 1 || data.player?.state === 'PLAYING';
+
+                if (title) {
+                    statusText.innerHTML = `<span style="font-size: 11px; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px;">Sonando ahora</span><span style="font-weight: 700;">${title}</span>${author ? '<br><span style="opacity: 0.85; font-weight: normal; font-size: 13px;">' + author + '</span>' : ''}`;
+                } else {
+                    statusText.innerText = 'En pausa / Sin canción';
+                }
+
+                // Cálculo dinámico del próximo intervalo:
+                let nextIntervalMs = 10000; // 10s por defecto
+
+                if (isPlaying && durationSeconds > 0) {
+                    const remainingSeconds = durationSeconds - videoProgress;
+                    if (remainingSeconds > 2) {
+                        nextIntervalMs = Math.max(Math.min((remainingSeconds + 1.5) * 1000, 12000), 4000);
+                    } else {
+                        nextIntervalMs = 3000;
+                    }
+                } else if (!isPlaying) {
+                    nextIntervalMs = 12000;
+                }
+
+                scheduleNextUpdate(nextIntervalMs);
+
+            } catch (err) {
+                statusText.innerText = 'Esperando a YTMDesktop...';
+                scheduleNextUpdate(10000);
+            }
+        }
+
+        // Arrancar la primera consulta
+        updateTrack();
+    </script>
+</body>
+
+</html>

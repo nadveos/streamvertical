@@ -26,6 +26,18 @@
       </div>
 
       <div class="form-group">
+        <label>Tipo de Invitación</label>
+        <div class="toggle-buttons">
+          <button type="button" class="btn-toggle active" id="btnGroup" onclick="setArtistType('group')">
+            👥 Grupo / Banda (Plural)
+          </button>
+          <button type="button" class="btn-toggle" id="btnSolo" onclick="setArtistType('solo')">
+            🧑‍🎤 Solista (Singular)
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label for="hostInput">Firma del Anfitrión</label>
         <input type="text" id="hostInput" value="GUTA FLORES" placeholder="Tu nombre">
       </div>
@@ -71,23 +83,55 @@
 
   <script src="script-overlay.js"></script>
   <script>
-    const defaultTemplate = `Hola [Nombre del artista], ¿cómo están?
+    const templateGroup = `Hola [Nombre del artista], ¿cómo están?.
+
+Soy Gustavo "Guta" Flores, cantor, guitarrero y conductor del programa de stream en tiktok @gutafloresok.
+
+Te escribo porque sigo de cerca su trabajo musical y me gustaría invitarte a ser parte de una entrevista especial que estamos produciendo sobre música y trayectoria. 
+
+La idea es tener una charla amena sobre sus inicios, el camino recorrido y compartir su experiencia con artistas emergentes que están buscando su propio espacio.
+
+La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieren en vivo (también de forma remota) en nuestro main stream de los domingos que arranca a las 15hs. y no tomaría más de 15 a 20 minutos. Luego, los fragmentos destacados se compartirán en nuestras redes (TikTok/Instagram/Facebook/Youtube) para darle visibilidad a su proyecto y conectar con nueva audiencia.
+
+Avisenme si les interesa la propuesta y coordinamos el día y horario que mejor les quede. ¡Sería un verdadero gusto contar con ustedes!`;
+
+    const templateSolo = `Hola [Nombre del artista], ¿cómo estás?.
+
+Soy Gustavo "Guta" Flores, cantor, guitarrero y conductor del programa de stream en tiktok @gutafloresok.
 
 Te escribo porque sigo de cerca tu trabajo musical y me gustaría invitarte a ser parte de una entrevista especial que estamos produciendo sobre música y trayectoria. 
 
 La idea es tener una charla amena sobre tus inicios, el camino recorrido y compartir tu experiencia con artistas emergentes que están buscando su propio espacio.
 
-La grabación la realizamos de forma remota (vía vdo.ninja) y no tomaría más de 15 a 20 minutos. Luego, los fragmentos destacados se compartirán en nuestras redes (TikTok/Instagram/Facebook/Youtube) para darle visibilidad a tu proyecto y conectar con nueva audiencia.
+La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieres en vivo (también de forma remota) en nuestro main stream de los domingos que arranca a las 15hs. y no tomaría más de 15 a 20 minutos. Luego, los fragmentos destacados se compartirán en nuestras redes (TikTok/Instagram/Facebook/Youtube) para darle visibilidad a tu proyecto y conectar con nueva audiencia.
 
 Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te quede. ¡Sería un verdadero gusto contar con vos!`;
+
+    let currentType = 'group';
 
     const bodyInput = document.getElementById('bodyInput');
     const artistInput = document.getElementById('artistInput');
     const hostInput = document.getElementById('hostInput');
     const invitationContent = document.getElementById('invitationContent');
     const displayHostName = document.getElementById('displayHostName');
+    const btnGroup = document.getElementById('btnGroup');
+    const btnSolo = document.getElementById('btnSolo');
 
-    bodyInput.value = defaultTemplate;
+    bodyInput.value = templateGroup;
+
+    function setArtistType(type) {
+      currentType = type;
+      if (type === 'group') {
+        btnGroup.classList.add('active');
+        btnSolo.classList.remove('active');
+        bodyInput.value = templateGroup;
+      } else {
+        btnSolo.classList.add('active');
+        btnGroup.classList.remove('active');
+        bodyInput.value = templateSolo;
+      }
+      renderCard();
+    }
 
     // Cargar valores iniciales guardados desde el panel si existen
     try {

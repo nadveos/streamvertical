@@ -9,10 +9,11 @@
     "role": ""
   },
   "guest": {
-    "enabled": false,
-    "name": "",
-    "role": "",
-    "bio": "",
+    "enabled": true,
+    "name": "GRUPO VIENTO ANDINO",
+    "role": "💬 INVITADO ESPECIAL",
+    "bio": "Música y folklore argentino en vivo. Entrevista y show especial.",
+    "events": "📅 20 AGO: La Trastienda | 25 AGO: Festival Cosquín",
     "socials": [
       {
         "icon": "",

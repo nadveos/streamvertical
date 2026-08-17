@@ -380,23 +380,33 @@
       user-select: none;
       touch-action: none;
       z-index: 10;
+      box-sizing: border-box;
     }
 
-    .flyer-photo-frame:active {
-      cursor: grabbing;
+    .flyer-photo-clip {
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      background: #111;
+      border: 2px solid #1A1A1A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
     }
 
     .flyer-photo-img {
       width: 100%;
       height: 100%;
-      border-radius: 14px;
       object-fit: cover;
-      background: #111;
-      border: 2px solid #1A1A1A;
+      object-position: center;
       transform: translate(var(--photo-x, 0px), var(--photo-y, 0px)) scale(var(--photo-scale, 1));
       transform-origin: center center;
       transition: transform 0.05s ease-out;
       pointer-events: none;
+      display: block;
     }
 
     /* Main Info Titles */

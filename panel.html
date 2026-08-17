@@ -75,6 +75,10 @@
       <label>Biografía / Descripción corta</label>
       <textarea id="guestBio" rows="2"></textarea>
     </div>
+    <div class="form-group">
+      <label>Próximos Eventos / Fechas del Invitado</label>
+      <input type="text" id="guestEvents" placeholder="Ej: 📅 20 AGO: La Trastienda | 25 AGO: Festival Cosquín">
+    </div>
 
     <label style="margin-bottom:8px; display:block;">Redes Sociales del Invitado</label>
     <div class="social-row">
@@ -271,6 +275,12 @@
       </div>
 
       <div style="display:flex; gap:6px; align-items:center;">
+        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/overlay-invitado-vertical.html</code>
+        <button type="button" onclick="copyUrl('http://localhost:3000/overlay-invitado-vertical.html')" style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+        <a href="http://localhost:3000/overlay-invitado-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+      </div>
+
+      <div style="display:flex; gap:6px; align-items:center;">
         <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/overlay-solo-vertical.html</code>
         <button type="button" onclick="copyUrl('http://localhost:3000/overlay-solo-vertical.html')" style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
         <a href="http://localhost:3000/overlay-solo-vertical.html" target="_blank" class="btn-goto">Ir →</a>
@@ -344,6 +354,7 @@
         document.getElementById('guestName').value = data.guest.name || '';
         document.getElementById('guestRole').value = data.guest.role || '';
         document.getElementById('guestBio').value = data.guest.bio || '';
+        document.getElementById('guestEvents').value = data.guest.events || '';
       }
 
       if (data.guest && data.guest.socials) {
@@ -407,6 +418,7 @@
           name: document.getElementById('guestName').value,
           role: document.getElementById('guestRole').value,
           bio: document.getElementById('guestBio').value,
+          events: document.getElementById('guestEvents').value,
           socials: [
             { icon: document.getElementById('socIcon0').value, platform: document.getElementById('socPlat0').value, handle: document.getElementById('socHand0').value },
             { icon: document.getElementById('socIcon1').value, platform: document.getElementById('socPlat1').value, handle: document.getElementById('socHand1').value },

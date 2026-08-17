@@ -35,6 +35,7 @@ const OVERLAY_CONFIGS = {
   'overlay_16x9_multimedia': { file: 'overlay-multimedia.html', width: 1920, height: 1080 },
   'overlay_16x9_invitado': { file: 'overlay-invitado.html', width: 1920, height: 1080 },
   'overlay_9x16_vertical': { file: 'overlay-vertical.html', width: 1080, height: 1920 },
+  'overlay_9x16_vertical_invitado': { file: 'overlay-invitado-vertical.html', width: 1080, height: 1920 },
   'overlay_9x16_vertical_solo': { file: 'overlay-solo-vertical.html', width: 1080, height: 1920 },
   'transition': { file: 'transition.html', width: 1920, height: 1080 },
   'transition_vertical': { file: 'transition-vertical.html', width: 1080, height: 1920 },

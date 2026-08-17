@@ -1,0 +1,343 @@
+/* Adaptaciones específicas para Overlay Vertical de Invitado con 2 Marcos 16:9 (1080x1920) */
+html,
+body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+}
+
+.main-border {
+  width: 1080px;
+  height: 1920px;
+  padding: 16px;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Desactivar la capa de animación de fondo global (se gestiona en archivo de fondo independiente) */
+.main-border::before {
+  display: none !important;
+}
+
+.main-inner {
+  background: transparent !important;
+}
+
+/* Header superior */
+.top-header {
+  display: none !important;
+}
+
+/* LAYOUT PRINCIPAL VERTICAL DE 2 CAMARAS 16:9 */
+.vertical-guest-layout {
+  position: absolute;
+  top: 40px;
+  left: 24px;
+  right: 24px;
+  bottom: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+/* 1. SECCIÓN INVITADO (DESTACADO PROTAGONISTA 16:9) */
+.guest-section-16x9 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Badge Flotante de Destacado / Protagonista */
+.guest-featured-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #FFD700, #E67E22);
+  color: #000;
+  font-size: 13px;
+  font-weight: 900;
+  padding: 4px 18px;
+  border-radius: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+/* Marco del Invitado: Horizontal 16:9 con brillo dorado y rojo */
+.guest-cam-box-16x9 {
+  width: 960px;
+  height: 540px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  border-radius: 20px;
+  background: transparent;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 215, 0, 0.25);
+}
+
+.guest-cam-box-16x9::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 8px;
+  background: linear-gradient(45deg, #FFD700, #8B0000, #C0392B, #FFD700, #1A1A1A);
+  background-size: 300% 300%;
+  animation: borderGlowGold 6s ease infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes borderGlowGold {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.guest-cam-box-16x9 .cam-window {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 14px;
+}
+
+/* Panel Ancho de Información / RRSS del Invitado */
+.guest-info-panel-wide {
+  width: 960px;
+  background: rgba(15, 15, 15, 0.88);
+  border: 2px solid #FFD700;
+  border-radius: 18px;
+  padding: 16px 20px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(255, 215, 0, 0.15);
+  backdrop-filter: blur(6px);
+  position: relative;
+}
+
+.info-header-wide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+  padding-bottom: 8px;
+}
+
+.info-header-wide .info-tag {
+  font-size: 13px;
+  font-weight: 800;
+  color: #FFD700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.info-header-wide .info-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.social-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+}
+
+.social-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 12px;
+  border-left: 4px solid #FFD700;
+}
+
+.social-icon {
+  font-size: 20px;
+}
+
+.social-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-platform {
+  font-size: 10px;
+  color: #AAA;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.social-handle {
+  font-size: 15px;
+  color: #FFF;
+  font-weight: 700;
+}
+
+.guest-bio-wide {
+  font-size: 14px;
+  color: #DDD;
+  line-height: 1.4;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px dashed rgba(255, 215, 0, 0.3);
+}
+
+.guest-events-banner {
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFD700;
+  background: linear-gradient(90deg, rgba(139, 0, 0, 0.5) 0%, rgba(192, 57, 43, 0.5) 50%, rgba(139, 0, 0, 0.5) 100%);
+  border: 1.5px solid #FFD700;
+  border-radius: 10px;
+  padding: 10px 14px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(255, 215, 0, 0.2);
+  letter-spacing: 1px;
+}
+
+/* 2. SECCIÓN ANFITRIÓN (HORIZONTAL 16:9) */
+.host-section-16x9 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.host-cam-box-16x9 {
+  width: 960px;
+  height: 540px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  border-radius: 20px;
+  background: transparent;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
+}
+
+.host-cam-box-16x9::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 8px;
+  background: linear-gradient(45deg, #8B0000, #1A1A1A, #C0392B, #1A1A1A);
+  background-size: 200% 200%;
+  animation: borderGlow 6s ease infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.host-cam-box-16x9 .cam-window {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 14px;
+}
+
+/* Etiqueta de Nombre Personalizada */
+.name-tag-custom {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #0d0d0d 0%, #2a0000 50%, #0d0d0d 100%);
+  border: 2.5px solid #C0392B;
+  border-radius: 14px;
+  padding: 5px 24px;
+  min-width: 240px;
+  text-align: center;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(192, 57, 43, 0.4);
+  z-index: 5;
+  white-space: nowrap;
+}
+
+.name-tag-custom-gold {
+  border-color: #FFD700;
+  background: linear-gradient(90deg, #0d0d0d 0%, #3a2500 50%, #0d0d0d 100%);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.name-tag-custom .role-title {
+  color: #E74C3C;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.name-tag-custom-gold .role-title {
+  color: #FFD700;
+}
+
+.name-tag-custom .user-name {
+  color: #FFFFFF;
+  font-size: 19px;
+  font-weight: 800;
+  margin-top: 2px;
+  letter-spacing: 1px;
+}
+
+/* Ticker inferior adaptado */
+.ticker-bar-vertical {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  height: 80px;
+  background: linear-gradient(90deg, #0d0d0d 0%, #1a0000 40%, #0d0d0d 100%);
+  border: 2.5px solid #C0392B;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 20;
+  box-shadow: 0 0 24px rgba(139, 0, 0, 0.6), inset 0 1px 0 rgba(255, 215, 0, 0.15);
+}
+
+.ticker-bar-vertical .ticker-label {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #8B0000, #C0392B);
+  color: #FFD700;
+  font-weight: 900;
+  font-size: 20px;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-right: 2px solid #FFD700;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.ticker-bar-vertical .ticker-content {
+  font-size: 24px;
+  font-weight: 600;
+}
