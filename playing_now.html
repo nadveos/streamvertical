@@ -60,21 +60,43 @@
         let isAuthenticating = false;
         let updateTimeoutId = null;
 
-        // Función para programar la siguiente consulta controlada
+        // ── Backoff exponencial para 429 ─────────────────────────────────────
+        let backoffMs = 0;          // 0 = sin backoff activo
+        const BACKOFF_MIN  = 30000; // 30s mínimo al recibir 429
+        const BACKOFF_MAX  = 300000; // 5 minutos máximo
+
+        // Intervalo base (sin canción activa). Más largo = menos peticiones en total
+        const POLL_IDLE_MS    = 20000; // 20s cuando está pausado
+        const POLL_PLAYING_MS = 15000; // 15s mínimo mientras suena
+        const POLL_NEAR_END   = 5000;  // 5s cuando quedan <8s de canción
+        const POLL_AUTH_RETRY = 8000;  // 8s al esperar token
+
+        // Programar siguiente consulta (respeta backoff activo)
         function scheduleNextUpdate(ms) {
             if (updateTimeoutId) clearTimeout(updateTimeoutId);
-            updateTimeoutId = setTimeout(updateTrack, ms);
+            // Si hay backoff activo por 429, usar el mayor de los dos
+            const delay = backoffMs > 0 ? Math.max(ms, backoffMs) : ms;
+            updateTimeoutId = setTimeout(updateTrack, delay);
         }
 
-        // Función de autenticación
+        // Pausar polling si la pestaña/source no es visible (OBS lo activa en ciertos modos)
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                // Página oculta: cancelar cualquier polling pendiente
+                if (updateTimeoutId) clearTimeout(updateTimeoutId);
+            } else {
+                // Volvió a ser visible: esperar un momento y reanudar
+                scheduleNextUpdate(2000);
+            }
+        });
+
+        // ── Autenticación ─────────────────────────────────────────────────────
         async function getAuthToken() {
             if (cachedToken) return cachedToken;
             if (isAuthenticating) return null;
-
             isAuthenticating = true;
 
             try {
-                // 1. Pedir código de autorización
                 const codeRes = await fetch('http://127.0.0.1:9863/api/v1/auth/requestcode', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -82,8 +104,7 @@
                 });
 
                 if (codeRes.status === 403) {
-                    statusText.innerText = 'En YTMDesktop: Ve a Ajustes -> Integraciones y activa "Companion Authorization"';
-                    console.error('YTMDesktop rechazó la conexión (403). Verifica los permisos en YTMDesktop -> Ajustes -> Integraciones.');
+                    statusText.innerText = 'En YTMDesktop: Ajustes → Integraciones → activa "Companion Authorization"';
                     isAuthenticating = false;
                     return null;
                 }
@@ -95,29 +116,25 @@
                     statusText.innerText = 'Acepta el permiso en la app YTMDesktop...';
                     const code = codeData.code;
 
-                    // 2. Reintentar canjear el código por Token (esperando a que el usuario presione "Aceptar" en YTMDesktop)
                     for (let i = 0; i < 20; i++) {
-                        await new Promise(resolve => setTimeout(resolve, 2500));
-
+                        await new Promise(resolve => setTimeout(resolve, 3000));
                         try {
                             const tokenRes = await fetch('http://127.0.0.1:9863/api/v1/auth/request', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ appId: APP_ID, code: code })
                             });
-
                             if (tokenRes.ok) {
                                 const tokenData = await tokenRes.json();
                                 if (tokenData && tokenData.token) {
                                     cachedToken = tokenData.token;
                                     localStorage.setItem('ytm_token', cachedToken);
+                                    backoffMs = 0; // reset backoff al autenticar
                                     isAuthenticating = false;
                                     return cachedToken;
                                 }
                             }
-                        } catch (e) {
-                            // Continuar esperando a que el usuario acepte
-                        }
+                        } catch (e) { /* continuar esperando */ }
                     }
                 }
             } catch (err) {
@@ -128,77 +145,93 @@
             return null;
         }
 
-        // Consulta del tema actual y cálculo dinámico de la siguiente petición
+        // ── Consulta del estado actual ────────────────────────────────────────
         async function updateTrack() {
+            // No hacer peticiones si la fuente está oculta
+            if (document.hidden) return;
+
             const token = await getAuthToken();
             if (!token) {
-                scheduleNextUpdate(6000);
+                scheduleNextUpdate(POLL_AUTH_RETRY);
                 return;
             }
 
             try {
                 const res = await fetch('http://127.0.0.1:9863/api/v1/state', {
-                    headers: {
-                        'Authorization': token
-                    }
+                    headers: { 'Authorization': token }
                 });
 
+                // Token expirado o revocado
                 if (res.status === 401 || res.status === 403) {
-                    // Token denegado o expirado: resetear para solicitar nuevo permiso
                     localStorage.removeItem('ytm_token');
                     cachedToken = null;
-                    statusText.innerText = 'Permiso no válido, reintentando...';
-                    scheduleNextUpdate(5000);
+                    statusText.innerText = 'Permiso vencido — reautorizando...';
+                    scheduleNextUpdate(POLL_AUTH_RETRY);
                     return;
                 }
 
+                // 429 — demasiadas peticiones: backoff exponencial
                 if (res.status === 429) {
-                    statusText.innerText = 'Límite de peticiones (429). Esperando 15s...';
-                    scheduleNextUpdate(15000);
+                    backoffMs = backoffMs > 0
+                        ? Math.min(backoffMs * 2, BACKOFF_MAX)  // duplicar backoff
+                        : BACKOFF_MIN;                           // primer 429 → 30s
+                    const backoffSec = Math.round(backoffMs / 1000);
+                    statusText.innerText = `⏳ Demasiadas peticiones (429). Esperando ${backoffSec}s...`;
+                    console.warn('[ytmdesktop] 429 recibido. Backoff:', backoffSec + 's');
+                    scheduleNextUpdate(backoffMs);
                     return;
                 }
+
+                // Éxito — resetear backoff
+                backoffMs = 0;
 
                 const data = await res.json();
 
                 // Extraer metadata del tema
-                const video = data.video || (data.player && data.player.video) || data.track;
-                const title = video?.title || video?.details?.title;
+                const video  = data.video || (data.player && data.player.video) || data.track;
+                const title  = video?.title  || video?.details?.title;
                 const author = video?.author || video?.details?.author || video?.artist;
 
                 const durationSeconds = video?.durationSeconds || video?.duration || 0;
-                const videoProgress = data.player?.videoProgress || data.player?.progress || 0;
-                const isPlaying = data.player?.trackState === 1 || data.player?.state === 'PLAYING';
+                const videoProgress   = data.player?.videoProgress || data.player?.progress || 0;
+                const isPlaying       = data.player?.trackState === 1 || data.player?.state === 'PLAYING';
 
                 if (title) {
-                    statusText.innerHTML = `<span style="font-size: 11px; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px;">Sonando ahora</span><span style="font-weight: 700;">${title}</span>${author ? '<br><span style="opacity: 0.85; font-weight: normal; font-size: 13px;">' + author + '</span>' : ''}`;
+                    statusText.innerHTML =
+                        `<span style="font-size:11px;opacity:.75;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:2px">Sonando ahora</span>` +
+                        `<span style="font-weight:700">${title}</span>` +
+                        (author ? `<br><span style="opacity:.85;font-weight:normal;font-size:13px">${author}</span>` : '');
                 } else {
                     statusText.innerText = 'En pausa / Sin canción';
                 }
 
-                // Cálculo dinámico del próximo intervalo:
-                let nextIntervalMs = 10000; // 10s por defecto
+                // ── Intervalo dinámico ─────────────────────────────────────
+                // Mínimo 15s para no saturar. Solo se acorta cerca del final de una canción.
+                let nextMs = isPlaying ? POLL_PLAYING_MS : POLL_IDLE_MS;
 
                 if (isPlaying && durationSeconds > 0) {
-                    const remainingSeconds = durationSeconds - videoProgress;
-                    if (remainingSeconds > 2) {
-                        nextIntervalMs = Math.max(Math.min((remainingSeconds + 1.5) * 1000, 12000), 4000);
+                    const remaining = durationSeconds - videoProgress;
+                    if (remaining < 8) {
+                        nextMs = POLL_NEAR_END;  // últimos 8s → detectar cambio rápido
                     } else {
-                        nextIntervalMs = 3000;
+                        // Esperar hasta cerca del final (máx 15s)
+                        nextMs = Math.min(remaining * 1000 * 0.7, POLL_PLAYING_MS);
+                        nextMs = Math.max(nextMs, POLL_PLAYING_MS);
                     }
-                } else if (!isPlaying) {
-                    nextIntervalMs = 12000;
                 }
 
-                scheduleNextUpdate(nextIntervalMs);
+                scheduleNextUpdate(nextMs);
 
             } catch (err) {
                 statusText.innerText = 'Esperando a YTMDesktop...';
-                scheduleNextUpdate(10000);
+                scheduleNextUpdate(POLL_IDLE_MS);
             }
         }
 
-        // Arrancar la primera consulta
-        updateTrack();
+        // Arrancar la primera consulta con un pequeño retraso
+        // (evita race condition si OBS carga varias fuentes a la vez)
+        const startDelay = Math.floor(Math.random() * 3000) + 1000; // 1-4s aleatorio
+        setTimeout(updateTrack, startDelay);
     </script>
 </body>
 
