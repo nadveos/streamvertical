@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Guta Flores — Overlay Dinámico 16:9 (Marcos 9:16 Escalonados)</title>
+  <link rel="stylesheet" href="overlay-frames-dinamico.css">
+</head>
+
+<body>
+
+  <div class="stage">
+
+    <!-- ══ HEADER SUPERIOR ══════════════════════════════════════════ -->
+    <div class="stage-header">
+
+      <!-- Branding del host -->
+      <div class="header-brand">
+        <div class="header-logo-circle">🎙️</div>
+        <div>
+          <div class="header-host-name" id="headerHostName">GUTA FLORES</div>
+          <div class="header-host-role" id="headerHostRole">🎙️ ANFITRIÓN / HOST</div>
+        </div>
+      </div>
+
+      <!-- Contador de participantes en escena -->
+      <div class="participant-count-wrapper" style="display:flex; align-items:center; gap:10px;">
+        <span class="header-participant-count">EN ESCENA:</span>
+        <span class="header-participant-count participant-count-number" id="participantCount">SOLO</span>
+      </div>
+
+      <!-- Badge de live -->
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        EN VIVO
+      </div>
+
+    </div>
+
+    <!-- ══ ESQUINAS DECORATIVAS ═══════════════════════════════════ -->
+    <div class="deco-corner deco-tl"></div>
+    <div class="deco-corner deco-tr"></div>
+    <div class="deco-corner deco-bl"></div>
+    <div class="deco-corner deco-br"></div>
+
+    <!-- ══ ÁREA DE FRAMES (PORTRAIT 9:16) ══════════════════════════ -->
+    <div class="frames-area">
+
+      <!-- data-layout = 1 / 2 / 3 / 4 — actualizado por el engine -->
+      <div class="frames-row" id="framesRow" data-layout="1">
+
+        <!-- ── Slot 0: HOST (siempre visible) ───────────────── -->
+        <div class="pframe pf-0" id="slot0">
+          <!-- Interior transparente — aquí aparece la cámara en OBS -->
+          <div class="cam-cutout" data-cutout></div>
+          <!-- Borde animado con degradé -->
+          <div class="frame-border-anim fb-host"></div>
+          <!-- Etiqueta de nombre -->
+          <div class="name-tag nt-host">
+            <div class="nt-role" id="slot0Role">🎙️ ANFITRIÓN / HOST</div>
+            <div class="nt-name" id="slot0Name">GUTA FLORES</div>
+          </div>
+        </div>
+
+        <!-- ── Slot 1: Co-Host o Invitado 1 ─────────────────── -->
+        <div class="pframe pf-1" id="slot1" style="display: none;">
+          <div class="cam-cutout" data-cutout></div>
+          <div class="frame-border-anim fb-guest1"></div>
+          <div class="name-tag nt-guest1">
+            <div class="nt-role" id="slot1Role">💬 INVITADO</div>
+            <div class="nt-name" id="slot1Name">INVITADO</div>
+          </div>
+        </div>
+
+        <!-- ── Slot 2: Invitado 2 ────────────────────────────── -->
+        <div class="pframe pf-2" id="slot2" style="display: none;">
+          <div class="cam-cutout" data-cutout></div>
+          <div class="frame-border-anim fb-guest2"></div>
+          <div class="name-tag nt-guest2">
+            <div class="nt-role" id="slot2Role">💬 INVITADO 2</div>
+            <div class="nt-name" id="slot2Name">INVITADO 2</div>
+          </div>
+        </div>
+
+        <!-- ── Slot 3: Invitado 3 ────────────────────────────── -->
+        <div class="pframe pf-3" id="slot3" style="display: none;">
+          <div class="cam-cutout" data-cutout></div>
+          <div class="frame-border-anim fb-guest3"></div>
+          <div class="name-tag nt-guest3">
+            <div class="nt-role" id="slot3Role">💬 INVITADO 3</div>
+            <div class="nt-name" id="slot3Name">INVITADO 3</div>
+          </div>
+        </div>
+
+      </div><!-- /frames-row -->
+    </div><!-- /frames-area -->
+
+
+    <!-- ══ MOTTO BANNER ═══════════════════════════════════════════ -->
+    <div class="motto-bar">
+      <span class="motto-p1" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+      <span class="motto-sep" data-bind="motto-connector">Y</span>
+      <span class="motto-p2" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+    </div>
+
+
+    <!-- ══ TICKER INFERIOR ════════════════════════════════════════ -->
+    <div class="ticker-bar">
+      <div class="ticker-label">
+        <span class="ticker-live-dot"></span>
+        ✨ DESTACADO
+      </div>
+      <div class="ticker-track">
+        <!-- data-bind="ticker-content" — script duplica el HTML para scroll infinito -->
+        <div class="ticker-content" data-bind="ticker-content">
+          🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
+          <span class="sep">◆</span>
+          🌟 ¡Bienvenidos al stream!
+          <span class="sep">◆</span>
+          📲 Seguinos en redes: <span class="highlight">@gutafloresok</span>
+          <span class="sep">◆</span>
+          🎶 Música, folklore y entretenimiento en vivo
+          <span class="sep">◆</span>
+          💬 ¡Dejá tu comentario y saludá!
+          <span class="sep">◆</span>
+          🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
+          <span class="sep">◆</span>
+          🌟 ¡Bienvenidos al stream!
+          <span class="sep">◆</span>
+          📲 Seguinos en redes: <span class="highlight">@gutafloresok</span>
+          <span class="sep">◆</span>
+          🎶 Música, folklore y entretenimiento en vivo
+          <span class="sep">◆</span>
+          💬 ¡Dejá tu comentario y saludá!
+          <span class="sep">◆</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /stage -->
+
+  <!-- ══ SCRIPTS ════════════════════════════════════════════════ -->
+  <script src="overlay-frames-dinamico-engine.js"></script>
+
+</body>
+
+</html>
