@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Panel de Control — Overlays Stream</title>
   <link rel="stylesheet" href="panel.css">
 </head>
+
 <body>
 
   <h1>🎛️ Panel de Control — Overlays</h1>
@@ -13,13 +15,16 @@
   <div class="card" style="border-color: #8B0000; background: linear-gradient(135deg, #1A0505 0%, #1E1E1E 100%);">
     <div class="card-title" style="color: #FFD700;">🚀 Herramientas de Difusión y Redes</div>
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 8px;">
-      <a href="flyers.html" style="background: linear-gradient(135deg, #8B0000, #C0392B); color: #FFD700; border: 1.5px solid #FFD700; padding: 12px 8px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);">
+      <a href="flyers.html"
+        style="background: linear-gradient(135deg, #8B0000, #C0392B); color: #FFD700; border: 1.5px solid #FFD700; padding: 12px 8px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);">
         🎨 Flyer Artistas
       </a>
-      <a href="flyer-promo.html" style="background: linear-gradient(135deg, #C0392B, #8B0000); color: #FFD700; border: 1.5px solid #FFD700; padding: 12px 8px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+      <a href="flyer-promo.html"
+        style="background: linear-gradient(135deg, #C0392B, #8B0000); color: #FFD700; border: 1.5px solid #FFD700; padding: 12px 8px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px;">
         📢 Flyer Promocional
       </a>
-      <a href="overlay-invitacion.html" style="background: linear-gradient(135deg, #1A1A1A, #333); color: #FFF; border: 1.5px solid #C0392B; padding: 12px 8px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+      <a href="overlay-invitacion.html"
+        style="background: linear-gradient(135deg, #1A1A1A, #333); color: #FFF; border: 1.5px solid #C0392B; padding: 12px 8px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px;">
         ✉️ Invitación Digital
       </a>
     </div>
@@ -40,8 +45,10 @@
   <div class="card">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
       <div class="card-title" style="margin-bottom:0;">🎙️ Co-Anfitrión (Co-Host)</div>
-      <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:700; color:#FFD700;">
-        <input type="checkbox" id="cohostEnabled" style="width:18px; height:18px; accent-color:#C0392B; cursor:pointer;">
+      <label
+        style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:700; color:#FFD700;">
+        <input type="checkbox" id="cohostEnabled"
+          style="width:18px; height:18px; accent-color:#C0392B; cursor:pointer;">
         <span>MOSTRAR CO-ANFITRIÓN EN OVERLAYS</span>
       </label>
     </div>
@@ -58,8 +65,10 @@
   <div class="card">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
       <div class="card-title" style="margin-bottom:0;">💬 Invitado Especial</div>
-      <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:700; color:#FFD700;">
-        <input type="checkbox" id="guestEnabled" checked style="width:18px; height:18px; accent-color:#C0392B; cursor:pointer;">
+      <label
+        style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:700; color:#FFD700;">
+        <input type="checkbox" id="guestEnabled" checked
+          style="width:18px; height:18px; accent-color:#C0392B; cursor:pointer;">
         <span>MOSTRAR INVITADO EN OVERLAYS</span>
       </label>
     </div>
@@ -96,471 +105,514 @@
       <input type="text" id="socPlat2" placeholder="Plataforma">
       <input type="text" id="socHand2" placeholder="Usuario / Handle">
     </div>
-  <div class="card" style="border-color: #8e44ad;">
-    <div class="card-title" style="color: #c084fc;">📱 Info Stream Solo Vertical (9:16 TikTok Live)</div>
-    <div class="form-group">
-      <label>Título / Etiqueta Sección Inferior</label>
-      <input type="text" id="soloDescLabel" placeholder="📢 Hoy en el stream">
-    </div>
-    <div class="form-group">
-      <label>Descripción / Bio del Stream Solo</label>
-      <textarea id="soloBio" rows="2" placeholder="¡Bienvenidos al stream en vivo! Música argentina, folklore y mucho más."></textarea>
-    </div>
-    <div class="form-group">
-      <label>Hashtags (separados por comas)</label>
-      <input type="text" id="soloTags" placeholder="#Folklore, #Musica, #GuitarreandoALaGorra, #EnVivo, #ArgentinaMusic">
-    </div>
-    <div class="form-group">
-      <label>Usuario / Handle de Redes del Anfitrión Solo</label>
-      <input type="text" id="soloHandle" placeholder="@gutafloresok">
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">📜 Lema / Frase Destacada (Motto Banner)</div>
-    <div class="form-group">
-      <label>Primera Frase (Destacada)</label>
-      <input type="text" id="mottoPhrase1" placeholder="🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS">
-    </div>
-    <div class="form-group">
-      <label>Conector</label>
-      <input type="text" id="mottoConnector" placeholder="Y" style="width: 80px;">
-    </div>
-    <div class="form-group">
-      <label>Segunda Frase</label>
-      <input type="text" id="mottoPhrase2" placeholder="GUITARREAMOS A LA GORRA 🪕">
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">✨ Ticker / Texto Destacado Animado</div>
-    <div class="form-group">
-      <label>Items del Ticker (Separados por línea: usar prefijo | texto)</label>
-      <textarea id="tickerText" rows="5" placeholder="🎙️ Conducción: | GUTA FLORES&#10;💬 Invitado: | VIENTO ANDINO"></textarea>
-    </div>
-  </div>
-
-  <div class="card" style="border-color: #FFD700;">
-    <div class="card-title" style="color: #FFD700;">📸 GENERADOR DE OVERLAYS ESTÁTICOS (PNG TRANSPARENTE)</div>
-
-    <div id="server-warning" style="display:none; background:#2a1000; border:1px solid #e67e22; border-radius:8px; padding:12px; margin-bottom:14px; font-size:13px; color:#f0a500; line-height:1.5;">
-      ⚠️ <strong>Servidor no detectado.</strong> Para usar este panel con captura, abrí una terminal en la carpeta del proyecto y ejecutá:<br>
-      <code style="background:#111; padding:4px 10px; border-radius:4px; display:inline-block; margin-top:6px; color:#FFD700;">node server.js</code><br>
-      Luego abrí <strong>http://localhost:3000/panel.html</strong> en tu navegador.
+    <div class="card" style="border-color: #8e44ad;">
+      <div class="card-title" style="color: #c084fc;">📱 Info Stream Solo Vertical (9:16 TikTok Live)</div>
+      <div class="form-group">
+        <label>Título / Etiqueta Sección Inferior</label>
+        <input type="text" id="soloDescLabel" placeholder="📢 Hoy en el stream">
+      </div>
+      <div class="form-group">
+        <label>Descripción / Bio del Stream Solo</label>
+        <textarea id="soloBio" rows="2"
+          placeholder="¡Bienvenidos al stream en vivo! Música argentina, folklore y mucho más."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Hashtags (separados por comas)</label>
+        <input type="text" id="soloTags"
+          placeholder="#Folklore, #Musica, #GuitarreandoALaGorra, #EnVivo, #ArgentinaMusic">
+      </div>
+      <div class="form-group">
+        <label>Usuario / Handle de Redes del Anfitrión Solo</label>
+        <input type="text" id="soloHandle" placeholder="@gutafloresok">
+      </div>
     </div>
 
-    <p style="font-size: 13px; color: #CCC; margin-bottom: 14px; line-height: 1.4;">
-      Genera capturas en formato <strong>PNG con fondo 100% transparente</strong> — ideal para TikTok Live Studio. Los marcos de las cámaras quedan vacíos para posicionarlas detrás.
-    </p>
-
-    <!-- ── Capturas PNG ── -->
-    <p style="font-size:11px; color:#888; margin-bottom:8px; font-weight:700; letter-spacing:1px;">📷 CAPTURAS PNG</p>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
-      <button type="button" onclick="captureOverlay('overlay_16x9_principal')" style="background: #27ae60; font-size: 13px; padding: 10px;">
-        📷 16:9 Principal
-      </button>
-      <button type="button" onclick="captureOverlay('overlay_16x9_solo')" style="background: #27ae60; font-size: 13px; padding: 10px;">
-        📷 16:9 Solo
-      </button>
-      <button type="button" onclick="captureOverlay('overlay_16x9_multimedia')" style="background: #27ae60; font-size: 13px; padding: 10px;">
-        📷 16:9 Multimedia
-      </button>
-      <button type="button" onclick="captureOverlay('overlay_16x9_invitado')" style="background: #27ae60; font-size: 13px; padding: 10px;">
-        📷 16:9 Invitado
-      </button>
-      <button type="button" onclick="captureOverlay('overlay_9x16_vertical')" style="background: #8e44ad; font-size: 13px; padding: 10px;">
-        📱 9:16 Vertical
-      </button>
-      <button type="button" onclick="captureOverlay('overlay_9x16_vertical_solo')" style="background: #8e44ad; font-size: 13px; padding: 10px;">
-        📱 9:16 Vertical Solo
-      </button>
-      <button type="button" onclick="captureOverlay('transition')" style="background: #2980b9; font-size: 13px; padding: 10px;">
-        ⚡ PNG — Transición 16:9
-      </button>
-      <button type="button" onclick="captureOverlay('transition_vertical')" style="background: #5b3fa0; font-size: 13px; padding: 10px;">
-        ⚡ PNG — Transición 9:16
-      </button>
-      <button type="button" onclick="captureOverlay('pronto_empezamos')" style="background: #d35400; font-size: 13px; padding: 10px;">
-        📷 Pronto Empezamos
-      </button>
-      <button type="button" onclick="captureOverlay('offline')" style="background: #555; font-size: 13px; padding: 10px;">
-        📷 Offline
-      </button>
-      <button type="button" onclick="captureOverlay('likes_animation')" style="background: #f43f5e; font-size: 13px; padding: 10px;">
-        💖 Likes Animation
-      </button>
+    <div class="card">
+      <div class="card-title">📜 Lema / Frase Destacada (Motto Banner)</div>
+      <div class="form-group">
+        <label>Primera Frase (Destacada)</label>
+        <input type="text" id="mottoPhrase1" placeholder="🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS">
+      </div>
+      <div class="form-group">
+        <label>Conector</label>
+        <input type="text" id="mottoConnector" placeholder="Y" style="width: 80px;">
+      </div>
+      <div class="form-group">
+        <label>Segunda Frase</label>
+        <input type="text" id="mottoPhrase2" placeholder="GUITARREAMOS A LA GORRA 🪕">
+      </div>
     </div>
 
-    <!-- ── Grabaciones WebM VP8/VP9 ── -->
-    <p style="font-size:11px; color:#e67e22; margin-bottom:8px; font-weight:700; letter-spacing:1px;">🎥 GRABACIONES WebM VP8/VP9 (ANIMADAS)</p>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
-      <button type="button" onclick="recordWebmVideo('pronto_empezamos', 6000)" style="background: #e67e22; font-size: 13px; padding: 12px; font-weight: 800;">
-        🎥 WebM — Pronto Empezamos 16:9 (6s)
-      </button>
-      <button type="button" onclick="recordWebmVideo('pronto_empezamos_9x16', 6000)" style="background: #d35400; font-size: 13px; padding: 12px; font-weight: 800;">
-        🎥 WebM — Pronto Empezamos 9:16 (6s)
-      </button>
-      <button type="button" onclick="recordWebmVideo('transition', 3000)" style="background: #2980b9; font-size: 13px; padding: 12px; font-weight: 800;">
-        🎥 WebM — Transición 16:9 (3s)
-      </button>
-      <button type="button" onclick="recordWebmVideo('transition_vertical', 3000)" style="background: #5b3fa0; font-size: 13px; padding: 12px; font-weight: 800;">
-        🎥 WebM — Transición 9:16 (3s)
-      </button>
-      <button type="button" onclick="recordWebmVideo('animation_9x16', 4000)" style="background: #f43f5e; font-size: 13px; padding: 12px; font-weight: 800;">
-        🎥 WebM — Animación Tap 9:16 (4s)
-      </button>
-      <button type="button" onclick="recordWebmVideo('animation_1_9x16', 5000)" style="background: #be185d; font-size: 13px; padding: 12px; font-weight: 800; box-shadow: 0 4px 15px rgba(190, 24, 93, 0.5);">
-        🎥 WebM — Animación 1 (3D + Corazones) 9:16 (5s) ⭐ HQ
-      </button>
-      <button type="button" onclick="recordWebmVideo('likes_animation', 4000)" style="background: #f43f5e; font-size: 13px; padding: 12px; font-weight: 800; box-shadow: 0 4px 15px rgba(244, 63, 94, 0.5);">
-        🎥 WebM — Animación Likes Tap (4s)
-      </button>
-      <button type="button" onclick="recordWebmVideo('overlay_9x16_vertical_solo', 5000)" style="background: #8e44ad; font-size: 13px; padding: 12px; font-weight: 800;">
-        🎥 WebM — 9:16 Vertical Solo (5s)
-      </button>
-      <button type="button" onclick="recordWebmVideo('overlay_9x16_vertical', 5000)" style="background: #8e44ad; font-size: 13px; padding: 12px; font-weight: 800;">
-        🎥 WebM — 9:16 Vertical (5s)
-      </button>
-      <button type="button" onclick="recordWebmVideo('overlay_16x9_principal', 5000)" style="background: #27ae60; font-size: 13px; padding: 12px; font-weight: 800;">
-        🎥 WebM — 16:9 Principal (5s)
-      </button>
-      <button type="button" onclick="recordWebmVideo('overlay_16x9_solo', 5000)" style="background: #27ae60; font-size: 13px; padding: 12px; font-weight: 800;">
-        🎥 WebM — 16:9 Solo (5s)
-      </button>
-      <button type="button" onclick="recordWebmVideo('overlay_16x9_multimedia', 5000)" style="background: #27ae60; font-size: 13px; padding: 12px; font-weight: 800;">
-        🎥 WebM — 16:9 Multimedia (5s)
-      </button>
-      <button type="button" onclick="recordWebmVideo('overlay_16x9_invitado', 5000)" style="background: #27ae60; grid-column: span 2; font-size: 13px; padding: 12px; font-weight: 800;">
-        🎥 WebM — 16:9 Invitado (5s)
-      </button>
+    <div class="card">
+      <div class="card-title">✨ Ticker / Texto Destacado Animado</div>
+      <div class="form-group">
+        <label>Items del Ticker (Separados por línea: usar prefijo | texto)</label>
+        <textarea id="tickerText" rows="5"
+          placeholder="🎙️ Conducción: | GUTA FLORES&#10;💬 Invitado: | VIENTO ANDINO"></textarea>
+      </div>
     </div>
-    <p style="font-size:11px; color:#666; text-align:center;">Los archivos se guardan en <code>render/</code> y se descargan automáticamente.</p>
-  </div>
 
-  <div class="card" style="border-color: #2980b9;">
-    <div class="card-title" style="color:#2980b9;">📡 URLs PARA OBS / TIKTOK BROWSER SOURCE</div>
-    <p style="font-size: 12px; color: #AAA; margin-bottom: 10px; line-height:1.5;">
-      Copiá estas URLs en el Browser Source de OBS o TikTok Live Studio para que los overlays reciban los datos del panel en tiempo real.
-    </p>
-    <div style="display:flex; flex-direction:column; gap:6px;" id="obs-urls">
+    <div class="card" style="border-color: #f39c12;">
+      <div class="card-title" style="color: #f39c12;">💬 Múltiples Invitados (Overlays de 2 y 3 Invitados)</div>
 
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px; overflow:hidden; text-overflow:ellipsis;">http://localhost:3000/overlay.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/overlay.html')" style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/overlay.html" target="_blank" class="btn-goto">Ir →</a>
+      <!-- Invitado 1 -->
+      <div
+        style="background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.3); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+        <div style="color: #FFD700; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 1</div>
+        <div class="form-group" style="margin-bottom: 6px;">
+          <label style="font-size: 11px;">Nombre Invitado 1</label>
+          <input type="text" id="guest1Name" placeholder="Ej: Invitado 1">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label style="font-size: 11px;">Rol / Etiqueta Invitado 1</label>
+          <input type="text" id="guest1Role" placeholder="💬 INVITADO 1">
+        </div>
       </div>
 
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/overlay-solo.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/overlay-solo.html')" style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/overlay-solo.html" target="_blank" class="btn-goto">Ir →</a>
+      <!-- Invitado 2 -->
+      <div
+        style="background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.3); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+        <div style="color: #00F2FE; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 2</div>
+        <div class="form-group" style="margin-bottom: 6px;">
+          <label style="font-size: 11px;">Nombre Invitado 2</label>
+          <input type="text" id="guest2Name" placeholder="Ej: Invitado 2">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label style="font-size: 11px;">Rol / Etiqueta Invitado 2</label>
+          <input type="text" id="guest2Role" placeholder="💬 INVITADO 2">
+        </div>
       </div>
 
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/overlay-multimedia.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/overlay-multimedia.html')" style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/overlay-multimedia.html" target="_blank" class="btn-goto">Ir →</a>
+      <!-- Invitado 3 -->
+      <div
+        style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.3); padding: 10px; border-radius: 8px;">
+        <div style="color: #a855f7; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 3</div>
+        <div class="form-group" style="margin-bottom: 6px;">
+          <label style="font-size: 11px;">Nombre Invitado 3</label>
+          <input type="text" id="guest3Name" placeholder="Ej: Invitado 3">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label style="font-size: 11px;">Rol / Etiqueta Invitado 3</label>
+          <input type="text" id="guest3Role" placeholder="💬 INVITADO 3">
+        </div>
       </div>
-
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/overlay-invitado.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/overlay-invitado.html')" style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/overlay-invitado.html" target="_blank" class="btn-goto">Ir →</a>
-      </div>
-
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/overlay-vertical.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/overlay-vertical.html')" style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/overlay-vertical.html" target="_blank" class="btn-goto">Ir →</a>
-      </div>
-
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/overlay-invitado-vertical.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/overlay-invitado-vertical.html')" style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/overlay-invitado-vertical.html" target="_blank" class="btn-goto">Ir →</a>
-      </div>
-
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/overlay-solo-vertical.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/overlay-solo-vertical.html')" style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/overlay-solo-vertical.html" target="_blank" class="btn-goto">Ir →</a>
-      </div>
-
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/transition.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/transition.html')" style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/transition.html" target="_blank" class="btn-goto">Ir →</a>
-      </div>
-
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/transition-vertical.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/transition-vertical.html')" style="background:#5b3fa0; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/transition-vertical.html" target="_blank" class="btn-goto">Ir →</a>
-      </div>
-
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/pronto-empezamos.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/pronto-empezamos.html')" style="background:#d35400; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/pronto-empezamos.html" target="_blank" class="btn-goto">Ir →</a>
-      </div>
-
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/offline.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/offline.html')" style="background:#d35400; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/offline.html" target="_blank" class="btn-goto">Ir →</a>
-      </div>
-
-      <div style="display:flex; gap:6px; align-items:center;">
-        <code style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://localhost:3000/frames/animations/likes.html</code>
-        <button type="button" onclick="copyUrl('http://localhost:3000/frames/animations/likes.html')" style="background:#f43f5e; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-        <a href="http://localhost:3000/frames/animations/likes.html" target="_blank" class="btn-goto">Ir →</a>
-      </div>
-
     </div>
-  </div>
 
-  <button onclick="saveData()">💾 Guardar Datos del Stream</button>
-  <div id="toast" class="toast">¡JSON descargado! Reemplazá stream-data.json en la carpeta.</div>
+    <div class="card" style="border-color: #2980b9;">
+      <div class="card-title" style="color:#2980b9;">📡 URLs PARA OBS / TIKTOK BROWSER SOURCE</div>
+      <p style="font-size: 12px; color: #AAA; margin-bottom: 10px; line-height:1.5;">
+        Copiá estas URLs en el Browser Source de OBS o TikTok Live Studio para que los overlays reciban los datos del
+        panel en tiempo real.
+      </p>
+      <div style="display:flex; flex-direction:column; gap:6px;" id="obs-urls">
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/overlay.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay.html')"
+            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/overlay.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-solo.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-solo.html')"
+            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/overlay-solo.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-multimedia.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-multimedia.html')"
+            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/overlay-multimedia.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-invitado.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-invitado.html')"
+            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/overlay-invitado.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/overlay-2invitados.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/overlay-2invitados.html')"
+            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/frames/overlay-2invitados.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/overlay-3invitados.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/overlay-3invitados.html')"
+            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/frames/overlay-3invitados.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html</code>
+          <button type="button"
+            onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html')"
+            style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html" target="_blank"
+            class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html</code>
+          <button type="button"
+            onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html')"
+            style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html" target="_blank"
+            class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-vertical.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-vertical.html')"
+            style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/overlay-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-invitado-vertical.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-invitado-vertical.html')"
+            style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/overlay-invitado-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-solo-vertical.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-solo-vertical.html')"
+            style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/overlay-solo-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/transition.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/transition.html')"
+            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/transition.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/transition-vertical.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/transition-vertical.html')"
+            style="background:#5b3fa0; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/transition-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/pronto-empezamos.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/pronto-empezamos.html')"
+            style="background:#d35400; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/pronto-empezamos.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/offline.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/offline.html')"
+            style="background:#d35400; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/offline.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+        <div style="display:flex; gap:6px; align-items:center;">
+          <code
+            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/animations/likes.html</code>
+          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/animations/likes.html')"
+            style="background:#f43f5e; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
+          <a href="http://127.0.0.1:8000/frames/animations/likes.html" target="_blank" class="btn-goto">Ir →</a>
+        </div>
+
+      </div>
+    </div>
+
+    <button onclick="saveData()">💾 Guardar Datos del Stream</button>
+    <div id="toast" class="toast">¡JSON descargado! Reemplazá stream-data.json en la carpeta.</div>
 
 
-  <script>
-    async function loadData() {
-      let data = null;
-      const localDataStr = localStorage.getItem('streamData');
-      if (localDataStr) {
-        try { data = JSON.parse(localDataStr); } catch (e) {}
+    <script>
+      async function loadData() {
+        let data = null;
+        const localDataStr = localStorage.getItem('streamData');
+        if (localDataStr) {
+          try { data = JSON.parse(localDataStr); } catch (e) { }
+        }
+
+        if (!data) {
+          try {
+            const res = await fetch('stream-data.json?t=' + Date.now());
+            if (res.ok) data = await res.json();
+          } catch (e) { }
+        }
+
+        if (!data) return;
+
+        document.getElementById('hostName').value = data.host ? data.host.name || '' : '';
+        document.getElementById('hostRole').value = data.host ? data.host.role || '' : '';
+
+        if (data.cohost) {
+          document.getElementById('cohostEnabled').checked = data.cohost.enabled === true;
+          document.getElementById('cohostName').value = data.cohost.name || '';
+          document.getElementById('cohostRole').value = data.cohost.role || '';
+        }
+
+        if (data.guest) {
+          document.getElementById('guestEnabled').checked = data.guest.enabled !== false;
+          document.getElementById('guestName').value = data.guest.name || '';
+          document.getElementById('guestRole').value = data.guest.role || '';
+          document.getElementById('guestBio').value = data.guest.bio || '';
+          document.getElementById('guestEvents').value = data.guest.events || '';
+        }
+
+        if (data.guest1) {
+          document.getElementById('guest1Name').value = data.guest1.name || '';
+          document.getElementById('guest1Role').value = data.guest1.role || '';
+        }
+
+        if (data.guest2) {
+          document.getElementById('guest2Name').value = data.guest2.name || '';
+          document.getElementById('guest2Role').value = data.guest2.role || '';
+        }
+
+        if (data.guest3) {
+          document.getElementById('guest3Name').value = data.guest3.name || '';
+          document.getElementById('guest3Role').value = data.guest3.role || '';
+        }
+
+        if (data.guest && data.guest.socials) {
+          data.guest.socials.forEach((s, idx) => {
+            if (idx < 3) {
+              document.getElementById(`socIcon${idx}`).value = s.icon || '';
+              document.getElementById(`socPlat${idx}`).value = s.platform || '';
+              document.getElementById(`socHand${idx}`).value = s.handle || '';
+            }
+          });
+        }
+
+        if (data.solo) {
+          document.getElementById('soloDescLabel').value = data.solo.descLabel || '';
+          document.getElementById('soloBio').value = data.solo.bio || '';
+          document.getElementById('soloTags').value = data.solo.tags || '';
+          document.getElementById('soloHandle').value = data.solo.handle || '';
+        }
+
+        if (data.motto) {
+          document.getElementById('mottoPhrase1').value = data.motto.phrase1 || '';
+          document.getElementById('mottoConnector').value = data.motto.connector || '';
+          document.getElementById('mottoPhrase2').value = data.motto.phrase2 || '';
+        }
+
+        if (data.ticker) {
+          document.getElementById('tickerText').value = data.ticker.map(t => t.prefix ? `${t.prefix} | ${t.text}` : t.text).join('\n');
+        }
       }
 
-      if (!data) {
-        try {
-          const res = await fetch('stream-data.json?t=' + Date.now());
-          if (res.ok) data = await res.json();
-        } catch (e) {}
-      }
-
-      if (!data) return;
-
-      document.getElementById('hostName').value = data.host ? data.host.name || '' : '';
-      document.getElementById('hostRole').value = data.host ? data.host.role || '' : '';
-
-      if (data.cohost) {
-        document.getElementById('cohostEnabled').checked = data.cohost.enabled === true;
-        document.getElementById('cohostName').value = data.cohost.name || '';
-        document.getElementById('cohostRole').value = data.cohost.role || '';
-      }
-
-      if (data.guest) {
-        document.getElementById('guestEnabled').checked = data.guest.enabled !== false;
-        document.getElementById('guestName').value = data.guest.name || '';
-        document.getElementById('guestRole').value = data.guest.role || '';
-        document.getElementById('guestBio').value = data.guest.bio || '';
-        document.getElementById('guestEvents').value = data.guest.events || '';
-      }
-
-      if (data.guest && data.guest.socials) {
-        data.guest.socials.forEach((s, idx) => {
-          if (idx < 3) {
-            document.getElementById(`socIcon${idx}`).value = s.icon || '';
-            document.getElementById(`socPlat${idx}`).value = s.platform || '';
-            document.getElementById(`socHand${idx}`).value = s.handle || '';
+      async function saveData() {
+        const tickerLines = document.getElementById('tickerText').value.split('\n').filter(l => l.trim() !== '');
+        const tickerObj = tickerLines.map(l => {
+          const idx = l.indexOf('|');
+          if (idx !== -1) {
+            return {
+              prefix: l.substring(0, idx).trim(),
+              text: l.substring(idx + 1).trim(),
+              highlight: true
+            };
           }
-        });
-      }
-
-      if (data.solo) {
-        document.getElementById('soloDescLabel').value = data.solo.descLabel || '';
-        document.getElementById('soloBio').value = data.solo.bio || '';
-        document.getElementById('soloTags').value = data.solo.tags || '';
-        document.getElementById('soloHandle').value = data.solo.handle || '';
-      }
-
-      if (data.motto) {
-        document.getElementById('mottoPhrase1').value = data.motto.phrase1 || '';
-        document.getElementById('mottoConnector').value = data.motto.connector || '';
-        document.getElementById('mottoPhrase2').value = data.motto.phrase2 || '';
-      }
-
-      if (data.ticker) {
-        document.getElementById('tickerText').value = data.ticker.map(t => t.prefix ? `${t.prefix} | ${t.text}` : t.text).join('\n');
-      }
-    }
-
-    async function saveData() {
-      const tickerLines = document.getElementById('tickerText').value.split('\n').filter(l => l.trim() !== '');
-      const tickerObj = tickerLines.map(l => {
-        const idx = l.indexOf('|');
-        if (idx !== -1) {
           return {
-            prefix: l.substring(0, idx).trim(),
-            text: l.substring(idx + 1).trim(),
+            prefix: '',
+            text: l.trim(),
             highlight: true
           };
-        }
-        return {
-          prefix: '',
-          text: l.trim(),
-          highlight: true
-        };
-      });
-
-      const updated = {
-        host: {
-          name: document.getElementById('hostName').value,
-          role: document.getElementById('hostRole').value
-        },
-        cohost: {
-          enabled: document.getElementById('cohostEnabled').checked,
-          name: document.getElementById('cohostName').value,
-          role: document.getElementById('cohostRole').value
-        },
-        guest: {
-          enabled: document.getElementById('guestEnabled').checked,
-          name: document.getElementById('guestName').value,
-          role: document.getElementById('guestRole').value,
-          bio: document.getElementById('guestBio').value,
-          events: document.getElementById('guestEvents').value,
-          socials: [
-            { icon: document.getElementById('socIcon0').value, platform: document.getElementById('socPlat0').value, handle: document.getElementById('socHand0').value },
-            { icon: document.getElementById('socIcon1').value, platform: document.getElementById('socPlat1').value, handle: document.getElementById('socHand1').value },
-            { icon: document.getElementById('socIcon2').value, platform: document.getElementById('socPlat2').value, handle: document.getElementById('socHand2').value }
-          ]
-        },
-        solo: {
-          descLabel: document.getElementById('soloDescLabel').value,
-          bio: document.getElementById('soloBio').value,
-          tags: document.getElementById('soloTags').value,
-          handle: document.getElementById('soloHandle').value
-        },
-        motto: {
-          phrase1: document.getElementById('mottoPhrase1').value,
-          connector: document.getElementById('mottoConnector').value,
-          phrase2: document.getElementById('mottoPhrase2').value
-        },
-        ticker: tickerObj
-      };
-
-      // 1. Guardar en localStorage (sincroniza al instante con overlays abiertos en el mismo origen)
-      localStorage.setItem('streamData', JSON.stringify(updated));
-
-      // 2. Guardar en stream-data.json via servidor (para overlays que cargan por fetch)
-      try {
-        await fetch('/api/save-data', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(updated)
         });
-      } catch (e) {
-        // Si no hay servidor corriendo, solo queda el localStorage
-      }
 
-      const toast = document.getElementById('toast');
-      toast.style.display = 'block';
-      toast.style.background = '#27ae60';
-      toast.textContent = '⚡ ¡Datos guardados! Overlays actualizados.';
-      setTimeout(() => toast.style.display = 'none', 3000);
-    }
+        const updated = {
+          host: {
+            name: document.getElementById('hostName').value,
+            role: document.getElementById('hostRole').value
+          },
+          cohost: {
+            enabled: document.getElementById('cohostEnabled').checked,
+            name: document.getElementById('cohostName').value,
+            role: document.getElementById('cohostRole').value
+          },
+          guest: {
+            enabled: document.getElementById('guestEnabled').checked,
+            name: document.getElementById('guestName').value,
+            role: document.getElementById('guestRole').value,
+            bio: document.getElementById('guestBio').value,
+            events: document.getElementById('guestEvents').value,
+            socials: [
+              { icon: document.getElementById('socIcon0').value, platform: document.getElementById('socPlat0').value, handle: document.getElementById('socHand0').value },
+              { icon: document.getElementById('socIcon1').value, platform: document.getElementById('socPlat1').value, handle: document.getElementById('socHand1').value },
+              { icon: document.getElementById('socIcon2').value, platform: document.getElementById('socPlat2').value, handle: document.getElementById('socHand2').value }
+            ]
+          },
+          guest1: {
+            enabled: true,
+            name: document.getElementById('guest1Name').value,
+            role: document.getElementById('guest1Role').value
+          },
+          guest2: {
+            enabled: true,
+            name: document.getElementById('guest2Name').value,
+            role: document.getElementById('guest2Role').value
+          },
+          guest3: {
+            enabled: true,
+            name: document.getElementById('guest3Name').value,
+            role: document.getElementById('guest3Role').value
+          },
+          solo: {
+            descLabel: document.getElementById('soloDescLabel').value,
+            bio: document.getElementById('soloBio').value,
+            tags: document.getElementById('soloTags').value,
+            handle: document.getElementById('soloHandle').value
+          },
+          motto: {
+            phrase1: document.getElementById('mottoPhrase1').value,
+            connector: document.getElementById('mottoConnector').value,
+            phrase2: document.getElementById('mottoPhrase2').value
+          },
+          ticker: tickerObj
+        };
 
-    function copyUrl(url) {
-      navigator.clipboard.writeText(url).then(() => {
+        // 1. Guardar en localStorage (sincroniza al instante con overlays abiertos en el mismo origen)
+        localStorage.setItem('streamData', JSON.stringify(updated));
+
+        // 2. Guardar en stream-data.json via servidor (para overlays que cargan por fetch)
+        try {
+          await fetch('/api/save-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updated)
+          });
+        } catch (e) {
+          // Si no hay servidor corriendo, solo queda el localStorage
+        }
+
         const toast = document.getElementById('toast');
         toast.style.display = 'block';
-        toast.style.background = '#2980b9';
-        toast.textContent = '📋 URL copiada: ' + url;
-        setTimeout(() => { toast.style.display = 'none'; toast.style.background = '#27ae60'; }, 2500);
-      });
-    }
-
-    async function captureOverlay(overlayKey) {
-      const toast = document.getElementById('toast');
-      toast.style.display = 'block';
-      toast.style.background = '#e67e22';
-      toast.textContent = '⏳ Generando imagen PNG... puede tardar unos segundos...';
-
-      try {
-        // Llama al servidor local que ejecuta Playwright y devuelve el PNG
-        const response = await fetch(`/api/capture?overlay=${overlayKey}`);
-
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({ error: 'Error desconocido' }));
-          throw new Error(errorData.error || `HTTP ${response.status}`);
-        }
-
-        // Descargar el PNG recibido
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = overlayKey + '.png';
-        link.click();
-        URL.revokeObjectURL(url);
-
         toast.style.background = '#27ae60';
-        toast.textContent = '✅ ¡Imagen PNG descargada y guardada en render/!';
-        setTimeout(() => {
-          toast.style.display = 'none';
-          toast.style.background = '#27ae60';
-        }, 4000);
-
-      } catch (err) {
-        console.error('Error al capturar overlay:', err);
-        toast.style.background = '#c0392b';
-        toast.textContent = '❌ Error: ' + err.message + '. ¿Está corriendo node server.js?';
-        document.getElementById('server-warning').style.display = 'block';
+        toast.textContent = '⚡ ¡Datos guardados! Overlays actualizados.';
+        setTimeout(() => toast.style.display = 'none', 3000);
       }
-    }
 
-    async function recordWebmVideo(overlayKey, durationMs = 6000) {
-      const toast = document.getElementById('toast');
-      toast.style.display = 'block';
-      toast.style.background = '#e67e22';
-      toast.textContent = `🎥 Grabando video WebM (VP8/VP9) durante ${durationMs / 1000}s... Por favor esperá...`;
+      function copyUrl(url) {
+        navigator.clipboard.writeText(url).then(() => {
+          const toast = document.getElementById('toast');
+          toast.style.display = 'block';
+          toast.style.background = '#2980b9';
+          toast.textContent = '📋 URL copiada: ' + url;
+          setTimeout(() => { toast.style.display = 'none'; toast.style.background = '#27ae60'; }, 2500);
+        });
+      }
 
-      try {
-        const response = await fetch(`/api/record-video?overlay=${overlayKey}&duration=${durationMs}`);
+      async function captureOverlay(overlayKey) {
+        const toast = document.getElementById('toast');
+        toast.style.display = 'block';
+        toast.style.background = '#e67e22';
+        toast.textContent = '⏳ Generando imagen PNG... puede tardar unos segundos...';
 
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({ error: 'Error al grabar video' }));
-          throw new Error(errorData.error || `HTTP ${response.status}`);
+        try {
+          // Llama al servidor local que ejecuta Playwright y devuelve el PNG
+          const response = await fetch(`/api/capture?overlay=${overlayKey}`);
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({ error: 'Error desconocido' }));
+            throw new Error(errorData.error || `HTTP ${response.status}`);
+          }
+
+          // Descargar el PNG recibido
+          const blob = await response.blob();
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = overlayKey + '.png';
+          link.click();
+          URL.revokeObjectURL(url);
+
+          toast.style.background = '#27ae60';
+          toast.textContent = '✅ ¡Imagen PNG descargada y guardada en render/!';
+          setTimeout(() => {
+            toast.style.display = 'none';
+            toast.style.background = '#27ae60';
+          }, 4000);
+
+        } catch (err) {
+          console.error('Error al capturar overlay:', err);
+          toast.style.background = '#c0392b';
+          toast.textContent = '❌ Error: ' + err.message + '. ¿Está corriendo node server.js?';
+          document.getElementById('server-warning').style.display = 'block';
         }
+      }
 
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `${overlayKey}_video.webm`;
-        link.click();
-        URL.revokeObjectURL(url);
+      async function recordWebmVideo(overlayKey, durationMs = 6000) {
+        const toast = document.getElementById('toast');
+        toast.style.display = 'block';
+        toast.style.background = '#e67e22';
+        toast.textContent = `🎥 Grabando video WebM (VP8/VP9) durante ${durationMs / 1000}s... Por favor esperá...`;
 
-        toast.style.background = '#27ae60';
-        toast.textContent = '✅ ¡Video WebM grabado y descargado en render/!';
-        setTimeout(() => {
-          toast.style.display = 'none';
+        try {
+          const response = await fetch(`/api/record-video?overlay=${overlayKey}&duration=${durationMs}`);
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({ error: 'Error al grabar video' }));
+            throw new Error(errorData.error || `HTTP ${response.status}`);
+          }
+
+          const blob = await response.blob();
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `${overlayKey}_video.webm`;
+          link.click();
+          URL.revokeObjectURL(url);
+
           toast.style.background = '#27ae60';
-        }, 4000);
+          toast.textContent = '✅ ¡Video WebM grabado y descargado en render/!';
+          setTimeout(() => {
+            toast.style.display = 'none';
+            toast.style.background = '#27ae60';
+          }, 4000);
 
-      } catch (err) {
-        console.error('Error al grabar video WebM:', err);
-        toast.style.background = '#c0392b';
-        toast.textContent = '❌ Error: ' + err.message + '. ¿Está corriendo node server.js?';
-        document.getElementById('server-warning').style.display = 'block';
+        } catch (err) {
+          console.error('Error al grabar video WebM:', err);
+          toast.style.background = '#c0392b';
+          toast.textContent = '❌ Error: ' + err.message + '. ¿Está corriendo node server.js?';
+          document.getElementById('server-warning').style.display = 'block';
+        }
       }
-    }
 
-    // Verificar si el servidor está corriendo al cargar la página
-    async function checkServer() {
-      try {
-        await fetch('/api/overlays', { signal: AbortSignal.timeout(1500) });
-        document.getElementById('server-warning').style.display = 'none';
-      } catch {
-        document.getElementById('server-warning').style.display = 'block';
+      // Verificar si el servidor está corriendo al cargar la página
+      async function checkServer() {
+        try {
+          await fetch('/api/overlays', { signal: AbortSignal.timeout(1500) });
+          document.getElementById('server-warning').style.display = 'none';
+        } catch {
+          document.getElementById('server-warning').style.display = 'block';
+        }
       }
-    }
-    checkServer();
+      checkServer();
 
 
 
-    loadData();
-  </script>
+      loadData();
+    </script>
 </body>
-</html>
 
+</html>

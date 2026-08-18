@@ -36,16 +36,34 @@
             </div>
           </div>
 
-          <!-- Panel de Redes / Info del Invitado -->
+          <!-- Panel de Redes / Agenda e Info del Invitado -->
           <div class="guest-info-panel">
             <div class="info-header">
-              <div class="info-tag">✨ INFO & REDES</div>
-              <div class="info-title" data-bind="guest-name"></div>
+              <div class="info-tag">📋 AGENDA & REDES</div>
+              <div class="info-title" data-bind="guest-name">ENTREVISTA EN VIVO</div>
+            </div>
+
+            <!-- Agenda / Cronograma del Stream -->
+            <div class="agenda-box-vertical">
+              <div class="agenda-header-label">✨ CRONOGRAMA DE HOY</div>
+              <div class="agenda-item-mini">
+                <span class="agenda-icon">🎙️</span>
+                <span>Entrevista en Vivo</span>
+              </div>
+              <div class="agenda-item-mini">
+                <span class="agenda-icon">🎸</span>
+                <span>Show & Guitarreada</span>
+              </div>
+              <div class="agenda-item-mini">
+                <span class="agenda-icon">💬</span>
+                <span>Chat Directo</span>
+              </div>
             </div>
 
             <div class="social-list" data-bind="guest-socials"></div>
 
             <div class="guest-bio" data-bind="guest-bio"></div>
+            <div class="guest-events-banner" data-bind="guest-events" style="display:none;"></div>
           </div>
 
         </div>

@@ -33,17 +33,43 @@
             </div>
           </div>
 
-          <!-- Panel de Redes / Info Ancho del Invitado -->
+          <!-- Panel de Redes / Info y Agenda Ancho del Invitado -->
           <div class="guest-info-panel-wide">
             <div class="info-header-wide">
-              <div class="info-tag">✨ INFO & REDES DEL INVITADO</div>
-              <div class="info-title" data-bind="guest-name"></div>
+              <div class="info-tag">📋 AGENDA & INFO DEL INVITADO</div>
+              <div class="info-title" data-bind="guest-name">ENTREVISTA Y SHOW ESPECIAL</div>
+            </div>
+
+            <!-- Agenda / Cronograma del Stream -->
+            <div class="agenda-box">
+              <div class="agenda-header-label">✨ CRONOGRAMA DE HOY</div>
+              <div class="agenda-items-grid">
+                <div class="agenda-card">
+                  <span class="agenda-icon">🎙️</span>
+                  <div class="agenda-details">
+                    <span class="agenda-card-title">ENTREVISTA EN VIVO</span>
+                    <span class="agenda-card-sub">Charlas, trayectoria y novedades</span>
+                  </div>
+                </div>
+                <div class="agenda-card">
+                  <span class="agenda-icon">🎸</span>
+                  <div class="agenda-details">
+                    <span class="agenda-card-title">SHOW & GUITARREADA</span>
+                    <span class="agenda-card-sub">Canciones y folklore a la gorra</span>
+                  </div>
+                </div>
+                <div class="agenda-card">
+                  <span class="agenda-icon">💬</span>
+                  <div class="agenda-details">
+                    <span class="agenda-card-title">CHAT EN DIRECTO</span>
+                    <span class="agenda-card-sub">Preguntas, saludos y sugerencias</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div class="social-list-grid" data-bind="guest-socials"></div>
-
             <div class="guest-bio-wide" data-bind="guest-bio"></div>
-
             <div class="guest-events-banner" data-bind="guest-events" style="display:none;"></div>
           </div>
 

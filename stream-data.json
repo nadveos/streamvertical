@@ -9,28 +9,43 @@
     "role": ""
   },
   "guest": {
-    "enabled": true,
-    "name": "GRUPO VIENTO ANDINO",
+    "enabled": false,
+    "name": "",
     "role": "💬 INVITADO ESPECIAL",
     "bio": "Música y folklore argentino en vivo. Entrevista y show especial.",
     "events": "📅 20 AGO: La Trastienda | 25 AGO: Festival Cosquín",
     "socials": [
       {
-        "icon": "",
-        "platform": "",
-        "handle": ""
+        "icon": "📸",
+        "platform": "INSTAGRAM",
+        "handle": "@gutafloresok"
       },
       {
-        "icon": "",
-        "platform": "",
-        "handle": ""
+        "icon": "📺",
+        "platform": "YOUTUBE",
+        "handle": "Guta Flores Oficial"
       },
       {
-        "icon": "",
-        "platform": "",
-        "handle": ""
+        "icon": "☕",
+        "platform": "GORRA VIRTUAL",
+        "handle": "Alias MP: GUTA.FLORES"
       }
     ]
+  },
+  "guest1": {
+    "enabled": true,
+    "name": "INVITADO 1",
+    "role": "💬 INVITADO 1"
+  },
+  "guest2": {
+    "enabled": true,
+    "name": "INVITADO 2",
+    "role": "💬 INVITADO 2"
+  },
+  "guest3": {
+    "enabled": true,
+    "name": "INVITADO 3",
+    "role": "💬 INVITADO 3"
   },
   "solo": {
     "descLabel": "Hoy",

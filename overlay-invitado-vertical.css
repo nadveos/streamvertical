@@ -31,14 +31,16 @@ body {
 /* LAYOUT PRINCIPAL VERTICAL DE 2 CAMARAS 16:9 */
 .vertical-guest-layout {
   position: absolute;
-  top: 40px;
+  top: 30px;
   left: 24px;
   right: 24px;
   bottom: 180px;
+  height: calc(100% - 210px);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  justify-content: space-between;
   align-items: center;
+  gap: 16px;
 }
 
 /* 1. SECCIÓN INVITADO (DESTACADO PROTAGONISTA 16:9) */
@@ -48,6 +50,7 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative;
+  flex-shrink: 0;
 }
 
 /* Badge Flotante de Destacado / Protagonista */
@@ -71,8 +74,8 @@ body {
 
 /* Marco del Invitado: Horizontal 16:9 con brillo dorado y rojo */
 .guest-cam-box-16x9 {
-  width: 960px;
-  height: 540px;
+  width: 980px;
+  height: 551px;
   aspect-ratio: 16 / 9;
   position: relative;
   border-radius: 20px;
@@ -113,20 +116,82 @@ body {
   border-radius: 14px;
 }
 
-/* Panel Ancho de Información / RRSS del Invitado */
+/* Panel Ancho de Información / Agenda del Invitado */
 .guest-info-panel-wide {
-  width: 960px;
-  background: rgba(15, 15, 15, 0.88);
+  width: 1032px;
+  flex: 1;
+  min-height: 420px;
+  background: rgba(12, 12, 16, 0.92);
   border: 2px solid #FFD700;
-  border-radius: 18px;
-  padding: 16px 20px;
-  margin-top: 24px;
+  border-radius: 22px;
+  padding: 22px 28px;
+  margin-top: 14px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85), inset 0 0 20px rgba(255, 215, 0, 0.18);
+  backdrop-filter: blur(12px);
+  box-sizing: border-box;
+}
+
+/* Secciones de Agenda internas */
+.agenda-box {
+  background: rgba(255, 215, 0, 0.04);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.agenda-header-label {
+  font-size: 12px;
+  font-weight: 900;
+  color: #FFD700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.agenda-items-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(255, 215, 0, 0.15);
-  backdrop-filter: blur(6px);
-  position: relative;
+}
+
+.agenda-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.agenda-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.agenda-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.agenda-card-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #FFF;
+  letter-spacing: 0.5px;
+}
+
+.agenda-card-sub {
+  font-size: 11px;
+  color: #AAA;
+  margin-top: 2px;
 }
 
 .info-header-wide {
@@ -163,13 +228,13 @@ body {
   align-items: center;
   gap: 12px;
   background: rgba(255, 255, 255, 0.05);
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-radius: 12px;
   border-left: 4px solid #FFD700;
 }
 
 .social-icon {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .social-text {
@@ -192,12 +257,12 @@ body {
 }
 
 .guest-bio-wide {
-  font-size: 14px;
-  color: #DDD;
-  line-height: 1.4;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 10px 14px;
-  border-radius: 10px;
+  font-size: 15px;
+  color: #EEE;
+  line-height: 1.5;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 12px 16px;
+  border-radius: 12px;
   border: 1px dashed rgba(255, 215, 0, 0.3);
 }
 
@@ -205,7 +270,7 @@ body {
   font-size: 14px;
   font-weight: 800;
   color: #FFD700;
-  background: linear-gradient(90deg, rgba(139, 0, 0, 0.5) 0%, rgba(192, 57, 43, 0.5) 50%, rgba(139, 0, 0, 0.5) 100%);
+  background: linear-gradient(90deg, rgba(139, 0, 0, 0.6) 0%, rgba(192, 57, 43, 0.6) 50%, rgba(139, 0, 0, 0.6) 100%);
   border: 1.5px solid #FFD700;
   border-radius: 10px;
   padding: 10px 14px;
@@ -220,12 +285,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  flex-shrink: 0;
 }
 
 .host-cam-box-16x9 {
-  width: 960px;
-  height: 540px;
+  width: 980px;
+  height: 551px;
   aspect-ratio: 16 / 9;
   position: relative;
   border-radius: 20px;

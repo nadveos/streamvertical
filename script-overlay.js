@@ -56,11 +56,14 @@
       el.style.display = cohostEnabled ? '' : 'none';
     });
 
-    // ── 2. INVITADO ──────────────────────────────────────────────────────────
-    var guestName   = (data.guest && data.guest.name)   ? data.guest.name   : '';
-    var guestRole   = (data.guest && data.guest.role)   ? data.guest.role   : '💬 INVITADO ESPECIAL';
-    var guestBio    = (data.guest && data.guest.bio)    ? data.guest.bio    : '';
-    var guestEvents = (data.guest && data.guest.events) ? data.guest.events : '';
+    // ── 2. INVITADO (PRINCIPAL) ──────────────────────────────────────────────
+    var guestNameRaw = (data.guest && data.guest.name) ? data.guest.name : '';
+    var guestRole    = (data.guest && data.guest.role) ? data.guest.role : '💬 INVITADO ESPECIAL';
+    var guestBio     = (data.guest && data.guest.bio)  ? data.guest.bio  : '';
+    var guestEvents  = (data.guest && data.guest.events) ? data.guest.events : '';
+
+    var guestEnabled = data.guest ? (data.guest.enabled !== false && guestNameRaw.trim() !== '') : false;
+    var guestName    = guestEnabled ? guestNameRaw : '';
 
     document.querySelectorAll('[data-bind="guest-name"]').forEach(function (el) {
       el.textContent = guestName;
@@ -73,8 +76,30 @@
     });
     document.querySelectorAll('[data-bind="guest-events"]').forEach(function (el) {
       el.textContent = guestEvents;
-      el.style.display = guestEvents.trim() !== '' ? '' : 'none';
+      el.style.display = (guestEnabled && guestEvents.trim() !== '') ? '' : 'none';
     });
+    document.querySelectorAll('[data-bind="guest-box"], [data-bind="guest-container"], [data-guest-box]').forEach(function (el) {
+      el.style.display = guestEnabled ? '' : 'none';
+    });
+
+    // ── 2b. MÚLTIPLES INVITADOS (GUEST 1, GUEST 2, GUEST 3) ─────────────────
+    var g1Name = (data.guest1 && data.guest1.name) ? data.guest1.name : (guestName || 'INVITADO 1');
+    var g1Role = (data.guest1 && data.guest1.role) ? data.guest1.role : (guestRole || '💬 INVITADO 1');
+
+    var g2Name = (data.guest2 && data.guest2.name) ? data.guest2.name : 'INVITADO 2';
+    var g2Role = (data.guest2 && data.guest2.role) ? data.guest2.role : '💬 INVITADO 2';
+
+    var g3Name = (data.guest3 && data.guest3.name) ? data.guest3.name : 'INVITADO 3';
+    var g3Role = (data.guest3 && data.guest3.role) ? data.guest3.role : '💬 INVITADO 3';
+
+    document.querySelectorAll('[data-bind="guest1-name"]').forEach(function (el) { el.textContent = g1Name; });
+    document.querySelectorAll('[data-bind="guest1-role"]').forEach(function (el) { el.textContent = g1Role; });
+
+    document.querySelectorAll('[data-bind="guest2-name"]').forEach(function (el) { el.textContent = g2Name; });
+    document.querySelectorAll('[data-bind="guest2-role"]').forEach(function (el) { el.textContent = g2Role; });
+
+    document.querySelectorAll('[data-bind="guest3-name"]').forEach(function (el) { el.textContent = g3Name; });
+    document.querySelectorAll('[data-bind="guest3-role"]').forEach(function (el) { el.textContent = g3Role; });
 
     // Redes del invitado
     document.querySelectorAll('[data-bind="guest-socials"]').forEach(function (container) {

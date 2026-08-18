@@ -1,0 +1,531 @@
+/* Adaptaciones específicas para Overlay Vertical 9:16 (1 Host + 2 Invitados) (1080x1920) */
+html,
+body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+}
+
+.main-border {
+  width: 1080px;
+  height: 1920px;
+  padding: 16px;
+  background: transparent !important;
+  box-shadow: none !important;
+  box-sizing: border-box;
+}
+
+.main-border::before {
+  display: none !important;
+}
+
+.main-inner {
+  background: transparent !important;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Header superior transparente */
+.top-header {
+  display: none !important;
+}
+
+/* LAYOUT PRINCIPAL VERTICAL DE 3 CAMARAS (1 HOST + 2 INVITADOS) */
+.vertical-2guest-layout {
+  position: absolute;
+  top: 30px;
+  left: 24px;
+  right: 24px;
+  bottom: 180px;
+  height: calc(100% - 210px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+/* 1. SECCIÓN INVITADOS LADO A LADO (2 CAMARAS 9:16 VERTICALES) */
+.guests-row-2x-vertical {
+  width: 1032px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.guest-col-9x16 {
+  width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.guest-cam-box-9x16 {
+  width: 440px;
+  height: 782px;
+  aspect-ratio: 9 / 16;
+  position: relative;
+  border-radius: 20px;
+  background: transparent;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
+}
+
+/* Borde dorado / cian animado */
+.guest-cam-box-9x16.guest1::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 6px;
+  background: linear-gradient(45deg, #FFD700, #8B0000, #E67E22, #FFD700);
+  background-size: 300% 300%;
+  animation: borderGlowGold 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.guest-cam-box-9x16.guest2::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 6px;
+  background: linear-gradient(45deg, #00F2FE, #4FACFE, #00C6FF, #00F2FE);
+  background-size: 300% 300%;
+  animation: borderGlowCyan 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.guest-cam-box-9x16 .cam-window {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 14px;
+}
+
+/* 2. SECCIÓN HOST Y CO-HOST (16:9 HORIZONTALES DINÁMICAS) */
+.host-cohost-row {
+  width: 1032px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.host-card-wrapper {
+  width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+.cohost-card-wrapper {
+  width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+/* Ajuste automático cuando el Co-Host está activo */
+.host-cohost-row:has(.cohost-card-wrapper:not([style*="display: none"])) .host-card-wrapper {
+  width: 440px;
+}
+
+.host-cam-box-16x9,
+.cohost-cam-box-16x9 {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  border-radius: 18px;
+  background: transparent;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
+}
+
+.host-cam-box-16x9::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 6px;
+  background: linear-gradient(45deg, #8B0000, #FFD700, #C0392B, #8B0000);
+  background-size: 300% 300%;
+  animation: borderGlowGold 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.cohost-cam-box-16x9::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 6px;
+  background: linear-gradient(45deg, #a855f7, #ec4899, #8b5cf6, #a855f7);
+  background-size: 300% 300%;
+  animation: borderGlowPurple 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.host-cam-box-16x9 .cam-window,
+.cohost-cam-box-16x9 .cam-window {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 12px;
+}
+
+/* Panel de Redes / Agenda e Info del Invitado amplio */
+.guest-info-panel-2x {
+  width: 1032px;
+  flex: 1;
+  min-height: 540px;
+  background: rgba(12, 12, 16, 0.92);
+  border: 2px solid #FFD700;
+  border-radius: 22px;
+  padding: 22px 28px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85), inset 0 0 20px rgba(255, 215, 0, 0.18);
+  backdrop-filter: blur(12px);
+  box-sizing: border-box;
+}
+
+.info-header-wide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+  padding-bottom: 10px;
+}
+
+.info-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-dot {
+  color: #E74C3C;
+  font-size: 16px;
+  animation: blinkLive 1.5s infinite;
+}
+
+@keyframes blinkLive {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.info-header-wide .info-tag {
+  font-size: 13px;
+  font-weight: 800;
+  color: #FFD700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.info-header-wide .info-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+/* Secciones de Agenda internas */
+.agenda-box {
+  background: rgba(255, 215, 0, 0.04);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.agenda-header-label,
+.topics-header-label,
+.social-header-label {
+  font-size: 11px;
+  font-weight: 900;
+  color: #FFD700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.agenda-items-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.agenda-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.agenda-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.agenda-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.agenda-card-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #FFF;
+  letter-spacing: 0.5px;
+}
+
+.agenda-card-sub {
+  font-size: 11px;
+  color: #AAA;
+  margin-top: 2px;
+}
+
+/* Sección de Topics / Highlights */
+.topics-box {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px dashed rgba(255, 215, 0, 0.25);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.topics-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.topic-pill {
+  font-size: 12px;
+  font-weight: 800;
+  color: #FFD700;
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.4), rgba(192, 57, 43, 0.4));
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  padding: 6px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.social-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.social-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+}
+
+.social-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 14px;
+  border-radius: 12px;
+  border-left: 4px solid #FFD700;
+}
+
+.social-icon {
+  font-size: 22px;
+}
+
+.social-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-platform {
+  font-size: 10px;
+  color: #AAA;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.social-handle {
+  font-size: 15px;
+  color: #FFF;
+  font-weight: 700;
+}
+
+.guest-bio-wide {
+  font-size: 15px;
+  color: #EEE;
+  line-height: 1.5;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 215, 0, 0.3);
+}
+
+.guest-events-banner {
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFD700;
+  background: linear-gradient(90deg, rgba(139, 0, 0, 0.6) 0%, rgba(192, 57, 43, 0.6) 50%, rgba(139, 0, 0, 0.6) 100%);
+  border: 1.5px solid #FFD700;
+  border-radius: 10px;
+  padding: 10px 14px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(255, 215, 0, 0.2);
+  letter-spacing: 1px;
+}
+
+/* Etiquetas de Nombre */
+.name-tag-custom {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #0d0d0d 0%, #2a0000 50%, #0d0d0d 100%);
+  border: 2px solid #C0392B;
+  border-radius: 12px;
+  padding: 4px 18px;
+  min-width: 200px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+  z-index: 5;
+  white-space: nowrap;
+}
+
+.name-tag-custom-gold {
+  border-color: #FFD700;
+  background: linear-gradient(90deg, #0d0d0d 0%, #3a2500 50%, #0d0d0d 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.name-tag-custom-cyan {
+  border-color: #00F2FE;
+  background: linear-gradient(90deg, #0d0d0d 0%, #002b3a 50%, #0d0d0d 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 242, 254, 0.4);
+}
+
+.name-tag-custom-purple {
+  border-color: #a855f7;
+  background: linear-gradient(90deg, #0d0d0d 0%, #2b003a 50%, #0d0d0d 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(168, 85, 247, 0.4);
+}
+
+.name-tag-custom .role-title {
+  color: #E74C3C;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.name-tag-custom-gold .role-title { color: #FFD700; }
+.name-tag-custom-cyan .role-title { color: #00F2FE; }
+.name-tag-custom-purple .role-title { color: #a855f7; }
+
+@keyframes borderGlowPurple {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.name-tag-custom .user-name {
+  color: #FFFFFF;
+  font-size: 17px;
+  font-weight: 800;
+  margin-top: 1px;
+  letter-spacing: 1px;
+}
+
+/* Animaciones de bordes */
+@keyframes borderGlowGold {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes borderGlowCyan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Ticker inferior adaptado */
+.ticker-bar-vertical {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  height: 80px;
+  background: linear-gradient(90deg, #0d0d0d 0%, #1a0000 40%, #0d0d0d 100%);
+  border: 2.5px solid #C0392B;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 20;
+  box-shadow: 0 0 24px rgba(139, 0, 0, 0.6), inset 0 1px 0 rgba(255, 215, 0, 0.15);
+}
+
+.ticker-bar-vertical .ticker-label {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #8B0000, #C0392B);
+  color: #FFD700;
+  font-weight: 900;
+  font-size: 20px;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-right: 2px solid #FFD700;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.ticker-bar-vertical .ticker-content {
+  font-size: 24px;
+  font-weight: 600;
+}

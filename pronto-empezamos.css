@@ -1,329 +1,391 @@
-    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;900&display=swap');
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html, body {
-      width: 100%; height: 100%;
-      overflow: hidden;
-      font-family: 'Outfit', 'Segoe UI', sans-serif;
-      background: #080808;
-    }
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: 'Outfit', 'Segoe UI', sans-serif;
+  background: #080808;
+}
 
-    /* ============================================================
-       FONDO — gradiente animado, más energía que el offline
-       ============================================================ */
-    .bg {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(135deg,
-        #0a0000 0%,
-        #1a0000 25%,
-        #0d0000 50%,
-        #230000 75%,
-        #0a0000 100%
-      );
-      background-size: 400% 400%;
-      animation: bgShift 10s ease infinite;
-    }
+/* ============================================================
+   FONDO — Acelerado por GPU
+   ============================================================ */
+.bg {
+  position: fixed;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  background: linear-gradient(135deg,
+    #0a0000 0%,
+    #1a0000 25%,
+    #0d0000 50%,
+    #230000 75%,
+    #0a0000 100%
+  );
+  background-size: 200% 200%;
+  will-change: transform;
+  transform: translateZ(0);
+  animation: bgShift 12s ease-in-out infinite alternate;
+}
 
-    @keyframes bgShift {
-      0%   { background-position: 0% 50%;   }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%;   }
-    }
+@keyframes bgShift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-3%, -3%, 0) scale(1.04); }
+}
 
-    /* Resplandor central más intenso */
-    .bg-glow {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(ellipse 70% 55% at 50% 48%,
-        rgba(139, 0, 0, 0.35) 0%,
-        rgba(80,  0, 0, 0.2)  40%,
-        transparent 70%
-      );
-      animation: glowPulse 4s ease-in-out infinite;
-    }
+/* Resplandor central más intenso — Suave opacity animación GPU */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 55% at 50% 48%,
+    rgba(139, 0, 0, 0.45) 0%,
+    rgba(80,  0, 0, 0.25) 40%,
+    transparent 70%
+  );
+  will-change: opacity;
+  transform: translateZ(0);
+  animation: glowPulse 4s ease-in-out infinite;
+}
 
-    @keyframes glowPulse {
-      0%, 100% { opacity: 0.7; transform: scale(1);    }
-      50%       { opacity: 1;   transform: scale(1.05); }
-    }
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
 
-    /* Textura de puntos flotantes */
-    .dots-overlay {
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(circle, rgba(139,0,0,0.12) 1px, transparent 1px);
-      background-size: 36px 36px;
-      animation: dotsDrift 20s linear infinite;
-    }
+/* Textura de puntos flotantes — Mover mediante translate3d */
+.dots-overlay {
+  position: fixed;
+  inset: -36px;
+  background-image:
+    radial-gradient(circle, rgba(139,0,0,0.14) 1px, transparent 1px);
+  background-size: 36px 36px;
+  will-change: transform;
+  transform: translateZ(0);
+  animation: dotsDrift 20s linear infinite;
+}
 
-    @keyframes dotsDrift {
-      from { background-position: 0 0; }
-      to   { background-position: 36px 36px; }
-    }
+@keyframes dotsDrift {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(36px, 36px, 0); }
+}
 
-    /* ============================================================
-       BANDAS PONCHO — top y bottom
-       ============================================================ */
-    .poncho-band {
-      position: fixed;
-      left: 0; right: 0;
-      height: 14px;
-      z-index: 5;
-      background: repeating-linear-gradient(
-        90deg,
-        #8B0000  0px,   #8B0000  40px,
-        #1A1A1A  40px,  #1A1A1A  60px,
-        #C0392B  60px,  #C0392B  100px,
-        #1A1A1A  100px, #1A1A1A  120px,
-        #FFD700  120px, #FFD700  130px,
-        #1A1A1A  130px, #1A1A1A  150px
-      );
-      opacity: 0.9;
-      animation: bandShimmer 4s linear infinite;
-    }
-    .poncho-band-top    { top: 0; }
-    .poncho-band-bottom { bottom: 0; }
+/* ============================================================
+   BANDAS PONCHO — top y bottom
+   ============================================================ */
+.poncho-band {
+  position: fixed;
+  left: 0; right: 0;
+  height: 14px;
+  z-index: 5;
+  background: repeating-linear-gradient(
+    90deg,
+    #8B0000  0px,   #8B0000  40px,
+    #1A1A1A  40px,  #1A1A1A  60px,
+    #C0392B  60px,  #C0392B  100px,
+    #1A1A1A  100px, #1A1A1A  120px,
+    #FFD700  120px, #FFD700  130px,
+    #1A1A1A  130px, #1A1A1A  150px
+  );
+  opacity: 0.9;
+  box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+}
+.poncho-band-top    { top: 0; }
+.poncho-band-bottom { bottom: 0; }
 
-    @keyframes bandShimmer {
-      from { background-position: 0 0;    }
-      to   { background-position: 150px 0; }
-    }
+/* ============================================================
+   ANILLOS CONCÉNTRICOS DE ENERGÍA (Acelerados GPU)
+   ============================================================ */
+.rings-wrap {
+  position: fixed;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  z-index: 2;
+  pointer-events: none;
+}
 
-    /* ============================================================
-       ANILLOS CONCÉNTRICOS DE ENERGÍA
-       ============================================================ */
-    .rings-wrap {
-      position: fixed;
-      top: 50%; left: 50%;
-      width: 0; height: 0;
-      z-index: 2;
-    }
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  transform: translate3d(-50%, -50%, 0) scale(0.3);
+  animation: energyRing 4s ease-out infinite;
+}
 
-    .ring {
-      position: absolute;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      animation: energyRing 4s ease-out infinite;
-    }
+.ring:nth-child(1) { width: 280px; height: 280px; border: 2px solid rgba(192,57,43,0.5); animation-delay: 0s;   }
+.ring:nth-child(2) { width: 280px; height: 280px; border: 2px solid rgba(255,215,0,0.35); animation-delay: 1.3s; }
+.ring:nth-child(3) { width: 280px; height: 280px; border: 2px solid rgba(192,57,43,0.3); animation-delay: 2.6s; }
 
-    .ring:nth-child(1) { width: 280px; height: 280px; border: 2px solid rgba(192,57,43,0.5); animation-delay: 0s;   }
-    .ring:nth-child(2) { width: 280px; height: 280px; border: 2px solid rgba(255,215,0,0.3); animation-delay: 1.3s; }
-    .ring:nth-child(3) { width: 280px; height: 280px; border: 2px solid rgba(192,57,43,0.3); animation-delay: 2.6s; }
+@keyframes energyRing {
+  0%   { transform: translate3d(-50%,-50%, 0) scale(0.3); opacity: 1; }
+  100% { transform: translate3d(-50%,-50%, 0) scale(4.5); opacity: 0; }
+}
 
-    @keyframes energyRing {
-      0%   { transform: translate(-50%,-50%) scale(0.3); opacity: 1; }
-      100% { transform: translate(-50%,-50%) scale(5.5); opacity: 0; }
-    }
+/* ============================================================
+   CONTENIDO CENTRAL
+   ============================================================ */
+.center {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
 
-    /* ============================================================
-       CONTENIDO CENTRAL
-       ============================================================ */
-    .center {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-    }
+/* Badge "EN BREVE" */
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(139, 0, 0, 0.25);
+  border: 1.5px solid #8B0000;
+  border-radius: 30px;
+  padding: 7px 22px;
+  margin-bottom: 30px;
+  backdrop-filter: blur(4px);
+}
 
-    /* Badge "EN BREVE" */
-    .live-badge {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(139, 0, 0, 0.25);
-      border: 1.5px solid #8B0000;
-      border-radius: 30px;
-      padding: 7px 22px;
-      margin-bottom: 30px;
-      backdrop-filter: blur(4px);
-    }
+.live-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #C0392B;
+  animation: liveBlink 1.2s ease-in-out infinite;
+  box-shadow: 0 0 8px #C0392B;
+}
 
-    .live-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: #C0392B;
-      animation: liveBlink 1.2s ease-in-out infinite;
-      box-shadow: 0 0 8px #C0392B;
-    }
+@keyframes liveBlink {
+  0%, 100% { opacity: 1; transform: scale(1);    }
+  50%       { opacity: 0.4; transform: scale(0.8); }
+}
 
-    @keyframes liveBlink {
-      0%, 100% { opacity: 1; transform: scale(1);    }
-      50%       { opacity: 0.4; transform: scale(0.8); }
-    }
+.live-badge-text {
+  color: #FFD700;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
 
-    .live-badge-text {
-      color: #FFD700;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-    }
+/* Nombre del canal */
+.channel-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 100px;
+  color: #FFFFFF;
+  letter-spacing: 8px;
+  line-height: 1;
+  text-align: center;
+  text-shadow:
+    0 0 20px rgba(192, 57, 43, 0.8),
+    0 0 60px rgba(139, 0, 0, 0.5),
+    0 0 100px rgba(139, 0, 0, 0.2);
+}
 
-    /* Nombre del canal */
-    .channel-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 100px;
-      color: #FFFFFF;
-      letter-spacing: 8px;
-      line-height: 1;
-      text-align: center;
-      text-shadow:
-        0 0 20px rgba(192, 57, 43, 0.8),
-        0 0 60px rgba(139, 0, 0, 0.5),
-        0 0 100px rgba(139, 0, 0, 0.2);
-    }
+.gold-line {
+  width: 380px;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent, #8B0000 15%, #FFD700 50%, #8B0000 85%, transparent
+  );
+  border-radius: 2px;
+  margin: 20px 0;
+  will-change: opacity;
+  animation: lineGlow 3s ease-in-out infinite;
+}
 
-    .gold-line {
-      width: 380px;
-      height: 2px;
-      background: linear-gradient(90deg,
-        transparent, #8B0000 15%, #FFD700 50%, #8B0000 85%, transparent
-      );
-      border-radius: 2px;
-      margin: 20px 0;
-      animation: lineGlow 3s ease-in-out infinite;
-    }
+@keyframes lineGlow {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
 
-    @keyframes lineGlow {
-      0%, 100% { box-shadow: 0 0 6px rgba(255,215,0,0.3); }
-      50%       { box-shadow: 0 0 18px rgba(255,215,0,0.7); }
-    }
+/* Mensaje principal */
+.main-msg {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  color: #C0392B;
+  letter-spacing: 5px;
+  text-align: center;
+  text-shadow:
+    0 0 20px rgba(192, 57, 43, 0.7),
+    0 0 50px rgba(192, 57, 43, 0.3);
+  will-change: opacity;
+  animation: mainMsgPulse 3s ease-in-out infinite;
+}
 
-    /* Mensaje principal */
-    .main-msg {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 72px;
-      color: #C0392B;
-      letter-spacing: 5px;
-      text-align: center;
-      text-shadow:
-        0 0 20px rgba(192, 57, 43, 0.7),
-        0 0 50px rgba(192, 57, 43, 0.3);
-      animation: mainMsgPulse 3s ease-in-out infinite;
-    }
+@keyframes mainMsgPulse {
+  0%, 100% { opacity: 0.85; }
+  50%       { opacity: 1; }
+}
 
-    @keyframes mainMsgPulse {
-      0%, 100% { text-shadow: 0 0 20px rgba(192,57,43,0.7), 0 0 50px rgba(192,57,43,0.3); }
-      50%       { text-shadow: 0 0 35px rgba(192,57,43,1),   0 0 80px rgba(192,57,43,0.5); }
-    }
+.sub-msg {
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 14px;
+  text-align: center;
+}
 
-    .sub-msg {
-      font-size: 17px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.6);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-top: 14px;
-      text-align: center;
-    }
+/* ============================================================
+   MOTTO BANNER — Frase destacada / Lema del stream
+   ============================================================ */
+.motto-banner {
+  margin-top: 28px;
+  max-width: 980px;
+  width: 90%;
+  background: linear-gradient(90deg, rgba(15, 15, 18, 0.95) 0%, rgba(55, 10, 10, 0.95) 50%, rgba(15, 15, 18, 0.95) 100%);
+  border: 2px solid #FFD700;
+  border-radius: 16px;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 215, 0, 0.25);
+  backdrop-filter: blur(12px);
+}
 
-    /* ============================================================
-       BARRA DE PROGRESO DECORATIVA — "cargando"
-       ============================================================ */
-    .progress-wrap {
-      margin-top: 44px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
+.motto-text-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
 
-    .progress-label {
-      color: rgba(255,255,255,0.35);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
+.motto-phrase {
+  color: #FFFFFF;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
 
-    .progress-bar {
-      width: 280px;
-      height: 4px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 2px;
-      overflow: hidden;
-      border: 1px solid rgba(139,0,0,0.3);
-    }
+.motto-phrase.highlight {
+  color: #FFD700;
+  font-weight: 900;
+  text-shadow: 0 0 16px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4);
+}
 
-    .progress-fill {
-      height: 100%;
-      width: 40%;
-      background: linear-gradient(90deg, #8B0000, #C0392B, #FFD700);
-      border-radius: 2px;
-      animation: progressAnim 3s ease-in-out infinite;
-      box-shadow: 0 0 8px rgba(255,215,0,0.4);
-    }
+.motto-connector {
+  background: linear-gradient(135deg, #8B0000 0%, #C0392B 100%);
+  color: #FFD700;
+  font-weight: 900;
+  font-size: 16px;
+  padding: 6px 18px;
+  border-radius: 30px;
+  border: 1.5px solid #FFD700;
+  box-shadow: 0 0 16px rgba(192, 57, 43, 0.8);
+  letter-spacing: 1.5px;
+}
 
-    @keyframes progressAnim {
-      0%   { width: 0%;   margin-left: 0%;   }
-      50%  { width: 60%;  margin-left: 20%;  }
-      100% { width: 0%;   margin-left: 100%; }
-    }
+/* ============================================================
+   BARRA DE PROGRESO DECORATIVA — "cargando" (Optimizada en GPU)
+   ============================================================ */
+.progress-wrap {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
 
-    /* ============================================================
-       INFO SHOW — parte inferior, qué viene
-       ============================================================ */
-    .show-info {
-      position: fixed;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      z-index: 10;
-    }
+.progress-label {
+  color: rgba(255,255,255,0.35);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
 
-    .info-card {
-      background: rgba(10, 10, 10, 0.85);
-      border: 1.5px solid rgba(139, 0, 0, 0.45);
-      border-radius: 14px;
-      padding: 10px 22px;
-      text-align: center;
-      backdrop-filter: blur(6px);
-    }
+.progress-bar {
+  width: 280px;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid rgba(139,0,0,0.3);
+  position: relative;
+}
 
-    .info-card .label {
-      color: #C0392B;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
+.progress-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #8B0000, #C0392B, #FFD700);
+  border-radius: 2px;
+  transform-origin: left center;
+  will-change: transform;
+  animation: progressAnim 3s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(255,215,0,0.4);
+}
 
-    .info-card .value {
-      color: #FFFFFF;
-      font-size: 16px;
-      font-weight: 800;
-      margin-top: 2px;
-    }
+@keyframes progressAnim {
+  0%   { transform: translate3d(-100%, 0, 0) scaleX(0.2); }
+  50%  { transform: translate3d(-20%, 0, 0) scaleX(0.6); }
+  100% { transform: translate3d(100%, 0, 0) scaleX(0.2); }
+}
 
-    .info-card .value.gold { color: #FFD700; }
+/* ============================================================
+   INFO SHOW — parte inferior, qué viene
+   ============================================================ */
+.show-info {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  z-index: 10;
+}
 
-    /* ============================================================
-       ORNAMENTOS ESQUINAS
-       ============================================================ */
-    .corner-orn { position: fixed; z-index: 6; }
-    .c-tl { top: 22px; left: 22px; }
-    .c-tr { top: 22px; right: 22px; transform: scaleX(-1); }
-    .c-bl { bottom: 22px; left: 22px; transform: scaleY(-1); }
-    .c-br { bottom: 22px; right: 22px; transform: scale(-1); }
+.info-card {
+  background: rgba(10, 10, 10, 0.85);
+  border: 1.5px solid rgba(139, 0, 0, 0.45);
+  border-radius: 14px;
+  padding: 10px 22px;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
 
-    .corner-orn svg {
-      width: 65px; height: 65px;
-      fill: none; stroke: #C0392B; stroke-width: 2.5;
-      opacity: 0.5;
-      filter: drop-shadow(0 0 5px rgba(192,57,43,0.6));
-      animation: ornGlow 4s ease-in-out infinite;
-    }
+.info-card .label {
+  color: #C0392B;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
 
-    @keyframes ornGlow {
-      0%, 100% { opacity: 0.4; }
-      50%       { opacity: 0.75; }
-    }
+.info-card .value {
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+.info-card .value.gold { color: #FFD700; }
+
+/* ============================================================
+   ORNAMENTOS ESQUINAS
+   ============================================================ */
+.corner-orn { position: fixed; z-index: 6; }
+.c-tl { top: 22px; left: 22px; }
+.c-tr { top: 22px; right: 22px; transform: scaleX(-1); }
+.c-bl { bottom: 22px; left: 22px; transform: scaleY(-1); }
+.c-br { bottom: 22px; right: 22px; transform: scale(-1); }
+
+.corner-orn svg {
+  width: 65px; height: 65px;
+  fill: none; stroke: #C0392B; stroke-width: 2.5;
+  opacity: 0.5;
+  filter: drop-shadow(0 0 5px rgba(192,57,43,0.6));
+  will-change: opacity;
+  animation: ornGlow 4s ease-in-out infinite;
+}
+
+@keyframes ornGlow {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.75; }
+}

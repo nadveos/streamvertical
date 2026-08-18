@@ -1,0 +1,169 @@
+/* Adaptaciones específicas para Overlay Horizontal 16:9 (1 Host + 2 Invitados) (1920x1080) */
+html,
+body {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+}
+
+.main-border {
+  width: 1920px;
+  height: 1080px;
+  padding: 16px;
+  background: transparent !important;
+  box-shadow: none !important;
+  box-sizing: border-box;
+}
+
+.main-border::before {
+  display: none !important;
+}
+
+.main-inner {
+  background: transparent !important;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* LAYOUT HORIZONTAL 3 CAMARAS (1 HOST + 2 INVITADOS) */
+.horizontal-3cam-layout {
+  position: absolute;
+  top: 90px;
+  left: 40px;
+  right: 40px;
+  bottom: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+}
+
+.cam-card-horiz {
+  width: 560px;
+  height: 315px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  border-radius: 18px;
+  background: transparent;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
+}
+
+/* Bordes animados */
+.cam-card-horiz.host-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 6px;
+  background: linear-gradient(45deg, #8B0000, #FFD700, #C0392B, #8B0000);
+  background-size: 300% 300%;
+  animation: borderGlowGold 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.cam-card-horiz.guest1-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 6px;
+  background: linear-gradient(45deg, #FFD700, #E67E22, #FF8C00, #FFD700);
+  background-size: 300% 300%;
+  animation: borderGlowGold 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.cam-card-horiz.guest2-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 6px;
+  background: linear-gradient(45deg, #00F2FE, #4FACFE, #00C6FF, #00F2FE);
+  background-size: 300% 300%;
+  animation: borderGlowCyan 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.cam-card-horiz .cam-window {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 12px;
+}
+
+/* Etiquetas de Nombre */
+.name-tag-custom {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #0d0d0d 0%, #2a0000 50%, #0d0d0d 100%);
+  border: 2px solid #C0392B;
+  border-radius: 12px;
+  padding: 5px 20px;
+  min-width: 220px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+  z-index: 5;
+  white-space: nowrap;
+}
+
+.name-tag-custom-gold {
+  border-color: #FFD700;
+  background: linear-gradient(90deg, #0d0d0d 0%, #3a2500 50%, #0d0d0d 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.name-tag-custom-cyan {
+  border-color: #00F2FE;
+  background: linear-gradient(90deg, #0d0d0d 0%, #002b3a 50%, #0d0d0d 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 242, 254, 0.4);
+}
+
+.name-tag-custom .role-title {
+  color: #E74C3C;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.name-tag-custom-gold .role-title { color: #FFD700; }
+.name-tag-custom-cyan .role-title { color: #00F2FE; }
+
+.name-tag-custom .user-name {
+  color: #FFFFFF;
+  font-size: 17px;
+  font-weight: 800;
+  margin-top: 2px;
+  letter-spacing: 1px;
+}
+
+@keyframes borderGlowGold {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes borderGlowCyan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

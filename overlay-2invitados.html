@@ -1,49 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="main.css">
-  <title>Guta Flores — Overlay Solo Horizontal</title>
-  <link rel="stylesheet" href="overlay-solo.css">
+  <link rel="stylesheet" href="overlay-2invitados.css">
+  <link rel="stylesheet" href="transparent-mode.css">
+  <title>Guta Flores — Overlay 2 Invitados (Frame Transparente 16:9)</title>
 </head>
+
 <body>
 
   <div class="main-border">
     <div class="main-inner">
 
-      <!-- Encabezado / Título -->
+      <!-- Header -->
       <div class="top-header">
         <span class="badge">● EN VIVO</span>
         <span data-bind="host-name">Guta Flores</span>
-      </div>
-
-      <!-- Insignias flotantes superiores -->
-      <div class="solo-top-badge solo-badge-left">
-        <span class="badge-icon">📲</span>
-        <span class="badge-text">INSTAGRAM: <strong style="color: #FFD700;">@gutafloresok</strong></span>
-      </div>
-
-      <div class="solo-top-badge solo-badge-right">
-        <span class="badge-icon">☕</span>
-        <span class="badge-text">GORRA VIRTUAL: <strong style="color: #FFD700;">GUTA.FLORES</strong></span>
       </div>
 
       <!-- Franjas decorativas laterales -->
       <div class="side-deco side-deco-left"></div>
       <div class="side-deco side-deco-right"></div>
 
-      <!-- Cámara Principal Modo Solo (16:9 Centrado) -->
-      <div class="cam-solo-wrapper">
-        <div class="cam-solo-container">
-          <div class="cam-solo-box">
-            <div class="cam-window" data-cutout></div>
-
-            <div class="name-tag-solo">
-              <div class="role-title" data-bind="host-role">🎙️ ANFITRIÓN / HOST</div>
-              <div class="user-name" data-bind="host-name">GUTA FLORES</div>
-            </div>
+      <!-- LAYOUT HORIZONTAL 3 CAMARAS -->
+      <div class="horizontal-3cam-layout">
+        
+        <!-- Host -->
+        <div class="cam-card-horiz host-box">
+          <div class="cam-window" data-cutout></div>
+          <div class="name-tag-custom">
+            <div class="role-title" data-bind="host-role">🎙️ ANFITRIÓN / HOST</div>
+            <div class="user-name" data-bind="host-name">GUTA FLORES</div>
           </div>
         </div>
+
+        <!-- Invitado 1 -->
+        <div class="cam-card-horiz guest1-box">
+          <div class="cam-window" data-cutout></div>
+          <div class="name-tag-custom name-tag-custom-gold">
+            <div class="role-title" data-bind="guest1-role">💬 INVITADO 1</div>
+            <div class="user-name" data-bind="guest1-name">INVITADO 1</div>
+          </div>
+        </div>
+
+        <!-- Invitado 2 -->
+        <div class="cam-card-horiz guest2-box">
+          <div class="cam-window" data-cutout></div>
+          <div class="name-tag-custom name-tag-custom-cyan">
+            <div class="role-title" data-bind="guest2-role">💬 INVITADO 2</div>
+            <div class="user-name" data-bind="guest2-name">INVITADO 2</div>
+          </div>
+        </div>
+
       </div>
 
       <!-- BANNER DE FRASES / MOTTO BANNER -->
@@ -55,7 +65,7 @@
         </div>
       </div>
 
-      <!-- TICKER — Texto destacado animado (Sincronizado con Panel) -->
+      <!-- TICKER — Texto destacado animado -->
       <div class="ticker-bar">
         <div class="ticker-label">
           <span class="ticker-dot"></span>
@@ -83,4 +93,5 @@
   <script src="overlay-engine.js"></script>
   <script src="script-overlay.js"></script>
 </body>
+
 </html>
