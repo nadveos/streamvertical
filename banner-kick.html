@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Guta Flores — Banner Kick (1200x134)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;900&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 1200px;
+      height: 134px;
+      overflow: hidden;
+      font-family: 'Outfit', sans-serif;
+      background: #080808;
+    }
+
+    .kick-banner {
+      width: 1200px;
+      height: 134px;
+      position: relative;
+      background: radial-gradient(ellipse at center, #2e0202 0%, #120101 60%, #050505 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      overflow: hidden;
+      border: 2px solid #53FC18;
+    }
+
+    /* Borde Poncho superior e inferior */
+    .poncho-top, .poncho-bottom {
+      position: absolute;
+      left: 0; right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(
+        90deg,
+        #8B0000 0px, #8B0000 30px,
+        #1A1A1A 30px, #1A1A1A 45px,
+        #53FC18 45px, #53FC18 60px,
+        #FFD700 60px, #FFD700 75px,
+        #1A1A1A 75px, #1A1A1A 90px
+      );
+    }
+    .poncho-top { top: 0; }
+    .poncho-bottom { bottom: 0; }
+
+    /* Fondo resplandor Kick Green + Red */
+    .bg-glow-left {
+      position: absolute;
+      left: -50px;
+      top: -50px;
+      width: 300px;
+      height: 230px;
+      background: radial-gradient(circle, rgba(83, 252, 24, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .bg-glow-right {
+      position: absolute;
+      right: -50px;
+      bottom: -50px;
+      width: 350px;
+      height: 230px;
+      background: radial-gradient(circle, rgba(192, 57, 43, 0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Sección Izquierda: Branding */
+    .brand-section {
+      display: flex;
+      
+      align-items: center;
+      gap: 20px;
+      z-index: 5;
+    }
+
+    .kick-badge {
+      background: rgba(83, 252, 24, 0.15);
+      border: 1.5px solid #53FC18;
+      border-radius: 8px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 12px rgba(83, 252, 24, 0.3);
+    }
+
+    .kick-icon {
+      font-size: 16px;
+    }
+
+    .kick-badge-text {
+      color: #53FC18;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .title-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .channel-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      color: #FFFFFF;
+      line-height: 0.9;
+      letter-spacing: 4px;
+      text-shadow: 0 0 15px rgba(192, 57, 43, 0.8), 0 0 30px rgba(83, 252, 24, 0.4);
+    }
+
+    .channel-subtitle {
+      font-size: 13px;
+      font-weight: 800;
+      color: #FFD700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 2px;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    }
+
+    /* Divisor Central */
+    .center-divider {
+      width: 2px;
+      height: 65px;
+      background: linear-gradient(180deg, transparent, #53FC18, #FFD700, transparent);
+      z-index: 5;
+    }
+
+    /* Sección Derecha: Info & Socials */
+    .info-section {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      z-index: 5;
+    }
+
+    .tags-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tag-pill {
+      background: rgba(139, 0, 0, 0.45);
+      border: 1px solid #C0392B;
+      border-radius: 20px;
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .social-pill {
+      background: rgba(15, 15, 18, 0.9);
+      border: 1.5px solid #FFD700;
+      border-radius: 12px;
+      padding: 8px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    }
+
+    .social-handle {
+      color: #53FC18;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .social-sub {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="kick-banner">
+    <div class="poncho-top"></div>
+    <div class="poncho-bottom"></div>
+    <div class="bg-glow-left"></div>
+    <div class="bg-glow-right"></div>
+
+    <!-- IZQUIERDA: Marca & Título -->
+    <div class="brand-section">
+      <div class="kick-badge">
+        <span class="kick-icon">🟩</span>
+        <span class="kick-badge-text">KICK LIVE</span>
+      </div>
+      <div class="title-group">
+        <div class="channel-title">GUTA FLORES</div>
+        <div class="channel-subtitle">🎙️ TRANSMISIONES EN VIVO • FOLKLORE & MÚSICA 🎶</div>
+      </div>
+    </div>
+
+    <!-- DIVISOR -->
+    <div class="center-divider"></div>
+
+    <!-- DERECHA: Tags & Contacto -->
+    <div class="info-section">
+      <div class="tags-container">
+        <span class="tag-pill">Música en Vivo</span>
+        <span class="tag-pill">Entrevistas</span>
+        <span class="tag-pill">Gorra Virtual</span>
+      </div>
+      <div class="social-pill">
+        <span class="social-handle">kick.com/gutaflores</span>
+        <span class="social-sub">📲 IG: @gutafloresok</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
