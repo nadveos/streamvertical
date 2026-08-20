@@ -4,48 +4,48 @@
     "role": ""
   },
   "cohost": {
-    "enabled": false,
-    "name": "",
+    "enabled": true,
+    "name": "RAÚL DOMINGO",
     "role": ""
   },
   "guest": {
-    "enabled": false,
-    "name": "",
+    "enabled": true,
+    "name": "CECILIA CAMACHO",
     "role": "💬 INVITADO ESPECIAL",
-    "bio": "Música y folklore argentino en vivo. Entrevista y show especial.",
-    "events": "📅 20 AGO: La Trastienda | 25 AGO: Festival Cosquín",
+    "bio": "Cecilia Camacho Torrez viene consolidando una destacada carrera dentro del folclore boliviano, convirtiéndose en una de las jóvenes promesas de la música nacional gracias a su talento y disciplina.",
+    "events": "",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "@gutafloresok"
+        "handle": "@ceciliacamacho_oficial"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "Guta Flores Oficial"
+        "handle": "@ceciliacamacho_oficial"
       },
       {
         "icon": "☕",
-        "platform": "GORRA VIRTUAL",
-        "handle": "Alias MP: GUTA.FLORES"
+        "platform": "TIKTOK",
+        "handle": "@ceciliacamacho_oficial"
       }
     ]
   },
   "guest1": {
     "enabled": true,
-    "name": "INVITADO 1",
-    "role": "💬 INVITADO 1"
+    "name": "CECILIA CAMACHO",
+    "role": "💬 INVITADA ESTELAR DESDE TARIJA - BOLIVIA | FOLKLORE"
   },
   "guest2": {
     "enabled": true,
-    "name": "INVITADO 2",
-    "role": "💬 INVITADO 2"
+    "name": "PROYECT404",
+    "role": "💬 INVITADO ESTELAR DESDE URUGUAY | HIP-HOP"
   },
   "guest3": {
     "enabled": true,
-    "name": "INVITADO 3",
-    "role": "💬 INVITADO 3"
+    "name": "Tigel y Eminencia",
+    "role": "💬  INVITADO ESTELAR DESDE MORENO - BS. AS. | HIP-HOP TRAP"
   },
   "solo": {
     "descLabel": "Hoy",
@@ -56,8 +56,25 @@
   "motto": {
     "phrase1": "",
     "connector": "|",
-    "phrase2": "ESCUCHAMOS MÚSICA "
+    "phrase2": "INVITADOS DE LUJO"
   },
+  "agenda": [
+    {
+      "icon": "🎙️",
+      "title": "1. ENTREVISTA EN VIVO",
+      "sub": "Charlas, trayectoria y lanzamientos"
+    },
+    {
+      "icon": "🪕",
+      "title": "2. SHOW & GUITARREADA",
+      "sub": "Canciones y folklore a la gorra"
+    },
+    {
+      "icon": "💬",
+      "title": "3. CHAT EN DIRECTO",
+      "sub": "Preguntas, saludos y peticiones"
+    }
+  ],
   "ticker": [
     {
       "prefix": "🎙️ Transmisión en vivo:",

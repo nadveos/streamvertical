@@ -3,633 +3,1086 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel de Control — Overlays Stream</title>
-  <link rel="stylesheet" href="panel.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #101216;
+      color: #F0F0F5;
+      padding-bottom: 50px;
+      min-height: 100vh;
+    }
+
+    /* ── Barra Superior Fija ─────────────────────────────────── */
+    .topbar-sticky {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(14, 16, 22, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+      padding: 12px 28px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-title {
+      font-size: 17px;
+      font-weight: 900;
+      color: #FFD700;
+      letter-spacing: 1px;
+    }
+
+    .topbar-subtitle {
+      font-size: 11px;
+      color: #888;
+      font-weight: 600;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-save-top {
+      background: linear-gradient(135deg, #FFD700, #F39C12);
+      color: #000;
+      border: none;
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 900;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(243, 156, 18, 0.45);
+      transition: all 0.2s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-save-top:hover {
+      background: linear-gradient(135deg, #FFE033, #FFB700);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(243, 156, 18, 0.65);
+    }
+
+    .btn-save-top:active {
+      transform: translateY(1px);
+    }
+
+    .shortcut-badge {
+      background: rgba(0, 0, 0, 0.25);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #000;
+      font-weight: 800;
+    }
+
+    .server-status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(39, 174, 96, 0.15);
+      color: #2ecc71;
+      border: 1px solid rgba(39, 174, 96, 0.3);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2ecc71;
+      box-shadow: 0 0 8px #2ecc71;
+      animation: pulseDot 1.5s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* ── Contenedor Fichero / Folder Tabs ────────────────────── */
+    .folder-container {
+      max-width: 980px;
+      margin: 24px auto 0 auto;
+      padding: 0 16px;
+    }
+
+    /* ── Barra de Pestañas Multicolor ────────────────────────── */
+    .folder-tabs-bar {
+      display: flex;
+      align-items: flex-end;
+      gap: 0px;
+      position: relative;
+      border-top-left-radius: 14px;
+      border-top-right-radius: 14px;
+      background: #08090d;
+      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+    }
+
+    .folder-tab {
+      flex: 1;
+      border: none;
+      padding: 14px 10px;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #FFFFFF;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+      position: relative;
+      opacity: 0.8;
+      user-select: none;
+    }
+
+    .folder-tab:hover {
+      opacity: 1;
+      filter: brightness(1.1);
+    }
+
+    .folder-tab.active {
+      opacity: 1;
+      filter: none;
+      padding-top: 18px;
+      padding-bottom: 14px;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+      z-index: 5;
+    }
+
+    /* Colores individuales de pestañas (Estilo imagen de referencia) */
+    .tab-color-hosts  { background: #E74C3C; } /* Coral / Rojo */
+    .tab-color-guests { background: #0099FF; } /* Azul Brillante */
+    .tab-color-agenda { background: #9B59B6; } /* Púrpura */
+    .tab-color-ticker { background: #2ECC71; } /* Verde Esmeralda */
+    .tab-color-urls   { background: #F39C12; } /* Amarillo Ámbar */
+    .tab-color-tools  { background: #34495E; } /* Pizarra Oscuro */
+
+    /* ── Cuerpo del Fichero ──────────────────────────────────── */
+    .folder-body {
+      background: #E74C3C; /* Cambia con JS según la pestaña activa */
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7);
+      transition: background-color 0.2s ease;
+    }
+
+    /* ── Ocultar / Mostrar Pestañas (Estricto) ─────────────────── */
+    .tab-pane {
+      display: none !important;
+    }
+
+    .tab-pane.active {
+      display: block !important;
+      animation: fadeInTab 0.2s ease forwards;
+    }
+
+    @keyframes fadeInTab {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Tarjetas Internas Oscuras ───────────────────────────── */
+    .inner-card {
+      background: rgba(16, 18, 26, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    .inner-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: #FFD700;
+      margin-bottom: 12px;
+      letter-spacing: 0.8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: #AAA;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    /* ── Formularios e Inputs ────────────────────────────────── */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 12px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      font-size: 12px;
+      color: #DDD;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    input, textarea {
+      background: #0B0C12;
+      border: 1px solid #383E4E;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #FFF;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #FFD700;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+    }
+
+    .social-row {
+      display: grid;
+      grid-template-columns: 60px 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Botones ─────────────────────────────────────────────── */
+    .btn-action-pill {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFF;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-action-pill:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .btn-goto {
+      background: #1a4a1a !important;
+      box-shadow: 0 2px 8px rgba(0, 180, 0, 0.3) !important;
+      border: 1px solid #2ecc71 !important;
+      color: #2ecc71 !important;
+      padding: 6px 12px !important;
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      width: auto !important;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-goto:hover {
+      background: #225522 !important;
+    }
+
+    /* ── Toast Flotante ──────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #27ae60;
+      color: white;
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      display: none;
+      animation: slideToast 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+    }
+
+    @keyframes slideToast {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1>🎛️ Panel de Control — Overlays</h1>
-
-  <!-- Tarjeta de Accesos Directos A Herramientas de Difusión -->
-  <div class="card" style="border-color: #8B0000; background: linear-gradient(135deg, #1A0505 0%, #1E1E1E 100%);">
-    <div class="card-title" style="color: #FFD700;">🚀 Herramientas de Difusión y Redes</div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 8px;">
-      <a href="flyers.html"
-        style="background: linear-gradient(135deg, #8B0000, #C0392B); color: #FFD700; border: 1.5px solid #FFD700; padding: 12px 8px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);">
-        🎨 Flyer Artistas
-      </a>
-      <a href="flyer-promo.html"
-        style="background: linear-gradient(135deg, #C0392B, #8B0000); color: #FFD700; border: 1.5px solid #FFD700; padding: 12px 8px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px;">
-        📢 Flyer Promocional
-      </a>
-      <a href="overlay-invitacion.html"
-        style="background: linear-gradient(135deg, #1A1A1A, #333); color: #FFF; border: 1.5px solid #C0392B; padding: 12px 8px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px;">
-        ✉️ Invitación Digital
-      </a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🎙️ Anfitrión (Host)</div>
-    <div class="form-group">
-      <label>Nombre del Host</label>
-      <input type="text" id="hostName">
-    </div>
-    <div class="form-group">
-      <label>Rol / Etiqueta</label>
-      <input type="text" id="hostRole">
-    </div>
-  </div>
-
-  <div class="card">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-      <div class="card-title" style="margin-bottom:0;">🎙️ Co-Anfitrión (Co-Host)</div>
-      <label
-        style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:700; color:#FFD700;">
-        <input type="checkbox" id="cohostEnabled"
-          style="width:18px; height:18px; accent-color:#C0392B; cursor:pointer;">
-        <span>MOSTRAR CO-ANFITRIÓN EN OVERLAYS</span>
-      </label>
-    </div>
-    <div class="form-group">
-      <label>Nombre del Co-Anfitrión</label>
-      <input type="text" id="cohostName" placeholder="Ej: Juan Pérez">
-    </div>
-    <div class="form-group">
-      <label>Rol / Etiqueta</label>
-      <input type="text" id="cohostRole" placeholder="🎙️ CO-HOST / CO-ANFITRIÓN">
-    </div>
-  </div>
-
-  <div class="card">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-      <div class="card-title" style="margin-bottom:0;">💬 Invitado Especial</div>
-      <label
-        style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:700; color:#FFD700;">
-        <input type="checkbox" id="guestEnabled" checked
-          style="width:18px; height:18px; accent-color:#C0392B; cursor:pointer;">
-        <span>MOSTRAR INVITADO EN OVERLAYS</span>
-      </label>
-    </div>
-    <div class="form-group">
-      <label>Nombre del Invitado / Banda</label>
-      <input type="text" id="guestName">
-    </div>
-    <div class="form-group">
-      <label>Rol / Etiqueta</label>
-      <input type="text" id="guestRole">
-    </div>
-    <div class="form-group">
-      <label>Biografía / Descripción corta</label>
-      <textarea id="guestBio" rows="2"></textarea>
-    </div>
-    <div class="form-group">
-      <label>Próximos Eventos / Fechas del Invitado</label>
-      <input type="text" id="guestEvents" placeholder="Ej: 📅 20 AGO: La Trastienda | 25 AGO: Festival Cosquín">
-    </div>
-
-    <label style="margin-bottom:8px; display:block;">Redes Sociales del Invitado</label>
-    <div class="social-row">
-      <input type="text" id="socIcon0" placeholder="Icono">
-      <input type="text" id="socPlat0" placeholder="Plataforma">
-      <input type="text" id="socHand0" placeholder="Usuario / Handle">
-    </div>
-    <div class="social-row">
-      <input type="text" id="socIcon1" placeholder="Icono">
-      <input type="text" id="socPlat1" placeholder="Plataforma">
-      <input type="text" id="socHand1" placeholder="Usuario / Handle">
-    </div>
-    <div class="social-row">
-      <input type="text" id="socIcon2" placeholder="Icono">
-      <input type="text" id="socPlat2" placeholder="Plataforma">
-      <input type="text" id="socHand2" placeholder="Usuario / Handle">
-    </div>
-    <div class="card" style="border-color: #8e44ad;">
-      <div class="card-title" style="color: #c084fc;">📱 Info Stream Solo Vertical (9:16 TikTok Live)</div>
-      <div class="form-group">
-        <label>Título / Etiqueta Sección Inferior</label>
-        <input type="text" id="soloDescLabel" placeholder="📢 Hoy en el stream">
-      </div>
-      <div class="form-group">
-        <label>Descripción / Bio del Stream Solo</label>
-        <textarea id="soloBio" rows="2"
-          placeholder="¡Bienvenidos al stream en vivo! Música argentina, folklore y mucho más."></textarea>
-      </div>
-      <div class="form-group">
-        <label>Hashtags (separados por comas)</label>
-        <input type="text" id="soloTags"
-          placeholder="#Folklore, #Musica, #GuitarreandoALaGorra, #EnVivo, #ArgentinaMusic">
-      </div>
-      <div class="form-group">
-        <label>Usuario / Handle de Redes del Anfitrión Solo</label>
-        <input type="text" id="soloHandle" placeholder="@gutafloresok">
+  <!-- ══ TOPBAR FIJA (Siempre a mano con botón de Guardar) ═════════════ -->
+  <header class="topbar-sticky">
+    <div class="topbar-brand">
+      <div style="font-size: 24px;">🎛️</div>
+      <div>
+        <div class="topbar-title">GUTA FLORES — PANEL DE OVERLAYS</div>
+        <div class="topbar-subtitle">Control en vivo para OBS & TikTok Studio</div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-title">📜 Lema / Frase Destacada (Motto Banner)</div>
-      <div class="form-group">
-        <label>Primera Frase (Destacada)</label>
-        <input type="text" id="mottoPhrase1" placeholder="🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS">
-      </div>
-      <div class="form-group">
-        <label>Conector</label>
-        <input type="text" id="mottoConnector" placeholder="Y" style="width: 80px;">
-      </div>
-      <div class="form-group">
-        <label>Segunda Frase</label>
-        <input type="text" id="mottoPhrase2" placeholder="GUITARREAMOS A LA GORRA 🪕">
-      </div>
+    <div class="topbar-actions">
+      <span class="server-status-pill" id="serverPill">
+        <span class="pulse-dot"></span> Servidor Conectado
+      </span>
+      <button type="button" class="btn-save-top" onclick="saveData()" title="Guardar cambios (Ctrl + S)">
+        💾 GUARDAR DATOS <span class="shortcut-badge">Ctrl+S</span>
+      </button>
     </div>
+  </header>
 
-    <div class="card">
-      <div class="card-title">✨ Ticker / Texto Destacado Animado</div>
-      <div class="form-group">
-        <label>Items del Ticker (Separados por línea: usar prefijo | texto)</label>
-        <textarea id="tickerText" rows="5"
-          placeholder="🎙️ Conducción: | GUTA FLORES&#10;💬 Invitado: | VIENTO ANDINO"></textarea>
-      </div>
-    </div>
+  <!-- ══ CONTENEDOR DE FICHERO / FOLDER TABS ═════════════════════════ -->
+  <main class="folder-container">
 
-    <div class="card" style="border-color: #f39c12;">
-      <div class="card-title" style="color: #f39c12;">💬 Múltiples Invitados (Overlays de 2 y 3 Invitados)</div>
+    <!-- Pestañas Tipo Fichero Multicolor -->
+    <nav class="folder-tabs-bar" role="tablist">
+      <button type="button" class="folder-tab tab-color-hosts active" data-color="#E74C3C" onclick="switchFolderTab('tab-hosts', this)">
+        🎙️ HOSTS
+      </button>
+      <button type="button" class="folder-tab tab-color-guests" data-color="#0099FF" onclick="switchFolderTab('tab-guests', this)">
+        💬 INVITADOS
+      </button>
+      <button type="button" class="folder-tab tab-color-agenda" data-color="#9B59B6" onclick="switchFolderTab('tab-agenda', this)">
+        ⚡ AGENDA
+      </button>
+      <button type="button" class="folder-tab tab-color-ticker" data-color="#2ECC71" onclick="switchFolderTab('tab-ticker', this)">
+        ✨ TICKER
+      </button>
+      <button type="button" class="folder-tab tab-color-urls" data-color="#F39C12" onclick="switchFolderTab('tab-urls', this)">
+        📡 URLS OBS
+      </button>
+      <button type="button" class="folder-tab tab-color-tools" data-color="#34495E" onclick="switchFolderTab('tab-tools', this)">
+        🚀 HERRAMIENTAS
+      </button>
+    </nav>
 
-      <!-- Invitado 1 -->
-      <div
-        style="background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.3); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-        <div style="color: #FFD700; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 1</div>
-        <div class="form-group" style="margin-bottom: 6px;">
-          <label style="font-size: 11px;">Nombre Invitado 1</label>
-          <input type="text" id="guest1Name" placeholder="Ej: Invitado 1">
-        </div>
-        <div class="form-group" style="margin-bottom: 0;">
-          <label style="font-size: 11px;">Rol / Etiqueta Invitado 1</label>
-          <input type="text" id="guest1Role" placeholder="💬 INVITADO 1">
-        </div>
-      </div>
+    <!-- Cuerpo del Fichero (Color adaptativo según la pestaña activa) -->
+    <div class="folder-body" id="folderBody">
 
-      <!-- Invitado 2 -->
-      <div
-        style="background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.3); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-        <div style="color: #00F2FE; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 2</div>
-        <div class="form-group" style="margin-bottom: 6px;">
-          <label style="font-size: 11px;">Nombre Invitado 2</label>
-          <input type="text" id="guest2Name" placeholder="Ej: Invitado 2">
-        </div>
-        <div class="form-group" style="margin-bottom: 0;">
-          <label style="font-size: 11px;">Rol / Etiqueta Invitado 2</label>
-          <input type="text" id="guest2Role" placeholder="💬 INVITADO 2">
-        </div>
-      </div>
-
-      <!-- Invitado 3 -->
-      <div
-        style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.3); padding: 10px; border-radius: 8px;">
-        <div style="color: #a855f7; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 3</div>
-        <div class="form-group" style="margin-bottom: 6px;">
-          <label style="font-size: 11px;">Nombre Invitado 3</label>
-          <input type="text" id="guest3Name" placeholder="Ej: Invitado 3">
-        </div>
-        <div class="form-group" style="margin-bottom: 0;">
-          <label style="font-size: 11px;">Rol / Etiqueta Invitado 3</label>
-          <input type="text" id="guest3Role" placeholder="💬 INVITADO 3">
-        </div>
-      </div>
-    </div>
-
-    <div class="card" style="border-color: #2980b9;">
-      <div class="card-title" style="color:#2980b9;">📡 URLs PARA OBS / TIKTOK BROWSER SOURCE</div>
-      <p style="font-size: 12px; color: #AAA; margin-bottom: 10px; line-height:1.5;">
-        Copiá estas URLs en el Browser Source de OBS o TikTok Live Studio para que los overlays reciban los datos del
-        panel en tiempo real.
-      </p>
-      <div style="display:flex; flex-direction:column; gap:6px;" id="obs-urls">
-
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/overlay.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay.html')"
-            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/overlay.html" target="_blank" class="btn-goto">Ir →</a>
-        </div>
-
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-solo.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-solo.html')"
-            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/overlay-solo.html" target="_blank" class="btn-goto">Ir →</a>
-        </div>
-
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-multimedia.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-multimedia.html')"
-            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/overlay-multimedia.html" target="_blank" class="btn-goto">Ir →</a>
-        </div>
-
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-invitado.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-invitado.html')"
-            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/overlay-invitado.html" target="_blank" class="btn-goto">Ir →</a>
-        </div>
-
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/overlay-2invitados.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/overlay-2invitados.html')"
-            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/frames/overlay-2invitados.html" target="_blank" class="btn-goto">Ir →</a>
-        </div>
-
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/overlay-3invitados.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/overlay-3invitados.html')"
-            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/frames/overlay-3invitados.html" target="_blank" class="btn-goto">Ir →</a>
-        </div>
-
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html</code>
-          <button type="button"
-            onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html')"
-            style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html" target="_blank"
-            class="btn-goto">Ir →</a>
-        </div>
-
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html</code>
-          <button type="button"
-            onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html')"
-            style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html" target="_blank"
-            class="btn-goto">Ir →</a>
-        </div>
-
-        <!-- ★ NUEVO: Overlay 16:9 con marcos 9:16 dinámicos (se adapta solo) -->
-        <div style="display:flex; gap:6px; align-items:center; margin-top:4px; background:rgba(0,200,150,0.07); border:1px solid rgba(0,200,150,0.35); border-radius:8px; padding:8px;">
-          <div style="display:flex; flex-direction:column; flex:1; gap:3px;">
-            <span style="color:#00c896; font-size:11px; font-weight:800; letter-spacing:1px;">★ NUEVO — Overlay Dinámico 16:9 | Marcos 9:16</span>
-            <code
-              style="background:#111; color:#4fc; padding:5px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html</code>
-            <span style="color:#888; font-size:10px;">Se adapta automáticamente: 1 host / +cohost / +1, 2 o 3 invitados — layout en ola escalonada</span>
+      <!-- ══════════════════════════════════════════════════════════
+           PESTAÑA 1: HOSTS (Rojo Coral #E74C3C)
+           ══════════════════════════════════════════════════════════ -->
+      <section id="tab-hosts" class="tab-pane active">
+        <!-- Anfitrión Principal -->
+        <div class="inner-card">
+          <div class="card-title" style="color: #FFD700;">🎙️ Anfitrión Principal (Host)</div>
+          <div class="form-group">
+            <label>Nombre del Host</label>
+            <input type="text" id="hostName" placeholder="Ej: GUTA FLORES">
           </div>
-          <div style="display:flex; flex-direction:column; gap:4px;">
-            <button type="button"
-              onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html')"
-              style="background:#00c896; color:#000; font-weight:800; width:auto; padding:6px 12px; font-size:11px; border:none; border-radius:6px; cursor:pointer;">Copiar</button>
-            <a href="http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html" target="_blank"
-              class="btn-goto" style="text-align:center;">Ir →</a>
+          <div class="form-group">
+            <label>Rol / Etiqueta</label>
+            <input type="text" id="hostRole" placeholder="🎙️ ANFITRIÓN / HOST">
           </div>
         </div>
 
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-vertical.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-vertical.html')"
-            style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/overlay-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+        <!-- Co-Anfitrión -->
+        <div class="inner-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div class="card-title" style="margin-bottom:0; color: #c084fc;">🎙️ Co-Anfitrión (Co-Host)</div>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:700; color:#FFD700;">
+              <input type="checkbox" id="cohostEnabled" style="width:18px; height:18px; accent-color:#9B59B6; cursor:pointer;">
+              <span>MOSTRAR CO-ANFITRIÓN EN OVERLAYS</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label>Nombre del Co-Anfitrión</label>
+            <input type="text" id="cohostName" placeholder="Ej: RAÚL DOMINGO">
+          </div>
+          <div class="form-group">
+            <label>Rol / Etiqueta</label>
+            <input type="text" id="cohostRole" placeholder="🎙️ CO-HOST / CO-ANFITRIÓN">
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           PESTAÑA 2: INVITADOS (Azul #0099FF)
+           ══════════════════════════════════════════════════════════ -->
+      <section id="tab-guests" class="tab-pane">
+        <!-- Invitado Especial -->
+        <div class="inner-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div class="card-title" style="margin-bottom:0; color:#00F2FE;">💬 Invitado Especial / Principal</div>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:700; color:#FFD700;">
+              <input type="checkbox" id="guestEnabled" checked style="width:18px; height:18px; accent-color:#0099FF; cursor:pointer;">
+              <span>MOSTRAR INVITADO EN OVERLAYS</span>
+            </label>
+          </div>
+          
+          <div class="form-group">
+            <label>Nombre del Invitado / Banda</label>
+            <input type="text" id="guestName" placeholder="Ej: CECILIA CAMACHO">
+          </div>
+          <div class="form-group">
+            <label>Rol / Etiqueta</label>
+            <input type="text" id="guestRole" placeholder="💬 INVITADA ESTELAR | FOLKLORE">
+          </div>
+          <div class="form-group">
+            <label>Biografía / Descripción corta</label>
+            <textarea id="guestBio" rows="2" placeholder="Resumen o trayectoria del invitado..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Próximos Eventos / Fechas del Invitado</label>
+            <input type="text" id="guestEvents" placeholder="Ej: 📅 20 AGO: La Trastienda | 25 AGO: Festival Cosquín">
+          </div>
+
+          <label style="margin: 14px 0 8px 0; display:block; color:#FFD700; font-weight:800; font-size:12px;">
+            📲 Redes Sociales del Invitado (Aparecen en el banner inferior)
+          </label>
+          <div class="social-row">
+            <input type="text" id="socIcon0" placeholder="Icono" value="📸">
+            <input type="text" id="socPlat0" placeholder="Plataforma" value="INSTAGRAM">
+            <input type="text" id="socHand0" placeholder="Usuario / Handle" value="@ceciliacamacho_oficial">
+          </div>
+          <div class="social-row">
+            <input type="text" id="socIcon1" placeholder="Icono" value="📺">
+            <input type="text" id="socPlat1" placeholder="Plataforma" value="YOUTUBE">
+            <input type="text" id="socHand1" placeholder="Usuario / Handle" value="@ceciliacamacho_oficial">
+          </div>
+          <div class="social-row">
+            <input type="text" id="socIcon2" placeholder="Icono" value="🎵">
+            <input type="text" id="socPlat2" placeholder="Plataforma" value="TIKTOK">
+            <input type="text" id="socHand2" placeholder="Usuario / Handle" value="@ceciliacamacho_oficial">
+          </div>
         </div>
 
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-invitado-vertical.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-invitado-vertical.html')"
-            style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/overlay-invitado-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+        <!-- Múltiples Invitados -->
+        <div class="inner-card">
+          <div class="card-title" style="color: #00F2FE;">👥 Múltiples Invitados (Para Overlays Dinámicos, 2 y 3 Invitados)</div>
+          <div class="card-subtitle">Completá el nombre para activar el marco correspondiente en los overlays dinámicos.</div>
+
+          <!-- Invitado 1 -->
+          <div style="background: rgba(0, 153, 255, 0.06); border: 1px solid rgba(0, 153, 255, 0.3); padding: 12px; border-radius: 10px; margin-bottom: 12px;">
+            <div style="color: #00F2FE; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 1</div>
+            <div class="form-group" style="margin-bottom: 6px;">
+              <label>Nombre Invitado 1</label>
+              <input type="text" id="guest1Name" placeholder="Ej: CECILIA CAMACHO">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>Rol / Etiqueta Invitado 1</label>
+              <input type="text" id="guest1Role" placeholder="💬 INVITADA ESTELAR DESDE TARIJA - BOLIVIA | FOLKLORE">
+            </div>
+          </div>
+
+          <!-- Invitado 2 -->
+          <div style="background: rgba(0, 153, 255, 0.06); border: 1px solid rgba(0, 153, 255, 0.3); padding: 12px; border-radius: 10px; margin-bottom: 12px;">
+            <div style="color: #00F2FE; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 2</div>
+            <div class="form-group" style="margin-bottom: 6px;">
+              <label>Nombre Invitado 2</label>
+              <input type="text" id="guest2Name" placeholder="Ej: PROYECT404">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>Rol / Etiqueta Invitado 2</label>
+              <input type="text" id="guest2Role" placeholder="💬 INVITADO ESTELAR DESDE URUGUAY | HIP-HOP">
+            </div>
+          </div>
+
+          <!-- Invitado 3 -->
+          <div style="background: rgba(0, 153, 255, 0.06); border: 1px solid rgba(0, 153, 255, 0.3); padding: 12px; border-radius: 10px;">
+            <div style="color: #00F2FE; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 3</div>
+            <div class="form-group" style="margin-bottom: 6px;">
+              <label>Nombre Invitado 3</label>
+              <input type="text" id="guest3Name" placeholder="Ej: Tigel y Eminencia">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>Rol / Etiqueta Invitado 3</label>
+              <input type="text" id="guest3Role" placeholder="💬 INVITADO ESTELAR | HIP-HOP TRAP">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           PESTAÑA 3: AGENDA & LEMA (Púrpura #9B59B6)
+           ══════════════════════════════════════════════════════════ -->
+      <section id="tab-agenda" class="tab-pane">
+        <!-- Cronograma / Agenda -->
+        <div class="inner-card">
+          <div class="card-title" style="color: #c084fc;">⚡ Cronograma / Agenda del Stream (Overlays Verticales)</div>
+          <div class="card-subtitle">Personalizá los 3 bloques que aparecen en el recuadro inferior de la transmisión.</div>
+          
+          <!-- Paso 1 -->
+          <div style="background: rgba(155, 89, 182, 0.06); border: 1px solid rgba(155, 89, 182, 0.3); padding: 10px 12px; border-radius: 8px; margin-bottom: 10px;">
+            <div style="font-size: 11px; font-weight: 800; color: #c084fc; margin-bottom: 4px;">PASO 1</div>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="agendaIcon0" placeholder="Icono" style="width: 60px;" value="🎙️">
+              <input type="text" id="agendaTitle0" placeholder="Título" style="flex: 1;" value="1. ENTREVISTA EN VIVO">
+              <input type="text" id="agendaSub0" placeholder="Subtítulo / Detalle" style="flex: 1.5;" value="Charlas, trayectoria y lanzamientos">
+            </div>
+          </div>
+
+          <!-- Paso 2 -->
+          <div style="background: rgba(155, 89, 182, 0.06); border: 1px solid rgba(155, 89, 182, 0.3); padding: 10px 12px; border-radius: 8px; margin-bottom: 10px;">
+            <div style="font-size: 11px; font-weight: 800; color: #c084fc; margin-bottom: 4px;">PASO 2</div>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="agendaIcon1" placeholder="Icono" style="width: 60px;" value="🪕">
+              <input type="text" id="agendaTitle1" placeholder="Título" style="flex: 1;" value="2. SHOW & GUITARREADA">
+              <input type="text" id="agendaSub1" placeholder="Subtítulo / Detalle" style="flex: 1.5;" value="Canciones y folklore a la gorra">
+            </div>
+          </div>
+
+          <!-- Paso 3 -->
+          <div style="background: rgba(155, 89, 182, 0.06); border: 1px solid rgba(155, 89, 182, 0.3); padding: 10px 12px; border-radius: 8px;">
+            <div style="font-size: 11px; font-weight: 800; color: #c084fc; margin-bottom: 4px;">PASO 3</div>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="agendaIcon2" placeholder="Icono" style="width: 60px;" value="💬">
+              <input type="text" id="agendaTitle2" placeholder="Título" style="flex: 1;" value="3. CHAT EN DIRECTO">
+              <input type="text" id="agendaSub2" placeholder="Subtítulo / Detalle" style="flex: 1.5;" value="Preguntas, saludos y peticiones">
+            </div>
+          </div>
         </div>
 
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-solo-vertical.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-solo-vertical.html')"
-            style="background:#8e44ad; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/overlay-solo-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+        <!-- Motto Banner -->
+        <div class="inner-card">
+          <div class="card-title" style="color: #FFD700;">📜 Lema / Frase Destacada (Motto Banner)</div>
+          <div style="display: flex; gap: 10px;">
+            <div class="form-group" style="flex: 2;">
+              <label>Primera Frase (Destacada)</label>
+              <input type="text" id="mottoPhrase1" placeholder="🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS">
+            </div>
+            <div class="form-group" style="width: 80px;">
+              <label>Conector</label>
+              <input type="text" id="mottoConnector" placeholder="|" style="text-align: center;">
+            </div>
+            <div class="form-group" style="flex: 2;">
+              <label>Segunda Frase</label>
+              <input type="text" id="mottoPhrase2" placeholder="INVITADOS DE LUJO">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           PESTAÑA 4: TICKER & SOLO (Verde Esmeralda #2ECC71)
+           ══════════════════════════════════════════════════════════ -->
+      <section id="tab-ticker" class="tab-pane">
+        <!-- Ticker Animado -->
+        <div class="inner-card">
+          <div class="card-title" style="color: #2ecc71;">✨ Ticker / Texto Animado Continuo</div>
+          <div class="form-group">
+            <label>Items del Ticker (Separados por línea. Usá "Prefijo | Texto" para resaltar el prefijo):</label>
+            <textarea id="tickerText" rows="6" placeholder="🎙️ Transmisión en vivo: | GUTA FLORES&#10;🌟 ¡Bienvenidos al stream!&#10;📲 Seguinos en redes: | @gutafloresok&#10;☕ Alias MP / Cafecito: | GUTA.FLORES"></textarea>
+          </div>
         </div>
 
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/transition.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/transition.html')"
-            style="background:#2980b9; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/transition.html" target="_blank" class="btn-goto">Ir →</a>
+        <!-- Info Stream Solo Vertical -->
+        <div class="inner-card">
+          <div class="card-title" style="color: #2ecc71;">📱 Info Stream Solo Vertical (TikTok Live 9:16)</div>
+          <div class="form-group">
+            <label>Título / Etiqueta Sección Inferior</label>
+            <input type="text" id="soloDescLabel" placeholder="📢 Hoy en el stream">
+          </div>
+          <div class="form-group">
+            <label>Descripción / Bio del Stream Solo</label>
+            <textarea id="soloBio" rows="2" placeholder="¡Bienvenidos al stream en vivo! Música argentina, folklore y mucho más."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Hashtags (separados por comas o espacio)</label>
+            <input type="text" id="soloTags" placeholder="#Folklore, #Musica, #GuitarreandoALaGorra, #EnVivo">
+          </div>
+          <div class="form-group">
+            <label>Usuario / Handle del Anfitrión</label>
+            <input type="text" id="soloHandle" placeholder="@gutafloresok">
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           PESTAÑA 5: URLS OBS & TIKTOK (Ámbar #F39C12)
+           ══════════════════════════════════════════════════════════ -->
+      <section id="tab-urls" class="tab-pane">
+        <div class="inner-card">
+          <div class="card-title" style="color: #F39C12;">📡 URLs PARA OBS STUDIO & TIKTOK LIVE STUDIO</div>
+          <div class="card-subtitle">
+            Copiá estas URLs en una fuente <strong>Navegador (Browser Source)</strong>. Se actualizan automáticamente en tiempo real.
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:10px;" id="obs-urls">
+
+            <!-- Dinámico 16:9 con marcos 9:16 -->
+            <div style="background:rgba(0,200,150,0.12); border:1.5px solid rgba(0,200,150,0.5); border-radius:10px; padding:12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
+                <span style="color:#00c896; font-size:12px; font-weight:900;">⭐ RECOMENDADO: Overlay Dinámico 16:9 (Marcos 9:16)</span>
+                <code style="background:#0a0a0f; color:#4fc; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html</code>
+                <span style="color:#AAA; font-size:11px;">Se adapta solo a 1 host, +cohost, o +1, 2 o 3 invitados en ola escalonada</span>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html')" style="background:#00c896; color:#000; font-weight:800; padding:8px 14px; font-size:12px; border:none; border-radius:6px; cursor:pointer;">Copiar</button>
+                <a href="http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html" target="_blank" class="btn-goto">Ir →</a>
+              </div>
+            </div>
+
+            <!-- Vertical 2 Invitados -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
+                <span style="font-size:12px; font-weight:700; color:#FFD700;">Overlay Vertical 2 Invitados (9:16)</span>
+                <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html</code>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html')" class="btn-action-pill">Copiar</button>
+                <a href="http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+              </div>
+            </div>
+
+            <!-- Vertical 3 Invitados -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
+                <span style="font-size:12px; font-weight:700; color:#FFD700;">Overlay Vertical 3 Invitados (Matriz 2x2 en 9:16)</span>
+                <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html</code>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html')" class="btn-action-pill">Copiar</button>
+                <a href="http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+              </div>
+            </div>
+
+            <!-- Vertical Solo -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
+                <span style="font-size:12px; font-weight:700; color:#c084fc;">Overlay Solo Vertical TikTok (9:16)</span>
+                <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-solo-vertical.html</code>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-solo-vertical.html')" class="btn-action-pill">Copiar</button>
+                <a href="http://127.0.0.1:8000/overlay-solo-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+              </div>
+            </div>
+
+            <!-- 16:9 Principal -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
+                <span style="font-size:12px; font-weight:700; color:#e74c3c;">Overlay Clásico 16:9 Principal</span>
+                <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay.html</code>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay.html')" class="btn-action-pill">Copiar</button>
+                <a href="http://127.0.0.1:8000/overlay.html" target="_blank" class="btn-goto">Ir →</a>
+              </div>
+            </div>
+
+            <!-- Pronto Empezamos -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
+                <span style="font-size:12px; font-weight:700; color:#d35400;">Pantalla "Pronto Empezamos"</span>
+                <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/pronto-empezamos.html</code>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/pronto-empezamos.html')" class="btn-action-pill">Copiar</button>
+                <a href="http://127.0.0.1:8000/pronto-empezamos.html" target="_blank" class="btn-goto">Ir →</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           PESTAÑA 6: HERRAMIENTAS & RENDER (Pizarra #34495E)
+           ══════════════════════════════════════════════════════════ -->
+      <section id="tab-tools" class="tab-pane">
+        <!-- Accesos a Flyers -->
+        <div class="inner-card">
+          <div class="card-title" style="color: #FFD700;">🚀 Herramientas de Difusión y Redes</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 10px;">
+            <a href="flyers.html" target="_blank"
+              style="background: linear-gradient(135deg, #8B0000, #C0392B); color: #FFD700; border: 1.5px solid #FFD700; padding: 14px 10px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);">
+              🎨 Flyer Artistas
+            </a>
+            <a href="flyer-promo.html" target="_blank"
+              style="background: linear-gradient(135deg, #C0392B, #8B0000); color: #FFD700; border: 1.5px solid #FFD700; padding: 14px 10px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              📢 Flyer Promocional
+            </a>
+            <a href="overlay-invitacion.html" target="_blank"
+              style="background: linear-gradient(135deg, #1A1A1A, #333); color: #FFF; border: 1.5px solid #C0392B; padding: 14px 10px; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              ✉️ Invitación Digital
+            </a>
+          </div>
         </div>
 
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/transition-vertical.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/transition-vertical.html')"
-            style="background:#5b3fa0; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/transition-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+        <!-- Render & Capturas -->
+        <div class="inner-card">
+          <div class="card-title" style="color: #FFD700;">📸 Generar Imágenes PNG y Videos WebM</div>
+          <div class="card-subtitle">
+            Exportá capturas de alta calidad con fondos transparentes para OBS o redes sociales (requiere <code>node server.js</code>).
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+            <button type="button" class="btn-action-pill" onclick="captureOverlay('overlay_16x9_principal')">
+              📷 Capturar 16:9 Principal PNG
+            </button>
+            <button type="button" class="btn-action-pill" onclick="captureOverlay('overlay_9x16_vertical')">
+              📷 Capturar 9:16 Vertical PNG
+            </button>
+            <button type="button" class="btn-action-pill" onclick="captureOverlay('overlay_invitacion')">
+              📷 Capturar Invitación PNG
+            </button>
+            <button type="button" class="btn-action-pill" onclick="recordWebmVideo('likes_animation', 5000)">
+              🎥 Grabar Animación Likes WebM
+            </button>
+          </div>
         </div>
+      </section>
 
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/pronto-empezamos.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/pronto-empezamos.html')"
-            style="background:#d35400; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/pronto-empezamos.html" target="_blank" class="btn-goto">Ir →</a>
-        </div>
+    </div><!-- /folder-body -->
 
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/offline.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/offline.html')"
-            style="background:#d35400; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/offline.html" target="_blank" class="btn-goto">Ir →</a>
-        </div>
+  </main>
 
-        <div style="display:flex; gap:6px; align-items:center;">
-          <code
-            style="background:#111; color:#4fc; flex:1; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/animations/likes.html</code>
-          <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/animations/likes.html')"
-            style="background:#f43f5e; width:auto; padding:6px 12px; font-size:11px;">Copiar</button>
-          <a href="http://127.0.0.1:8000/frames/animations/likes.html" target="_blank" class="btn-goto">Ir →</a>
-        </div>
+  <!-- Toast Flotante -->
+  <div id="toast" class="toast">⚡ ¡Datos guardados con éxito!</div>
 
-      </div>
-    </div>
+  <!-- ══ JAVASCRIPT DEL PANEL ═══════════════════════════════════════ -->
+  <script>
+    // ── Cambio de Pestañas Tipo Fichero ────────────────────────────
+    function switchFolderTab(tabId, btn) {
+      document.querySelectorAll('.tab-pane').forEach(el => {
+        el.classList.remove('active');
+      });
+      document.querySelectorAll('.folder-tab').forEach(el => {
+        el.classList.remove('active');
+      });
 
-    <button onclick="saveData()">💾 Guardar Datos del Stream</button>
-    <div id="toast" class="toast">¡JSON descargado! Reemplazá stream-data.json en la carpeta.</div>
-
-
-    <script>
-      async function loadData() {
-        let data = null;
-        const localDataStr = localStorage.getItem('streamData');
-        if (localDataStr) {
-          try { data = JSON.parse(localDataStr); } catch (e) { }
-        }
-
-        if (!data) {
-          try {
-            const res = await fetch('stream-data.json?t=' + Date.now());
-            if (res.ok) data = await res.json();
-          } catch (e) { }
-        }
-
-        if (!data) return;
-
-        document.getElementById('hostName').value = data.host ? data.host.name || '' : '';
-        document.getElementById('hostRole').value = data.host ? data.host.role || '' : '';
-
-        if (data.cohost) {
-          document.getElementById('cohostEnabled').checked = data.cohost.enabled === true;
-          document.getElementById('cohostName').value = data.cohost.name || '';
-          document.getElementById('cohostRole').value = data.cohost.role || '';
-        }
-
-        if (data.guest) {
-          document.getElementById('guestEnabled').checked = data.guest.enabled !== false;
-          document.getElementById('guestName').value = data.guest.name || '';
-          document.getElementById('guestRole').value = data.guest.role || '';
-          document.getElementById('guestBio').value = data.guest.bio || '';
-          document.getElementById('guestEvents').value = data.guest.events || '';
-        }
-
-        if (data.guest1) {
-          document.getElementById('guest1Name').value = data.guest1.name || '';
-          document.getElementById('guest1Role').value = data.guest1.role || '';
-        }
-
-        if (data.guest2) {
-          document.getElementById('guest2Name').value = data.guest2.name || '';
-          document.getElementById('guest2Role').value = data.guest2.role || '';
-        }
-
-        if (data.guest3) {
-          document.getElementById('guest3Name').value = data.guest3.name || '';
-          document.getElementById('guest3Role').value = data.guest3.role || '';
-        }
-
-        if (data.guest && data.guest.socials) {
-          data.guest.socials.forEach((s, idx) => {
-            if (idx < 3) {
-              document.getElementById(`socIcon${idx}`).value = s.icon || '';
-              document.getElementById(`socPlat${idx}`).value = s.platform || '';
-              document.getElementById(`socHand${idx}`).value = s.handle || '';
-            }
-          });
-        }
-
-        if (data.solo) {
-          document.getElementById('soloDescLabel').value = data.solo.descLabel || '';
-          document.getElementById('soloBio').value = data.solo.bio || '';
-          document.getElementById('soloTags').value = data.solo.tags || '';
-          document.getElementById('soloHandle').value = data.solo.handle || '';
-        }
-
-        if (data.motto) {
-          document.getElementById('mottoPhrase1').value = data.motto.phrase1 || '';
-          document.getElementById('mottoConnector').value = data.motto.connector || '';
-          document.getElementById('mottoPhrase2').value = data.motto.phrase2 || '';
-        }
-
-        if (data.ticker) {
-          document.getElementById('tickerText').value = data.ticker.map(t => t.prefix ? `${t.prefix} | ${t.text}` : t.text).join('\n');
-        }
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+      if (btn) {
+        btn.classList.add('active');
+        const color = btn.getAttribute('data-color') || '#E74C3C';
+        const bodyEl = document.getElementById('folderBody');
+        if (bodyEl) bodyEl.style.backgroundColor = color;
       }
 
-      async function saveData() {
-        const tickerLines = document.getElementById('tickerText').value.split('\n').filter(l => l.trim() !== '');
-        const tickerObj = tickerLines.map(l => {
-          const idx = l.indexOf('|');
-          if (idx !== -1) {
-            return {
-              prefix: l.substring(0, idx).trim(),
-              text: l.substring(idx + 1).trim(),
-              highlight: true
-            };
+      try {
+        sessionStorage.setItem('activeFolderTab', tabId);
+      } catch (e) {}
+    }
+
+    // Restaurar pestaña guardada al cargar
+    try {
+      const savedFolderTab = sessionStorage.getItem('activeFolderTab');
+      if (savedFolderTab && document.getElementById(savedFolderTab)) {
+        const btn = document.querySelector(`.folder-tab[onclick*="${savedFolderTab}"]`);
+        if (btn) switchFolderTab(savedFolderTab, btn);
+      }
+    } catch (e) {}
+
+    // ── Atajo global Ctrl+S / Cmd+S ────────────────────────────────
+    window.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        saveData();
+      }
+    });
+
+    // ── Carga de Datos ─────────────────────────────────────────────
+    async function loadData() {
+      let data = null;
+      const localDataStr = localStorage.getItem('streamData');
+      if (localDataStr) {
+        try { data = JSON.parse(localDataStr); } catch (e) {}
+      }
+
+      if (!data) {
+        try {
+          const res = await fetch('stream-data.json?t=' + Date.now());
+          if (res.ok) data = await res.json();
+        } catch (e) {}
+      }
+
+      if (!data) return;
+
+      document.getElementById('hostName').value = data.host ? (data.host.name || '') : '';
+      document.getElementById('hostRole').value = data.host ? (data.host.role || '') : '';
+
+      if (data.cohost) {
+        document.getElementById('cohostEnabled').checked = data.cohost.enabled === true;
+        document.getElementById('cohostName').value = data.cohost.name || '';
+        document.getElementById('cohostRole').value = data.cohost.role || '';
+      }
+
+      if (data.guest) {
+        document.getElementById('guestEnabled').checked = data.guest.enabled !== false;
+        document.getElementById('guestName').value = data.guest.name || '';
+        document.getElementById('guestRole').value = data.guest.role || '';
+        document.getElementById('guestBio').value = data.guest.bio || '';
+        document.getElementById('guestEvents').value = data.guest.events || '';
+      }
+
+      if (data.guest1) {
+        document.getElementById('guest1Name').value = data.guest1.name || '';
+        document.getElementById('guest1Role').value = data.guest1.role || '';
+      }
+
+      if (data.guest2) {
+        document.getElementById('guest2Name').value = data.guest2.name || '';
+        document.getElementById('guest2Role').value = data.guest2.role || '';
+      }
+
+      if (data.guest3) {
+        document.getElementById('guest3Name').value = data.guest3.name || '';
+        document.getElementById('guest3Role').value = data.guest3.role || '';
+      }
+
+      if (data.guest && data.guest.socials) {
+        data.guest.socials.forEach((s, idx) => {
+          if (idx < 3) {
+            if (document.getElementById(`socIcon${idx}`)) document.getElementById(`socIcon${idx}`).value = s.icon || '';
+            if (document.getElementById(`socPlat${idx}`)) document.getElementById(`socPlat${idx}`).value = s.platform || '';
+            if (document.getElementById(`socHand${idx}`)) document.getElementById(`socHand${idx}`).value = s.handle || '';
           }
+        });
+      }
+
+      if (data.solo) {
+        document.getElementById('soloDescLabel').value = data.solo.descLabel || '';
+        document.getElementById('soloBio').value = data.solo.bio || '';
+        document.getElementById('soloTags').value = data.solo.tags || '';
+        document.getElementById('soloHandle').value = data.solo.handle || '';
+      }
+
+      if (data.motto) {
+        document.getElementById('mottoPhrase1').value = data.motto.phrase1 || '';
+        document.getElementById('mottoConnector').value = data.motto.connector || '';
+        document.getElementById('mottoPhrase2').value = data.motto.phrase2 || '';
+      }
+
+      if (data.agenda && Array.isArray(data.agenda)) {
+        data.agenda.forEach((a, idx) => {
+          if (idx < 3) {
+            if (document.getElementById(`agendaIcon${idx}`)) document.getElementById(`agendaIcon${idx}`).value = a.icon || '';
+            if (document.getElementById(`agendaTitle${idx}`)) document.getElementById(`agendaTitle${idx}`).value = a.title || '';
+            if (document.getElementById(`agendaSub${idx}`)) document.getElementById(`agendaSub${idx}`).value = a.sub || '';
+          }
+        });
+      }
+
+      if (data.ticker) {
+        document.getElementById('tickerText').value = data.ticker.map(t => t.prefix ? `${t.prefix} | ${t.text}` : t.text).join('\n');
+      }
+    }
+
+    // ── Guardado de Datos ──────────────────────────────────────────
+    async function saveData() {
+      const tickerLines = document.getElementById('tickerText').value.split('\n').filter(l => l.trim() !== '');
+      const tickerObj = tickerLines.map(l => {
+        const idx = l.indexOf('|');
+        if (idx !== -1) {
           return {
-            prefix: '',
-            text: l.trim(),
+            prefix: l.substring(0, idx).trim(),
+            text: l.substring(idx + 1).trim(),
             highlight: true
           };
-        });
-
-        const updated = {
-          host: {
-            name: document.getElementById('hostName').value,
-            role: document.getElementById('hostRole').value
-          },
-          cohost: {
-            enabled: document.getElementById('cohostEnabled').checked,
-            name: document.getElementById('cohostName').value,
-            role: document.getElementById('cohostRole').value
-          },
-          guest: {
-            enabled: document.getElementById('guestEnabled').checked,
-            name: document.getElementById('guestName').value,
-            role: document.getElementById('guestRole').value,
-            bio: document.getElementById('guestBio').value,
-            events: document.getElementById('guestEvents').value,
-            socials: [
-              { icon: document.getElementById('socIcon0').value, platform: document.getElementById('socPlat0').value, handle: document.getElementById('socHand0').value },
-              { icon: document.getElementById('socIcon1').value, platform: document.getElementById('socPlat1').value, handle: document.getElementById('socHand1').value },
-              { icon: document.getElementById('socIcon2').value, platform: document.getElementById('socPlat2').value, handle: document.getElementById('socHand2').value }
-            ]
-          },
-          guest1: {
-            enabled: true,
-            name: document.getElementById('guest1Name').value,
-            role: document.getElementById('guest1Role').value
-          },
-          guest2: {
-            enabled: true,
-            name: document.getElementById('guest2Name').value,
-            role: document.getElementById('guest2Role').value
-          },
-          guest3: {
-            enabled: true,
-            name: document.getElementById('guest3Name').value,
-            role: document.getElementById('guest3Role').value
-          },
-          solo: {
-            descLabel: document.getElementById('soloDescLabel').value,
-            bio: document.getElementById('soloBio').value,
-            tags: document.getElementById('soloTags').value,
-            handle: document.getElementById('soloHandle').value
-          },
-          motto: {
-            phrase1: document.getElementById('mottoPhrase1').value,
-            connector: document.getElementById('mottoConnector').value,
-            phrase2: document.getElementById('mottoPhrase2').value
-          },
-          ticker: tickerObj
+        }
+        return {
+          prefix: '',
+          text: l.trim(),
+          highlight: true
         };
+      });
 
-        // 1. Guardar en localStorage (sincroniza al instante con overlays abiertos en el mismo origen)
-        localStorage.setItem('streamData', JSON.stringify(updated));
-
-        // 2. Guardar en stream-data.json via servidor (para overlays que cargan por fetch)
-        try {
-          await fetch('/api/save-data', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updated)
-          });
-        } catch (e) {
-          // Si no hay servidor corriendo, solo queda el localStorage
+      const agendaObj = [
+        {
+          icon: document.getElementById('agendaIcon0') ? document.getElementById('agendaIcon0').value : '🎙️',
+          title: document.getElementById('agendaTitle0') ? document.getElementById('agendaTitle0').value : '1. ENTREVISTA EN VIVO',
+          sub: document.getElementById('agendaSub0') ? document.getElementById('agendaSub0').value : 'Charlas, trayectoria y lanzamientos'
+        },
+        {
+          icon: document.getElementById('agendaIcon1') ? document.getElementById('agendaIcon1').value : '🪕',
+          title: document.getElementById('agendaTitle1') ? document.getElementById('agendaTitle1').value : '2. SHOW & GUITARREADA',
+          sub: document.getElementById('agendaSub1') ? document.getElementById('agendaSub1').value : 'Canciones y folklore a la gorra'
+        },
+        {
+          icon: document.getElementById('agendaIcon2') ? document.getElementById('agendaIcon2').value : '💬',
+          title: document.getElementById('agendaTitle2') ? document.getElementById('agendaTitle2').value : '3. CHAT EN DIRECTO',
+          sub: document.getElementById('agendaSub2') ? document.getElementById('agendaSub2').value : 'Preguntas, saludos y peticiones'
         }
+      ];
 
-        const toast = document.getElementById('toast');
-        toast.style.display = 'block';
-        toast.style.background = '#27ae60';
-        toast.textContent = '⚡ ¡Datos guardados! Overlays actualizados.';
-        setTimeout(() => toast.style.display = 'none', 3000);
-      }
+      const updated = {
+        host: {
+          name: document.getElementById('hostName').value,
+          role: document.getElementById('hostRole').value
+        },
+        cohost: {
+          enabled: document.getElementById('cohostEnabled').checked,
+          name: document.getElementById('cohostName').value,
+          role: document.getElementById('cohostRole').value
+        },
+        guest: {
+          enabled: document.getElementById('guestEnabled').checked,
+          name: document.getElementById('guestName').value,
+          role: document.getElementById('guestRole').value,
+          bio: document.getElementById('guestBio').value,
+          events: document.getElementById('guestEvents').value,
+          socials: [
+            { icon: document.getElementById('socIcon0').value, platform: document.getElementById('socPlat0').value, handle: document.getElementById('socHand0').value },
+            { icon: document.getElementById('socIcon1').value, platform: document.getElementById('socPlat1').value, handle: document.getElementById('socHand1').value },
+            { icon: document.getElementById('socIcon2').value, platform: document.getElementById('socPlat2').value, handle: document.getElementById('socHand2').value }
+          ]
+        },
+        guest1: {
+          enabled: true,
+          name: document.getElementById('guest1Name').value,
+          role: document.getElementById('guest1Role').value
+        },
+        guest2: {
+          enabled: true,
+          name: document.getElementById('guest2Name').value,
+          role: document.getElementById('guest2Role').value
+        },
+        guest3: {
+          enabled: true,
+          name: document.getElementById('guest3Name').value,
+          role: document.getElementById('guest3Role').value
+        },
+        solo: {
+          descLabel: document.getElementById('soloDescLabel').value,
+          bio: document.getElementById('soloBio').value,
+          tags: document.getElementById('soloTags').value,
+          handle: document.getElementById('soloHandle').value
+        },
+        motto: {
+          phrase1: document.getElementById('mottoPhrase1').value,
+          connector: document.getElementById('mottoConnector').value,
+          phrase2: document.getElementById('mottoPhrase2').value
+        },
+        agenda: agendaObj,
+        ticker: tickerObj
+      };
 
-      function copyUrl(url) {
-        navigator.clipboard.writeText(url).then(() => {
-          const toast = document.getElementById('toast');
-          toast.style.display = 'block';
-          toast.style.background = '#2980b9';
-          toast.textContent = '📋 URL copiada: ' + url;
-          setTimeout(() => { toast.style.display = 'none'; toast.style.background = '#27ae60'; }, 2500);
+      // 1. Guardar en localStorage (sincroniza en el mismo navegador)
+      localStorage.setItem('streamData', JSON.stringify(updated));
+
+      // 2. Guardar en stream-data.json en el servidor
+      const toast = document.getElementById('toast');
+      toast.style.display = 'block';
+
+      try {
+        const res = await fetch('/api/save-data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updated)
         });
+        if (res.ok) {
+          toast.style.background = '#27ae60';
+          toast.textContent = '⚡ ¡Datos guardados en stream-data.json y overlays actualizados!';
+        } else {
+          toast.style.background = '#e67e22';
+          toast.textContent = '⚠️ Guardado en navegador. Para guardar en disco iniciá python server.py';
+        }
+      } catch (e) {
+        toast.style.background = '#27ae60';
+        toast.textContent = '⚡ ¡Datos guardados localmente!';
       }
 
-      async function captureOverlay(overlayKey) {
+      setTimeout(() => toast.style.display = 'none', 3500);
+    }
+
+    // ── Copiar URLs ────────────────────────────────────────────────
+    function copyUrl(url) {
+      navigator.clipboard.writeText(url).then(() => {
         const toast = document.getElementById('toast');
         toast.style.display = 'block';
-        toast.style.background = '#e67e22';
-        toast.textContent = '⏳ Generando imagen PNG... puede tardar unos segundos...';
+        toast.style.background = '#2980b9';
+        toast.textContent = '📋 URL copiada al portapapeles: ' + url;
+        setTimeout(() => { toast.style.display = 'none'; }, 2500);
+      });
+    }
 
-        try {
-          // Llama al servidor local que ejecuta Playwright y devuelve el PNG
-          const response = await fetch(`/api/capture?overlay=${overlayKey}`);
+    // ── Captura y Render con Playwright ─────────────────────────────
+    async function captureOverlay(overlayKey) {
+      const toast = document.getElementById('toast');
+      toast.style.display = 'block';
+      toast.style.background = '#e67e22';
+      toast.textContent = '⏳ Generando imagen PNG... por favor esperá...';
 
-          if (!response.ok) {
-            const errorData = await response.json().catch(() => ({ error: 'Error desconocido' }));
-            throw new Error(errorData.error || `HTTP ${response.status}`);
-          }
-
-          // Descargar el PNG recibido
-          const blob = await response.blob();
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = overlayKey + '.png';
-          link.click();
-          URL.revokeObjectURL(url);
-
-          toast.style.background = '#27ae60';
-          toast.textContent = '✅ ¡Imagen PNG descargada y guardada en render/!';
-          setTimeout(() => {
-            toast.style.display = 'none';
-            toast.style.background = '#27ae60';
-          }, 4000);
-
-        } catch (err) {
-          console.error('Error al capturar overlay:', err);
-          toast.style.background = '#c0392b';
-          toast.textContent = '❌ Error: ' + err.message + '. ¿Está corriendo node server.js?';
-          document.getElementById('server-warning').style.display = 'block';
-        }
+      try {
+        const response = await fetch(`/api/capture?overlay=${overlayKey}`);
+        if (!response.ok) throw new Error('Servidor Node no disponible');
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = overlayKey + '.png';
+        link.click();
+        URL.revokeObjectURL(url);
+        toast.style.background = '#27ae60';
+        toast.textContent = '✅ ¡Imagen PNG descargada con éxito!';
+      } catch (err) {
+        toast.style.background = '#c0392b';
+        toast.textContent = '❌ Para generar PNG/Video ejecutá node server.js';
       }
+      setTimeout(() => toast.style.display = 'none', 4000);
+    }
 
-      async function recordWebmVideo(overlayKey, durationMs = 6000) {
-        const toast = document.getElementById('toast');
-        toast.style.display = 'block';
-        toast.style.background = '#e67e22';
-        toast.textContent = `🎥 Grabando video WebM (VP8/VP9) durante ${durationMs / 1000}s... Por favor esperá...`;
+    async function recordWebmVideo(overlayKey, durationMs = 5000) {
+      const toast = document.getElementById('toast');
+      toast.style.display = 'block';
+      toast.style.background = '#e67e22';
+      toast.textContent = `🎥 Grabando video WebM (${durationMs / 1000}s)...`;
 
-        try {
-          const response = await fetch(`/api/record-video?overlay=${overlayKey}&duration=${durationMs}`);
-
-          if (!response.ok) {
-            const errorData = await response.json().catch(() => ({ error: 'Error al grabar video' }));
-            throw new Error(errorData.error || `HTTP ${response.status}`);
-          }
-
-          const blob = await response.blob();
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = `${overlayKey}_video.webm`;
-          link.click();
-          URL.revokeObjectURL(url);
-
-          toast.style.background = '#27ae60';
-          toast.textContent = '✅ ¡Video WebM grabado y descargado en render/!';
-          setTimeout(() => {
-            toast.style.display = 'none';
-            toast.style.background = '#27ae60';
-          }, 4000);
-
-        } catch (err) {
-          console.error('Error al grabar video WebM:', err);
-          toast.style.background = '#c0392b';
-          toast.textContent = '❌ Error: ' + err.message + '. ¿Está corriendo node server.js?';
-          document.getElementById('server-warning').style.display = 'block';
-        }
+      try {
+        const response = await fetch(`/api/record-video?overlay=${overlayKey}&duration=${durationMs}`);
+        if (!response.ok) throw new Error('Servidor Node no disponible');
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${overlayKey}_video.webm`;
+        link.click();
+        URL.revokeObjectURL(url);
+        toast.style.background = '#27ae60';
+        toast.textContent = '✅ ¡Video WebM grabado y descargado!';
+      } catch (err) {
+        toast.style.background = '#c0392b';
+        toast.textContent = '❌ Para generar PNG/Video ejecutá node server.js';
       }
+      setTimeout(() => toast.style.display = 'none', 4000);
+    }
 
-      // Verificar si el servidor está corriendo al cargar la página
-      async function checkServer() {
-        try {
-          await fetch('/api/overlays', { signal: AbortSignal.timeout(1500) });
-          document.getElementById('server-warning').style.display = 'none';
-        } catch {
-          document.getElementById('server-warning').style.display = 'block';
-        }
-      }
-      checkServer();
+    loadData();
+  </script>
 
-
-
-      loadData();
-    </script>
 </body>
 
 </html>

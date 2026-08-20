@@ -177,6 +177,21 @@
       el.textContent = mottoP2;
     });
 
+    // ── 3b. CRONOGRAMA / AGENDA DEL STREAM ──────────────────────────────────
+    if (data.agenda && Array.isArray(data.agenda)) {
+      data.agenda.forEach(function (item, idx) {
+        document.querySelectorAll('[data-bind="agenda-icon-' + idx + '"]').forEach(function (el) {
+          if (item.icon !== undefined) el.textContent = item.icon;
+        });
+        document.querySelectorAll('[data-bind="agenda-title-' + idx + '"]').forEach(function (el) {
+          if (item.title !== undefined) el.textContent = item.title;
+        });
+        document.querySelectorAll('[data-bind="agenda-sub-' + idx + '"]').forEach(function (el) {
+          if (item.sub !== undefined) el.textContent = item.sub;
+        });
+      });
+    }
+
     // ── 4. TICKER CONTENT ───────────────────────────────────────────────────
     if (data.ticker && Array.isArray(data.ticker)) {
       document.querySelectorAll('[data-bind="ticker-content"]').forEach(function (container) {
@@ -195,7 +210,28 @@
     }
   }
 
-  function loadData() {
+  function fetchStreamData() {
+    var fetchUrl = (scriptDir || '') + 'stream-data.json?t=' + Date.now();
+
+    fetch(fetchUrl, { cache: 'no-store' })
+      .then(function (res) {
+        if (res.ok) return res.json();
+      })
+      .then(function (data) {
+        if (data) {
+          applyData(data);
+          try { localStorage.setItem('streamData', JSON.stringify(data)); } catch (e) {}
+        }
+      })
+      .catch(function () {
+        var localStr = localStorage.getItem('streamData');
+        if (localStr) {
+          try { applyData(JSON.parse(localStr)); } catch (e) {}
+        }
+      });
+  }
+
+  function init() {
     var localStr = localStorage.getItem('streamData');
     if (localStr) {
       try {
@@ -203,17 +239,8 @@
         applyData(localData);
       } catch (e) {}
     }
-
-    var fetchUrl = (scriptDir || '') + 'stream-data.json?t=' + Date.now();
-
-    fetch(fetchUrl)
-      .then(function (res) {
-        if (res.ok) return res.json();
-      })
-      .then(function (data) {
-        if (data) applyData(data);
-      })
-      .catch(function () {});
+    fetchStreamData();
+    setInterval(fetchStreamData, 2000);
   }
 
   window.addEventListener('storage', function (e) {
@@ -224,8 +251,10 @@
     }
   });
 
-  document.addEventListener('DOMContentLoaded', loadData);
-  loadData();
-  setInterval(loadData, 2000);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 
 }());
