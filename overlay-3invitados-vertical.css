@@ -37,23 +37,24 @@ body {
 /* LAYOUT PRINCIPAL MATRIZ 2x2 DE 4 CAMARAS EN 9:16 */
 .vertical-3guest-layout {
   position: absolute;
-  top: 24px;
-  left: 24px;
-  right: 24px;
-  bottom: 170px;
-  height: calc(100% - 194px);
+  top: 18px;
+  left: 20px;
+  right: 20px;
+  bottom: 165px;
+  height: calc(100% - 183px);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .cams-grid-2x2 {
-  width: 1032px;
+  width: 100%;
+  max-width: 1040px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 28px 20px;
+  gap: 26px 20px;
   flex-shrink: 0;
 }
 
@@ -65,11 +66,11 @@ body {
 }
 
 .cam-box-grid {
-  width: 506px;
-  height: 285px;
+  width: 100%;
+  max-width: 490px;
   aspect-ratio: 16 / 9;
   position: relative;
-  border-radius: 16px;
+  border-radius: 18px;
   background: transparent;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
 }
@@ -146,25 +147,25 @@ body {
   border-radius: 11px;
 }
 
-/* Panel de Redes / Agenda e Info Completa del Panel (Altura compacta) */
+/* Panel de Redes / Agenda e Info Completa del Panel (Flexible y enriquecido) */
 .guest-info-panel-3x {
-  width: 1032px;
-  height: 240px;
-  max-height: 240px;
+  width: 100%;
+  max-width: 1000px;
+  flex: 1;
+  min-height: 480px;
   background: rgba(12, 12, 16, 0.92);
   border: 2px solid #FFD700;
   border-radius: 18px;
-  padding: 12px 18px;
+  padding: 18px 22px;
   margin-top: 6px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 8px;
+  gap: 12px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85), inset 0 0 20px rgba(255, 215, 0, 0.15);
   backdrop-filter: blur(12px);
   box-sizing: border-box;
   overflow: hidden;
-  flex-shrink: 0;
 }
 
 .info-header-wide {

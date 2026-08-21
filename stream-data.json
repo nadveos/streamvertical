@@ -10,9 +10,9 @@
   },
   "guest": {
     "enabled": true,
-    "name": "CECILIA CAMACHO",
+    "name": "Proyect404",
     "role": "💬 INVITADO ESPECIAL",
-    "bio": "Cecilia Camacho Torrez viene consolidando una destacada carrera dentro del folclore boliviano, convirtiéndose en una de las jóvenes promesas de la música nacional gracias a su talento y disciplina.",
+    "bio": "Música Urbana | ",
     "events": "",
     "socials": [
       {
@@ -34,24 +34,24 @@
   },
   "guest1": {
     "enabled": true,
-    "name": "CECILIA CAMACHO",
-    "role": "💬 INVITADA ESTELAR DESDE TARIJA - BOLIVIA | FOLKLORE"
+    "name": "",
+    "role": ""
   },
   "guest2": {
     "enabled": true,
-    "name": "PROYECT404",
-    "role": "💬 INVITADO ESTELAR DESDE URUGUAY | HIP-HOP"
+    "name": "",
+    "role": ""
   },
   "guest3": {
     "enabled": true,
-    "name": "Tigel y Eminencia",
-    "role": "💬  INVITADO ESTELAR DESDE MORENO - BS. AS. | HIP-HOP TRAP"
+    "name": "",
+    "role": ""
   },
   "solo": {
     "descLabel": "Hoy",
     "bio": "Bienvenidos, hoy buscamos nuevos artistas emergentes mientras escuchamos música !!!",
     "tags": "#artistasemergentes #nuevamusica #charlemos",
-    "handle": ""
+    "handle": "@gutafloresok @rauldomingooficial"
   },
   "motto": {
     "phrase1": "",
@@ -88,7 +88,7 @@
     },
     {
       "prefix": "📲 Seguinos en redes:",
-      "text": "@gutafloresok",
+      "text": "@gutafloresok @rauldomingooficial",
       "highlight": true
     },
     {

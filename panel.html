@@ -634,81 +634,242 @@
         <div class="inner-card">
           <div class="card-title" style="color: #F39C12;">📡 URLs PARA OBS STUDIO & TIKTOK LIVE STUDIO</div>
           <div class="card-subtitle">
-            Copiá estas URLs en una fuente <strong>Navegador (Browser Source)</strong>. Se actualizan automáticamente en tiempo real.
+            Copiá estas URLs en una fuente <strong>Navegador (Browser Source)</strong>. Se actualizan automáticamente en tiempo real con este panel.
           </div>
 
-          <div style="display:flex; flex-direction:column; gap:10px;" id="obs-urls">
+          <div style="display:flex; flex-direction:column; gap:16px;" id="obs-urls">
 
-            <!-- Dinámico 16:9 con marcos 9:16 -->
-            <div style="background:rgba(0,200,150,0.12); border:1.5px solid rgba(0,200,150,0.5); border-radius:10px; padding:12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
-              <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
-                <span style="color:#00c896; font-size:12px; font-weight:900;">⭐ RECOMENDADO: Overlay Dinámico 16:9 (Marcos 9:16)</span>
-                <code style="background:#0a0a0f; color:#4fc; padding:6px 10px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html</code>
-                <span style="color:#AAA; font-size:11px;">Se adapta solo a 1 host, +cohost, o +1, 2 o 3 invitados en ola escalonada</span>
+            <!-- ── SECCIÓN 1: MARCOS VERTICALES (9:16) ────────────────── -->
+            <div style="background: rgba(0, 0, 0, 0.4); border: 1.5px solid rgba(255, 215, 0, 0.35); border-radius: 12px; padding: 14px 16px;">
+              <div style="color: #FFD700; font-size: 14px; font-weight: 900; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                📱 MARCOS VERTICALES 9:16 (TikTok Live Studio, Shorts, Reels, Kick Vertical)
               </div>
-              <div style="display:flex; gap:6px;">
-                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html')" style="background:#00c896; color:#000; font-weight:800; padding:8px 14px; font-size:12px; border:none; border-radius:6px; cursor:pointer;">Copiar</button>
-                <a href="http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html" target="_blank" class="btn-goto">Ir →</a>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+
+                <!-- Dinámico Adaptativo -->
+                <div style="background:rgba(0,200,150,0.12); border:1.5px solid rgba(0,200,150,0.5); border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="color:#00c896; font-size:12px; font-weight:900;">⭐ RECOMENDADO: Overlay Dinámico Adaptativo (1 a 4 Cams en Ola)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html')" style="background:#00c896; color:#000; font-weight:800; padding:7px 12px; font-size:12px; border:none; border-radius:6px; cursor:pointer;">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- Vertical 2 Invitados (9:16) -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#FFD700;">👥 Overlay 2 Invitados Vertical (2x 9:16 + Host 16:9)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- Vertical 3 Invitados (2x2) -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#FFD700;">👨‍👩‍👧‍👦 Overlay 3 Invitados Vertical (Matriz 2x2 — 4 Cámaras)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- Vertical Invitado Destacado (2x 16:9) -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#00F2FE;">💬 Overlay Invitado Destacado Vertical (2 Marcos 16:9)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-invitado-vertical.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-invitado-vertical.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/vertical/overlay-invitado-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- Vertical Clásico (1x 9:16 + Panel Lateral) -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#E67E22;">📲 Overlay Vertical Clásico (1 Cam 9:16 + Host 16:9)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-vertical.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-vertical.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/vertical/overlay-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- Vertical Solo -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#c084fc;">👤 Overlay Solo Vertical TikTok (Host Hero 9:16)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-solo-vertical.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-solo-vertical.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/vertical/overlay-solo-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
               </div>
             </div>
 
-            <!-- Vertical 2 Invitados -->
-            <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
-              <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
-                <span style="font-size:12px; font-weight:700; color:#FFD700;">Overlay Vertical 2 Invitados (9:16)</span>
-                <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html</code>
+            <!-- ── SECCIÓN 2: MARCOS HORIZONTALES (16:9) ──────────────── -->
+            <div style="background: rgba(0, 0, 0, 0.4); border: 1.5px solid rgba(192, 57, 43, 0.45); border-radius: 12px; padding: 14px 16px;">
+              <div style="color: #E74C3C; font-size: 14px; font-weight: 900; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                📺 MARCOS HORIZONTALES 16:9 (OBS Studio, Twitch, YouTube, Kick)
               </div>
-              <div style="display:flex; gap:6px;">
-                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html')" class="btn-action-pill">Copiar</button>
-                <a href="http://127.0.0.1:8000/frames/vertical/overlay-2invitados-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+
+                <!-- 16:9 Principal -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#E74C3C;">🎙️ Overlay Principal Clásico 16:9</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/overlay.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/overlay.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/overlay.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- 16:9 Solo -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#FFD700;">👤 Overlay Solo 16:9 (Host Hero Central)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/overlay-solo.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/overlay-solo.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/overlay-solo.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- 16:9 1 Invitado -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#00F2FE;">💬 Overlay 1 Invitado 16:9 (1 Host + 1 Invitado)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/overlay-invitado.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/overlay-invitado.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/overlay-invitado.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- 16:9 2 Invitados -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#FFD700;">👥 Overlay 2 Invitados 16:9 (1 Host + 2 Invitados)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/overlay-2invitados.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/overlay-2invitados.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/overlay-2invitados.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- 16:9 3 Invitados (Matriz 2x2) -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#c084fc;">👨‍👩‍👧‍👦 Overlay 3 Invitados 16:9 (Matriz 2x2 — 4 Cámaras)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/overlay-3invitados.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/overlay-3invitados.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/overlay-3invitados.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- 16:9 Multimedia -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#E67E22;">🎬 Overlay Multimedia 16:9 (Videos / Clips / Pantalla Compartida)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/overlay-multimedia.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/overlay-multimedia.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/overlay-multimedia.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
               </div>
             </div>
 
-            <!-- Vertical 3 Invitados -->
-            <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
-              <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
-                <span style="font-size:12px; font-weight:700; color:#FFD700;">Overlay Vertical 3 Invitados (Matriz 2x2 en 9:16)</span>
-                <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html</code>
+            <!-- ── SECCIÓN 3: ANIMACIONES, TRANSICIONES & UTILIDADES ──── -->
+            <div style="background: rgba(0, 0, 0, 0.4); border: 1.5px solid rgba(46, 204, 113, 0.45); border-radius: 12px; padding: 14px 16px;">
+              <div style="color: #2ECC71; font-size: 14px; font-weight: 900; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                ⚡ ANIMACIONES, TRANSICIONES & UTILIDADES OBS
               </div>
-              <div style="display:flex; gap:6px;">
-                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html')" class="btn-action-pill">Copiar</button>
-                <a href="http://127.0.0.1:8000/frames/vertical/overlay-3invitados-vertical.html" target="_blank" class="btn-goto">Ir →</a>
-              </div>
-            </div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
 
-            <!-- Vertical Solo -->
-            <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
-              <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
-                <span style="font-size:12px; font-weight:700; color:#c084fc;">Overlay Solo Vertical TikTok (9:16)</span>
-                <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay-solo-vertical.html</code>
-              </div>
-              <div style="display:flex; gap:6px;">
-                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay-solo-vertical.html')" class="btn-action-pill">Copiar</button>
-                <a href="http://127.0.0.1:8000/overlay-solo-vertical.html" target="_blank" class="btn-goto">Ir →</a>
-              </div>
-            </div>
+                <!-- Pronto Empezamos -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#d35400;">⏳ Pantalla "Pronto Empezamos" (Cuenta Regresiva)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/pronto-empezamos.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/pronto-empezamos.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/pronto-empezamos.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
 
-            <!-- 16:9 Principal -->
-            <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
-              <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
-                <span style="font-size:12px; font-weight:700; color:#e74c3c;">Overlay Clásico 16:9 Principal</span>
-                <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/overlay.html</code>
-              </div>
-              <div style="display:flex; gap:6px;">
-                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/overlay.html')" class="btn-action-pill">Copiar</button>
-                <a href="http://127.0.0.1:8000/overlay.html" target="_blank" class="btn-goto">Ir →</a>
-              </div>
-            </div>
+                <!-- Transición Horizontal -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#2ecc71;">⚡ Transición Stinger Horizontal 16:9</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/transition.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/transition.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/transition.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
 
-            <!-- Pronto Empezamos -->
-            <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
-              <div style="display:flex; flex-direction:column; gap:2px; flex:1;">
-                <span style="font-size:12px; font-weight:700; color:#d35400;">Pantalla "Pronto Empezamos"</span>
-                <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/pronto-empezamos.html</code>
-              </div>
-              <div style="display:flex; gap:6px;">
-                <button type="button" onclick="copyUrl('http://127.0.0.1:8000/pronto-empezamos.html')" class="btn-action-pill">Copiar</button>
-                <a href="http://127.0.0.1:8000/pronto-empezamos.html" target="_blank" class="btn-goto">Ir →</a>
+                <!-- Transición Vertical -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#2ecc71;">📱 Transición Stinger Vertical 9:16</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/transition-vertical.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/transition-vertical.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/transition-vertical.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- Animación Likes -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#e74c3c;">❤️ Animación Likes / Corazones Flotantes</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/frames/animations/likes.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/animations/likes.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/frames/animations/likes.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
+                <!-- Now Playing -->
+                <div style="background:rgba(255,255,255,0.03); border:1px solid #333; border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:3px; flex:1;">
+                    <span style="font-size:12px; font-weight:700; color:#3498db;">🎵 Widget "Reproduciendo Ahora" (Music / YTM)</span>
+                    <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:12px;">http://127.0.0.1:8000/playing_now.html</code>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" onclick="copyUrl('http://127.0.0.1:8000/playing_now.html')" class="btn-action-pill">Copiar</button>
+                    <a href="http://127.0.0.1:8000/playing_now.html" target="_blank" class="btn-goto">Ir →</a>
+                  </div>
+                </div>
+
               </div>
             </div>
 

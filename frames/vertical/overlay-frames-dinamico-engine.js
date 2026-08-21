@@ -13,10 +13,34 @@
   'use strict';
 
   /* ── Referencias DOM ─────────────────────────────── */
-  var framesRow      = document.getElementById('framesRow');
+  var stageContainer = document.getElementById('stageContainer');
   var headerName     = document.getElementById('headerHostName');
   var headerRole     = document.getElementById('headerHostRole');
   var participantTxt = document.getElementById('participantCount');
+
+  var hostsBlock     = document.getElementById('hostsBlock');
+  var slotHost       = document.getElementById('slotHost');
+  var slotHostName   = document.getElementById('slotHostName');
+  var slotHostRole   = document.getElementById('slotHostRole');
+
+  var slotCohost     = document.getElementById('slotCohost');
+  var slotCohostName = document.getElementById('slotCohostName');
+  var slotCohostRole = document.getElementById('slotCohostRole');
+
+  var stageInfoCard  = document.getElementById('stageInfoCard');
+  var guestsBlock    = document.getElementById('guestsBlock');
+
+  var slotGuest1     = document.getElementById('slotGuest1');
+  var slotGuest1Name = document.getElementById('slotGuest1Name');
+  var slotGuest1Role = document.getElementById('slotGuest1Role');
+
+  var slotGuest2     = document.getElementById('slotGuest2');
+  var slotGuest2Name = document.getElementById('slotGuest2Name');
+  var slotGuest2Role = document.getElementById('slotGuest2Role');
+
+  var slotGuest3     = document.getElementById('slotGuest3');
+  var slotGuest3Name = document.getElementById('slotGuest3Name');
+  var slotGuest3Role = document.getElementById('slotGuest3Role');
 
   /* ── Detectar ruta base para stream-data.json ─────── */
   var scriptEl  = document.currentScript || document.querySelector('script[src*="overlay-frames-dinamico-engine"]');
@@ -27,24 +51,8 @@
 
   /* ── Cachés ────────────────────────────────────────── */
   var lastJson       = '';
-  var lastLayout     = 0;
+  var lastLayout     = '';
   var lastTickerHtml = '';
-
-  /* ── Etiquetas para el contador ─────────────────────── */
-  var LAYOUT_LABELS = {
-    1: 'SOLO',
-    2: '2 EN ESCENA',
-    3: '3 EN ESCENA',
-    4: '4 EN ESCENA'
-  };
-
-  /* ── Color classes por slot (0 = host) ───────────────── */
-  var BORDER_CLASSES = ['fb-host', 'fb-guest1', 'fb-guest2', 'fb-guest3'];
-  var TAG_CLASSES    = ['nt-host', 'nt-guest1', 'nt-guest2', 'nt-guest3'];
-
-  /* La posición co-host siempre usa colores de cohost */
-  var COHOST_BORDER = 'fb-cohost';
-  var COHOST_TAG    = 'nt-cohost';
 
   /* ── Aplicar datos ────────────────────────────────────── */
   function applyData(data) {
@@ -54,29 +62,31 @@
     if (jsonStr === lastJson) return;
     lastJson = jsonStr;
 
-    /* ── Construir lista de participantes ── */
-    var participants = [];
-
-    /* 0. Host — siempre presente */
+    /* ── 1. HOST (Siempre presente) ── */
     var hostName = (data.host && data.host.name && data.host.name.trim() !== '') ? data.host.name.trim() : 'GUTA FLORES';
     var hostRole = (data.host && data.host.role && data.host.role.trim() !== '') ? data.host.role.trim() : '🎙️ ANFITRIÓN / HOST';
-    participants.push({ name: hostName, role: hostRole, isCohost: false });
 
-    /* 1. Co-host — si está habilitado y tiene nombre */
+    if (slotHostName && slotHostName.textContent !== hostName) slotHostName.textContent = hostName;
+    if (slotHostRole && slotHostRole.textContent !== hostRole) slotHostRole.textContent = hostRole;
+
+    /* ── 2. CO-HOST ── */
     var cohostEnabled = data.cohost
       && data.cohost.enabled === true
       && data.cohost.name
       && data.cohost.name.trim() !== '';
 
-    if (cohostEnabled && participants.length < 4) {
-      participants.push({
-        name:     data.cohost.name.trim(),
-        role:     (data.cohost.role && data.cohost.role.trim() !== '' ? data.cohost.role : '🎙️ CO-HOST / CO-ANFITRIÓN').trim(),
-        isCohost: true
-      });
+    var cohostName = cohostEnabled ? data.cohost.name.trim() : '';
+    var cohostRole = (data.cohost && data.cohost.role && data.cohost.role.trim() !== '') ? data.cohost.role.trim() : '🎙️ CO-HOST / CO-ANFITRIÓN';
+
+    if (slotCohost) {
+      slotCohost.style.display = cohostEnabled ? '' : 'none';
+      if (slotCohostName && slotCohostName.textContent !== cohostName) slotCohostName.textContent = cohostName;
+      if (slotCohostRole && slotCohostRole.textContent !== cohostRole) slotCohostRole.textContent = cohostRole;
     }
 
-    /* 2. Multi-invitados (guest1, guest2, guest3) o Invitado principal */
+    /* ── 3. INVITADOS (Guest principal o Multi-Guests) ── */
+    var guests = [];
+
     var multiGuests = [
       { obj: data.guest1, defaultRole: '💬 INVITADO 1' },
       { obj: data.guest2, defaultRole: '💬 INVITADO 2' },
@@ -89,101 +99,142 @@
 
     if (hasMultiGuests) {
       multiGuests.forEach(function (g) {
-        if (participants.length >= 4) return;
         if (!g.obj || g.obj.enabled === false || !g.obj.name || g.obj.name.trim() === '') return;
-        participants.push({
-          name:     g.obj.name.trim(),
-          role:     (g.obj.role || g.defaultRole).trim(),
-          isCohost: false
+        guests.push({
+          name:    g.obj.name.trim(),
+          role:    (g.obj.role || g.defaultRole).trim(),
+          socials: g.obj.socials || (data.guest ? data.guest.socials : []),
+          bio:     g.obj.bio || (data.guest ? data.guest.bio : '')
         });
       });
     } else {
-      /* Invitado principal (guest) */
       var guestEnabled = data.guest
         && data.guest.enabled !== false
         && data.guest.name
         && data.guest.name.trim() !== '';
 
-      if (guestEnabled && participants.length < 4) {
-        participants.push({
-          name:     data.guest.name.trim(),
-          role:     (data.guest.role || '💬 INVITADO ESPECIAL').trim(),
-          isCohost: false
+      if (guestEnabled) {
+        guests.push({
+          name:    data.guest.name.trim(),
+          role:    (data.guest.role || '💬 INVITADO ESPECIAL').trim(),
+          socials: data.guest.socials || [],
+          bio:     data.guest.bio || ''
         });
       }
     }
 
-    var count = Math.max(1, Math.min(4, participants.length));
-
-    /* ── Actualizar layout ──────────────────────────── */
-    if (count !== lastLayout) {
-      lastLayout = count;
-      if (framesRow) {
-        framesRow.setAttribute('data-layout', count);
-      }
-      if (participantTxt) {
-        participantTxt.textContent = LAYOUT_LABELS[count] || (count + ' EN ESCENA');
-      }
+    /* ── 4. Actualizar Bloque de Invitados ── */
+    if (guestsBlock) {
+      guestsBlock.style.display = guests.length > 0 ? 'flex' : 'none';
     }
 
-    /* ── Asignar slot guest color-index ──────────────── */
-    var guestColorIdx = 1;
-
-    /* ── Actualizar slots de frames ──────────────────── */
-    for (var i = 0; i < 4; i++) {
-      var slot       = document.getElementById('slot' + i);
-      var roleEl     = document.getElementById('slot' + i + 'Role');
-      var nameEl     = document.getElementById('slot' + i + 'Name');
-      var borderEl   = slot ? slot.querySelector('.frame-border-anim') : null;
-      var nameTagEl  = slot ? slot.querySelector('.name-tag') : null;
-
-      if (!slot) continue;
-
-      if (i < participants.length) {
-        var p = participants[i];
-
-        /* Mostrar slot con animación suave solo si estaba oculto */
-        if (slot.style.display === 'none') {
-          slot.style.display = '';
-          slot.classList.add('is-entering');
-          setTimeout((function (s) {
-            return function () { s.classList.remove('is-entering'); };
-          })(slot), 600);
-        }
-
-        /* Texto */
-        if (roleEl && roleEl.textContent !== p.role) roleEl.textContent = p.role;
-        if (nameEl && nameEl.textContent !== p.name) nameEl.textContent = p.name;
-
-        /* Clases de color */
-        if (i === 0) {
-          if (borderEl && borderEl.className !== 'frame-border-anim fb-host') borderEl.className = 'frame-border-anim fb-host';
-          if (nameTagEl && nameTagEl.className !== 'name-tag nt-host') nameTagEl.className = 'name-tag nt-host';
-        } else if (p.isCohost) {
-          if (borderEl && borderEl.className !== 'frame-border-anim ' + COHOST_BORDER) borderEl.className = 'frame-border-anim ' + COHOST_BORDER;
-          if (nameTagEl && nameTagEl.className !== 'name-tag ' + COHOST_TAG) nameTagEl.className = 'name-tag ' + COHOST_TAG;
-        } else {
-          var gIdx = Math.min(guestColorIdx, 3);
-          var expectedBorder = 'frame-border-anim ' + BORDER_CLASSES[gIdx];
-          var expectedTag = 'name-tag ' + TAG_CLASSES[gIdx];
-          if (borderEl && borderEl.className !== expectedBorder) borderEl.className = expectedBorder;
-          if (nameTagEl && nameTagEl.className !== expectedTag) nameTagEl.className = expectedTag;
-          guestColorIdx++;
-        }
-
+    // Guest 1
+    if (slotGuest1) {
+      if (guests.length >= 1) {
+        slotGuest1.style.display = '';
+        if (slotGuest1Name && slotGuest1Name.textContent !== guests[0].name) slotGuest1Name.textContent = guests[0].name;
+        if (slotGuest1Role && slotGuest1Role.textContent !== guests[0].role) slotGuest1Role.textContent = guests[0].role;
       } else {
-        /* Ocultar slot excedente */
-        if (slot.style.display !== 'none') {
-          slot.style.display = 'none';
+        slotGuest1.style.display = 'none';
+      }
+    }
+
+    // Guest 2
+    if (slotGuest2) {
+      if (guests.length >= 2) {
+        slotGuest2.style.display = '';
+        if (slotGuest2Name && slotGuest2Name.textContent !== guests[1].name) slotGuest2Name.textContent = guests[1].name;
+        if (slotGuest2Role && slotGuest2Role.textContent !== guests[1].role) slotGuest2Role.textContent = guests[1].role;
+      } else {
+        slotGuest2.style.display = 'none';
+      }
+    }
+
+    // Guest 3
+    if (slotGuest3) {
+      if (guests.length >= 3) {
+        slotGuest3.style.display = '';
+        if (slotGuest3Name && slotGuest3Name.textContent !== guests[2].name) slotGuest3Name.textContent = guests[2].name;
+        if (slotGuest3Role && slotGuest3Role.textContent !== guests[2].role) slotGuest3Role.textContent = guests[2].role;
+      } else {
+        slotGuest3.style.display = 'none';
+      }
+    }
+
+    /* ── 5. Panel de Información / Redes / Agenda (Llenador de Espacio) ── */
+    // Se muestra cuando hay exactamente 1 invitado para que no quede ningún hueco vacío
+    var showInfoCard = (guests.length === 1);
+    if (stageInfoCard) {
+      stageInfoCard.style.display = showInfoCard ? 'flex' : 'none';
+
+      if (showInfoCard) {
+        var activeGuest = guests[0];
+        // Nombre del invitado en el header de la tarjeta
+        var infoTitle = stageInfoCard.querySelector('[data-bind="guest-name"]');
+        if (infoTitle && infoTitle.textContent !== activeGuest.name) {
+          infoTitle.textContent = activeGuest.name;
+        }
+
+        // Renderizar redes sociales del invitado
+        var socialsContainer = stageInfoCard.querySelector('[data-bind="guest-socials"]');
+        if (socialsContainer && activeGuest.socials && Array.isArray(activeGuest.socials)) {
+          var socHtml = '';
+          activeGuest.socials.forEach(function (s) {
+            if (s.handle && s.handle.trim() !== '') {
+              socHtml += '<div class="social-item">'
+                      +   '<span class="social-icon">' + (s.icon || '📱') + '</span>'
+                      +   '<div class="social-text">'
+                      +     '<span class="social-platform">' + (s.platform || 'Red Social') + '</span>'
+                      +     '<span class="social-handle">' + s.handle + '</span>'
+                      +   '</div>'
+                      + '</div>';
+            }
+          });
+          if (socialsContainer.innerHTML !== socHtml) {
+            socialsContainer.innerHTML = socHtml;
+          }
+        }
+
+        // Bio
+        var bioEl = stageInfoCard.querySelector('[data-bind="guest-bio"]');
+        if (bioEl) {
+          var bioText = activeGuest.bio || (data.guest ? data.guest.bio : '') || 'Música, folklore y show en vivo.';
+          if (bioEl.textContent !== bioText) bioEl.textContent = bioText;
         }
       }
     }
 
-    /* ── Header ──────────────────────────────────────── */
+    /* ── 6. Layout Mode y Contador de Participantes ── */
+    var totalParticipants = 1 + (cohostEnabled ? 1 : 0) + guests.length;
+
+    var layoutKey = 'solo';
+    if (totalParticipants === 1) {
+      layoutKey = 'solo';
+    } else if (cohostEnabled && guests.length >= 1) {
+      layoutKey = 'cohost-guests';
+    } else if (guests.length > 0) {
+      layoutKey = 'host-guests';
+    } else if (cohostEnabled) {
+      layoutKey = 'hosts-duo';
+    }
+
+    if (layoutKey !== lastLayout) {
+      lastLayout = layoutKey;
+      if (stageContainer) {
+        stageContainer.setAttribute('data-layout', layoutKey);
+      }
+    }
+
+    if (participantTxt) {
+      if (totalParticipants === 1) participantTxt.textContent = 'SOLO';
+      else participantTxt.textContent = totalParticipants + ' EN ESCENA';
+    }
+
+    /* ── 7. Header ── */
     if (headerName && headerName.textContent !== hostName) headerName.textContent = hostName;
     if (headerRole && headerRole.textContent !== hostRole) headerRole.textContent = hostRole;
 
-    /* ── Motto banner ────────────────────────────────── */
+    /* ── 8. Motto banner ── */
     var mottoP1 = (data.motto && typeof data.motto.phrase1 === 'string') ? data.motto.phrase1 : '🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS';
     var mottoConn = (data.motto && typeof data.motto.connector === 'string') ? data.motto.connector : 'Y';
     var mottoP2 = (data.motto && typeof data.motto.phrase2 === 'string') ? data.motto.phrase2 : 'GUITARREAMOS A LA GORRA 🪕';
@@ -199,7 +250,7 @@
       if (el.textContent !== mottoP2) el.textContent = mottoP2;
     });
 
-    /* ── Ticker ──────────────────────────────────────── */
+    /* ── 9. Ticker ── */
     if (data.ticker && Array.isArray(data.ticker)) {
       var html = '';
       data.ticker.forEach(function (item) {

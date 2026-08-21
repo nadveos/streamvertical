@@ -165,71 +165,220 @@ html, body {
 /* ── Área de frames (entre header y ticker/motto) ─────────── */
 .frames-area {
   position: absolute;
-  top: 72px;
-  left: 0;
-  right: 0;
+  top: 76px;
+  left: 36px;
+  right: 36px;
   bottom: 155px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: visible;
+  box-sizing: border-box;
 }
 
-/* ── Fila de frames (flex row) ─────────────────────────────── */
-.frames-row {
+/* ── Contenedor dinámico principal ────────────────────────── */
+.dynamic-stage-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  overflow: visible;
+  gap: 28px;
+  width: 100%;
+  max-width: 1780px;
+  height: 100%;
   position: relative;
-  /* gap se controla por data-layout */
-  transition: gap 0.7s ease;
+  transition: gap 0.5s ease;
+  box-sizing: border-box;
 }
 
-/* ── Frame individual (portrait) ─────────────────────────── */
+/* ── 1. BLOQUE DE HOSTS (COLUMNA 16:9) ────────────────────── */
+.hosts-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* ── 2. TARJETA DE INFORMACIÓN / REDES / AGENDA DEL INVITADO ── */
+.stage-info-card {
+  width: 380px;
+  height: 540px;
+  background: rgba(12, 12, 16, 0.94);
+  border: 2px solid #FFD700;
+  border-radius: 18px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85), inset 0 0 20px rgba(255, 215, 0, 0.15);
+  backdrop-filter: blur(12px);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  animation: fadeInCard 0.5s ease;
+}
+
+@keyframes fadeInCard {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1.5px solid rgba(255, 215, 0, 0.3);
+  padding-bottom: 6px;
+}
+
+.info-card-badge {
+  font-size: 10px;
+  font-weight: 900;
+  color: #FFD700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.info-card-title {
+  font-size: 15px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-card-agenda {
+  background: rgba(255, 215, 0, 0.04);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.agenda-mini-title {
+  font-size: 9px;
+  font-weight: 900;
+  color: #FFD700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.agenda-mini-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFF;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+.agenda-mini-icon {
+  font-size: 12px;
+}
+
+.info-card-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info-card-socials .social-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border-left: 3px solid #FFD700;
+}
+
+.info-card-socials .social-icon {
+  font-size: 15px;
+}
+
+.info-card-socials .social-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-card-socials .social-platform {
+  font-size: 8px;
+  color: #AAA;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.info-card-socials .social-handle {
+  font-size: 12px;
+  color: #FFF;
+  font-weight: 700;
+}
+
+.info-card-bio {
+  font-size: 11px;
+  color: #DDD;
+  line-height: 1.35;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px dashed rgba(255, 215, 0, 0.3);
+}
+
+/* ── 3. BLOQUE DE INVITADOS (FRAMES VERTICALES 9:16) ────────── */
+.guests-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+/* ── Frame individual (base) ─────────────────────────────── */
 .pframe {
   position: relative;
   flex-shrink: 0;
-  border-radius: 20px;
+  border-radius: 18px;
   background: transparent;
   overflow: visible;
   transition:
-    width  0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
-    height 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
-    transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
+    width  0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+    height 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
     opacity 0.45s ease;
 }
 
-/* ══════════════════════════════════════════════════════════
-   LAYOUTS con datos-layout — Tamaño y ola/wave escalonada
-   ══════════════════════════════════════════════════════════ */
+/* Marcos de Anfitriones (16:9 Horizontales en Columna - Altura total 540px) */
+.pf-host,
+.pf-cohost {
+  width: 470px;
+  height: 264px;
+  aspect-ratio: 16 / 9;
+}
 
-/* ── Layout 1: Solo Host — grande y centrado ── */
-[data-layout="1"] { gap: 0px; }
-[data-layout="1"] .pframe  { width: 506px; height: 900px; }
-[data-layout="1"] .pf-0   { transform: translateY(0px); }
+/* Marco de Solo Host (16:9 Grande en el centro) */
+[data-layout="solo"] .pf-host {
+  width: 880px;
+  height: 495px;
+}
 
-/* ── Layout 2: 2 participantes — ola suave ── */
-[data-layout="2"] { gap: 36px; }
-[data-layout="2"] .pframe  { width: 440px; height: 782px; }
-[data-layout="2"] .pf-0   { transform: translateY(52px);  }
-[data-layout="2"] .pf-1   { transform: translateY(-52px); }
-
-/* ── Layout 3: 3 participantes — ola media ── */
-[data-layout="3"] { gap: 28px; }
-[data-layout="3"] .pframe  { width: 360px; height: 640px; }
-[data-layout="3"] .pf-0   { transform: translateY(68px);  }
-[data-layout="3"] .pf-1   { transform: translateY(-68px); }
-[data-layout="3"] .pf-2   { transform: translateY(68px);  }
-
-/* ── Layout 4: 4 participantes — ola rítmica intensa ── */
-[data-layout="4"] { gap: 22px; }
-[data-layout="4"] .pframe  { width: 310px; height: 551px; }
-[data-layout="4"] .pf-0   { transform: translateY(88px);  }
-[data-layout="4"] .pf-1   { transform: translateY(-88px); }
-[data-layout="4"] .pf-2   { transform: translateY(88px);  }
-[data-layout="4"] .pf-3   { transform: translateY(-88px); }
+/* Marcos de Invitados (9:16 Verticales - Altura total 540px) */
+.pf-guest1,
+.pf-guest2,
+.pf-guest3 {
+  width: 304px;
+  height: 540px;
+  aspect-ratio: 9 / 16;
+}
 
 /* ── Ventana de cámara (transparente) ─────────────────── */
 .cam-cutout {
@@ -310,13 +459,13 @@ html, body {
 /* ── Etiqueta de nombre (bajo cada frame) ─────────────── */
 .name-tag {
   position: absolute;
-  bottom: -28px;
+  bottom: -20px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(90deg, #0a0000 0%, #1e0000 50%, #0a0000 100%);
   border: 2px solid #C0392B;
   border-radius: 14px;
-  padding: 5px 22px;
+  padding: 4px 20px;
   min-width: 180px;
   text-align: center;
   white-space: nowrap;

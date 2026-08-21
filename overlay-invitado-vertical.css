@@ -1,9 +1,20 @@
-/* Adaptaciones específicas para Overlay Vertical de Invitado con 2 Marcos 16:9 (1080x1920) */
+/* ============================================================
+   overlay-invitado-vertical.css
+   Overlay Vertical 9:16 (1080 × 1920)
+   Estructura:
+     - Arriba: Marco Invitado (9:16 Vertical para móvil/stream)
+     - Centro: Motto Banner + Ticker Bar (Separador de Información)
+     - Abajo: Marco Host (+ Co-Host) en Columna (16:9 Horizontales grandes)
+   ============================================================ */
+
 html,
 body {
   width: 1080px;
   height: 1920px;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
 }
 
 .main-border {
@@ -12,15 +23,18 @@ body {
   padding: 16px;
   background: transparent !important;
   box-shadow: none !important;
+  box-sizing: border-box;
 }
 
-/* Desactivar la capa de animación de fondo global (se gestiona en archivo de fondo independiente) */
 .main-border::before {
   display: none !important;
 }
 
 .main-inner {
   background: transparent !important;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 /* Header superior */
@@ -28,23 +42,24 @@ body {
   display: none !important;
 }
 
-/* LAYOUT PRINCIPAL VERTICAL DE 2 CAMARAS 16:9 */
+/* ── LAYOUT PRINCIPAL VERTICAL ───────────────────────────── */
 .vertical-guest-layout {
   position: absolute;
-  top: 30px;
-  left: 24px;
-  right: 24px;
-  bottom: 180px;
-  height: calc(100% - 210px);
+  top: 18px;
+  left: 20px;
+  right: 20px;
+  bottom: 18px;
+  height: calc(100% - 36px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
+  box-sizing: border-box;
 }
 
-/* 1. SECCIÓN INVITADO (DESTACADO PROTAGONISTA 16:9) */
-.guest-section-16x9 {
+/* ── 1. SECCIÓN INVITADO (ARRIBA - VERTICAL 9:16 PROTAGONISTA) ── */
+.guest-section-vertical {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -53,7 +68,6 @@ body {
   flex-shrink: 0;
 }
 
-/* Badge Flotante de Destacado / Protagonista */
 .guest-featured-badge {
   position: absolute;
   top: -14px;
@@ -63,7 +77,7 @@ body {
   color: #000;
   font-size: 13px;
   font-weight: 900;
-  padding: 4px 18px;
+  padding: 4px 22px;
   border-radius: 20px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -72,23 +86,30 @@ body {
   white-space: nowrap;
 }
 
-/* Marco del Invitado: Horizontal 16:9 con brillo dorado y rojo */
-.guest-cam-box-16x9 {
-  width: 980px;
-  height: 551px;
-  aspect-ratio: 16 / 9;
+/* Marco Invitado 9:16 Vertical — Modo Solo Host (Grande y Protagonista) */
+.guest-cam-box-9x16 {
+  width: 530px;
+  height: 942px;
+  aspect-ratio: 9 / 16;
   position: relative;
-  border-radius: 20px;
+  border-radius: 22px;
   background: transparent;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 215, 0, 0.25);
+  transition: width 0.35s ease, height 0.35s ease;
 }
 
-.guest-cam-box-16x9::after {
+/* Si Co-Host está activo, ajustamos la altura a 818px para que entren cómodamente las 2 cams 16:9 abajo */
+.vertical-guest-layout:has(.cohost-card-wrapper:not([style*="display: none"])) .guest-cam-box-9x16 {
+  width: 460px;
+  height: 818px;
+}
+
+.guest-cam-box-9x16::after {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 20px;
-  padding: 8px;
+  border-radius: 22px;
+  padding: 7px;
   background: linear-gradient(45deg, #FFD700, #8B0000, #C0392B, #FFD700, #1A1A1A);
   background-size: 300% 300%;
   animation: borderGlowGold 6s ease infinite;
@@ -103,194 +124,203 @@ body {
   pointer-events: none;
 }
 
-@keyframes borderGlowGold {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.guest-cam-box-16x9 .cam-window {
+.guest-cam-box-9x16 .cam-window {
   width: 100%;
   height: 100%;
   background: transparent;
-  border-radius: 14px;
+  border-radius: 16px;
 }
 
-/* Panel Ancho de Información / Agenda del Invitado */
-.guest-info-panel-wide {
-  width: 1032px;
-  flex: 1;
-  min-height: 420px;
-  background: rgba(12, 12, 16, 0.92);
-  border: 2px solid #FFD700;
-  border-radius: 22px;
-  padding: 22px 28px;
-  margin-top: 14px;
+/* ── 2. SECCIÓN CENTRAL: MOTTO BANNER + TICKER BAR ────────── */
+.middle-info-band {
+  width: 100%;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  z-index: 15;
+}
+
+/* Motto Banner Central */
+.motto-banner-mid {
+  width: 100%;
+  height: 42px;
+  background: linear-gradient(90deg,
+    rgba(10, 0, 0, 0.94) 0%,
+    rgba(42, 0, 0, 0.94) 40%,
+    rgba(42, 0, 0, 0.94) 60%,
+    rgba(10, 0, 0, 0.94) 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.45);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+  padding: 0 16px;
+}
+
+.motto-banner-mid .motto-text-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 14px;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85), inset 0 0 20px rgba(255, 215, 0, 0.18);
-  backdrop-filter: blur(12px);
+}
+
+.motto-banner-mid .motto-phrase {
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.motto-banner-mid .motto-phrase.highlight {
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.motto-banner-mid .motto-connector {
+  font-size: 13px;
+  font-weight: 900;
+  color: #C0392B;
+  background: rgba(192, 57, 43, 0.25);
+  border: 2px solid rgba(192, 57, 43, 0.8);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(192, 57, 43, 0.5);
+}
+
+/* Ticker Bar Central */
+.ticker-bar-vertical-mid {
+  width: 100%;
+  height: 58px;
+  background: linear-gradient(90deg, #0d0d0d 0%, #1a0000 40%, #0d0d0d 100%);
+  border: 2.5px solid #C0392B;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 0 24px rgba(139, 0, 0, 0.6), inset 0 1px 0 rgba(255, 215, 0, 0.15);
   box-sizing: border-box;
 }
 
-/* Secciones de Agenda internas */
-.agenda-box {
-  background: rgba(255, 215, 0, 0.04);
-  border: 1px solid rgba(255, 215, 0, 0.25);
-  border-radius: 14px;
-  padding: 14px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.agenda-header-label {
-  font-size: 12px;
-  font-weight: 900;
-  color: #FFD700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-.agenda-items-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.agenda-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-}
-
-.agenda-icon {
-  font-size: 24px;
+.ticker-bar-vertical-mid .ticker-label {
   flex-shrink: 0;
-}
-
-.agenda-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.agenda-card-title {
-  font-size: 13px;
-  font-weight: 800;
-  color: #FFF;
-  letter-spacing: 0.5px;
-}
-
-.agenda-card-sub {
-  font-size: 11px;
-  color: #AAA;
-  margin-top: 2px;
-}
-
-.info-header-wide {
+  background: linear-gradient(135deg, #8B0000, #C0392B);
+  color: #FFD700;
+  font-weight: 900;
+  font-size: 15px;
+  padding: 0 18px;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
-  padding-bottom: 8px;
-}
-
-.info-header-wide .info-tag {
-  font-size: 13px;
-  font-weight: 800;
-  color: #FFD700;
   letter-spacing: 2px;
   text-transform: uppercase;
+  border-right: 2px solid #FFD700;
+  gap: 8px;
+  white-space: nowrap;
 }
 
-.info-header-wide .info-title {
-  font-size: 22px;
-  font-weight: 900;
-  color: #FFFFFF;
-  line-height: 1.2;
+.ticker-bar-vertical-mid .ticker-dot {
+  width: 9px;
+  height: 9px;
+  background: #FF3B3B;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 59, 59, 0.9);
+  animation: blinkLive 1.4s infinite;
 }
 
-.social-list-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 10px;
-}
-
-.social-item {
+.ticker-bar-vertical-mid .ticker-track {
+  overflow: hidden;
+  flex: 1;
+  height: 100%;
   display: flex;
+  align-items: center;
+}
+
+.ticker-bar-vertical-mid .ticker-content {
+  font-size: 19px;
+  font-weight: 600;
+  color: #DDD;
+  white-space: nowrap;
+  animation: tickerScroll 35s linear infinite;
+}
+
+.ticker-bar-vertical-mid .ticker-content .highlight {
+  color: #FFD700;
+  font-weight: 800;
+}
+
+.ticker-bar-vertical-mid .ticker-content .sep {
+  color: #C0392B;
+  margin: 0 12px;
+  font-weight: 900;
+}
+
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes blinkLive {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+/* ── 3. SECCIÓN ANFITRIÓN Y CO-ANFITRIÓN (ABAJO EN COLUMNA 16:9) ───── */
+.host-cohost-col-16x9 {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 10px 14px;
-  border-radius: 12px;
-  border-left: 4px solid #FFD700;
-}
-
-.social-icon {
-  font-size: 22px;
-}
-
-.social-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.social-platform {
-  font-size: 10px;
-  color: #AAA;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.social-handle {
-  font-size: 15px;
-  color: #FFF;
-  font-weight: 700;
-}
-
-.guest-bio-wide {
-  font-size: 15px;
-  color: #EEE;
-  line-height: 1.5;
-  background: rgba(0, 0, 0, 0.45);
-  padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px dashed rgba(255, 215, 0, 0.3);
-}
-
-.guest-events-banner {
-  font-size: 14px;
-  font-weight: 800;
-  color: #FFD700;
-  background: linear-gradient(90deg, rgba(139, 0, 0, 0.6) 0%, rgba(192, 57, 43, 0.6) 50%, rgba(139, 0, 0, 0.6) 100%);
-  border: 1.5px solid #FFD700;
-  border-radius: 10px;
-  padding: 10px 14px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(255, 215, 0, 0.2);
-  letter-spacing: 1px;
-}
-
-/* 2. SECCIÓN ANFITRIÓN (HORIZONTAL 16:9) */
-.host-section-16x9 {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   flex-shrink: 0;
 }
 
-.host-cam-box-16x9 {
+/* Host Solo: 980px × 551px */
+.host-cohost-col-16x9 .host-card-wrapper {
   width: 980px;
-  height: 551px;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: width 0.35s ease;
+}
+
+.host-cohost-col-16x9 .cohost-card-wrapper {
+  width: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: width 0.35s ease;
+}
+
+/* Si Co-Host está activo, se muestran apilados con un ancho de 750px × 422px para llenar mucho mejor el ancho */
+.vertical-guest-layout:has(.cohost-card-wrapper:not([style*="display: none"])) .host-card-wrapper {
+  width: 750px;
+}
+
+.vertical-guest-layout:has(.cohost-card-wrapper:not([style*="display: none"])) .cohost-card-wrapper {
+  width: 750px;
+}
+
+.host-cam-box-16x9,
+.cohost-cam-box-16x9 {
+  width: 100%;
   aspect-ratio: 16 / 9;
   position: relative;
   border-radius: 20px;
@@ -303,10 +333,10 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 20px;
-  padding: 8px;
-  background: linear-gradient(45deg, #8B0000, #1A1A1A, #C0392B, #1A1A1A);
-  background-size: 200% 200%;
-  animation: borderGlow 6s ease infinite;
+  padding: 7px;
+  background: linear-gradient(45deg, #8B0000, #FFD700, #C0392B, #8B0000);
+  background-size: 300% 300%;
+  animation: borderGlowGold 6s ease infinite;
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -318,27 +348,48 @@ body {
   pointer-events: none;
 }
 
-.host-cam-box-16x9 .cam-window {
+.cohost-cam-box-16x9::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 7px;
+  background: linear-gradient(45deg, #a855f7, #ec4899, #8b5cf6, #a855f7);
+  background-size: 300% 300%;
+  animation: borderGlowPurple 6s ease infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.host-cam-box-16x9 .cam-window,
+.cohost-cam-box-16x9 .cam-window {
   width: 100%;
   height: 100%;
   background: transparent;
   border-radius: 14px;
 }
 
-/* Etiqueta de Nombre Personalizada */
+/* ── Etiquetas de Nombre Personalizadas ──────────────────── */
 .name-tag-custom {
   position: absolute;
-  bottom: -20px;
+  bottom: -22px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(90deg, #0d0d0d 0%, #2a0000 50%, #0d0d0d 100%);
-  border: 2.5px solid #C0392B;
+  border: 2px solid #C0392B;
   border-radius: 14px;
-  padding: 5px 24px;
-  min-width: 240px;
+  padding: 4px 22px;
+  min-width: 220px;
   text-align: center;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(192, 57, 43, 0.4);
-  z-index: 5;
+  z-index: 20;
   white-space: nowrap;
 }
 
@@ -348,9 +399,15 @@ body {
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 215, 0, 0.4);
 }
 
+.name-tag-custom-purple {
+  border-color: #a855f7;
+  background: linear-gradient(90deg, #0d0d0d 0%, #2b003a 50%, #0d0d0d 100%);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(168, 85, 247, 0.4);
+}
+
 .name-tag-custom .role-title {
   color: #E74C3C;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -360,49 +417,27 @@ body {
   color: #FFD700;
 }
 
+.name-tag-custom-purple .role-title {
+  color: #a855f7;
+}
+
 .name-tag-custom .user-name {
   color: #FFFFFF;
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 800;
-  margin-top: 2px;
+  margin-top: 1px;
   letter-spacing: 1px;
 }
 
-/* Ticker inferior adaptado */
-.ticker-bar-vertical {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  height: 80px;
-  background: linear-gradient(90deg, #0d0d0d 0%, #1a0000 40%, #0d0d0d 100%);
-  border: 2.5px solid #C0392B;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  z-index: 20;
-  box-shadow: 0 0 24px rgba(139, 0, 0, 0.6), inset 0 1px 0 rgba(255, 215, 0, 0.15);
+/* ── Animaciones de Bordes ───────────────────────────────── */
+@keyframes borderGlowGold {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.ticker-bar-vertical .ticker-label {
-  flex-shrink: 0;
-  background: linear-gradient(135deg, #8B0000, #C0392B);
-  color: #FFD700;
-  font-weight: 900;
-  font-size: 20px;
-  padding: 0 24px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border-right: 2px solid #FFD700;
-  gap: 10px;
-  white-space: nowrap;
-}
-
-.ticker-bar-vertical .ticker-content {
-  font-size: 24px;
-  font-weight: 600;
+@keyframes borderGlowPurple {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }

@@ -15,10 +15,10 @@
   <div class="main-border">
     <div class="main-inner">
 
-      <!-- Estructura Principal Vertical 1 Host + 2 Invitados -->
+      <!-- Estructura Principal Vertical 1 Host + 2 Invitados + Centro Informativo -->
       <div class="vertical-2guest-layout">
 
-        <!-- 1. SECCIÓN INVITADOS (2 MARCOS VERTICALES 9:16 LADO A LADO) -->
+        <!-- 1. SECCIÓN INVITADOS (ARRIBA - 2 MARCOS VERTICALES 9:16 LADO A LADO) -->
         <div class="guests-row-2x-vertical">
           
           <!-- Invitado 1 (9:16) -->
@@ -45,7 +45,41 @@
 
         </div>
 
-        <!-- 2. SECCIÓN ANFITRIÓN Y CO-ANFITRIÓN (16:9 HORIZONTALES) -->
+        <!-- 2. SECCIÓN CENTRAL: MOTTO BANNER + TICKER BAR (Separador Informativo) -->
+        <div class="middle-info-band">
+          <!-- Motto Banner -->
+          <div class="motto-banner-mid">
+            <div class="motto-text-group">
+              <span class="motto-phrase highlight" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+              <span class="motto-connector" data-bind="motto-connector">Y</span>
+              <span class="motto-phrase" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+            </div>
+          </div>
+
+          <!-- Ticker Bar Central -->
+          <div class="ticker-bar-vertical-mid">
+            <div class="ticker-label">
+              <span class="ticker-dot"></span>
+              ✨ DESTACADO
+            </div>
+            <div class="ticker-track">
+              <div class="ticker-content" data-bind="ticker-content">
+                🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
+                <span class="sep">◆</span>
+                🌟 ¡Bienvenidos al stream!
+                <span class="sep">◆</span>
+                📲 Seguinos en redes: <span class="highlight">@gutaflores</span>
+                <span class="sep">◆</span>
+                🎶 Música, folklore y entretenimiento en vivo
+                <span class="sep">◆</span>
+                💬 ¡Dejá tu comentario y saludá!
+                <span class="sep">◆</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. SECCIÓN ANFITRIÓN Y CO-ANFITRIÓN (ABAJO - 16:9) -->
         <div class="host-cohost-row">
 
           <!-- Anfitrión / Host -->
@@ -72,124 +106,10 @@
 
         </div>
 
-          <!-- Panel de Redes / Info y Agenda Completa del Invitado -->
-          <div class="guest-info-panel-2x">
-            <div class="info-header-wide">
-              <div class="info-header-left">
-                <span class="live-dot">●</span>
-                <span class="info-tag">AGENDA & TRANSMISIÓN EN VIVO</span>
-              </div>
-              <div class="info-title" data-bind="guest-name">GRUPO VIENTO ANDINO</div>
-            </div>
-
-            <!-- Cronograma / Agenda del Stream -->
-            <div class="agenda-box">
-              <div class="agenda-header-label">⚡ CRONOGRAMA DE HOY</div>
-              <div class="agenda-items-grid">
-                <div class="agenda-card">
-                  <span class="agenda-icon" data-bind="agenda-icon-0">🎙️</span>
-                  <div class="agenda-details">
-                    <span class="agenda-card-title" data-bind="agenda-title-0">1. ENTREVISTA EN VIVO</span>
-                    <span class="agenda-card-sub" data-bind="agenda-sub-0">Charlas, trayectoria y lanzamientos</span>
-                  </div>
-                </div>
-                <div class="agenda-card">
-                  <span class="agenda-icon" data-bind="agenda-icon-1">🪕</span>
-                  <div class="agenda-details">
-                    <span class="agenda-card-title" data-bind="agenda-title-1">2. SHOW & GUITARREADA</span>
-                    <span class="agenda-card-sub" data-bind="agenda-sub-1">Canciones y folklore a la gorra</span>
-                  </div>
-                </div>
-                <div class="agenda-card">
-                  <span class="agenda-icon" data-bind="agenda-icon-2">💬</span>
-                  <div class="agenda-details">
-                    <span class="agenda-card-title" data-bind="agenda-title-2">3. CHAT EN DIRECTO</span>
-                    <span class="agenda-card-sub" data-bind="agenda-sub-2">Preguntas, saludos y peticiones</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Temas Destacados -->
-            <div class="topics-box">
-              <div class="topics-header-label">📌 HIGHLIGHTS DEL ENCUENTRO</div>
-              <div class="topics-pills">
-                <span class="topic-pill">✨ Folklore Argentino</span>
-                <span class="topic-pill">🪗 Show en Vivo</span>
-                <span class="topic-pill">🎸 Entrevista Exclusiva</span>
-                <span class="topic-pill">☕ Alias MP: GUTA.FLORES</span>
-              </div>
-            </div>
-
-            <!-- Redes Sociales -->
-            <div class="social-section-wrapper">
-              <div class="social-header-label">📲 REDES Y MEDIOS OFICIALES</div>
-              <div class="social-list-grid" data-bind="guest-socials">
-                <div class="social-item">
-                  <span class="social-icon">📸</span>
-                  <div class="social-text">
-                    <span class="social-platform">INSTAGRAM</span>
-                    <span class="social-handle">@gutafloresok</span>
-                  </div>
-                </div>
-                <div class="social-item">
-                  <span class="social-icon">📺</span>
-                  <div class="social-text">
-                    <span class="social-platform">YOUTUBE</span>
-                    <span class="social-handle">Guta Flores Oficial</span>
-                  </div>
-                </div>
-                <div class="social-item">
-                  <span class="social-icon">☕</span>
-                  <div class="social-text">
-                    <span class="social-platform">GORRA VIRTUAL</span>
-                    <span class="social-handle">Alias MP: GUTA.FLORES</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="guest-bio-wide" data-bind="guest-bio">Música y folklore argentino en vivo. Entrevista y show especial.</div>
-            <div class="guest-events-banner" data-bind="guest-events">📅 20 AGO: La Trastienda | 25 AGO: Festival Cosquín</div>
-          </div>
-        </div>
-
       </div>
 
       <div class="corner-stripe-left"></div>
       <div class="corner-stripe-right"></div>
-
-      <!-- BANNER DE FRASES / MOTTO BANNER -->
-      <div class="motto-banner"
-        style="position: absolute; bottom: 106px; left: 20px; right: 20px; width: auto; border-radius: 10px; z-index: 15;">
-        <div class="motto-text-group">
-          <span class="motto-phrase highlight" style="font-size: 16px;" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
-          <span class="motto-connector" style="font-size: 18px; width: 28px; height: 28px;" data-bind="motto-connector">Y</span>
-          <span class="motto-phrase" style="font-size: 16px;" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
-        </div>
-      </div>
-
-      <!-- TICKER — Texto animado destacado -->
-      <div class="ticker-bar-vertical">
-        <div class="ticker-label">
-          <span class="ticker-dot"></span>
-          ✨ DESTACADO
-        </div>
-        <div class="ticker-track">
-          <div class="ticker-content" data-bind="ticker-content">
-            🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
-            <span class="sep">◆</span>
-            🌟 ¡Bienvenidos al stream!
-            <span class="sep">◆</span>
-            📲 Seguinos en redes: <span class="highlight">@gutaflores</span>
-            <span class="sep">◆</span>
-            🎶 Música, folklore y entretenimiento en vivo
-            <span class="sep">◆</span>
-            💬 ¡Dejá tu comentario y saludá!
-            <span class="sep">◆</span>
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>

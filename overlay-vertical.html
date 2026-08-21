@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="main.css">
-  <title>Guta Flores — Overlay Vertical (1080x1920)</title>
   <link rel="stylesheet" href="overlay-vertical.css">
+  <link rel="stylesheet" href="transparent-mode.css">
+  <title>Guta Flores — Overlay Vertical (1080x1920)</title>
 </head>
 
 <body>
@@ -14,13 +15,7 @@
   <div class="main-border">
     <div class="main-inner">
 
-      <!-- Encabezado / Titulo -->
-      <div class="top-header">
-        <span class="badge">● EN VIVO</span>
-        <span data-bind="host-name">Guta Flores</span>
-      </div>
-
-      <!-- Estrutura Principal Vertical -->
+      <!-- Estructura Principal Vertical -->
       <div class="vertical-layout">
 
         <!-- 1. SECCIÓN INVITADO (PROTAGONISTA - VERTICAL 9:16 + TARJETA RRSS) -->
@@ -67,24 +62,61 @@
 
         </div>
 
-        <!-- 2. SECCIÓN ANFITRIÓN / HOST (CAM HORIZONTAL 16:9) -->
-        <div class="host-section">
-          <div class="host-cam-box">
-            <div class="cam-window" data-cutout></div>
-            <div class="name-tag-custom">
-              <div class="role-title" data-bind="host-role">🎙️ ANFITRIÓN / HOST</div>
-              <div class="user-name" data-bind="host-name">GUTA FLORES</div>
+        <!-- 2. SECCIÓN CENTRAL: MOTTO BANNER + TICKER BAR (Separador Informativo) -->
+        <div class="middle-info-band">
+          <!-- Motto Banner -->
+          <div class="motto-banner-mid">
+            <div class="motto-text-group">
+              <span class="motto-phrase highlight" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+              <span class="motto-connector" data-bind="motto-connector">Y</span>
+              <span class="motto-phrase" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+            </div>
+          </div>
+
+          <!-- Ticker Bar Central -->
+          <div class="ticker-bar-vertical-mid">
+            <div class="ticker-label">
+              <span class="ticker-dot"></span>
+              ✨ DESTACADO
+            </div>
+            <div class="ticker-track">
+              <div class="ticker-content" data-bind="ticker-content">
+                🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
+                <span class="sep">◆</span>
+                🌟 ¡Bienvenidos al stream!
+                <span class="sep">◆</span>
+                📲 Seguinos en redes: <span class="highlight">@gutaflores</span>
+                <span class="sep">◆</span>
+                🎶 Música, folklore y entretenimiento en vivo
+                <span class="sep">◆</span>
+                💬 ¡Dejá tu comentario y saludá!
+                <span class="sep">◆</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- 2b. SECCIÓN CO-ANFITRIÓN / CO-HOST (CAM HORIZONTAL 16:9) -->
-        <div class="host-section" data-bind="cohost-box" style="display:none; margin-top:10px;">
-          <div class="host-cam-box">
-            <div class="cam-window" data-cutout></div>
-            <div class="name-tag-custom">
-              <div class="role-title" data-bind="cohost-role">🎙️ CO-HOST / CO-ANFITRIÓN</div>
-              <div class="user-name" data-bind="cohost-name"></div>
+        <!-- 3. SECCIÓN ANFITRIÓN Y CO-ANFITRIÓN (ABAJO - 16:9) -->
+        <div class="host-cohost-row-16x9">
+          <!-- Anfitrión / Host -->
+          <div class="host-card-wrapper">
+            <div class="host-cam-box-16x9 host-card">
+              <div class="cam-window" data-cutout></div>
+              <div class="name-tag-custom">
+                <div class="role-title" data-bind="host-role">🎙️ ANFITRIÓN / HOST</div>
+                <div class="user-name" data-bind="host-name">GUTA FLORES</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Co-Anfitrión / Co-Host (Sólo se muestra si está activado en el panel) -->
+          <div class="cohost-card-wrapper" data-bind="cohost-box" style="display: none;">
+            <div class="cohost-cam-box-16x9 cohost-card">
+              <div class="cam-window" data-cutout></div>
+              <div class="name-tag-custom name-tag-custom-purple">
+                <div class="role-title" data-bind="cohost-role">🎙️ CO-HOST / CO-ANFITRIÓN</div>
+                <div class="user-name" data-bind="cohost-name">CO-HOST</div>
+              </div>
             </div>
           </div>
         </div>
@@ -94,42 +126,9 @@
       <div class="corner-stripe-left"></div>
       <div class="corner-stripe-right"></div>
 
-      <!-- BANNER DE FRASES / MOTTO BANNER -->
-      <div class="motto-banner"
-        style="position: absolute; bottom: 106px; left: 20px; right: 20px; width: auto; border-radius: 10px; z-index: 15;">
-        <div class="motto-text-group">
-          <span class="motto-phrase highlight" style="font-size: 16px;" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
-          <span class="motto-connector" style="font-size: 18px; width: 28px; height: 28px;" data-bind="motto-connector">Y</span>
-          <span class="motto-phrase" style="font-size: 16px;" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
-        </div>
-      </div>
-
-      <!-- TICKER — Texto animado destacado -->
-      <div class="ticker-bar-vertical">
-        <div class="ticker-label">
-          <span class="ticker-dot"></span>
-          ✨ DESTACADO
-        </div>
-        <div class="ticker-track">
-          <div class="ticker-content" data-bind="ticker-content">
-            🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
-            <span class="sep">◆</span>
-            🌟 ¡Bienvenidos al stream!
-            <span class="sep">◆</span>
-            📲 Seguinos en redes: <span class="highlight">@gutaflores</span>
-            <span class="sep">◆</span>
-            🎶 Música, folklore y entretenimiento en vivo
-            <span class="sep">◆</span>
-            💬 ¡Dejá tu comentario y saludá!
-            <span class="sep">◆</span>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 
-  <script src="overlay-engine.js"></script>
   <script src="script-overlay.js"></script>
 </body>
 
