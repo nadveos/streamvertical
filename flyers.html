@@ -44,6 +44,16 @@
             <option value="story">📱 Historia / Reel (1080x1920 — 9:16)</option>
           </select>
         </div>
+
+        <div class="form-group">
+          <label>📐 Proporción del Marco de Foto</label>
+          <select id="inputPhotoAspect" onchange="updatePhotoAspect()">
+            <option value="landscape" selected>📸 Panorámico / Dúo / Banda (16:10)</option>
+            <option value="wide">🎬 Ultra Panorámico (16:9)</option>
+            <option value="square">⏹️ Cuadrado Moderno (1:1)</option>
+            <option value="portrait">📱 Retrato / Solista (3:4)</option>
+          </select>
+        </div>
       </div>
 
       <div class="card-section">
@@ -69,11 +79,11 @@
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
           <div class="form-group">
             <label>↔️ Desplazar X</label>
-            <input type="range" id="inputPhotoX" min="-150" max="150" value="0" step="1" oninput="updatePhotoTransform()">
+            <input type="range" id="inputPhotoX" min="-250" max="250" value="0" step="1" oninput="updatePhotoTransform()">
           </div>
           <div class="form-group">
             <label>↕️ Desplazar Y</label>
-            <input type="range" id="inputPhotoY" min="-150" max="150" value="0" step="1" oninput="updatePhotoTransform()">
+            <input type="range" id="inputPhotoY" min="-250" max="250" value="0" step="1" oninput="updatePhotoTransform()">
           </div>
         </div>
 
@@ -103,22 +113,31 @@
 
         <div class="form-group">
           <label>Nombre del Artista / Banda</label>
-          <input type="text" id="inputArtistName" value="GRUPO VIENTO ANDINO">
+          <input type="text" id="inputArtistName" value="TIGEL & EMINENCIA">
         </div>
 
         <div class="form-group">
           <label>Género / Subtítulo</label>
-          <input type="text" id="inputArtistRole" value="MÚSICA & FOLKLORE NORTEÑO">
+          <input type="text" id="inputArtistRole" value="HIP HOP | TRAP | FREESTYLE">
         </div>
 
         <div class="form-group">
           <label>Día y Hora de la Emisión</label>
-          <input type="text" id="inputDateTime" value="📅 SÁBADO 16 DE AGOSTO — 21:00 HS">
+          <input type="text" id="inputDateTime" value="📅 DOMINGO 23 DE AGOSTO — 15:00 HS">
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">🎙️ Conducción del Programa</div>
+
+        <div class="form-group">
+          <label>Conductor Principal (Host)</label>
+          <input type="text" id="inputHostName" value="Guta Flores" placeholder="Ej: Guta Flores">
         </div>
 
         <div class="form-group">
-          <label>Conducción (Host / Co-Host)</label>
-          <input type="text" id="inputHosts" value="🎙️ Guta Flores con Daniel Flores">
+          <label>Co-Conductor (Co-Host) <span style="font-weight:normal; color:#888;">(Opcional)</span></label>
+          <input type="text" id="inputCohostName" value="Raúl Domingo" placeholder="Dejar vacío si no hay">
         </div>
       </div>
 
@@ -148,13 +167,18 @@
         <div class="section-title">📲 Usernames / Handles</div>
 
         <div class="form-group">
-          <label>Handle del Programa / Host</label>
-          <input type="text" id="inputHostHandle" value="@gutafloresok">
+          <label>Handle Host</label>
+          <input type="text" id="inputHostHandle" value="@gutafloresok" placeholder="@usuario">
         </div>
 
         <div class="form-group">
-          <label>Handle del Invitado</label>
-          <input type="text" id="inputGuestHandle" value="@vientoandinooficial">
+          <label>Handle Co-Host <span style="font-weight:normal; color:#888;">(Opcional)</span></label>
+          <input type="text" id="inputCohostHandle" value="@rauldomingooficial" placeholder="Dejar vacío si no hay">
+        </div>
+
+        <div class="form-group">
+          <label>Handle(s) del Invitado</label>
+          <input type="text" id="inputGuestHandle" value="@tigelpdh @eminencia_sl" placeholder="@usuario o @uno @otro">
         </div>
       </div>
 
@@ -191,44 +215,50 @@
               <div id="displayEventBadge" class="flyer-event-badge">🔴 PRÓXIMO LIVE EN VIVO</div>
             </div>
 
-            <!-- Title Tag -->
-            <div id="displayTitleTag" class="flyer-title-tag">ENTREVISTA EN VIVO</div>
+            <!-- Central Hero Section (Tag, Photo, Artist) -->
+            <div class="flyer-main-content">
+              <!-- Title Tag -->
+              <div id="displayTitleTag" class="flyer-title-tag">ENTREVISTA EN VIVO</div>
 
-            <!-- Artist Photo Frame (Draggable) -->
-            <div class="flyer-photo-frame" id="photoFrame" title="Arrastrá la foto para acomodarla">
-              <div class="flyer-photo-clip">
-                <img id="displayArtistPhoto" class="flyer-photo-img" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400" alt="Artista">
+              <!-- Artist Photo Frame (Draggable) -->
+              <div class="flyer-photo-frame aspect-landscape" id="photoFrame" title="Arrastrá la foto para acomodarla">
+                <div class="flyer-photo-clip">
+                  <img id="displayArtistPhoto" class="flyer-photo-img" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400" alt="Artista">
+                </div>
+              </div>
+
+              <!-- Artist Name & Subtitle -->
+              <div class="flyer-artist-block">
+                <div id="displayArtistName" class="flyer-artist-name">TIGEL & EMINENCIA</div>
+                <div id="displayArtistRole" class="flyer-artist-role">HIP HOP | TRAP | FREESTYLE</div>
               </div>
             </div>
 
-            <!-- Artist Name & Subtitle -->
-            <div>
-              <div id="displayArtistName" class="flyer-artist-name">GRUPO VIENTO ANDINO</div>
-              <div id="displayArtistRole" class="flyer-artist-role">MÚSICA & FOLKLORE NORTEÑO</div>
+            <!-- Bottom Event Info Section -->
+            <div class="flyer-info-card">
+              <!-- Date & Time Box -->
+              <div class="flyer-datetime-box">
+                <div id="displayDateTime" class="flyer-datetime-text">📅 DOMINGO 23 DE AGOSTO — 15:00 HS</div>
+              </div>
+
+              <!-- Hosts Line (Dynamic: Solo Host o Host + CoHost) -->
+              <div id="displayHosts" class="flyer-hosts-line">
+                Conducción: 🎙️ <span class="highlight">Guta Flores y Raúl Domingo</span>
+              </div>
+
+              <!-- Social Platforms Row -->
+              <div id="displayPlatformsRow" class="flyer-platforms-row">
+                <div class="platform-pill">🔴 YouTube</div>
+                <div class="platform-pill">📸 Instagram</div>
+                <div class="platform-pill">🎵 TikTok</div>
+                <div class="platform-pill">💙 Facebook</div>
+              </div>
             </div>
 
-            <!-- Date & Time Box -->
-            <div class="flyer-datetime-box">
-              <div id="displayDateTime" class="flyer-datetime-text">📅 SÁBADO 16 DE AGOSTO — 21:00 HS</div>
-            </div>
-
-            <!-- Hosts Line -->
-            <div id="displayHosts" class="flyer-hosts-line">
-              Conducción: <span class="highlight">Guta Flores con Daniel Flores</span>
-            </div>
-
-            <!-- Social Platforms Row -->
-            <div id="displayPlatformsRow" class="flyer-platforms-row">
-              <div class="platform-pill">🔴 YouTube</div>
-              <div class="platform-pill">📸 Instagram</div>
-              <div class="platform-pill">🎵 TikTok</div>
-              <div class="platform-pill">💙 Facebook</div>
-            </div>
-
-            <!-- Footer Handles -->
-            <div class="flyer-footer-handles">
-              <div>🎙️ <span id="displayHostHandle" class="handle-badge">@gutafloresok</span></div>
-              <div>💬 <span id="displayGuestHandle" class="handle-badge">@vientoandinooficial</span></div>
+            <!-- Footer Handles (Dynamic: Host, Cohost, Guest) -->
+            <div class="flyer-footer-handles" id="displayFooterHandles">
+              <div>🎙️ <span class="handle-badge">@gutafloresok</span> <span class="handle-badge">@rauldomingooficial</span></div>
+              <div>💬 <span class="handle-badge">@tigelpdh @eminencia_sl</span></div>
             </div>
 
           </div>
@@ -243,41 +273,109 @@
   <script>
     let activeTab = 'nuestras';
 
-    // Sincronización de inputs de texto con la tarjeta live
-    const inputsMap = {
-      inputEventBadge: 'displayEventBadge',
-      inputArtistName: 'displayArtistName',
-      inputArtistRole: 'displayArtistRole',
-      inputDateTime:   'displayDateTime',
-      inputHostHandle: 'displayHostHandle',
-      inputGuestHandle:'displayGuestHandle'
-    };
+    // Lista de inputs que actualizan el flyer en tiempo real
+    const liveTextInputs = [
+      'inputEventBadge',
+      'inputArtistName',
+      'inputArtistRole',
+      'inputDateTime',
+      'inputHostName',
+      'inputCohostName',
+      'inputHostHandle',
+      'inputCohostHandle',
+      'inputGuestHandle'
+    ];
 
-    Object.keys(inputsMap).forEach(inputId => {
+    liveTextInputs.forEach(inputId => {
       const el = document.getElementById(inputId);
       if (el) {
         el.addEventListener('input', updateFlyerText);
       }
     });
 
-    document.getElementById('inputHosts').addEventListener('input', function() {
-      const val = this.value;
+    function updateHostsDisplay() {
+      const host = (document.getElementById('inputHostName')?.value || '').trim();
+      const cohost = (document.getElementById('inputCohostName')?.value || '').trim();
       const hostsEl = document.getElementById('displayHosts');
-      if (activeTab === 'nuestras') {
-        hostsEl.innerHTML = 'Conducción: <span class="highlight">' + val + '</span>';
-      } else {
-        hostsEl.innerHTML = 'EN ENTREVISTA CON: <span class="highlight">' + val + '</span>';
+
+      if (!hostsEl) return;
+
+      let hostNamesText = '';
+      if (host && cohost) {
+        hostNamesText = `${host} y ${cohost}`;
+      } else if (host) {
+        hostNamesText = host;
+      } else if (cohost) {
+        hostNamesText = cohost;
       }
-    });
+
+      if (hostNamesText) {
+        hostsEl.style.display = 'block';
+        if (activeTab === 'nuestras') {
+          hostsEl.innerHTML = `Conducción: 🎙️ <span class="highlight">${hostNamesText}</span>`;
+        } else {
+          hostsEl.innerHTML = `EN ENTREVISTA CON: 🎙️ <span class="highlight">${hostNamesText}</span>`;
+        }
+      } else {
+        hostsEl.style.display = 'none';
+      }
+    }
+
+    function updateFooterHandles() {
+      const hostHandle = (document.getElementById('inputHostHandle')?.value || '').trim();
+      const cohostHandle = (document.getElementById('inputCohostHandle')?.value || '').trim();
+      const guestHandle = (document.getElementById('inputGuestHandle')?.value || '').trim();
+      const footerEl = document.getElementById('displayFooterHandles');
+
+      if (!footerEl) return;
+
+      const isValid = (h) => h && h !== '@' && h.length > 1;
+
+      let hostBadges = [];
+      if (isValid(hostHandle)) {
+        hostBadges.push(`<span class="handle-badge">${hostHandle}</span>`);
+      }
+      if (isValid(cohostHandle)) {
+        hostBadges.push(`<span class="handle-badge">${cohostHandle}</span>`);
+      }
+
+      let leftHtml = '';
+      if (hostBadges.length > 0) {
+        leftHtml = `<div>🎙️ ${hostBadges.join(' ')}</div>`;
+      }
+
+      let rightHtml = '';
+      if (isValid(guestHandle)) {
+        rightHtml = `<div>💬 <span class="handle-badge">${guestHandle}</span></div>`;
+      }
+
+      if (!leftHtml && !rightHtml) {
+        footerEl.style.display = 'none';
+      } else {
+        footerEl.style.display = 'flex';
+        footerEl.innerHTML = (leftHtml || '<div></div>') + (rightHtml || '<div></div>');
+      }
+    }
 
     function updateFlyerText() {
-      Object.keys(inputsMap).forEach(inputId => {
-        const inputEl = document.getElementById(inputId);
-        const displayEl = document.getElementById(inputsMap[inputId]);
-        if (inputEl && displayEl) {
-          displayEl.textContent = inputEl.value;
-        }
-      });
+      const badgeEl = document.getElementById('displayEventBadge');
+      const badgeInput = document.getElementById('inputEventBadge');
+      if (badgeEl && badgeInput) badgeEl.textContent = badgeInput.value;
+
+      const artistNameEl = document.getElementById('displayArtistName');
+      const artistNameInput = document.getElementById('inputArtistName');
+      if (artistNameEl && artistNameInput) artistNameEl.textContent = artistNameInput.value;
+
+      const artistRoleEl = document.getElementById('displayArtistRole');
+      const artistRoleInput = document.getElementById('inputArtistRole');
+      if (artistRoleEl && artistRoleInput) artistRoleEl.textContent = artistRoleInput.value;
+
+      const dateTimeEl = document.getElementById('displayDateTime');
+      const dateTimeInput = document.getElementById('inputDateTime');
+      if (dateTimeEl && dateTimeInput) dateTimeEl.textContent = dateTimeInput.value;
+
+      updateHostsDisplay();
+      updateFooterHandles();
     }
 
     // Manejo de subida de imágenes locales desde la PC
@@ -323,6 +421,16 @@
       updatePhotoTransform();
     }
 
+    // Proporción del marco de foto
+    function updatePhotoAspect() {
+      const aspect = document.getElementById('inputPhotoAspect').value;
+      const frame = document.getElementById('photoFrame');
+      if (frame) {
+        frame.classList.remove('aspect-landscape', 'aspect-square', 'aspect-portrait', 'aspect-wide');
+        frame.classList.add('aspect-' + aspect);
+      }
+    }
+
     // Arrastre directo de foto con ratón o pantalla táctil
     const photoFrame = document.getElementById('photoFrame');
 
@@ -338,8 +446,8 @@
         let newX = Math.round(e.clientX - dragStart.x);
         let newY = Math.round(e.clientY - dragStart.y);
 
-        newX = Math.max(-150, Math.min(150, newX));
-        newY = Math.max(-150, Math.min(150, newY));
+        newX = Math.max(-250, Math.min(250, newX));
+        newY = Math.max(-250, Math.min(250, newY));
 
         document.getElementById('inputPhotoX').value = newX;
         document.getElementById('inputPhotoY').value = newY;
@@ -362,8 +470,8 @@
         let newX = Math.round(e.touches[0].clientX - dragStart.x);
         let newY = Math.round(e.touches[0].clientY - dragStart.y);
 
-        newX = Math.max(-150, Math.min(150, newX));
-        newY = Math.max(-150, Math.min(150, newY));
+        newX = Math.max(-250, Math.min(250, newX));
+        newY = Math.max(-250, Math.min(250, newY));
 
         document.getElementById('inputPhotoX').value = newX;
         document.getElementById('inputPhotoY').value = newY;
@@ -406,18 +514,15 @@
       
       const card = document.getElementById('flyerCard');
       const titleTag = document.getElementById('displayTitleTag');
-      const hostsEl = document.getElementById('displayHosts');
-      const hostsInputVal = document.getElementById('inputHosts').value;
 
       if (tab === 'nuestras') {
         card.classList.remove('guest-version');
         titleTag.textContent = 'ENTREVISTA EN VIVO';
-        hostsEl.innerHTML = 'Conducción: <span class="highlight">' + hostsInputVal + '</span>';
       } else {
         card.classList.add('guest-version');
         titleTag.textContent = '¡ESTARÉ EN VIVO!';
-        hostsEl.innerHTML = 'EN ENTREVISTA CON: <span class="highlight">' + hostsInputVal + '</span>';
       }
+      updateHostsDisplay();
     }
 
     // Cambiar formato de dimensiones (4:5 Retrato vs 9:16 Historia)
@@ -456,12 +561,22 @@
         if (res.ok) {
           const data = await res.json();
           if (data.host && data.host.name) {
+            document.getElementById('inputHostName').value = data.host.name;
             document.getElementById('inputHostHandle').value = '@' + data.host.name.toLowerCase().replace(/\s+/g, '');
+          }
+          if (data.cohost) {
+            if (data.cohost.enabled && data.cohost.name) {
+              document.getElementById('inputCohostName').value = data.cohost.name;
+              document.getElementById('inputCohostHandle').value = '@' + data.cohost.name.toLowerCase().replace(/\s+/g, '') + 'oficial';
+            } else {
+              document.getElementById('inputCohostName').value = '';
+              document.getElementById('inputCohostHandle').value = '';
+            }
           }
           if (data.guest && data.guest.name) {
             document.getElementById('inputArtistName').value = data.guest.name.toUpperCase();
-            updateFlyerText();
           }
+          updateFlyerText();
         }
       } catch (e) {}
     }

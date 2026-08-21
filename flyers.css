@@ -318,18 +318,19 @@
 
     .flyer-inner {
       position: absolute;
-      inset: 12px;
-      border: 2px solid rgba(255, 215, 0, 0.35);
-      border-radius: 12px;
-      background: rgba(10, 10, 10, 0.88);
-      backdrop-filter: blur(8px);
-      padding: 24px;
+      inset: 14px;
+      border: 2px solid rgba(255, 215, 0, 0.4);
+      border-radius: 14px;
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(10px);
+      padding: 16px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       text-align: center;
       overflow: hidden;
+      box-sizing: border-box;
     }
 
     /* Header Badge & Program Logo */
@@ -338,12 +339,13 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      border-bottom: 2px solid rgba(192, 57, 43, 0.5);
-      padding-bottom: 12px;
+      border-bottom: 1.5px solid rgba(192, 57, 43, 0.45);
+      padding-bottom: 8px;
+      margin-bottom: 2px;
     }
 
     .flyer-logo-img {
-      height: 48px;
+      height: 44px;
       width: auto;
       max-width: 130px;
       object-fit: contain;
@@ -357,40 +359,91 @@
       color: #FFD700;
       font-size: 11px;
       font-weight: 900;
-      letter-spacing: 2px;
-      padding: 5px 14px;
+      letter-spacing: 1.5px;
+      padding: 4px 12px;
       text-transform: uppercase;
       box-shadow: 0 0 12px rgba(192, 57, 43, 0.5);
     }
 
-    /* Artist Photo Container */
+    /* Main Central Content Block (Hero Artist) */
+    .flyer-main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      flex: 1;
+      margin: 4px 0;
+    }
+
+    .flyer-title-tag {
+      font-size: 11px;
+      font-weight: 900;
+      color: #FF6B6B;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: rgba(192, 57, 43, 0.2);
+      border: 1px solid rgba(192, 57, 43, 0.5);
+      border-radius: 20px;
+      padding: 3px 14px;
+      margin-bottom: 2px;
+    }
+
+    /* Artist Photo Container & Aspect Ratios */
     .flyer-photo-frame {
       position: relative;
-      width: 140px;
-      height: 210px;
-      border-radius: 18px;
-      padding: 5px;
+      width: 320px;
+      height: 200px; /* Default balanced landscape 16:10 */
+      border-radius: 16px;
+      padding: 4px;
       background: linear-gradient(135deg, #FFD700, #8B0000, #C0392B, #FFD700);
       background-size: 200% 200%;
       animation: mmGlow 6s ease infinite;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.3);
-      margin: 8px 0;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.95), 0 0 20px rgba(255, 215, 0, 0.25);
+      margin: 4px 0;
       overflow: hidden;
       cursor: grab;
       user-select: none;
       touch-action: none;
       z-index: 10;
       box-sizing: border-box;
+      transition: width 0.3s ease, height 0.3s ease;
+    }
+
+    .flyer-photo-frame:active {
+      cursor: grabbing;
+    }
+
+    /* Aspect Ratio Presets */
+    .flyer-photo-frame.aspect-landscape {
+      width: 330px;
+      height: 205px;
+    }
+
+    .flyer-photo-frame.aspect-square {
+      width: 230px;
+      height: 230px;
+    }
+
+    .flyer-photo-frame.aspect-portrait {
+      width: 200px;
+      height: 250px;
+    }
+
+    .flyer-photo-frame.aspect-wide {
+      width: 360px;
+      height: 195px;
     }
 
     .flyer-photo-clip {
       width: 100%;
       height: 100%;
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: hidden;
       position: relative;
       background: #111;
-      border: 2px solid #1A1A1A;
+      border: 1.5px solid #222;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -409,59 +462,70 @@
       display: block;
     }
 
-    /* Main Info Titles */
-    .flyer-title-tag {
-      font-size: 12px;
-      font-weight: 800;
-      color: #E74C3C;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 2px;
+    /* Artist Name & Subtitle */
+    .flyer-artist-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      margin-top: 2px;
+      width: 100%;
     }
 
     .flyer-artist-name {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 900;
       color: #FFFFFF;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      line-height: 1.1;
-      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 12px rgba(192, 57, 43, 0.5);
+      letter-spacing: 1px;
+      line-height: 1.15;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9), 0 0 15px rgba(192, 57, 43, 0.5);
+      max-width: 480px;
+      word-break: break-word;
     }
 
     .flyer-artist-role {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: #FFD700;
-      letter-spacing: 1.5px;
-      margin-top: 4px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    /* Bottom Event Info Card */
+    .flyer-info-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
     }
 
     /* Date & Time Pill */
     .flyer-datetime-box {
-      background: linear-gradient(90deg, #111 0%, #2a0000 50%, #111 100%);
-      border: 2px solid #C0392B;
-      border-radius: 12px;
-      padding: 10px 22px;
+      background: linear-gradient(90deg, #140404 0%, #2a0000 50%, #140404 100%);
+      border: 1.5px solid #C0392B;
+      border-radius: 10px;
+      padding: 8px 18px;
       width: 100%;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8);
-      margin: 8px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+      margin: 2px 0;
     }
 
     .flyer-datetime-text {
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 900;
       color: #FFD700;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
     }
 
     /* Host & Cohost Line */
     .flyer-hosts-line {
-      font-size: 13px;
+      font-size: 12px;
       color: #DDD;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     .flyer-hosts-line span.highlight {
@@ -473,33 +537,35 @@
     .flyer-platforms-row {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
       justify-content: center;
-      margin-top: 4px;
+      flex-wrap: wrap;
+      margin-top: 2px;
     }
 
     .platform-pill {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 215, 0, 0.3);
-      border-radius: 20px;
-      padding: 4px 12px;
+      border-radius: 16px;
+      padding: 3px 10px;
       font-size: 11px;
       font-weight: 800;
       color: #FFF;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     /* Footer Handles */
     .flyer-footer-handles {
       width: 100%;
       border-top: 1.5px solid rgba(192, 57, 43, 0.4);
-      padding-top: 10px;
+      padding-top: 8px;
+      margin-top: 4px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
       color: #AAA;
     }
@@ -509,12 +575,73 @@
     }
 
     /* Formato B (Para el Invitado) Specific Layout Tweaks */
-    .guest-version .flyer-photo-frame {
-      width: 170px;
-      height: 255px;
+    .guest-version .flyer-photo-frame.aspect-landscape {
+      width: 350px;
+      height: 220px;
+    }
+
+    .guest-version .flyer-photo-frame.aspect-square {
+      width: 250px;
+      height: 250px;
+    }
+
+    .guest-version .flyer-photo-frame.aspect-portrait {
+      width: 220px;
+      height: 270px;
+    }
+
+    .guest-version .flyer-photo-frame.aspect-wide {
+      width: 380px;
+      height: 210px;
     }
     
     .guest-version .flyer-artist-name {
-      font-size: 36px;
+      font-size: 32px;
       color: #FFD700;
+    }
+
+    /* Story / Reel 9:16 Format Tweaks */
+    .vertical-format .flyer-inner {
+      padding: 24px 22px;
+    }
+
+    .vertical-format .flyer-main-content {
+      gap: 12px;
+      margin: 12px 0;
+    }
+
+    .vertical-format .flyer-photo-frame.aspect-landscape {
+      width: 380px;
+      height: 240px;
+    }
+
+    .vertical-format .flyer-photo-frame.aspect-square {
+      width: 300px;
+      height: 300px;
+    }
+
+    .vertical-format .flyer-photo-frame.aspect-portrait {
+      width: 270px;
+      height: 350px;
+    }
+
+    .vertical-format .flyer-photo-frame.aspect-wide {
+      width: 410px;
+      height: 230px;
+    }
+
+    .vertical-format .flyer-artist-name {
+      font-size: 34px;
+    }
+
+    .vertical-format .flyer-info-card {
+      gap: 10px;
+    }
+
+    .vertical-format .flyer-datetime-box {
+      padding: 12px 20px;
+    }
+
+    .vertical-format .flyer-datetime-text {
+      font-size: 17px;
     }
