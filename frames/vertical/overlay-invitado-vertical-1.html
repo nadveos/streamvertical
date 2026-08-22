@@ -4,67 +4,33 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../../main.css">
-  <link rel="stylesheet" href="../../overlay-vertical.css">
+  <link rel="stylesheet" href="../../overlay-invitado-vertical.css">
   <link rel="stylesheet" href="../../transparent-mode.css">
-  <title>Guta Flores — Overlay Vertical (Frame Transparente 1080x1920)</title>
+  <title>Guta Flores — Overlay Invitado 1 Vertical (Frame Transparente 9:16 + 16:9 - Cecilia Camacho)</title>
 </head>
 
 <body>
 
-  <!-- Marco General Animado -->
+  <!-- Marco General Animado (Fondo Transparente) -->
   <div class="main-border">
     <div class="main-inner">
 
-      <!-- Estructura Principal Vertical -->
-      <div class="vertical-layout">
+      <!-- Estructura Principal Vertical con Invitado 9:16 + Centro Informativo + Host/Co-Host 16:9 en Columna -->
+      <div class="vertical-guest-layout">
 
-        <!-- 1. SECCIÓN INVITADO (PROTAGONISTA - VERTICAL 9:16 + TARJETA RRSS) -->
-        <div class="guest-section">
-
-          <!-- Marco Invitado (9:16 Vertical para VDO.Ninja) -->
-          <div class="guest-cam-box">
+        <!-- 1. SECCIÓN INVITADO (ARRIBA - VERTICAL 9:16 PROTAGONISTA) -->
+        <div class="guest-section-vertical">
+          <div class="guest-featured-badge">⭐ INVITADO 1 EN VIVO</div>
+          <div class="guest-cam-box-9x16">
             <div class="cam-window" data-cutout></div>
-            <div class="name-tag-custom">
-              <div class="role-title" data-bind="guest-role">💬 INVITADO ESPECIAL</div>
+            <div class="name-tag-custom name-tag-custom-gold">
+              <div class="role-title" data-bind="guest-role">💬 INVITADO 1</div>
               <div class="user-name" data-bind="guest-name"></div>
             </div>
           </div>
-
-          <!-- Panel de Redes / Agenda e Info del Invitado -->
-          <div class="guest-info-panel">
-            <div class="info-header">
-              <div class="info-tag">💬 INVITADO ESPECIAL</div>
-              <div class="info-title" data-bind="guest-name">ENTREVISTA EN VIVO</div>
-            </div>
-
-            <!-- Bio / Resumen justo debajo del nombre -->
-            <div class="guest-bio" data-bind="guest-bio"></div>
-            <div class="guest-events-banner" data-bind="guest-events" style="display:none;"></div>
-
-            <!-- Redes Sociales por debajo de la bio -->
-            <div class="social-list" data-bind="guest-socials"></div>
-
-            <!-- Agenda / Cronograma del Stream -->
-            <div class="agenda-box-vertical">
-              <div class="agenda-header-label">✨ CRONOGRAMA DE HOY</div>
-              <div class="agenda-item-mini">
-                <span class="agenda-icon" data-bind="agenda-icon-0">🎙️</span>
-                <span data-bind="agenda-title-0">Entrevista en Vivo</span>
-              </div>
-              <div class="agenda-item-mini">
-                <span class="agenda-icon" data-bind="agenda-icon-1">🎸</span>
-                <span data-bind="agenda-title-1">Show & Guitarreada</span>
-              </div>
-              <div class="agenda-item-mini">
-                <span class="agenda-icon" data-bind="agenda-icon-2">💬</span>
-                <span data-bind="agenda-title-2">Chat Directo</span>
-              </div>
-            </div>
-          </div>
-
         </div>
 
-        <!-- 2. SECCIÓN CENTRAL: MOTTO BANNER + TICKER BAR (Separador Informativo) -->
+        <!-- 2. SECCIÓN CENTRAL: MOTTO BANNER + TICKER BAR (Separador de Información) -->
         <div class="middle-info-band">
           <!-- Motto Banner -->
           <div class="motto-banner-mid">
@@ -98,9 +64,9 @@
           </div>
         </div>
 
-        <!-- 3. SECCIÓN ANFITRIÓN Y CO-ANFITRIÓN (ABAJO - 16:9) -->
-        <div class="host-cohost-row-16x9">
-          <!-- Anfitrión / Host -->
+        <!-- 3. SECCIÓN ANFITRIÓN Y CO-ANFITRIÓN (ABAJO EN COLUMNA - 16:9 GRANDES) -->
+        <div class="host-cohost-col-16x9">
+          <!-- Anfitrión / Host (980px × 551px solo / 640px × 360px con Co-Host) -->
           <div class="host-card-wrapper">
             <div class="host-cam-box-16x9 host-card">
               <div class="cam-window" data-cutout></div>
@@ -111,7 +77,7 @@
             </div>
           </div>
 
-          <!-- Co-Anfitrión / Co-Host (Sólo se muestra si está activado en el panel) -->
+          <!-- Co-Anfitrión / Co-Host (Sólo se muestra si está activado en el panel, 640px × 360px) -->
           <div class="cohost-card-wrapper" data-bind="cohost-box" style="display: none;">
             <div class="cohost-cam-box-16x9 cohost-card">
               <div class="cam-window" data-cutout></div>

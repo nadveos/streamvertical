@@ -54,6 +54,23 @@
   var lastLayout     = '';
   var lastTickerHtml = '';
 
+  /* ── Detectar Invitado Específico por URL o Nombre de Archivo ── */
+  function getTargetGuestIndex() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var gParam = params.get('guest');
+      if (gParam === '2' || gParam === 'guest2') return 2;
+      if (gParam === '3' || gParam === 'guest3') return 3;
+      if (gParam === '1' || gParam === 'guest1') return 1;
+
+      var path = window.location.pathname.toLowerCase();
+      if (path.indexOf('dinamico-2') !== -1 || path.indexOf('invitado-2') !== -1 || path.indexOf('guest-2') !== -1) return 2;
+      if (path.indexOf('dinamico-3') !== -1 || path.indexOf('invitado-3') !== -1 || path.indexOf('guest-3') !== -1) return 3;
+      if (path.indexOf('dinamico-1') !== -1 || path.indexOf('invitado-1') !== -1 || path.indexOf('guest-1') !== -1) return 1;
+    } catch (e) {}
+    return null;
+  }
+
   /* ── Aplicar datos ────────────────────────────────────── */
   function applyData(data) {
     if (!data) return;
@@ -84,42 +101,69 @@
       if (slotCohostRole && slotCohostRole.textContent !== cohostRole) slotCohostRole.textContent = cohostRole;
     }
 
-    /* ── 3. INVITADOS (Guest principal o Multi-Guests) ── */
+    /* ── 3. INVITADOS (Guest específico o Multi-Guests) ── */
     var guests = [];
+    var targetGuestIdx = getTargetGuestIndex();
 
-    var multiGuests = [
-      { obj: data.guest1, defaultRole: '💬 INVITADO 1' },
-      { obj: data.guest2, defaultRole: '💬 INVITADO 2' },
-      { obj: data.guest3, defaultRole: '💬 INVITADO 3' }
-    ];
+    if (targetGuestIdx !== null) {
+      // Modo Bloque de Invitado Específico (Invitado 1, 2 o 3)
+      var targetObj = null;
+      var defRole = '💬 INVITADO ESPECIAL';
+      if (targetGuestIdx === 2) {
+        targetObj = data.guest2;
+        defRole = '💬 INVITADO 2';
+      } else if (targetGuestIdx === 3) {
+        targetObj = data.guest3;
+        defRole = '💬 INVITADO 3';
+      } else {
+        targetObj = data.guest1 || data.guest;
+        defRole = '💬 INVITADO 1';
+      }
 
-    var hasMultiGuests = multiGuests.some(function (g) {
-      return g.obj && g.obj.enabled !== false && g.obj.name && g.obj.name.trim() !== '';
-    });
-
-    if (hasMultiGuests) {
-      multiGuests.forEach(function (g) {
-        if (!g.obj || g.obj.enabled === false || !g.obj.name || g.obj.name.trim() === '') return;
+      if (targetObj && targetObj.enabled !== false && targetObj.name && targetObj.name.trim() !== '') {
         guests.push({
-          name:    g.obj.name.trim(),
-          role:    (g.obj.role || g.defaultRole).trim(),
-          socials: g.obj.socials || (data.guest ? data.guest.socials : []),
-          bio:     g.obj.bio || (data.guest ? data.guest.bio : '')
+          name:    targetObj.name.trim(),
+          role:    (targetObj.role || defRole).trim(),
+          socials: targetObj.socials || [],
+          bio:     targetObj.bio || ''
         });
-      });
+      }
     } else {
-      var guestEnabled = data.guest
-        && data.guest.enabled !== false
-        && data.guest.name
-        && data.guest.name.trim() !== '';
+      // Modo Adaptativo Automático Estándar
+      var multiGuests = [
+        { obj: data.guest1, defaultRole: '💬 INVITADO 1' },
+        { obj: data.guest2, defaultRole: '💬 INVITADO 2' },
+        { obj: data.guest3, defaultRole: '💬 INVITADO 3' }
+      ];
 
-      if (guestEnabled) {
-        guests.push({
-          name:    data.guest.name.trim(),
-          role:    (data.guest.role || '💬 INVITADO ESPECIAL').trim(),
-          socials: data.guest.socials || [],
-          bio:     data.guest.bio || ''
+      var hasMultiGuests = multiGuests.some(function (g) {
+        return g.obj && g.obj.enabled !== false && g.obj.name && g.obj.name.trim() !== '';
+      });
+
+      if (hasMultiGuests) {
+        multiGuests.forEach(function (g) {
+          if (!g.obj || g.obj.enabled === false || !g.obj.name || g.obj.name.trim() === '') return;
+          guests.push({
+            name:    g.obj.name.trim(),
+            role:    (g.obj.role || g.defaultRole).trim(),
+            socials: g.obj.socials || (data.guest ? data.guest.socials : []),
+            bio:     g.obj.bio || (data.guest ? data.guest.bio : '')
+          });
         });
+      } else {
+        var guestEnabled = data.guest
+          && data.guest.enabled !== false
+          && data.guest.name
+          && data.guest.name.trim() !== '';
+
+        if (guestEnabled) {
+          guests.push({
+            name:    data.guest.name.trim(),
+            role:    (data.guest.role || '💬 INVITADO ESPECIAL').trim(),
+            socials: data.guest.socials || [],
+            bio:     data.guest.bio || ''
+          });
+        }
       }
     }
 
@@ -201,7 +245,51 @@
           var bioText = activeGuest.bio || (data.guest ? data.guest.bio : '') || 'Música, folklore y show en vivo.';
           if (bioEl.textContent !== bioText) bioEl.textContent = bioText;
         }
+
+        // Agenda / Cronograma en Tarjeta Informativa
+        if (data.agenda && Array.isArray(data.agenda)) {
+          var agendaList = stageInfoCard.querySelector('[data-bind="agenda-list"]');
+          if (agendaList) {
+            var agHtml = '';
+            data.agenda.forEach(function (item, idx) {
+              var title = (item.title || '').trim();
+              var sub   = (item.sub || '').trim();
+              var icon  = (item.icon || '🎙️').trim();
+              if (title !== '' || sub !== '') {
+                agHtml += '<div class="agenda-mini-item">'
+                       +   '<span class="agenda-mini-icon" data-bind="agenda-icon-' + idx + '">' + icon + '</span>'
+                       +   '<div class="agenda-mini-text">'
+                       +     (title ? '<div class="agenda-mini-item-title" data-bind="agenda-title-' + idx + '">' + title + '</div>' : '')
+                       +     (sub   ? '<div class="agenda-mini-item-sub" data-bind="agenda-sub-' + idx + '">' + sub + '</div>' : '')
+                       +   '</div>'
+                       + '</div>';
+              }
+            });
+            if (agHtml && agendaList.innerHTML !== agHtml) {
+              agendaList.innerHTML = agHtml;
+            }
+          }
+        }
       }
+    }
+
+    /* ── 5b. Sincronización Global de Agenda por data-bind ── */
+    if (data.agenda && Array.isArray(data.agenda)) {
+      data.agenda.forEach(function (item, idx) {
+        document.querySelectorAll('[data-bind="agenda-icon-' + idx + '"]').forEach(function (el) {
+          var iconVal = item.icon || '🎙️';
+          if (el.textContent !== iconVal) el.textContent = iconVal;
+        });
+        document.querySelectorAll('[data-bind="agenda-title-' + idx + '"]').forEach(function (el) {
+          var titleVal = item.title || '';
+          if (el.textContent !== titleVal) el.textContent = titleVal;
+        });
+        document.querySelectorAll('[data-bind="agenda-sub-' + idx + '"]').forEach(function (el) {
+          var subVal = item.sub || '';
+          if (el.textContent !== subVal) el.textContent = subVal;
+          el.style.display = subVal.trim() !== '' ? '' : 'none';
+        });
+      });
     }
 
     /* ── 6. Layout Mode y Contador de Participantes ── */

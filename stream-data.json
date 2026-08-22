@@ -10,10 +10,10 @@
   },
   "guest": {
     "enabled": true,
-    "name": "Proyect404",
-    "role": "💬 INVITADO ESPECIAL",
-    "bio": "Música Urbana | ",
-    "events": "",
+    "name": "CECILIA CAMACHO",
+    "role": "💬 INVITADA ESPECIAL | TARIJA, BOLIVIA",
+    "bio": "De las entrañas del hermoso Valle Chapaco y la firmeza de sus raíces Chaqueñas nace una gran artista Cecilia Camacho Torrez, un nombre que con orgullo lo lleva en homenaje a la virgen de los músicos Santa Cecilia.",
+    "events": "📅 Próximamente en vivo",
     "socials": [
       {
         "icon": "📸",
@@ -34,51 +34,108 @@
   },
   "guest1": {
     "enabled": true,
-    "name": "",
-    "role": ""
+    "name": "CECILIA CAMACHO",
+    "role": "💬 INVITADA ESPECIAL | TARIJA, BOLIVIA",
+    "bio": "De las entrañas del hermoso Valle Chapaco y la firmeza de sus raíces Chaqueñas nace una gran artista Cecilia Camacho Torrez, un nombre que con orgullo lo lleva en homenaje a la virgen de los músicos Santa Cecilia.",
+    "events": "📅 Próximamente en vivo",
+    "socials": [
+      {
+        "icon": "📸",
+        "platform": "INSTAGRAM",
+        "handle": "@ceciliacamacho_oficial"
+      },
+      {
+        "icon": "📺",
+        "platform": "YOUTUBE",
+        "handle": "@ceciliacamacho_oficial"
+      },
+      {
+        "icon": "☕",
+        "platform": "TIKTOK",
+        "handle": "@ceciliacamacho_oficial"
+      }
+    ]
   },
   "guest2": {
     "enabled": true,
-    "name": "",
-    "role": ""
+    "name": "TIGEL & EMINENCIA",
+    "role": "💬 INVITADOS ESPECIALES | HIP-HOP TRAP",
+    "bio": "Dúo emergente de música urbana, rap y hip-hop trayendo las mejores composiciones y rimas en vivo.",
+    "events": "📅 Nuevos lanzamientos en plataformas",
+    "socials": [
+      {
+        "icon": "📸",
+        "platform": "INSTAGRAM",
+        "handle": "@tigelyeminencia"
+      },
+      {
+        "icon": "📺",
+        "platform": "YOUTUBE",
+        "handle": "Tigel y Eminencia Oficial"
+      },
+      {
+        "icon": "🎵",
+        "platform": "SPOTIFY",
+        "handle": "Tigel & Eminencia"
+      }
+    ]
   },
   "guest3": {
     "enabled": true,
-    "name": "",
-    "role": ""
+    "name": "PROYECT404",
+    "role": "💬 INVITADO EXCLUSIVO | DESDE URUGUAY",
+    "bio": "Proyecto musical independiente con un sonido moderno, fusión de estilos y canciones originales.",
+    "events": "📅 Gira y shows acústicos",
+    "socials": [
+      {
+        "icon": "📸",
+        "platform": "INSTAGRAM",
+        "handle": "@proyect404"
+      },
+      {
+        "icon": "📺",
+        "platform": "YOUTUBE",
+        "handle": "Proyect404 Music"
+      },
+      {
+        "icon": "🎵",
+        "platform": "TIKTOK",
+        "handle": "@proyect404_ok"
+      }
+    ]
   },
   "solo": {
-    "descLabel": "Hoy",
-    "bio": "Bienvenidos, hoy buscamos nuevos artistas emergentes mientras escuchamos música !!!",
-    "tags": "#artistasemergentes #nuevamusica #charlemos",
+    "descLabel": "Bienvenidos !!!",
+    "bio": "HOY \nInvitados Estelares nos acompañan y nos cuentan de tradicion, inspiración y la música.",
+    "tags": "#artistasemergentes #nuevamusica #charlemos #jovenes",
     "handle": "@gutafloresok @rauldomingooficial"
   },
   "motto": {
-    "phrase1": "",
+    "phrase1": "HOY INVITADOS ESTELARES",
     "connector": "|",
-    "phrase2": "INVITADOS DE LUJO"
+    "phrase2": "MÚSICA HISTORIA Y REFLEXIÓN"
   },
   "agenda": [
     {
       "icon": "🎙️",
       "title": "1. ENTREVISTA EN VIVO",
-      "sub": "Charlas, trayectoria y lanzamientos"
+      "sub": "CECILIA CAMACHO | TARIJA, BOLIVIA "
     },
     {
       "icon": "🪕",
-      "title": "2. SHOW & GUITARREADA",
-      "sub": "Canciones y folklore a la gorra"
+      "title": "2. ENTREVISTA EN VIVO ",
+      "sub": "TIGEL & EMINENCIA"
     },
     {
       "icon": "💬",
-      "title": "3. CHAT EN DIRECTO",
-      "sub": "Preguntas, saludos y peticiones"
+      "title": "3. ENTREVISTA EXCLUSIVA ",
+      "sub": "PROYECT404"
     }
   ],
   "ticker": [
     {
       "prefix": "🎙️ Transmisión en vivo:",
-      "text": "GUTA FLORES",
+      "text": "GUTA FLORES RAUL DOMINGO CESAR CHOQUE",
       "highlight": true
     },
     {

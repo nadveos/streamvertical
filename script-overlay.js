@@ -23,6 +23,23 @@
 
   var lastJsonString = '';
 
+  // ── Detectar Invitado Específico por URL o Nombre de Archivo ──
+  function getTargetGuestIndex() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var gParam = params.get('guest');
+      if (gParam === '2' || gParam === 'guest2') return 2;
+      if (gParam === '3' || gParam === 'guest3') return 3;
+      if (gParam === '1' || gParam === 'guest1') return 1;
+
+      var path = window.location.pathname.toLowerCase();
+      if (path.indexOf('invitado-vertical-2') !== -1 || path.indexOf('invitado-2') !== -1 || path.indexOf('guest-2') !== -1) return 2;
+      if (path.indexOf('invitado-vertical-3') !== -1 || path.indexOf('invitado-3') !== -1 || path.indexOf('guest-3') !== -1) return 3;
+      if (path.indexOf('invitado-vertical-1') !== -1 || path.indexOf('invitado-1') !== -1 || path.indexOf('guest-1') !== -1) return 1;
+    } catch (e) {}
+    return null;
+  }
+
   function applyData(data) {
     if (!data) return;
 
@@ -56,13 +73,30 @@
       el.style.display = cohostEnabled ? '' : 'none';
     });
 
-    // ── 2. INVITADO (PRINCIPAL) ──────────────────────────────────────────────
-    var guestNameRaw = (data.guest && data.guest.name) ? data.guest.name : '';
-    var guestRole    = (data.guest && data.guest.role) ? data.guest.role : '💬 INVITADO ESPECIAL';
-    var guestBio     = (data.guest && data.guest.bio)  ? data.guest.bio  : '';
-    var guestEvents  = (data.guest && data.guest.events) ? data.guest.events : '';
+    // ── 2. INVITADO PRINCIPAL (O ESPECÍFICO SEGÚN URL/ARCHIVO) ───────────────
+    var targetGuestIdx = getTargetGuestIndex();
+    var activeGuest = data.guest || {};
+    var defaultRole = '💬 INVITADO ESPECIAL';
 
-    var guestEnabled = data.guest ? (data.guest.enabled !== false && guestNameRaw.trim() !== '') : false;
+    if (targetGuestIdx === 2 && data.guest2) {
+      activeGuest = data.guest2;
+      defaultRole = '💬 INVITADO 2';
+    } else if (targetGuestIdx === 3 && data.guest3) {
+      activeGuest = data.guest3;
+      defaultRole = '💬 INVITADO 3';
+    } else if (targetGuestIdx === 1 && (data.guest1 || data.guest)) {
+      activeGuest = data.guest1 || data.guest;
+      defaultRole = '💬 INVITADO 1';
+    } else if (data.guest1 && data.guest1.name && data.guest1.name.trim() !== '') {
+      activeGuest = data.guest1;
+    }
+
+    var guestNameRaw = (activeGuest && activeGuest.name) ? activeGuest.name : '';
+    var guestRole    = (activeGuest && activeGuest.role) ? activeGuest.role : defaultRole;
+    var guestBio     = (activeGuest && activeGuest.bio)  ? activeGuest.bio  : '';
+    var guestEvents  = (activeGuest && activeGuest.events) ? activeGuest.events : '';
+
+    var guestEnabled = activeGuest ? (activeGuest.enabled !== false && guestNameRaw.trim() !== '') : false;
     var guestName    = guestEnabled ? guestNameRaw : '';
 
     document.querySelectorAll('[data-bind="guest-name"]').forEach(function (el) {
@@ -101,11 +135,11 @@
     document.querySelectorAll('[data-bind="guest3-name"]').forEach(function (el) { el.textContent = g3Name; });
     document.querySelectorAll('[data-bind="guest3-role"]').forEach(function (el) { el.textContent = g3Role; });
 
-    // Redes del invitado
+    // Redes del invitado activo
     document.querySelectorAll('[data-bind="guest-socials"]').forEach(function (container) {
-      if (data.guest && data.guest.socials && Array.isArray(data.guest.socials)) {
+      if (activeGuest && activeGuest.socials && Array.isArray(activeGuest.socials)) {
         var html = '';
-        data.guest.socials.forEach(function (s) {
+        activeGuest.socials.forEach(function (s) {
           if (s.handle && s.handle.trim() !== '') {
             html += '<div class="social-item">'
                  +   '<span class="social-icon">' + (s.icon || '📱') + '</span>'

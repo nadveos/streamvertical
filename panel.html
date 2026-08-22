@@ -439,97 +439,148 @@
            PESTAÑA 2: INVITADOS (Azul #0099FF)
            ══════════════════════════════════════════════════════════ -->
       <section id="tab-guests" class="tab-pane">
-        <!-- Invitado Especial -->
-        <div class="inner-card">
+
+        <!-- ── ⭐ INVITADO 1 (BLOQUE 1) ────────────────────────── -->
+        <div class="inner-card" style="border-left: 4px solid #FFD700;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-            <div class="card-title" style="margin-bottom:0; color:#00F2FE;">💬 Invitado Especial / Principal</div>
+            <div class="card-title" style="margin-bottom:0; color:#FFD700;">⭐ INVITADO 1 (Bloque 1 / Principal)</div>
             <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:700; color:#FFD700;">
-              <input type="checkbox" id="guestEnabled" checked style="width:18px; height:18px; accent-color:#0099FF; cursor:pointer;">
-              <span>MOSTRAR INVITADO EN OVERLAYS</span>
+              <input type="checkbox" id="guest1Enabled" checked style="width:18px; height:18px; accent-color:#FFD700; cursor:pointer;">
+              <span>HABILITAR EN OVERLAYS</span>
             </label>
           </div>
           
           <div class="form-group">
-            <label>Nombre del Invitado / Banda</label>
-            <input type="text" id="guestName" placeholder="Ej: CECILIA CAMACHO">
+            <label>Nombre del Invitado 1 / Banda</label>
+            <input type="text" id="guest1Name" placeholder="Ej: CECILIA CAMACHO">
           </div>
           <div class="form-group">
-            <label>Rol / Etiqueta</label>
-            <input type="text" id="guestRole" placeholder="💬 INVITADA ESTELAR | FOLKLORE">
+            <label>Rol / Etiqueta Invitado 1</label>
+            <input type="text" id="guest1Role" placeholder="💬 INVITADA ESTELAR | FOLKLORE">
           </div>
           <div class="form-group">
-            <label>Biografía / Descripción corta</label>
-            <textarea id="guestBio" rows="2" placeholder="Resumen o trayectoria del invitado..."></textarea>
+            <label>Biografía / Reseña Invitado 1</label>
+            <textarea id="guest1Bio" rows="2" placeholder="Resumen o trayectoria del invitado 1..."></textarea>
           </div>
           <div class="form-group">
-            <label>Próximos Eventos / Fechas del Invitado</label>
-            <input type="text" id="guestEvents" placeholder="Ej: 📅 20 AGO: La Trastienda | 25 AGO: Festival Cosquín">
+            <label>Próximos Eventos / Fechas Invitado 1</label>
+            <input type="text" id="guest1Events" placeholder="Ej: 📅 20 AGO: La Trastienda | 25 AGO: Festival Cosquín">
           </div>
 
           <label style="margin: 14px 0 8px 0; display:block; color:#FFD700; font-weight:800; font-size:12px;">
-            📲 Redes Sociales del Invitado (Aparecen en el banner inferior)
+            📲 Redes Sociales Invitado 1
           </label>
           <div class="social-row">
-            <input type="text" id="socIcon0" placeholder="Icono" value="📸">
-            <input type="text" id="socPlat0" placeholder="Plataforma" value="INSTAGRAM">
-            <input type="text" id="socHand0" placeholder="Usuario / Handle" value="@ceciliacamacho_oficial">
+            <input type="text" id="g1SocIcon0" placeholder="Icono" value="📸">
+            <input type="text" id="g1SocPlat0" placeholder="Plataforma" value="INSTAGRAM">
+            <input type="text" id="g1SocHand0" placeholder="Usuario / Handle" value="@ceciliacamacho_oficial">
           </div>
           <div class="social-row">
-            <input type="text" id="socIcon1" placeholder="Icono" value="📺">
-            <input type="text" id="socPlat1" placeholder="Plataforma" value="YOUTUBE">
-            <input type="text" id="socHand1" placeholder="Usuario / Handle" value="@ceciliacamacho_oficial">
+            <input type="text" id="g1SocIcon1" placeholder="Icono" value="📺">
+            <input type="text" id="g1SocPlat1" placeholder="Plataforma" value="YOUTUBE">
+            <input type="text" id="g1SocHand1" placeholder="Usuario / Handle" value="@ceciliacamacho_oficial">
           </div>
           <div class="social-row">
-            <input type="text" id="socIcon2" placeholder="Icono" value="🎵">
-            <input type="text" id="socPlat2" placeholder="Plataforma" value="TIKTOK">
-            <input type="text" id="socHand2" placeholder="Usuario / Handle" value="@ceciliacamacho_oficial">
+            <input type="text" id="g1SocIcon2" placeholder="Icono" value="☕">
+            <input type="text" id="g1SocPlat2" placeholder="Plataforma" value="TIKTOK">
+            <input type="text" id="g1SocHand2" placeholder="Usuario / Handle" value="@ceciliacamacho_oficial">
           </div>
         </div>
 
-        <!-- Múltiples Invitados -->
-        <div class="inner-card">
-          <div class="card-title" style="color: #00F2FE;">👥 Múltiples Invitados (Para Overlays Dinámicos, 2 y 3 Invitados)</div>
-          <div class="card-subtitle">Completá el nombre para activar el marco correspondiente en los overlays dinámicos.</div>
-
-          <!-- Invitado 1 -->
-          <div style="background: rgba(0, 153, 255, 0.06); border: 1px solid rgba(0, 153, 255, 0.3); padding: 12px; border-radius: 10px; margin-bottom: 12px;">
-            <div style="color: #00F2FE; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 1</div>
-            <div class="form-group" style="margin-bottom: 6px;">
-              <label>Nombre Invitado 1</label>
-              <input type="text" id="guest1Name" placeholder="Ej: CECILIA CAMACHO">
-            </div>
-            <div class="form-group" style="margin-bottom: 0;">
-              <label>Rol / Etiqueta Invitado 1</label>
-              <input type="text" id="guest1Role" placeholder="💬 INVITADA ESTELAR DESDE TARIJA - BOLIVIA | FOLKLORE">
-            </div>
+        <!-- ── ⭐ INVITADO 2 (BLOQUE 2) ────────────────────────── -->
+        <div class="inner-card" style="border-left: 4px solid #00F2FE;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div class="card-title" style="margin-bottom:0; color:#00F2FE;">⭐ INVITADO 2 (Bloque 2)</div>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:700; color:#00F2FE;">
+              <input type="checkbox" id="guest2Enabled" checked style="width:18px; height:18px; accent-color:#00F2FE; cursor:pointer;">
+              <span>HABILITAR EN OVERLAYS</span>
+            </label>
+          </div>
+          
+          <div class="form-group">
+            <label>Nombre del Invitado 2 / Banda</label>
+            <input type="text" id="guest2Name" placeholder="Ej: TIGEL & EMINENCIA">
+          </div>
+          <div class="form-group">
+            <label>Rol / Etiqueta Invitado 2</label>
+            <input type="text" id="guest2Role" placeholder="💬 INVITADOS ESPECIALES | HIP-HOP TRAP">
+          </div>
+          <div class="form-group">
+            <label>Biografía / Reseña Invitado 2</label>
+            <textarea id="guest2Bio" rows="2" placeholder="Resumen o trayectoria del invitado 2..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Próximos Eventos / Fechas Invitado 2</label>
+            <input type="text" id="guest2Events" placeholder="Ej: 📅 28 AGO: Lanzamiento Nuevo Single">
           </div>
 
-          <!-- Invitado 2 -->
-          <div style="background: rgba(0, 153, 255, 0.06); border: 1px solid rgba(0, 153, 255, 0.3); padding: 12px; border-radius: 10px; margin-bottom: 12px;">
-            <div style="color: #00F2FE; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 2</div>
-            <div class="form-group" style="margin-bottom: 6px;">
-              <label>Nombre Invitado 2</label>
-              <input type="text" id="guest2Name" placeholder="Ej: PROYECT404">
-            </div>
-            <div class="form-group" style="margin-bottom: 0;">
-              <label>Rol / Etiqueta Invitado 2</label>
-              <input type="text" id="guest2Role" placeholder="💬 INVITADO ESTELAR DESDE URUGUAY | HIP-HOP">
-            </div>
+          <label style="margin: 14px 0 8px 0; display:block; color:#00F2FE; font-weight:800; font-size:12px;">
+            📲 Redes Sociales Invitado 2
+          </label>
+          <div class="social-row">
+            <input type="text" id="g2SocIcon0" placeholder="Icono" value="📸">
+            <input type="text" id="g2SocPlat0" placeholder="Plataforma" value="INSTAGRAM">
+            <input type="text" id="g2SocHand0" placeholder="Usuario / Handle" value="@tigelyeminencia">
           </div>
-
-          <!-- Invitado 3 -->
-          <div style="background: rgba(0, 153, 255, 0.06); border: 1px solid rgba(0, 153, 255, 0.3); padding: 12px; border-radius: 10px;">
-            <div style="color: #00F2FE; font-weight: 800; font-size: 13px; margin-bottom: 6px;">⭐ INVITADO 3</div>
-            <div class="form-group" style="margin-bottom: 6px;">
-              <label>Nombre Invitado 3</label>
-              <input type="text" id="guest3Name" placeholder="Ej: Tigel y Eminencia">
-            </div>
-            <div class="form-group" style="margin-bottom: 0;">
-              <label>Rol / Etiqueta Invitado 3</label>
-              <input type="text" id="guest3Role" placeholder="💬 INVITADO ESTELAR | HIP-HOP TRAP">
-            </div>
+          <div class="social-row">
+            <input type="text" id="g2SocIcon1" placeholder="Icono" value="📺">
+            <input type="text" id="g2SocPlat1" placeholder="Plataforma" value="YOUTUBE">
+            <input type="text" id="g2SocHand1" placeholder="Usuario / Handle" value="Tigel y Eminencia Oficial">
+          </div>
+          <div class="social-row">
+            <input type="text" id="g2SocIcon2" placeholder="Icono" value="🎵">
+            <input type="text" id="g2SocPlat2" placeholder="Plataforma" value="SPOTIFY">
+            <input type="text" id="g2SocHand2" placeholder="Usuario / Handle" value="Tigel & Eminencia">
           </div>
         </div>
+
+        <!-- ── ⭐ INVITADO 3 (BLOQUE 3) ────────────────────────── -->
+        <div class="inner-card" style="border-left: 4px solid #c084fc;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div class="card-title" style="margin-bottom:0; color:#c084fc;">⭐ INVITADO 3 (Bloque 3)</div>
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:13px; font-weight:700; color:#c084fc;">
+              <input type="checkbox" id="guest3Enabled" checked style="width:18px; height:18px; accent-color:#c084fc; cursor:pointer;">
+              <span>HABILITAR EN OVERLAYS</span>
+            </label>
+          </div>
+          
+          <div class="form-group">
+            <label>Nombre del Invitado 3 / Banda</label>
+            <input type="text" id="guest3Name" placeholder="Ej: PROYECT404">
+          </div>
+          <div class="form-group">
+            <label>Rol / Etiqueta Invitado 3</label>
+            <input type="text" id="guest3Role" placeholder="💬 INVITADO EXCLUSIVO | DESDE URUGUAY">
+          </div>
+          <div class="form-group">
+            <label>Biografía / Reseña Invitado 3</label>
+            <textarea id="guest3Bio" rows="2" placeholder="Resumen o trayectoria del invitado 3..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Próximos Eventos / Fechas Invitado 3</label>
+            <input type="text" id="guest3Events" placeholder="Ej: 📅 Gira Internacional 2026">
+          </div>
+
+          <label style="margin: 14px 0 8px 0; display:block; color:#c084fc; font-weight:800; font-size:12px;">
+            📲 Redes Sociales Invitado 3
+          </label>
+          <div class="social-row">
+            <input type="text" id="g3SocIcon0" placeholder="Icono" value="📸">
+            <input type="text" id="g3SocPlat0" placeholder="Plataforma" value="INSTAGRAM">
+            <input type="text" id="g3SocHand0" placeholder="Usuario / Handle" value="@proyect404">
+          </div>
+          <div class="social-row">
+            <input type="text" id="g3SocIcon1" placeholder="Icono" value="📺">
+            <input type="text" id="g3SocPlat1" placeholder="Plataforma" value="YOUTUBE">
+            <input type="text" id="g3SocHand1" placeholder="Usuario / Handle" value="Proyect404 Music">
+          </div>
+          <div class="social-row">
+            <input type="text" id="g3SocIcon2" placeholder="Icono" value="🎵">
+            <input type="text" id="g3SocPlat2" placeholder="Plataforma" value="TIKTOK">
+            <input type="text" id="g3SocHand2" placeholder="Usuario / Handle" value="@proyect404_ok">
+          </div>
+        </div>
+
       </section>
 
       <!-- ══════════════════════════════════════════════════════════
@@ -639,10 +690,84 @@
 
           <div style="display:flex; flex-direction:column; gap:16px;" id="obs-urls">
 
+            <!-- ── ⭐ SECCIÓN DESTACADA: 3 BLOQUES DE ENTREVISTA (CAMBIO RÁPIDO) ── -->
+            <div style="background: linear-gradient(135deg, rgba(0, 153, 255, 0.15) 0%, rgba(155, 89, 182, 0.15) 100%); border: 2px solid #00F2FE; border-radius: 12px; padding: 16px 18px; box-shadow: 0 4px 20px rgba(0, 242, 254, 0.2);">
+              <div style="color: #00F2FE; font-size: 15px; font-weight: 900; letter-spacing: 1px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+                🎙️ OVERLAYS PARA 3 BLOQUES DE ENTREVISTA (TIKTOK LIVE & OBS)
+              </div>
+              <div style="font-size: 12px; color: #EEE; margin-bottom: 14px;">
+                Dejá cargadas estas URLs en tus escenas de TikTok Live Studio u OBS para pasar de un invitado al siguiente al instante sin editar datos en vivo:
+              </div>
+
+              <!-- Bloque Invitado 1 -->
+              <div style="background:rgba(0,0,0,0.5); border:1px solid #FFD700; border-radius:8px; padding:10px 14px; margin-bottom:10px;">
+                <div style="color:#FFD700; font-weight:900; font-size:13px; margin-bottom:6px;">⭐ BLOQUE 1: INVITADO 1 DEDICADO (Ej: Cecilia Camacho)</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:4px;">
+                    <span style="font-size:11px; color:#AAA; font-weight:700;">📱 TikTok / Vertical 9:16</span>
+                    <div style="display:flex; gap:6px;">
+                      <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/overlay-invitado-vertical-1.html</code>
+                      <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-invitado-vertical-1.html')" class="btn-action-pill">Copiar</button>
+                    </div>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:4px;">
+                    <span style="font-size:11px; color:#AAA; font-weight:700;">📺 Marcos Dinámicos 16:9</span>
+                    <div style="display:flex; gap:6px;">
+                      <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico-1.html</code>
+                      <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico-1.html')" class="btn-action-pill">Copiar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bloque Invitado 2 -->
+              <div style="background:rgba(0,0,0,0.5); border:1px solid #00F2FE; border-radius:8px; padding:10px 14px; margin-bottom:10px;">
+                <div style="color:#00F2FE; font-weight:900; font-size:13px; margin-bottom:6px;">⭐ BLOQUE 2: INVITADO 2 (Ej: Tigel & Eminencia)</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:4px;">
+                    <span style="font-size:11px; color:#AAA; font-weight:700;">📱 TikTok / Vertical 9:16</span>
+                    <div style="display:flex; gap:6px;">
+                      <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/overlay-invitado-vertical-2.html</code>
+                      <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-invitado-vertical-2.html')" class="btn-action-pill">Copiar</button>
+                    </div>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:4px;">
+                    <span style="font-size:11px; color:#AAA; font-weight:700;">📺 Marcos Dinámicos 16:9</span>
+                    <div style="display:flex; gap:6px;">
+                      <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico-2.html</code>
+                      <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico-2.html')" class="btn-action-pill">Copiar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bloque Invitado 3 -->
+              <div style="background:rgba(0,0,0,0.5); border:1px solid #c084fc; border-radius:8px; padding:10px 14px;">
+                <div style="color:#c084fc; font-weight:900; font-size:13px; margin-bottom:6px;">⭐ BLOQUE 3: INVITADO 3 (Ej: Proyect404)</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                  <div style="display:flex; flex-direction:column; gap:4px;">
+                    <span style="font-size:11px; color:#AAA; font-weight:700;">📱 TikTok / Vertical 9:16</span>
+                    <div style="display:flex; gap:6px;">
+                      <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/overlay-invitado-vertical-3.html</code>
+                      <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-invitado-vertical-3.html')" class="btn-action-pill">Copiar</button>
+                    </div>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:4px;">
+                    <span style="font-size:11px; color:#AAA; font-weight:700;">📺 Marcos Dinámicos 16:9</span>
+                    <div style="display:flex; gap:6px;">
+                      <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico-3.html</code>
+                      <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/overlay-frames-dinamico-3.html')" class="btn-action-pill">Copiar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
             <!-- ── SECCIÓN 1: MARCOS VERTICALES (9:16) ────────────────── -->
             <div style="background: rgba(0, 0, 0, 0.4); border: 1.5px solid rgba(255, 215, 0, 0.35); border-radius: 12px; padding: 14px 16px;">
               <div style="color: #FFD700; font-size: 14px; font-weight: 900; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                📱 MARCOS VERTICALES 9:16 (TikTok Live Studio, Shorts, Reels, Kick Vertical)
+                📱 MARCOS VERTICALES MULTI-CÁMARA (9:16)
               </div>
               <div style="display: flex; flex-direction: column; gap: 8px;">
 
@@ -1001,35 +1126,53 @@
         document.getElementById('cohostRole').value = data.cohost.role || '';
       }
 
-      if (data.guest) {
-        document.getElementById('guestEnabled').checked = data.guest.enabled !== false;
-        document.getElementById('guestName').value = data.guest.name || '';
-        document.getElementById('guestRole').value = data.guest.role || '';
-        document.getElementById('guestBio').value = data.guest.bio || '';
-        document.getElementById('guestEvents').value = data.guest.events || '';
-      }
-
-      if (data.guest1) {
-        document.getElementById('guest1Name').value = data.guest1.name || '';
-        document.getElementById('guest1Role').value = data.guest1.role || '';
-      }
-
-      if (data.guest2) {
-        document.getElementById('guest2Name').value = data.guest2.name || '';
-        document.getElementById('guest2Role').value = data.guest2.role || '';
-      }
-
-      if (data.guest3) {
-        document.getElementById('guest3Name').value = data.guest3.name || '';
-        document.getElementById('guest3Role').value = data.guest3.role || '';
-      }
-
-      if (data.guest && data.guest.socials) {
-        data.guest.socials.forEach((s, idx) => {
+      // ── Cargar Invitado 1 (o guest principal) ──
+      var g1 = data.guest1 || data.guest || {};
+      if (document.getElementById('guest1Enabled')) document.getElementById('guest1Enabled').checked = g1.enabled !== false;
+      if (document.getElementById('guest1Name')) document.getElementById('guest1Name').value = g1.name || '';
+      if (document.getElementById('guest1Role')) document.getElementById('guest1Role').value = g1.role || '';
+      if (document.getElementById('guest1Bio')) document.getElementById('guest1Bio').value = g1.bio || '';
+      if (document.getElementById('guest1Events')) document.getElementById('guest1Events').value = g1.events || '';
+      if (g1.socials && Array.isArray(g1.socials)) {
+        g1.socials.forEach((s, idx) => {
           if (idx < 3) {
-            if (document.getElementById(`socIcon${idx}`)) document.getElementById(`socIcon${idx}`).value = s.icon || '';
-            if (document.getElementById(`socPlat${idx}`)) document.getElementById(`socPlat${idx}`).value = s.platform || '';
-            if (document.getElementById(`socHand${idx}`)) document.getElementById(`socHand${idx}`).value = s.handle || '';
+            if (document.getElementById(`g1SocIcon${idx}`)) document.getElementById(`g1SocIcon${idx}`).value = s.icon || '';
+            if (document.getElementById(`g1SocPlat${idx}`)) document.getElementById(`g1SocPlat${idx}`).value = s.platform || '';
+            if (document.getElementById(`g1SocHand${idx}`)) document.getElementById(`g1SocHand${idx}`).value = s.handle || '';
+          }
+        });
+      }
+
+      // ── Cargar Invitado 2 ──
+      var g2 = data.guest2 || {};
+      if (document.getElementById('guest2Enabled')) document.getElementById('guest2Enabled').checked = g2.enabled !== false;
+      if (document.getElementById('guest2Name')) document.getElementById('guest2Name').value = g2.name || '';
+      if (document.getElementById('guest2Role')) document.getElementById('guest2Role').value = g2.role || '';
+      if (document.getElementById('guest2Bio')) document.getElementById('guest2Bio').value = g2.bio || '';
+      if (document.getElementById('guest2Events')) document.getElementById('guest2Events').value = g2.events || '';
+      if (g2.socials && Array.isArray(g2.socials)) {
+        g2.socials.forEach((s, idx) => {
+          if (idx < 3) {
+            if (document.getElementById(`g2SocIcon${idx}`)) document.getElementById(`g2SocIcon${idx}`).value = s.icon || '';
+            if (document.getElementById(`g2SocPlat${idx}`)) document.getElementById(`g2SocPlat${idx}`).value = s.platform || '';
+            if (document.getElementById(`g2SocHand${idx}`)) document.getElementById(`g2SocHand${idx}`).value = s.handle || '';
+          }
+        });
+      }
+
+      // ── Cargar Invitado 3 ──
+      var g3 = data.guest3 || {};
+      if (document.getElementById('guest3Enabled')) document.getElementById('guest3Enabled').checked = g3.enabled !== false;
+      if (document.getElementById('guest3Name')) document.getElementById('guest3Name').value = g3.name || '';
+      if (document.getElementById('guest3Role')) document.getElementById('guest3Role').value = g3.role || '';
+      if (document.getElementById('guest3Bio')) document.getElementById('guest3Bio').value = g3.bio || '';
+      if (document.getElementById('guest3Events')) document.getElementById('guest3Events').value = g3.events || '';
+      if (g3.socials && Array.isArray(g3.socials)) {
+        g3.socials.forEach((s, idx) => {
+          if (idx < 3) {
+            if (document.getElementById(`g3SocIcon${idx}`)) document.getElementById(`g3SocIcon${idx}`).value = s.icon || '';
+            if (document.getElementById(`g3SocPlat${idx}`)) document.getElementById(`g3SocPlat${idx}`).value = s.platform || '';
+            if (document.getElementById(`g3SocHand${idx}`)) document.getElementById(`g3SocHand${idx}`).value = s.handle || '';
           }
         });
       }
@@ -1099,6 +1242,81 @@
         }
       ];
 
+      const guest1Obj = {
+        enabled: document.getElementById('guest1Enabled') ? document.getElementById('guest1Enabled').checked : true,
+        name: document.getElementById('guest1Name') ? document.getElementById('guest1Name').value : '',
+        role: document.getElementById('guest1Role') ? document.getElementById('guest1Role').value : '',
+        bio: document.getElementById('guest1Bio') ? document.getElementById('guest1Bio').value : '',
+        events: document.getElementById('guest1Events') ? document.getElementById('guest1Events').value : '',
+        socials: [
+          {
+            icon: document.getElementById('g1SocIcon0') ? document.getElementById('g1SocIcon0').value : '📸',
+            platform: document.getElementById('g1SocPlat0') ? document.getElementById('g1SocPlat0').value : 'INSTAGRAM',
+            handle: document.getElementById('g1SocHand0') ? document.getElementById('g1SocHand0').value : ''
+          },
+          {
+            icon: document.getElementById('g1SocIcon1') ? document.getElementById('g1SocIcon1').value : '📺',
+            platform: document.getElementById('g1SocPlat1') ? document.getElementById('g1SocPlat1').value : 'YOUTUBE',
+            handle: document.getElementById('g1SocHand1') ? document.getElementById('g1SocHand1').value : ''
+          },
+          {
+            icon: document.getElementById('g1SocIcon2') ? document.getElementById('g1SocIcon2').value : '☕',
+            platform: document.getElementById('g1SocPlat2') ? document.getElementById('g1SocPlat2').value : 'TIKTOK',
+            handle: document.getElementById('g1SocHand2') ? document.getElementById('g1SocHand2').value : ''
+          }
+        ]
+      };
+
+      const guest2Obj = {
+        enabled: document.getElementById('guest2Enabled') ? document.getElementById('guest2Enabled').checked : true,
+        name: document.getElementById('guest2Name') ? document.getElementById('guest2Name').value : '',
+        role: document.getElementById('guest2Role') ? document.getElementById('guest2Role').value : '',
+        bio: document.getElementById('guest2Bio') ? document.getElementById('guest2Bio').value : '',
+        events: document.getElementById('guest2Events') ? document.getElementById('guest2Events').value : '',
+        socials: [
+          {
+            icon: document.getElementById('g2SocIcon0') ? document.getElementById('g2SocIcon0').value : '📸',
+            platform: document.getElementById('g2SocPlat0') ? document.getElementById('g2SocPlat0').value : 'INSTAGRAM',
+            handle: document.getElementById('g2SocHand0') ? document.getElementById('g2SocHand0').value : ''
+          },
+          {
+            icon: document.getElementById('g2SocIcon1') ? document.getElementById('g2SocIcon1').value : '📺',
+            platform: document.getElementById('g2SocPlat1') ? document.getElementById('g2SocPlat1').value : 'YOUTUBE',
+            handle: document.getElementById('g2SocHand1') ? document.getElementById('g2SocHand1').value : ''
+          },
+          {
+            icon: document.getElementById('g2SocIcon2') ? document.getElementById('g2SocIcon2').value : '🎵',
+            platform: document.getElementById('g2SocPlat2') ? document.getElementById('g2SocPlat2').value : 'SPOTIFY',
+            handle: document.getElementById('g2SocHand2') ? document.getElementById('g2SocHand2').value : ''
+          }
+        ]
+      };
+
+      const guest3Obj = {
+        enabled: document.getElementById('guest3Enabled') ? document.getElementById('guest3Enabled').checked : true,
+        name: document.getElementById('guest3Name') ? document.getElementById('guest3Name').value : '',
+        role: document.getElementById('guest3Role') ? document.getElementById('guest3Role').value : '',
+        bio: document.getElementById('guest3Bio') ? document.getElementById('guest3Bio').value : '',
+        events: document.getElementById('guest3Events') ? document.getElementById('guest3Events').value : '',
+        socials: [
+          {
+            icon: document.getElementById('g3SocIcon0') ? document.getElementById('g3SocIcon0').value : '📸',
+            platform: document.getElementById('g3SocPlat0') ? document.getElementById('g3SocPlat0').value : 'INSTAGRAM',
+            handle: document.getElementById('g3SocHand0') ? document.getElementById('g3SocHand0').value : ''
+          },
+          {
+            icon: document.getElementById('g3SocIcon1') ? document.getElementById('g3SocIcon1').value : '📺',
+            platform: document.getElementById('g3SocPlat1') ? document.getElementById('g3SocPlat1').value : 'YOUTUBE',
+            handle: document.getElementById('g3SocHand1') ? document.getElementById('g3SocHand1').value : ''
+          },
+          {
+            icon: document.getElementById('g3SocIcon2') ? document.getElementById('g3SocIcon2').value : '🎵',
+            platform: document.getElementById('g3SocPlat2') ? document.getElementById('g3SocPlat2').value : 'TIKTOK',
+            handle: document.getElementById('g3SocHand2') ? document.getElementById('g3SocHand2').value : ''
+          }
+        ]
+      };
+
       const updated = {
         host: {
           name: document.getElementById('hostName').value,
@@ -1109,33 +1327,10 @@
           name: document.getElementById('cohostName').value,
           role: document.getElementById('cohostRole').value
         },
-        guest: {
-          enabled: document.getElementById('guestEnabled').checked,
-          name: document.getElementById('guestName').value,
-          role: document.getElementById('guestRole').value,
-          bio: document.getElementById('guestBio').value,
-          events: document.getElementById('guestEvents').value,
-          socials: [
-            { icon: document.getElementById('socIcon0').value, platform: document.getElementById('socPlat0').value, handle: document.getElementById('socHand0').value },
-            { icon: document.getElementById('socIcon1').value, platform: document.getElementById('socPlat1').value, handle: document.getElementById('socHand1').value },
-            { icon: document.getElementById('socIcon2').value, platform: document.getElementById('socPlat2').value, handle: document.getElementById('socHand2').value }
-          ]
-        },
-        guest1: {
-          enabled: true,
-          name: document.getElementById('guest1Name').value,
-          role: document.getElementById('guest1Role').value
-        },
-        guest2: {
-          enabled: true,
-          name: document.getElementById('guest2Name').value,
-          role: document.getElementById('guest2Role').value
-        },
-        guest3: {
-          enabled: true,
-          name: document.getElementById('guest3Name').value,
-          role: document.getElementById('guest3Role').value
-        },
+        guest: guest1Obj,
+        guest1: guest1Obj,
+        guest2: guest2Obj,
+        guest3: guest3Obj,
         solo: {
           descLabel: document.getElementById('soloDescLabel').value,
           bio: document.getElementById('soloBio').value,
