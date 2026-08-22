@@ -33,9 +33,12 @@
       if (gParam === '1' || gParam === 'guest1') return 1;
 
       var path = window.location.pathname.toLowerCase();
-      if (path.indexOf('invitado-vertical-2') !== -1 || path.indexOf('invitado-2') !== -1 || path.indexOf('guest-2') !== -1) return 2;
-      if (path.indexOf('invitado-vertical-3') !== -1 || path.indexOf('invitado-3') !== -1 || path.indexOf('guest-3') !== -1) return 3;
-      if (path.indexOf('invitado-vertical-1') !== -1 || path.indexOf('invitado-1') !== -1 || path.indexOf('guest-1') !== -1) return 1;
+      // Invitado 2
+      if (path.indexOf('ov2') !== -1 || path.indexOf('ovv2') !== -1 || path.indexOf('vv2') !== -1 || path.indexOf('invitado-vertical-2') !== -1 || path.indexOf('invitado-2') !== -1 || path.indexOf('guest-2') !== -1 || path.indexOf('vertical-2') !== -1) return 2;
+      // Invitado 3
+      if (path.indexOf('ov3') !== -1 || path.indexOf('ovv3') !== -1 || path.indexOf('vv3') !== -1 || path.indexOf('invitado-vertical-3') !== -1 || path.indexOf('invitado-3') !== -1 || path.indexOf('guest-3') !== -1 || path.indexOf('vertical-3') !== -1) return 3;
+      // Invitado 1
+      if (path.indexOf('ov1') !== -1 || path.indexOf('ovv1') !== -1 || path.indexOf('vv1') !== -1 || path.indexOf('invitado-vertical-1') !== -1 || path.indexOf('invitado-1') !== -1 || path.indexOf('guest-1') !== -1 || path.indexOf('vertical-1') !== -1) return 1;
     } catch (e) {}
     return null;
   }

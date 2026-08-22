@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Guta Flores — Overlay 16:9 (Host + Co-Host + Tigel & Proyect404)</title>
+  <link rel="stylesheet" href="overlay-frames-dinamico.css">
+</head>
+
+<body>
+
+  <div class="stage">
+
+    <!-- ══ HEADER SUPERIOR ══════════════════════════════════════════ -->
+    <div class="stage-header">
+
+      <!-- Branding del host -->
+      <div class="header-brand">
+        <div class="header-logo-circle">🎙️</div>
+        <div>
+          <div class="header-host-name" id="headerHostName">GUTA FLORES</div>
+          <div class="header-host-role" id="headerHostRole">🎙️ ANFITRIÓN / HOST</div>
+        </div>
+      </div>
+
+      <!-- Contador de participantes en escena -->
+      <div class="participant-count-wrapper" style="display:flex; align-items:center; gap:10px;">
+        <span class="header-participant-count">EN ESCENA:</span>
+        <span class="header-participant-count participant-count-number" id="participantCount">3-4</span>
+      </div>
+
+      <!-- Badge de live -->
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        EN VIVO
+      </div>
+
+    </div>
+
+    <!-- ══ ESQUINAS DECORATIVAS ═══════════════════════════════════ -->
+    <div class="deco-corner deco-tl"></div>
+    <div class="deco-corner deco-tr"></div>
+    <div class="deco-corner deco-bl"></div>
+    <div class="deco-corner deco-br"></div>
+
+    <!-- ══ ÁREA DE FRAMES DINÁMICOS ══════════════════════════════ -->
+    <div class="frames-area">
+
+      <!-- Contenedor adaptativo inteligente -->
+      <div class="dynamic-stage-container" id="stageContainer" data-layout="3">
+
+        <!-- ── 1. BLOQUE DE ANFITRIONES (HOST + CO-HOST EN COLUMNA 16:9) ── -->
+        <div class="hosts-block" id="hostsBlock">
+          <!-- Slot Host (16:9) -->
+          <div class="pframe pf-host" id="slotHost">
+            <div class="cam-cutout" data-cutout></div>
+            <div class="frame-border-anim fb-host"></div>
+            <div class="name-tag nt-host">
+              <div class="nt-role" id="slotHostRole">🎙️ ANFITRIÓN / HOST</div>
+              <div class="nt-name" id="slotHostName">GUTA FLORES</div>
+            </div>
+          </div>
+
+          <!-- Slot Co-Host (16:9 apilado) -->
+          <div class="pframe pf-cohost" id="slotCohost" style="display: none;">
+            <div class="cam-cutout" data-cutout></div>
+            <div class="frame-border-anim fb-cohost"></div>
+            <div class="name-tag nt-cohost">
+              <div class="nt-role" id="slotCohostRole">🎙️ CO-HOST / CO-ANFITRIÓN</div>
+              <div class="nt-name" id="slotCohostName">CO-HOST</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 2. PANEL DE INFORMACIÓN (Oculto en modo 2 invitados) ── -->
+        <div class="stage-info-card" id="stageInfoCard" style="display: none;">
+        </div>
+
+        <!-- ── 3. BLOQUE DE INVITADOS (2 MARCOS VERTICALES 9:16: TIGEL + PROYECT404) ── -->
+        <div class="guests-block" id="guestsBlock" style="display: flex;">
+          <!-- Slot Guest 2 (Tigel & Eminencia - Cian) -->
+          <div class="pframe pf-guest1" id="slotGuest1">
+            <div class="cam-cutout" data-cutout></div>
+            <div class="frame-border-anim fb-guest2"></div>
+            <div class="name-tag nt-guest2">
+              <div class="nt-role" id="slotGuest1Role">💬 INVITADOS ESPECIALES | HIP-HOP TRAP</div>
+              <div class="nt-name" id="slotGuest1Name">TIGEL & EMINENCIA</div>
+            </div>
+          </div>
+
+          <!-- Slot Guest 3 (Proyect404 - Violeta) -->
+          <div class="pframe pf-guest2" id="slotGuest2">
+            <div class="cam-cutout" data-cutout></div>
+            <div class="frame-border-anim fb-guest3"></div>
+            <div class="name-tag nt-guest3">
+              <div class="nt-role" id="slotGuest2Role">💬 INVITADO EXCLUSIVO | DESDE URUGUAY</div>
+              <div class="nt-name" id="slotGuest2Name">PROYECT404</div>
+            </div>
+          </div>
+
+          <!-- Slot Guest 3 (Oculto) -->
+          <div class="pframe pf-guest3" id="slotGuest3" style="display: none;"></div>
+        </div>
+
+      </div><!-- /dynamic-stage-container -->
+    </div><!-- /frames-area -->
+
+
+    <!-- ══ MOTTO BANNER ═══════════════════════════════════════════ -->
+    <div class="motto-bar">
+      <span class="motto-p1" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+      <span class="motto-sep" data-bind="motto-connector">Y</span>
+      <span class="motto-p2" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+    </div>
+
+
+    <!-- ══ TICKER INFERIOR ════════════════════════════════════════ -->
+    <div class="ticker-bar">
+      <div class="ticker-label">
+        <span class="ticker-live-dot"></span>
+        ✨ DESTACADO
+      </div>
+      <div class="ticker-track">
+        <div class="ticker-content" data-bind="ticker-content">
+          🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
+          <span class="sep">◆</span>
+          🌟 ¡Bienvenidos al stream!
+          <span class="sep">◆</span>
+          📲 Seguinos en redes: <span class="highlight">@gutafloresok</span>
+          <span class="sep">◆</span>
+          🎶 Música, folklore y entretenimiento en vivo
+          <span class="sep">◆</span>
+          💬 ¡Dejá tu comentario y saludá!
+          <span class="sep">◆</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /stage -->
+
+  <!-- ══ SCRIPTS ════════════════════════════════════════════════ -->
+  <script src="overlay-frames-dinamico-engine.js"></script>
+
+</body>
+
+</html>

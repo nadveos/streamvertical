@@ -55,18 +55,24 @@
   var lastTickerHtml = '';
 
   /* ── Detectar Invitado Específico por URL o Nombre de Archivo ── */
-  function getTargetGuestIndex() {
+  function getTargetGuestMode() {
     try {
       var params = new URLSearchParams(window.location.search);
-      var gParam = params.get('guest');
+      var gParam = params.get('guest') || params.get('guests');
+      if (gParam === '23' || gParam === '2-3' || gParam === '2,3' || gParam === 'g2g3') return '2-3';
       if (gParam === '2' || gParam === 'guest2') return 2;
       if (gParam === '3' || gParam === 'guest3') return 3;
       if (gParam === '1' || gParam === 'guest1') return 1;
 
       var path = window.location.pathname.toLowerCase();
-      if (path.indexOf('dinamico-2') !== -1 || path.indexOf('invitado-2') !== -1 || path.indexOf('guest-2') !== -1) return 2;
-      if (path.indexOf('dinamico-3') !== -1 || path.indexOf('invitado-3') !== -1 || path.indexOf('guest-3') !== -1) return 3;
-      if (path.indexOf('dinamico-1') !== -1 || path.indexOf('invitado-1') !== -1 || path.indexOf('guest-1') !== -1) return 1;
+      // Pareja Invitados 2 y 3 (Tigel + Proyect404)
+      if (path.indexOf('23') !== -1 || path.indexOf('2-3') !== -1 || path.indexOf('g2g3') !== -1 || path.indexOf('ov-23') !== -1 || path.indexOf('ov23') !== -1 || path.indexOf('ov4') !== -1) return '2-3';
+      // Invitado 2
+      if (path.indexOf('ov2') !== -1 || path.indexOf('ovv2') !== -1 || path.indexOf('vv2') !== -1 || path.indexOf('dinamico-2') !== -1 || path.indexOf('invitado-2') !== -1 || path.indexOf('guest-2') !== -1 || path.indexOf('vertical-2') !== -1) return 2;
+      // Invitado 3
+      if (path.indexOf('ov3') !== -1 || path.indexOf('ovv3') !== -1 || path.indexOf('vv3') !== -1 || path.indexOf('dinamico-3') !== -1 || path.indexOf('invitado-3') !== -1 || path.indexOf('guest-3') !== -1 || path.indexOf('vertical-3') !== -1) return 3;
+      // Invitado 1
+      if (path.indexOf('ov1') !== -1 || path.indexOf('ovv1') !== -1 || path.indexOf('vv1') !== -1 || path.indexOf('dinamico-1') !== -1 || path.indexOf('invitado-1') !== -1 || path.indexOf('guest-1') !== -1 || path.indexOf('vertical-1') !== -1) return 1;
     } catch (e) {}
     return null;
   }
@@ -103,37 +109,62 @@
 
     /* ── 3. INVITADOS (Guest específico o Multi-Guests) ── */
     var guests = [];
-    var targetGuestIdx = getTargetGuestIndex();
+    var targetMode = getTargetGuestMode();
 
-    if (targetGuestIdx !== null) {
+    if (targetMode === '2-3') {
+      // Modo Bloque Especial: Invitado 2 (Tigel & Eminencia) + Invitado 3 (Proyect404)
+      if (data.guest2 && data.guest2.enabled !== false && data.guest2.name && data.guest2.name.trim() !== '') {
+        guests.push({
+          name:    data.guest2.name.trim(),
+          role:    (data.guest2.role || '💬 INVITADO 2 | HIP-HOP TRAP').trim(),
+          socials: data.guest2.socials || [],
+          bio:     data.guest2.bio || '',
+          colorClass: 'guest2'
+        });
+      }
+      if (data.guest3 && data.guest3.enabled !== false && data.guest3.name && data.guest3.name.trim() !== '') {
+        guests.push({
+          name:    data.guest3.name.trim(),
+          role:    (data.guest3.role || '💬 INVITADO 3 | DESDE URUGUAY').trim(),
+          socials: data.guest3.socials || [],
+          bio:     data.guest3.bio || '',
+          colorClass: 'guest3'
+        });
+      }
+    } else if (targetMode !== null) {
       // Modo Bloque de Invitado Específico (Invitado 1, 2 o 3)
       var targetObj = null;
       var defRole = '💬 INVITADO ESPECIAL';
-      if (targetGuestIdx === 2) {
+      var colorCls = 'guest1';
+      if (targetMode === 2) {
         targetObj = data.guest2;
         defRole = '💬 INVITADO 2';
-      } else if (targetGuestIdx === 3) {
+        colorCls = 'guest2';
+      } else if (targetMode === 3) {
         targetObj = data.guest3;
         defRole = '💬 INVITADO 3';
+        colorCls = 'guest3';
       } else {
         targetObj = data.guest1 || data.guest;
         defRole = '💬 INVITADO 1';
+        colorCls = 'guest1';
       }
 
       if (targetObj && targetObj.enabled !== false && targetObj.name && targetObj.name.trim() !== '') {
         guests.push({
-          name:    targetObj.name.trim(),
-          role:    (targetObj.role || defRole).trim(),
-          socials: targetObj.socials || [],
-          bio:     targetObj.bio || ''
+          name:       targetObj.name.trim(),
+          role:       (targetObj.role || defRole).trim(),
+          socials:    targetObj.socials || [],
+          bio:        targetObj.bio || '',
+          colorClass: colorCls
         });
       }
     } else {
       // Modo Adaptativo Automático Estándar
       var multiGuests = [
-        { obj: data.guest1, defaultRole: '💬 INVITADO 1' },
-        { obj: data.guest2, defaultRole: '💬 INVITADO 2' },
-        { obj: data.guest3, defaultRole: '💬 INVITADO 3' }
+        { obj: data.guest1, defaultRole: '💬 INVITADO 1', colorClass: 'guest1' },
+        { obj: data.guest2, defaultRole: '💬 INVITADO 2', colorClass: 'guest2' },
+        { obj: data.guest3, defaultRole: '💬 INVITADO 3', colorClass: 'guest3' }
       ];
 
       var hasMultiGuests = multiGuests.some(function (g) {
@@ -144,10 +175,11 @@
         multiGuests.forEach(function (g) {
           if (!g.obj || g.obj.enabled === false || !g.obj.name || g.obj.name.trim() === '') return;
           guests.push({
-            name:    g.obj.name.trim(),
-            role:    (g.obj.role || g.defaultRole).trim(),
-            socials: g.obj.socials || (data.guest ? data.guest.socials : []),
-            bio:     g.obj.bio || (data.guest ? data.guest.bio : '')
+            name:       g.obj.name.trim(),
+            role:       (g.obj.role || g.defaultRole).trim(),
+            socials:    g.obj.socials || (data.guest ? data.guest.socials : []),
+            bio:        g.obj.bio || (data.guest ? data.guest.bio : ''),
+            colorClass: g.colorClass
           });
         });
       } else {
@@ -158,10 +190,11 @@
 
         if (guestEnabled) {
           guests.push({
-            name:    data.guest.name.trim(),
-            role:    (data.guest.role || '💬 INVITADO ESPECIAL').trim(),
-            socials: data.guest.socials || [],
-            bio:     data.guest.bio || ''
+            name:       data.guest.name.trim(),
+            role:       (data.guest.role || '💬 INVITADO ESPECIAL').trim(),
+            socials:    data.guest.socials || [],
+            bio:        data.guest.bio || '',
+            colorClass: 'guest1'
           });
         }
       }
@@ -172,23 +205,49 @@
       guestsBlock.style.display = guests.length > 0 ? 'flex' : 'none';
     }
 
-    // Guest 1
+    // Guest 1 (o primer invitado del bloque)
     if (slotGuest1) {
       if (guests.length >= 1) {
         slotGuest1.style.display = '';
         if (slotGuest1Name && slotGuest1Name.textContent !== guests[0].name) slotGuest1Name.textContent = guests[0].name;
         if (slotGuest1Role && slotGuest1Role.textContent !== guests[0].role) slotGuest1Role.textContent = guests[0].role;
+
+        var fb1 = slotGuest1.querySelector('.frame-border-anim');
+        var nt1 = slotGuest1.querySelector('.name-tag');
+        if (targetMode === '2-3') {
+          if (fb1) fb1.className = 'frame-border-anim fb-guest2';
+          if (nt1) nt1.className = 'name-tag nt-guest2';
+        } else if (targetMode === 3) {
+          if (fb1) fb1.className = 'frame-border-anim fb-guest3';
+          if (nt1) nt1.className = 'name-tag nt-guest3';
+        } else if (targetMode === 2) {
+          if (fb1) fb1.className = 'frame-border-anim fb-guest2';
+          if (nt1) nt1.className = 'name-tag nt-guest2';
+        } else {
+          if (fb1) fb1.className = 'frame-border-anim fb-guest1';
+          if (nt1) nt1.className = 'name-tag nt-guest1';
+        }
       } else {
         slotGuest1.style.display = 'none';
       }
     }
 
-    // Guest 2
+    // Guest 2 (o segundo invitado del bloque)
     if (slotGuest2) {
       if (guests.length >= 2) {
         slotGuest2.style.display = '';
         if (slotGuest2Name && slotGuest2Name.textContent !== guests[1].name) slotGuest2Name.textContent = guests[1].name;
         if (slotGuest2Role && slotGuest2Role.textContent !== guests[1].role) slotGuest2Role.textContent = guests[1].role;
+
+        var fb2 = slotGuest2.querySelector('.frame-border-anim');
+        var nt2 = slotGuest2.querySelector('.name-tag');
+        if (targetMode === '2-3') {
+          if (fb2) fb2.className = 'frame-border-anim fb-guest3';
+          if (nt2) nt2.className = 'name-tag nt-guest3';
+        } else {
+          if (fb2) fb2.className = 'frame-border-anim fb-guest2';
+          if (nt2) nt2.className = 'name-tag nt-guest2';
+        }
       } else {
         slotGuest2.style.display = 'none';
       }

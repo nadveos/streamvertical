@@ -37,31 +37,31 @@ body {
 /* LAYOUT PRINCIPAL VERTICAL DE 3-4 CAMARAS (1 HOST + CO-HOST + 2 INVITADOS) */
 .vertical-2guest-layout {
   position: absolute;
-  top: 24px;
-  left: 20px;
-  right: 20px;
-  bottom: 24px;
-  height: calc(100% - 48px);
+  top: 18px;
+  left: 16px;
+  right: 16px;
+  bottom: 18px;
+  height: calc(100% - 36px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   box-sizing: border-box;
 }
 
-/* 1. SECCIÓN INVITADOS LADO A LADO (2 CAMARAS 9:16 VERTICALES) */
+/* 1. SECCIÓN INVITADOS LADO A LADO (2 CAMARAS 9:16 VERTICALES AMPLIADAS) */
 .guests-row-2x-vertical {
   width: 100%;
-  max-width: 1040px;
+  max-width: 1048px;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 18px;
   flex-shrink: 0;
 }
 
 .guest-col-9x16 {
-  width: 490px;
+  width: 512px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,8 +69,8 @@ body {
 }
 
 .guest-cam-box-9x16 {
-  width: 490px;
-  height: 871px;
+  width: 512px;
+  height: 910px;
   aspect-ratio: 9 / 16;
   position: relative;
   border-radius: 20px;
@@ -121,11 +121,11 @@ body {
 /* ── 2. SECCIÓN CENTRAL: MOTTO BANNER + TICKER BAR ────────── */
 .middle-info-band {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1040px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
   z-index: 15;
 }
@@ -264,39 +264,43 @@ body {
   50%       { opacity: 0.2; }
 }
 
-/* 3. SECCIÓN HOST Y CO-HOST (16:9 HORIZONTALES DINÁMICAS) */
+/* 3. SECCIÓN HOST Y CO-HOST (16:9 EN COLUMNA CON CO-HOST ARRIBA) */
+.host-cohost-col-2guest,
 .host-cohost-row {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1040px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 22px;
   flex-shrink: 0;
 }
 
-.host-card-wrapper {
-  width: 980px;
+.cohost-card-wrapper {
+  width: 640px;
   max-width: 1000px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  transition: width 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.cohost-card-wrapper {
-  width: 490px;
+.host-card-wrapper {
+  width: 640px;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  transition: width 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-/* Ajuste automático cuando el Co-Host está activo */
-.host-cohost-row:has(.cohost-card-wrapper:not([style*="display: none"])) .host-card-wrapper {
-  width: 490px;
+/* Si el Co-Host está desactivado (display: none), el Anfitrión se agranda a 880px para llenar el espacio */
+.host-cohost-col-2guest:not(:has(.cohost-card-wrapper:not([style*="display: none"]))) .host-card-wrapper,
+.host-cohost-row:not(:has(.cohost-card-wrapper:not([style*="display: none"]))) .host-card-wrapper {
+  width: 880px;
 }
 
 .host-cam-box-16x9,

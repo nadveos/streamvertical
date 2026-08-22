@@ -1,0 +1,321 @@
+/* ══════════════════════════════════════════════════════════════════
+   OVERLAY VERTICAL 9:16 — HOSTER & CO-HOSTER (1080x1920)
+   2 Marcos 16:9 apilados con Ticker y Motto como separador central
+   ══════════════════════════════════════════════════════════════════ */
+
+html,
+body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.main-border {
+  width: 1080px;
+  height: 1920px;
+  padding: 16px;
+  background: transparent !important;
+  box-shadow: none !important;
+  box-sizing: border-box;
+}
+
+.main-border::before {
+  display: none !important;
+}
+
+.main-inner {
+  background: transparent !important;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ── CONTENEDOR PRINCIPAL VERTICAL ────────────────────────────── */
+.hosts-vertical-layout {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  box-sizing: border-box;
+}
+
+/* ── MARCOS 16:9 EN COLUMNA (1000x562px) ───────────────────────── */
+.cam-card-wrapper {
+  width: 1000px;
+  max-width: 1020px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+}
+
+.cam-box-16x9 {
+  width: 1000px;
+  height: 562px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  border-radius: 22px;
+  background: transparent;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.95);
+  box-sizing: border-box;
+}
+
+/* Marco Co-Host (Borde Púrpura Neón) */
+.cohost-box-style::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  padding: 7px;
+  background: linear-gradient(45deg, #a855f7, #ec4899, #8b5cf6, #c084fc, #a855f7);
+  background-size: 300% 300%;
+  animation: borderGlowPurple 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Marco Host (Borde Oro & Fuego Neón) */
+.host-box-style::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  padding: 7px;
+  background: linear-gradient(45deg, #8B0000, #FFD700, #C0392B, #E67E22, #8B0000);
+  background-size: 300% 300%;
+  animation: borderGlowGold 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.cam-box-16x9 .cam-window {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 16px;
+}
+
+/* ── SEPARADOR CENTRAL PROMINENTE (MOTTO + TICKER) ─────────────── */
+.middle-separator-zone {
+  width: 100%;
+  max-width: 1020px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  z-index: 20;
+  padding: 10px 0;
+}
+
+/* 1. Motto Banner Elevado */
+.motto-banner-high {
+  width: 100%;
+  height: 58px;
+  background: linear-gradient(90deg,
+    rgba(12, 0, 0, 0.96) 0%,
+    rgba(45, 0, 0, 0.96) 40%,
+    rgba(45, 0, 0, 0.96) 60%,
+    rgba(12, 0, 0, 0.96) 100%);
+  border: 2px solid rgba(255, 215, 0, 0.6);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(255, 215, 0, 0.12);
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+.motto-banner-high .motto-text-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.motto-banner-high .motto-phrase {
+  font-size: 16px;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.motto-banner-high .motto-phrase.highlight {
+  color: #FFD700;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+.motto-banner-high .motto-connector {
+  font-size: 15px;
+  font-weight: 900;
+  color: #C0392B;
+  background: rgba(192, 57, 43, 0.3);
+  border: 2px solid rgba(192, 57, 43, 0.9);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(192, 57, 43, 0.6);
+}
+
+/* 2. Ticker Bar Elevado */
+.ticker-bar-high {
+  width: 100%;
+  height: 74px;
+  background: linear-gradient(90deg, #0a0a0f 0%, #1a0000 40%, #0a0a0f 100%);
+  border: 2.5px solid #C0392B;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(139, 0, 0, 0.7), inset 0 1px 0 rgba(255, 215, 0, 0.2);
+  box-sizing: border-box;
+}
+
+.ticker-bar-high .ticker-label {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #8B0000, #C0392B);
+  color: #FFD700;
+  font-weight: 900;
+  font-size: 18px;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-right: 2px solid #FFD700;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.ticker-bar-high .ticker-dot {
+  width: 12px;
+  height: 12px;
+  background: #FF3B3B;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 59, 59, 0.95);
+  animation: blinkLive 1.4s infinite;
+}
+
+.ticker-bar-high .ticker-track {
+  overflow: hidden;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-bar-high .ticker-content {
+  font-size: 22px;
+  font-weight: 600;
+  color: #EEE;
+  white-space: nowrap;
+  animation: tickerScroll 32s linear infinite;
+}
+
+.ticker-bar-high .ticker-content .highlight {
+  color: #FFD700;
+  font-weight: 800;
+}
+
+.ticker-bar-high .ticker-content .sep {
+  color: #C0392B;
+  margin: 0 14px;
+  font-weight: 900;
+}
+
+/* ── ETIQUETAS DE NOMBRE ──────────────────────────────────────── */
+.name-tag-custom {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 14px;
+  padding: 5px 24px;
+  min-width: 220px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.95);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.name-tag-host {
+  border: 2px solid #FFD700;
+  background: linear-gradient(90deg, #0d0d0d 0%, #3a2500 50%, #0d0d0d 100%);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.95), 0 0 16px rgba(255, 215, 0, 0.45);
+}
+
+.name-tag-cohost {
+  border: 2px solid #a855f7;
+  background: linear-gradient(90deg, #0d0d0d 0%, #2b003a 50%, #0d0d0d 100%);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.95), 0 0 16px rgba(168, 85, 247, 0.45);
+}
+
+.name-tag-custom .role-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+}
+
+.name-tag-host .role-title { color: #FFD700; }
+.name-tag-cohost .role-title { color: #c084fc; }
+
+.name-tag-custom .user-name {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 900;
+  margin-top: 2px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* ── ANIMACIONES ──────────────────────────────────────────────── */
+@keyframes borderGlowGold {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes borderGlowPurple {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes blinkLive {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
