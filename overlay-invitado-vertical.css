@@ -9,8 +9,12 @@
 
 html,
 body {
-  width: 1080px;
-  height: 1920px;
+  width: 1080px !important;
+  height: 1920px !important;
+  min-width: 1080px !important;
+  min-height: 1920px !important;
+  max-width: 1080px !important;
+  max-height: 1920px !important;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -18,8 +22,12 @@ body {
 }
 
 .main-border {
-  width: 1080px;
-  height: 1920px;
+  width: 1080px !important;
+  height: 1920px !important;
+  min-width: 1080px !important;
+  min-height: 1920px !important;
+  max-width: 1080px !important;
+  max-height: 1920px !important;
   padding: 16px;
   background: transparent !important;
   box-shadow: none !important;
@@ -66,6 +74,7 @@ body {
   align-items: center;
   position: relative;
   flex-shrink: 0;
+  margin-bottom: 24px;
 }
 
 .guest-featured-badge {
@@ -88,8 +97,8 @@ body {
 
 /* Marco Invitado 9:16 Vertical — Modo Solo Host (Grande y Protagonista) */
 .guest-cam-box-9x16 {
-  width: 530px;
-  height: 942px;
+  width: 500px;
+  height: 888px;
   aspect-ratio: 9 / 16;
   position: relative;
   border-radius: 22px;
@@ -98,10 +107,10 @@ body {
   transition: width 0.35s ease, height 0.35s ease;
 }
 
-/* Si Co-Host está activo, ajustamos la altura a 818px para que entren cómodamente las 2 cams 16:9 abajo */
+/* Si Co-Host está activo, ajustamos la altura a 764px para que entren cómodamente las 2 cams 16:9 abajo */
 .vertical-guest-layout:has(.cohost-card-wrapper:not([style*="display: none"])) .guest-cam-box-9x16 {
-  width: 460px;
-  height: 818px;
+  width: 430px;
+  height: 764px;
 }
 
 .guest-cam-box-9x16::after {
@@ -139,8 +148,59 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  margin: 6px 0 16px 0;
   flex-shrink: 0;
   z-index: 15;
+}
+
+/* ── Branding Sesiones RG / Slogan Vertical ───────────── */
+.show-brand-banner-vertical {
+  width: 100%;
+  min-height: 40px;
+  background: linear-gradient(90deg,
+    rgba(10, 0, 0, 0.95) 0%,
+    rgba(38, 5, 5, 0.95) 30%,
+    rgba(38, 5, 5, 0.95) 70%,
+    rgba(10, 0, 0, 0.95) 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.55);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.75), 0 0 14px rgba(255, 215, 0, 0.2);
+  box-sizing: border-box;
+  padding: 6px 18px;
+}
+
+.show-brand-banner-vertical .show-logo-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8B0000, #C0392B);
+  border: 1.5px solid #FFD700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  flex-shrink: 0;
+}
+
+.show-brand-banner-vertical .show-title-text {
+  font-size: 16px;
+  font-weight: 900;
+  color: #FFD700;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+.show-brand-banner-vertical .show-slogan-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.5px;
 }
 
 /* Motto Banner Central */
@@ -286,6 +346,8 @@ body {
   justify-content: center;
   align-items: center;
   gap: 12px;
+  margin-top: 14px;
+  margin-bottom: 8px;
   flex-shrink: 0;
 }
 

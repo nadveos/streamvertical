@@ -1,4 +1,9 @@
 {
+  "show": {
+    "title": "SESIONES RG",
+    "slogan": "En Vivo: Entrevistas en vivo y zapadas con invitados.",
+    "preset": "envivo"
+  },
   "host": {
     "name": "GUTA FLORES",
     "role": ""
@@ -10,97 +15,97 @@
   },
   "guest": {
     "enabled": true,
-    "name": "CECILIA CAMACHO",
-    "role": "💬 INVITADA ESPECIAL | TARIJA, BOLIVIA",
-    "bio": "De las entrañas del hermoso Valle Chapaco y la firmeza de sus raíces Chaqueñas nace una gran artista Cecilia Camacho Torrez, un nombre que con orgullo lo lleva en homenaje a la virgen de los músicos Santa Cecilia.",
+    "name": "Martin Ferraro de LA CLAVE TRIO",
+    "role": "💬 INVITADO ESPECIAL",
+    "bio": "La Clave Trío es una agrupación folclórica con más de 15 años de trayectoria, recorriendo los escenarios de los principales festivales y fiestas populares de Argentina y países vecinos",
     "events": "📅 Próximamente en vivo",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "@ceciliacamacho_oficial"
+        "handle": "@laclavetrio"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "@ceciliacamacho_oficial"
+        "handle": "@LaClaveTrio"
       },
       {
         "icon": "☕",
         "platform": "TIKTOK",
-        "handle": "@ceciliacamacho_oficial"
+        "handle": "@martinferreralaclavetrio"
       }
     ]
   },
   "guest1": {
     "enabled": true,
-    "name": "CECILIA CAMACHO",
-    "role": "💬 INVITADA ESPECIAL | TARIJA, BOLIVIA",
-    "bio": "De las entrañas del hermoso Valle Chapaco y la firmeza de sus raíces Chaqueñas nace una gran artista Cecilia Camacho Torrez, un nombre que con orgullo lo lleva en homenaje a la virgen de los músicos Santa Cecilia.",
+    "name": "Martin Ferraro de LA CLAVE TRIO",
+    "role": "💬 INVITADO ESPECIAL",
+    "bio": "La Clave Trío es una agrupación folclórica con más de 15 años de trayectoria, recorriendo los escenarios de los principales festivales y fiestas populares de Argentina y países vecinos",
     "events": "📅 Próximamente en vivo",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "@ceciliacamacho_oficial"
+        "handle": "@laclavetrio"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "@ceciliacamacho_oficial"
+        "handle": "@LaClaveTrio"
       },
       {
         "icon": "☕",
         "platform": "TIKTOK",
-        "handle": "@ceciliacamacho_oficial"
+        "handle": "@martinferreralaclavetrio"
       }
     ]
   },
   "guest2": {
     "enabled": true,
-    "name": "TIGEL & EMINENCIA",
-    "role": "💬 INVITADOS ESPECIALES | HIP-HOP TRAP",
-    "bio": "Dúo emergente de música urbana, rap y hip-hop trayendo las mejores composiciones y rimas en vivo.",
+    "name": "PIKILLINES ",
+    "role": "💬 INVITADOS ESPECIALES ",
+    "bio": "Dúo emergente de música peñera del circuito de peñas de Salta",
     "events": "📅 Nuevos lanzamientos en plataformas",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "@tigelyeminencia"
+        "handle": "@pikillines2024"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "Tigel y Eminencia Oficial"
+        "handle": "@pikillines2024"
       },
       {
         "icon": "🎵",
         "platform": "SPOTIFY",
-        "handle": "Tigel & Eminencia"
+        "handle": "@pikillines2024"
       }
     ]
   },
   "guest3": {
     "enabled": true,
-    "name": "PROYECT404",
-    "role": "💬 INVITADO EXCLUSIVO | DESDE URUGUAY",
-    "bio": "Proyecto musical independiente con un sonido moderno, fusión de estilos y canciones originales.",
+    "name": "Diego Loza",
+    "role": "💬 INVITADO ESPECIAL ",
+    "bio": "Soy Diego Loza, cantante solista de folklore de Salta, Argentina.\n\nA través del canto, me transporto a un mundo donde puedo expresar lo que siento y llevo dentro. Busco transmitir emociones a mis oyentes para que puedan sentirse identificados con las canciones que interpreto.",
     "events": "📅 Gira y shows acústicos",
     "socials": [
       {
-        "icon": "📸",
-        "platform": "INSTAGRAM",
-        "handle": "@proyect404"
+        "icon": "🌐",
+        "platform": "WEB",
+        "handle": "https://diegolozafolklore.infinityfreeapp.com/?i=1"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "Proyect404 Music"
+        "handle": "@diegolozafolklore"
       },
       {
         "icon": "🎵",
-        "platform": "TIKTOK",
-        "handle": "@proyect404_ok"
+        "platform": "INSTAGRAM",
+        "handle": "diegolozafolklore"
       }
     ]
   },
@@ -113,34 +118,34 @@
   "motto": {
     "phrase1": "HOY INVITADOS ESTELARES",
     "connector": "|",
-    "phrase2": "MÚSICA HISTORIA Y REFLEXIÓN"
+    "phrase2": "GUITARREAMOS UN RATO"
   },
   "agenda": [
     {
       "icon": "🎙️",
       "title": "1. ENTREVISTA EN VIVO",
-      "sub": "CECILIA CAMACHO | TARIJA, BOLIVIA "
+      "sub": "PIKILLINES"
     },
     {
       "icon": "🪕",
       "title": "2. ENTREVISTA EN VIVO ",
-      "sub": "TIGEL & EMINENCIA"
+      "sub": "MARTIN FERRARO LA CLAVE TRIO"
     },
     {
       "icon": "💬",
       "title": "3. ENTREVISTA EXCLUSIVA ",
-      "sub": "PROYECT404"
+      "sub": "DIEGO LOZA"
     }
   ],
   "ticker": [
     {
-      "prefix": "🎙️ Transmisión en vivo:",
-      "text": "GUTA FLORES RAUL DOMINGO CESAR CHOQUE",
+      "prefix": "",
+      "text": "🌟 ¡Bienvenidos al stream!",
       "highlight": true
     },
     {
-      "prefix": "",
-      "text": "🌟 ¡Bienvenidos al stream!",
+      "prefix": "🎙️ Transmisión en vivo:",
+      "text": "GUTA FLORES RAUL DOMINGO CESAR CHOQUE",
       "highlight": true
     },
     {

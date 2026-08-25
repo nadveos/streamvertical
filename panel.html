@@ -341,6 +341,59 @@
       animation: slideToast 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
     }
 
+    /* ── Slogan Preset Cards ─────────────────────────────────── */
+    .slogan-preset-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #F0F0F5;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-family: inherit;
+    }
+
+    .slogan-preset-card:hover {
+      background: rgba(255, 215, 0, 0.08);
+      border-color: rgba(255, 215, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .slogan-preset-card.active {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.18) 0%, rgba(243, 156, 18, 0.1) 100%);
+      border-color: #FFD700;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .preset-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background: #E74C3C;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 7px;
+      border-radius: 10px;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .preset-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #FFD700;
+    }
+
+    .preset-desc {
+      font-size: 11px;
+      color: #aaa;
+      line-height: 1.3;
+    }
+
     @keyframes slideToast {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -376,7 +429,7 @@
     <!-- Pestañas Tipo Fichero Multicolor -->
     <nav class="folder-tabs-bar" role="tablist">
       <button type="button" class="folder-tab tab-color-hosts active" data-color="#E74C3C" onclick="switchFolderTab('tab-hosts', this)">
-        🎙️ HOSTS
+        🎬 SHOW & HOSTS
       </button>
       <button type="button" class="folder-tab tab-color-guests" data-color="#0099FF" onclick="switchFolderTab('tab-guests', this)">
         💬 INVITADOS
@@ -399,9 +452,82 @@
     <div class="folder-body" id="folderBody">
 
       <!-- ══════════════════════════════════════════════════════════
-           PESTAÑA 1: HOSTS (Rojo Coral #E74C3C)
+           PESTAÑA 1: SHOW & HOSTS (Rojo Coral #E74C3C)
            ══════════════════════════════════════════════════════════ -->
       <section id="tab-hosts" class="tab-pane active">
+
+        <!-- ══ SECCIÓN PRINCIPAL: IDENTIDAD DEL SHOW & SLOGAN GLOBAL ══ -->
+        <div class="inner-card" style="border: 2px solid #FFD700; background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(20, 22, 30, 0.95) 100%);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div class="card-title" style="margin-bottom:0; color: #FFD700; display:flex; align-items:center; gap:8px;">
+              <span>🎬</span> IDENTIDAD DEL SHOW & SLOGANS GLOBALES
+            </div>
+            <span style="font-size:11px; background:rgba(255,215,0,0.18); color:#FFD700; padding:3px 10px; border-radius:12px; font-weight:800; border:1px solid rgba(255,215,0,0.4);">
+              CABECERA OVERLAYS
+            </span>
+          </div>
+          <div class="card-subtitle" style="margin-bottom:16px;">
+            Elegí un slogan predeterminado con un solo clic o personalizá el nombre del show y su subtítulo en vivo:
+          </div>
+
+          <!-- Selector Rápido de Presets / Slogans -->
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap:10px; margin-bottom:18px;">
+            <!-- Preset 1: En Vivo -->
+            <button type="button" class="slogan-preset-card active" id="preset-envivo" onclick="selectShowPreset('envivo')">
+              <div class="preset-badge">🔴 EN VIVO</div>
+              <div class="preset-title">Sesiones RG | En Vivo</div>
+              <div class="preset-desc">Entrevistas en vivo y zapadas con invitados.</div>
+            </button>
+
+            <!-- Preset 2: Radar -->
+            <button type="button" class="slogan-preset-card" id="preset-radar" onclick="selectShowPreset('radar')">
+              <div class="preset-badge" style="background:#0099ff; color:#fff;">📡 RADAR</div>
+              <div class="preset-title">Sesiones RG | Radar</div>
+              <div class="preset-desc">Escuchando de artistas emergentes.</div>
+            </button>
+
+            <!-- Preset 3: A la Carta -->
+            <button type="button" class="slogan-preset-card" id="preset-alacarta" onclick="selectShowPreset('alacarta')">
+              <div class="preset-badge" style="background:#9b59b6; color:#fff;">🎵 A LA CARTA</div>
+              <div class="preset-title">Sesiones RG | A la Carta</div>
+              <div class="preset-desc">Pedí tus temas.</div>
+            </button>
+
+            <!-- Preset 4: Personalizado -->
+            <button type="button" class="slogan-preset-card" id="preset-custom" onclick="selectShowPreset('custom')">
+              <div class="preset-badge" style="background:#e67e22; color:#fff;">✏️ PERSONALIZADO</div>
+              <div class="preset-title">Slogan Libre</div>
+              <div class="preset-desc">Escribí tu propio título y slogan.</div>
+            </button>
+          </div>
+
+          <!-- Inputs Editables -->
+          <div style="display:flex; gap:12px; margin-bottom:14px; flex-wrap:wrap;">
+            <div class="form-group" style="flex:1; min-width:200px;">
+              <label>Nombre del Programa / Show</label>
+              <input type="text" id="showTitle" value="SESIONES RG" oninput="onShowInputChange()" placeholder="Ej: SESIONES RG">
+            </div>
+            <div class="form-group" style="flex:2; min-width:280px;">
+              <label>Slogan / Subtítulo del Show</label>
+              <input type="text" id="showSlogan" value="En Vivo: Entrevistas en vivo y zapadas con invitados." oninput="onShowInputChange()" placeholder="Ej: En Vivo: Entrevistas en vivo y zapadas con invitados.">
+            </div>
+          </div>
+
+          <!-- Vista Previa en Vivo de la Cabecera -->
+          <div style="background:rgba(0,0,0,0.6); border:1px solid rgba(255,215,0,0.3); border-radius:10px; padding:10px 16px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg, #8B0000, #C0392B); border:1.5px solid #FFD700; display:flex; align-items:center; justify-content:center; font-size:16px;">🎙️</div>
+              <div>
+                <div id="previewShowTitle" style="font-size:16px; font-weight:900; color:#FFD700; letter-spacing:1.5px;">SESIONES RG</div>
+                <div id="previewShowSlogan" style="font-size:12px; font-weight:700; color:#FFF; letter-spacing:0.5px;">En Vivo: Entrevistas en vivo y zapadas con invitados.</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; background:rgba(231,76,60,0.2); border:1px solid #E74C3C; color:#E74C3C; font-size:11px; font-weight:900; padding:4px 10px; border-radius:14px;">
+              <span style="width:6px; height:6px; border-radius:50%; background:#E74C3C;"></span> VISTA PREVIA OVERLAY
+            </div>
+          </div>
+        </div>
+
         <!-- Anfitrión Principal -->
         <div class="inner-card">
           <div class="card-title" style="color: #FFD700;">🎙️ Anfitrión Principal (Host)</div>
@@ -783,15 +909,22 @@
                 </div>
               </div>
 
-              <!-- Bloque Anfitriones: Host + Co-Host Vertical 9:16 -->
+              <!-- Bloque Anfitriones: Host + Co-Host (Vertical 9:16 y Horizontal 16:9 Row) -->
               <div style="background:rgba(0,0,0,0.5); border:1px solid #FFD700; border-radius:8px; padding:10px 14px; margin-top:10px;">
-                <div style="color:#FFD700; font-weight:900; font-size:13px; margin-bottom:6px;">🎙️ ANFITRIONES: SOLO HOST & CO-HOST (Columna 16:9 con Ticker Separador)</div>
-                <div style="display:grid; grid-template-columns:1fr; gap:10px;">
+                <div style="color:#FFD700; font-weight:900; font-size:13px; margin-bottom:6px;">🎙️ ANFITRIONES: SOLO HOST & CO-HOST (DUPLA)</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                   <div style="display:flex; flex-direction:column; gap:4px;">
-                    <span style="font-size:11px; color:#AAA; font-weight:700;">📱 TikTok Live / Vertical 9:16 (Host + Co-Host 16:9 Separados por Ticker)</span>
+                    <span style="font-size:11px; color:#AAA; font-weight:700;">📱 TikTok Live / Vertical 9:16 (En Columna)</span>
                     <div style="display:flex; gap:6px;">
                       <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/vv-hosts.html</code>
                       <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/vv-hosts.html')" class="btn-action-pill">Copiar</button>
+                    </div>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:4px;">
+                    <span style="font-size:11px; color:#AAA; font-weight:700;">📺 Marcos 16:9 Horizontal (En Fila / Row)</span>
+                    <div style="display:flex; gap:6px;">
+                      <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/ov-hosts-row.html</code>
+                      <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/ov-hosts-row.html')" class="btn-action-pill">Copiar</button>
                     </div>
                   </div>
                 </div>
@@ -1135,6 +1268,61 @@
       }
     });
 
+    // ── GESTIÓN DE IDENTIDAD DEL SHOW & PRESETS DE SLOGANS ───────
+    const SHOW_PRESETS = {
+      'envivo': {
+        title: 'SESIONES RG',
+        slogan: 'En Vivo: Entrevistas en vivo y zapadas con invitados.'
+      },
+      'radar': {
+        title: 'SESIONES RG',
+        slogan: 'Radar: Escuchando de artistas emergentes.'
+      },
+      'alacarta': {
+        title: 'SESIONES RG',
+        slogan: 'A la Carta: Pedí tus temas.'
+      },
+      'custom': null
+    };
+
+    var currentShowPreset = 'envivo';
+
+    function selectShowPreset(presetKey) {
+      currentShowPreset = presetKey;
+      if (SHOW_PRESETS[presetKey]) {
+        if (document.getElementById('showTitle')) document.getElementById('showTitle').value = SHOW_PRESETS[presetKey].title;
+        if (document.getElementById('showSlogan')) document.getElementById('showSlogan').value = SHOW_PRESETS[presetKey].slogan;
+      }
+      updateShowPresetActive(presetKey);
+      updateShowPreview();
+    }
+
+    function onShowInputChange() {
+      currentShowPreset = 'custom';
+      updateShowPresetActive('custom');
+      updateShowPreview();
+    }
+
+    function updateShowPresetActive(activeKey) {
+      currentShowPreset = activeKey;
+      ['envivo', 'radar', 'alacarta', 'custom'].forEach(k => {
+        const btn = document.getElementById('preset-' + k);
+        if (btn) {
+          if (k === activeKey) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+    }
+
+    function updateShowPreview() {
+      const title = document.getElementById('showTitle') ? document.getElementById('showTitle').value : 'SESIONES RG';
+      const slogan = document.getElementById('showSlogan') ? document.getElementById('showSlogan').value : '';
+      const pTitle = document.getElementById('previewShowTitle');
+      const pSlogan = document.getElementById('previewShowSlogan');
+      if (pTitle) pTitle.textContent = title || 'SESIONES RG';
+      if (pSlogan) pSlogan.textContent = slogan || '';
+    }
+
     // ── Carga de Datos ─────────────────────────────────────────────
     async function loadData() {
       let data = null;
@@ -1151,6 +1339,17 @@
       }
 
       if (!data) return;
+
+      // ── Cargar Show & Slogan ──
+      var show = data.show || {
+        title: 'SESIONES RG',
+        slogan: 'En Vivo: Entrevistas en vivo y zapadas con invitados.',
+        preset: 'envivo'
+      };
+      if (document.getElementById('showTitle')) document.getElementById('showTitle').value = show.title || 'SESIONES RG';
+      if (document.getElementById('showSlogan')) document.getElementById('showSlogan').value = show.slogan || 'En Vivo: Entrevistas en vivo y zapadas con invitados.';
+      updateShowPresetActive(show.preset || 'envivo');
+      updateShowPreview();
 
       document.getElementById('hostName').value = data.host ? (data.host.name || '') : '';
       document.getElementById('hostRole').value = data.host ? (data.host.role || '') : '';
@@ -1353,6 +1552,11 @@
       };
 
       const updated = {
+        show: {
+          title: document.getElementById('showTitle') ? document.getElementById('showTitle').value : 'SESIONES RG',
+          slogan: document.getElementById('showSlogan') ? document.getElementById('showSlogan').value : 'En Vivo: Entrevistas en vivo y zapadas con invitados.',
+          preset: currentShowPreset || 'envivo'
+        },
         host: {
           name: document.getElementById('hostName').value,
           role: document.getElementById('hostRole').value

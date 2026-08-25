@@ -50,6 +50,7 @@
   }
 
   /* ── Cachés ────────────────────────────────────────── */
+  var currentData    = null;
   var lastJson       = '';
   var lastLayout     = '';
   var lastTickerHtml = '';
@@ -80,6 +81,7 @@
   /* ── Aplicar datos ────────────────────────────────────── */
   function applyData(data) {
     if (!data) return;
+    currentData = data;
 
     var jsonStr = JSON.stringify(data);
     if (jsonStr === lastJson) return;
@@ -377,9 +379,19 @@
       else participantTxt.textContent = totalParticipants + ' EN ESCENA';
     }
 
-    /* ── 7. Header ── */
-    if (headerName && headerName.textContent !== hostName) headerName.textContent = hostName;
-    if (headerRole && headerRole.textContent !== hostRole) headerRole.textContent = hostRole;
+    /* ── 7. Header del Show (Sesiones RG & Slogans) ── */
+    var showTitle = (data.show && data.show.title) ? data.show.title : 'SESIONES RG';
+    var showSlogan = (data.show && data.show.slogan) ? data.show.slogan : 'En Vivo: Entrevistas en vivo y zapadas con invitados.';
+
+    if (headerName && headerName.textContent !== showTitle) headerName.textContent = showTitle;
+    if (headerRole && headerRole.textContent !== showSlogan) headerRole.textContent = showSlogan;
+
+    document.querySelectorAll('[data-bind="show-title"]').forEach(function (el) {
+      if (el.textContent !== showTitle) el.textContent = showTitle;
+    });
+    document.querySelectorAll('[data-bind="show-slogan"]').forEach(function (el) {
+      if (el.textContent !== showSlogan) el.textContent = showSlogan;
+    });
 
     /* ── 8. Motto banner ── */
     var mottoP1 = (data.motto && typeof data.motto.phrase1 === 'string') ? data.motto.phrase1 : '🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS';
@@ -461,6 +473,16 @@
       });
   }
 
+  /* ── Forzar recalibración de layout y ticker ────── */
+  function reapplyLayout() {
+    if (currentData) {
+      lastJson = '';
+      lastLayout = '';
+      lastTickerHtml = '';
+      applyData(currentData);
+    }
+  }
+
   /* ── Inicialización ──────────────────────────────── */
   function init() {
     // 1. Carga rápida desde localStorage como valor inicial
@@ -474,7 +496,29 @@
 
     // 3. Sondeo periódico (polling) CADA 2 SEGUNDOS solo a stream-data.json
     setInterval(fetchStreamData, 2000);
+
+    // 4. Ciclo de auto-calibración escalonada al arrancar TTLS / OBS
+    [50, 150, 300, 600, 1200, 2500].forEach(function (delay) {
+      setTimeout(reapplyLayout, delay);
+    });
+
+    // 5. Monitoreo de cambios de resolución del lienzo (ResizeObserver)
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(function () {
+        reapplyLayout();
+      });
+      if (document.body) ro.observe(document.body);
+      if (stageContainer) ro.observe(stageContainer);
+    }
   }
+
+  /* ── Sincronización ante redimensionamiento de ventana ── */
+  window.addEventListener('resize', function () {
+    reapplyLayout();
+  });
+  window.addEventListener('load', function () {
+    reapplyLayout();
+  });
 
   /* ── Sincronización instantánea vía storage (mismo origen) */
   window.addEventListener('storage', function (e) {

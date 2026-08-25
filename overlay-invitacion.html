@@ -21,6 +21,16 @@
       </div>
 
       <div class="form-group">
+        <label for="showTitleInput">Título del Programa</label>
+        <input type="text" id="showTitleInput" value="SESIONES RG" placeholder="Ej. SESIONES RG">
+      </div>
+
+      <div class="form-group">
+        <label for="showSloganInput">Slogan / Temática del Programa</label>
+        <input type="text" id="showSloganInput" value="En Vivo: Entrevistas en vivo y zapadas con invitados." placeholder="Ej. En Vivo: Entrevistas en vivo...">
+      </div>
+
+      <div class="form-group">
         <label for="artistInput">Nombre del Artista / Banda</label>
         <input type="text" id="artistInput" value="[Nombre del artista]" placeholder="Ej. Gustavo Cerati">
       </div>
@@ -44,7 +54,7 @@
 
       <div class="form-group">
         <label for="bodyInput">Mensaje de Invitación</label>
-        <textarea id="bodyInput" rows="12" style="resize: vertical;"></textarea>
+        <textarea id="bodyInput" rows="11" style="resize: vertical;"></textarea>
       </div>
 
       <button class="btn-action" onclick="downloadImage()">
@@ -59,9 +69,16 @@
     <!-- ÁREA DE PREVISUALIZACIÓN / OVERLAY DIGITAL -->
     <div class="preview-area">
       <div class="invitation-card" id="invitationCard">
-        <div class="card-header-badge">
-          <span class="badge-dot"></span>
-          <span>Invitación Especial — Entrevista & Travesía Musical</span>
+        <div class="card-brand-header">
+          <div class="card-header-badge">
+            <span class="badge-dot"></span>
+            <span id="displayShowTitleBadge" class="brand-title-text">SESIONES RG</span>
+            <span class="badge-sep">◆</span>
+            <span class="badge-tag-text">Invitación Especial</span>
+          </div>
+          <div class="card-slogan-line" id="displayShowSlogan">
+            En Vivo: Entrevistas en vivo y zapadas con invitados.
+          </div>
         </div>
 
         <div class="invitation-body" id="invitationContent"></div>
@@ -69,104 +86,179 @@
         <div class="invitation-footer">
           <div class="signature-block">
             <span class="sign-valediction">Un abrazo,</span>
-            <span class="sign-name" id="displayHostName" data-bind="host-name">GUTA FLORES</span>
+            <span class="sign-name" id="displayHostName">GUTA FLORES</span>
           </div>
 
           <div class="brand-stamp">
-            <div class="brand-tag" data-bind="host-name">GUTA FLORES</div>
-            <div class="brand-sub">Hoster</div>
+            <div class="brand-tag" id="displayFooterShowTitle">SESIONES RG</div>
+            <div class="brand-sub">Transmisión & Difusión Musical</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="script-overlay.js"></script>
   <script>
-    const templateGroup = `Hola [Nombre del artista], ¿cómo están?.
+    function getTemplateGroup(showTitle, showSlogan, hostName) {
+      return `Hola [Nombre del artista], ¿cómo están?.
 
-Soy Gustavo "Guta" Flores, cantor, guitarrero y conductor del programa de stream en tiktok y facebook @gutafloresok.
+Soy ${hostName || 'Gustavo "Guta" Flores'}, cantor, guitarrero y conductor del programa "${showTitle || 'SESIONES RG'}".
 
-Te escribo porque sigo de cerca su trabajo musical y me gustaría invitarte a ser parte de una entrevista especial que estamos produciendo sobre música y trayectoria. 
+Les escribo porque sigo de cerca su trabajo musical y me gustaría invitarlos a ser parte de una entrevista especial que estamos realizando sobre música y trayectoria. 
 
 La idea es tener una charla amena sobre sus inicios, el camino recorrido y compartir su experiencia con artistas emergentes que están buscando su propio espacio.
 
-La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieren en vivo (también de forma remota) en nuestro main stream de los domingos que arranca a las 15hs. y no tomaría más de 15 a 20 minutos. Luego, los fragmentos destacados se compartirán en nuestras redes (TikTok/Instagram/Facebook/Youtube) para darle visibilidad a su proyecto y conectar con nueva audiencia.
+La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieren en vivo en nuestro stream principal de los domingos que arranca a las 15:00 hs. (y no tomaría más de 15 a 20 minutos). Luego, los fragmentos destacados se compartirán en nuestras redes (TikTok, Instagram, Facebook y YouTube) para darle visibilidad a su proyecto y conectar con nueva audiencia.
 
 Avisenme si les interesa la propuesta y coordinamos el día y horario que mejor les quede. ¡Sería un verdadero gusto contar con ustedes!`;
+    }
 
-    const templateSolo = `Hola [Nombre del artista], ¿cómo estás?.
+    function getTemplateSolo(showTitle, showSlogan, hostName) {
+      return `Hola [Nombre del artista], ¿cómo estás?.
 
-Soy Gustavo "Guta" Flores, cantor, guitarrero y conductor del programa de stream en tiktok @gutafloresok.
+Soy ${hostName || 'Gustavo "Guta" Flores'}, cantor, guitarrero y conductor del programa "${showTitle || 'SESIONES RG'}".
 
-Te escribo porque sigo de cerca tu trabajo musical y me gustaría invitarte a ser parte de una entrevista especial que estamos produciendo sobre música y trayectoria. 
+Te escribo porque sigo de cerca tu trabajo musical y me gustaría invitarte a ser parte de una entrevista especial que estamos realizando sobre música y trayectoria. 
 
 La idea es tener una charla amena sobre tus inicios, el camino recorrido y compartir tu experiencia con artistas emergentes que están buscando su propio espacio.
 
-La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieres en vivo (también de forma remota) en nuestro main stream de los domingos que arranca a las 15hs. y no tomaría más de 15 a 20 minutos. Luego, los fragmentos destacados se compartirán en nuestras redes (TikTok/Instagram/Facebook/Youtube) para darle visibilidad a tu proyecto y conectar con nueva audiencia.
+La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieres en vivo en nuestro stream principal de los domingos que arranca a las 15:00 hs. (y no tomaría más de 15 a 20 minutos). Luego, los fragmentos destacados se compartirán en nuestras redes (TikTok, Instagram, Facebook y YouTube) para darle visibilidad a tu proyecto y conectar con nueva audiencia.
 
 Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te quede. ¡Sería un verdadero gusto contar con vos!`;
+    }
 
     let currentType = 'group';
 
+    const showTitleInput = document.getElementById('showTitleInput');
+    const showSloganInput = document.getElementById('showSloganInput');
     const bodyInput = document.getElementById('bodyInput');
     const artistInput = document.getElementById('artistInput');
     const hostInput = document.getElementById('hostInput');
     const invitationContent = document.getElementById('invitationContent');
     const displayHostName = document.getElementById('displayHostName');
+    const displayShowTitleBadge = document.getElementById('displayShowTitleBadge');
+    const displayShowSlogan = document.getElementById('displayShowSlogan');
+    const displayFooterShowTitle = document.getElementById('displayFooterShowTitle');
     const btnGroup = document.getElementById('btnGroup');
     const btnSolo = document.getElementById('btnSolo');
 
-    bodyInput.value = templateGroup;
+    function resetTemplate(forceUpdateText = false) {
+      const showTitle = showTitleInput.value.trim() || 'SESIONES RG';
+      const showSlogan = showSloganInput.value.trim() || 'En Vivo: Entrevistas en vivo y zapadas con invitados.';
+      const hostName = hostInput.value.trim() || 'Guta Flores';
 
-    function setArtistType(type) {
-      currentType = type;
-      if (type === 'group') {
+      if (currentType === 'group') {
         btnGroup.classList.add('active');
         btnSolo.classList.remove('active');
-        bodyInput.value = templateGroup;
+        if (forceUpdateText || !bodyInput.value) {
+          bodyInput.value = getTemplateGroup(showTitle, showSlogan, hostName);
+        }
       } else {
         btnSolo.classList.add('active');
         btnGroup.classList.remove('active');
-        bodyInput.value = templateSolo;
+        if (forceUpdateText || !bodyInput.value) {
+          bodyInput.value = getTemplateSolo(showTitle, showSlogan, hostName);
+        }
       }
       renderCard();
     }
 
-    // Cargar valores iniciales guardados desde el panel si existen
-    try {
-      const localStr = localStorage.getItem('streamData');
-      if (localStr) {
-        const data = JSON.parse(localStr);
+    function setArtistType(type) {
+      currentType = type;
+      resetTemplate(true);
+    }
+
+    function renderCard() {
+      const artistName = artistInput.value.trim() || '[Nombre del artista]';
+      const hostName = hostInput.value.trim() || 'GUTA FLORES';
+      const showTitle = showTitleInput.value.trim() || 'SESIONES RG';
+      const showSlogan = showSloganInput.value.trim() || 'En Vivo: Entrevistas en vivo y zapadas con invitados.';
+
+      displayHostName.textContent = hostName;
+      displayShowTitleBadge.textContent = showTitle;
+      displayShowSlogan.textContent = showSlogan;
+      displayFooterShowTitle.textContent = showTitle;
+
+      let formattedText = bodyInput.value;
+
+      // Resaltar nombre de artista con espaciado natural
+      formattedText = formattedText.replace(/Hola\s+([^,]+?)\s*,/i, function (match, p1) {
+        return `Hola <strong class="artist-highlight">${artistName}</strong>,`;
+      });
+
+      // Resaltar nombre del programa si aparece entre comillas
+      function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      }
+      if (showTitle) {
+        try {
+          const reg = new RegExp(`"${escapeRegExp(showTitle)}"`, 'gi');
+          formattedText = formattedText.replace(reg, `"<strong class="show-highlight">${showTitle}</strong>"`);
+        } catch (e) {}
+      }
+
+      invitationContent.innerHTML = formattedText;
+    }
+
+    showTitleInput.addEventListener('input', () => {
+      renderCard();
+    });
+    showSloganInput.addEventListener('input', () => {
+      renderCard();
+    });
+    artistInput.addEventListener('input', renderCard);
+    hostInput.addEventListener('input', renderCard);
+    bodyInput.addEventListener('input', renderCard);
+
+    // Cargar valores iniciales desde localStorage o stream-data.json
+    async function loadData() {
+      let data = null;
+      try {
+        const localStr = localStorage.getItem('streamData');
+        if (localStr) data = JSON.parse(localStr);
+      } catch (e) {}
+
+      if (!data) {
+        try {
+          const res = await fetch('stream-data.json?t=' + Date.now());
+          if (res.ok) data = await res.json();
+        } catch (e) {}
+      }
+
+      if (data) {
+        if (data.show && data.show.title) {
+          showTitleInput.value = data.show.title;
+        }
+        if (data.show && data.show.slogan) {
+          showSloganInput.value = data.show.slogan;
+        }
         if (data.guest && data.guest.name && data.guest.name.trim() !== '') {
           artistInput.value = data.guest.name;
+        } else if (data.guest1 && data.guest1.name && data.guest1.name.trim() !== '') {
+          artistInput.value = data.guest1.name;
         }
         if (data.host && data.host.name && data.host.name.trim() !== '') {
           hostInput.value = data.host.name;
         }
       }
-    } catch (e) { }
 
-    function renderCard() {
-      const artistName = artistInput.value.trim() || '[Nombre del artista]';
-      const hostName = hostInput.value.trim() || 'GUTA FLORES';
-
-      displayHostName.textContent = hostName;
-
-      let formattedText = bodyInput.value;
-
-      formattedText = formattedText.replace(/Hola\s+([^,]+),/i, function (match, p1) {
-        return `Hola <strong class="artist-highlight">${artistName}</strong>,`;
-      });
-
-      invitationContent.innerHTML = formattedText;
+      resetTemplate(true);
     }
 
-    artistInput.addEventListener('input', renderCard);
-    hostInput.addEventListener('input', renderCard);
-    bodyInput.addEventListener('input', renderCard);
+    loadData();
 
-    renderCard();
+    window.addEventListener('storage', function (e) {
+      if (e.key === 'streamData' && e.newValue) {
+        try {
+          const data = JSON.parse(e.newValue);
+          if (data.show && data.show.title) showTitleInput.value = data.show.title;
+          if (data.show && data.show.slogan) showSloganInput.value = data.show.slogan;
+          if (data.guest && data.guest.name) artistInput.value = data.guest.name;
+          if (data.host && data.host.name) hostInput.value = data.host.name;
+          renderCard();
+        } catch (err) {}
+      }
+    });
 
     function downloadImage() {
       const card = document.getElementById('invitationCard');
@@ -177,16 +269,16 @@ Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te
       }).then(canvas => {
         const link = document.createElement('a');
         const artist = artistInput.value.replace(/[^a-z0-9]/gi, '_').toLowerCase() || 'artista';
-        link.download = `Invitacion_Entrevista_${artist}.png`;
+        link.download = `Invitacion_${showTitleInput.value.replace(/[^a-z0-9]/gi, '_')}_${artist}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
       });
     }
 
     function copyText() {
-      const textToCopy = `${bodyInput.value}\n\nUn abrazo,\n${hostInput.value}`;
+      const textToCopy = `${bodyInput.value}\n\nUn abrazo,\n${hostInput.value}\n${showTitleInput.value}`;
       navigator.clipboard.writeText(textToCopy).then(() => {
-        alert('¡Texto copiado al portapapeles!');
+        alert('¡Texto de la invitación copiado al portapapeles!');
       });
     }
   </script>

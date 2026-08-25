@@ -39,7 +39,7 @@
 
         <div class="form-group">
           <label>Título Principal del Flyer</label>
-          <input type="text" id="inputPromoTitle" value="GUTA FLORES — LIVE SHOW">
+          <input type="text" id="inputPromoTitle" value="SESIONES RG">
         </div>
 
         <div class="form-group">
@@ -150,7 +150,7 @@
 
           <!-- Main Title -->
           <div>
-            <div id="displayPromoTitle" class="promo-main-title">GUTA FLORES — LIVE SHOW</div>
+            <div id="displayPromoTitle" class="promo-main-title">SESIONES RG</div>
             <div id="displayPromoSubtitle" class="promo-subtitle">DIFUSIÓN MUSICAL & FOLKLORE EN VIVO</div>
           </div>
 
@@ -275,19 +275,48 @@
     }
 
     async function loadDefaults() {
+      let data = null;
       try {
-        const res = await fetch('stream-data.json?t=' + Date.now());
-        if (res.ok) {
-          const data = await res.json();
-          if (data.host && data.host.name) {
-            document.getElementById('inputPromoTitle').value = (data.host.name + ' — LIVE SHOW').toUpperCase();
-            document.getElementById('inputHostHandle').value = '@' + data.host.name.toLowerCase().replace(/\s+/g, '');
-            renderPromo();
-          }
-        }
+        const localStr = localStorage.getItem('streamData');
+        if (localStr) data = JSON.parse(localStr);
       } catch (e) {}
+
+      if (!data) {
+        try {
+          const res = await fetch('stream-data.json?t=' + Date.now());
+          if (res.ok) data = await res.json();
+        } catch (e) {}
+      }
+
+      if (data) {
+        if (data.show && data.show.title) {
+          document.getElementById('inputPromoTitle').value = data.show.title;
+        } else if (data.host && data.host.name) {
+          document.getElementById('inputPromoTitle').value = 'SESIONES RG';
+        }
+        if (data.show && data.show.slogan) {
+          document.getElementById('inputPromoSubtitle').value = data.show.slogan;
+        }
+        if (data.host && data.host.name) {
+          document.getElementById('inputHostHandle').value = '@' + data.host.name.toLowerCase().replace(/\s+/g, '');
+        }
+        renderPromo();
+      }
     }
+
     loadDefaults();
+
+    window.addEventListener('storage', function (e) {
+      if (e.key === 'streamData' && e.newValue) {
+        try {
+          const data = JSON.parse(e.newValue);
+          if (data.show && data.show.title) document.getElementById('inputPromoTitle').value = data.show.title;
+          if (data.show && data.show.slogan) document.getElementById('inputPromoSubtitle').value = data.show.slogan;
+          if (data.host && data.host.name) document.getElementById('inputHostHandle').value = '@' + data.host.name.toLowerCase().replace(/\s+/g, '');
+          renderPromo();
+        } catch (err) {}
+      }
+    });
   </script>
 </body>
 </html>

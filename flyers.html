@@ -30,6 +30,20 @@
     <div class="sidebar">
 
       <div class="card-section">
+        <div class="section-title">🎙️ Identidad del Programa</div>
+        
+        <div class="form-group">
+          <label>Título del Programa</label>
+          <input type="text" id="inputShowTitle" value="SESIONES RG" placeholder="Ej. SESIONES RG">
+        </div>
+
+        <div class="form-group">
+          <label>Slogan / Bajada</label>
+          <input type="text" id="inputShowSlogan" value="En Vivo: Entrevistas en vivo y zapadas con invitados." placeholder="Ej. Entrevistas y zapadas en vivo">
+        </div>
+      </div>
+
+      <div class="card-section">
         <div class="section-title">⚙️ Configuración del Flyer</div>
         
         <div class="form-group">
@@ -211,7 +225,13 @@
 
             <!-- Top Header Brand -->
             <div class="flyer-top-brand">
-              <img id="displayLogo" class="flyer-logo-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%238B0000'/><text x='50' y='55' font-size='40' text-anchor='middle' fill='%23FFD700'>🎙️</text></svg>" alt="Logo">
+              <div class="flyer-brand-left">
+                <img id="displayLogo" class="flyer-logo-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%238B0000'/><text x='50' y='55' font-size='40' text-anchor='middle' fill='%23FFD700'>🎙️</text></svg>" alt="Logo">
+                <div class="flyer-brand-titles">
+                  <div id="displayShowTitle" class="flyer-show-title">SESIONES RG</div>
+                  <div id="displayShowSlogan" class="flyer-show-slogan">En Vivo: Entrevistas en vivo y zapadas con invitados.</div>
+                </div>
+              </div>
               <div id="displayEventBadge" class="flyer-event-badge">🔴 PRÓXIMO LIVE EN VIVO</div>
             </div>
 
@@ -229,7 +249,9 @@
 
               <!-- Artist Name & Subtitle -->
               <div class="flyer-artist-block">
-                <div id="displayArtistName" class="flyer-artist-name">TIGEL & EMINENCIA</div>
+                <div class="flyer-artist-badge-wrap">
+                  <div id="displayArtistName" class="flyer-artist-name">TIGEL & EMINENCIA</div>
+                </div>
                 <div id="displayArtistRole" class="flyer-artist-role">HIP HOP | TRAP | FREESTYLE</div>
               </div>
             </div>
@@ -275,6 +297,8 @@
 
     // Lista de inputs que actualizan el flyer en tiempo real
     const liveTextInputs = [
+      'inputShowTitle',
+      'inputShowSlogan',
       'inputEventBadge',
       'inputArtistName',
       'inputArtistRole',
@@ -358,6 +382,14 @@
     }
 
     function updateFlyerText() {
+      const showTitleEl = document.getElementById('displayShowTitle');
+      const showTitleInput = document.getElementById('inputShowTitle');
+      if (showTitleEl && showTitleInput) showTitleEl.textContent = showTitleInput.value;
+
+      const showSloganEl = document.getElementById('displayShowSlogan');
+      const showSloganInput = document.getElementById('inputShowSlogan');
+      if (showSloganEl && showSloganInput) showSloganEl.textContent = showSloganInput.value;
+
       const badgeEl = document.getElementById('displayEventBadge');
       const badgeInput = document.getElementById('inputEventBadge');
       if (badgeEl && badgeInput) badgeEl.textContent = badgeInput.value;
@@ -554,33 +586,71 @@
       });
     }
 
-    // Cargar datos por defecto desde stream-data.json si están disponibles
+    // Cargar datos por defecto desde localStorage o stream-data.json si están disponibles
     async function loadStreamDefaults() {
+      let data = null;
       try {
-        const res = await fetch('stream-data.json?t=' + Date.now());
-        if (res.ok) {
-          const data = await res.json();
-          if (data.host && data.host.name) {
-            document.getElementById('inputHostName').value = data.host.name;
-            document.getElementById('inputHostHandle').value = '@' + data.host.name.toLowerCase().replace(/\s+/g, '');
-          }
-          if (data.cohost) {
-            if (data.cohost.enabled && data.cohost.name) {
-              document.getElementById('inputCohostName').value = data.cohost.name;
-              document.getElementById('inputCohostHandle').value = '@' + data.cohost.name.toLowerCase().replace(/\s+/g, '') + 'oficial';
-            } else {
-              document.getElementById('inputCohostName').value = '';
-              document.getElementById('inputCohostHandle').value = '';
-            }
-          }
-          if (data.guest && data.guest.name) {
-            document.getElementById('inputArtistName').value = data.guest.name.toUpperCase();
-          }
-          updateFlyerText();
-        }
+        const localStr = localStorage.getItem('streamData');
+        if (localStr) data = JSON.parse(localStr);
       } catch (e) {}
+
+      if (!data) {
+        try {
+          const res = await fetch('stream-data.json?t=' + Date.now());
+          if (res.ok) data = await res.json();
+        } catch (e) {}
+      }
+
+      if (data) {
+        if (data.show && data.show.title) {
+          document.getElementById('inputShowTitle').value = data.show.title;
+        }
+        if (data.show && data.show.slogan) {
+          document.getElementById('inputShowSlogan').value = data.show.slogan;
+        }
+        if (data.host && data.host.name) {
+          document.getElementById('inputHostName').value = data.host.name;
+          document.getElementById('inputHostHandle').value = '@' + data.host.name.toLowerCase().replace(/\s+/g, '');
+        }
+        if (data.cohost) {
+          if (data.cohost.enabled && data.cohost.name) {
+            document.getElementById('inputCohostName').value = data.cohost.name;
+            document.getElementById('inputCohostHandle').value = '@' + data.cohost.name.toLowerCase().replace(/\s+/g, '') + 'oficial';
+          } else {
+            document.getElementById('inputCohostName').value = '';
+            document.getElementById('inputCohostHandle').value = '';
+          }
+        }
+        const activeGuest = data.guest || data.guest1 || {};
+        if (activeGuest.name && activeGuest.name.trim() !== '') {
+          document.getElementById('inputArtistName').value = activeGuest.name.toUpperCase();
+        }
+        if (activeGuest.role && activeGuest.role.trim() !== '') {
+          document.getElementById('inputArtistRole').value = activeGuest.role.replace(/^[^\w\s]+/g, '').trim();
+        }
+        if (activeGuest.socials && Array.isArray(activeGuest.socials)) {
+          const handles = activeGuest.socials.filter(s => s.handle).map(s => s.handle).join(' ');
+          if (handles) document.getElementById('inputGuestHandle').value = handles;
+        }
+        updateFlyerText();
+      }
     }
+
     loadStreamDefaults();
+
+    window.addEventListener('storage', function (e) {
+      if (e.key === 'streamData' && e.newValue) {
+        try {
+          const data = JSON.parse(e.newValue);
+          if (data.show && data.show.title) document.getElementById('inputShowTitle').value = data.show.title;
+          if (data.show && data.show.slogan) document.getElementById('inputShowSlogan').value = data.show.slogan;
+          const activeGuest = data.guest || data.guest1;
+          if (activeGuest && activeGuest.name) document.getElementById('inputArtistName').value = activeGuest.name.toUpperCase();
+          if (activeGuest && activeGuest.role) document.getElementById('inputArtistRole').value = activeGuest.role.replace(/^[^\w\s]+/g, '').trim();
+          updateFlyerText();
+        } catch (err) {}
+      }
+    });
   </script>
 </body>
 </html>

@@ -9,8 +9,12 @@
 
 /* ── Resetear y fijar canvas ─────────────────────────────── */
 html, body {
-  width: 1920px;
-  height: 1080px;
+  width: 1920px !important;
+  height: 1080px !important;
+  min-width: 1920px !important;
+  min-height: 1080px !important;
+  max-width: 1920px !important;
+  max-height: 1080px !important;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -20,8 +24,12 @@ html, body {
 
 /* ── Stage principal ─────────────────────────────────────── */
 .stage {
-  width: 1920px;
-  height: 1080px;
+  width: 1920px !important;
+  height: 1080px !important;
+  min-width: 1920px !important;
+  min-height: 1080px !important;
+  max-width: 1920px !important;
+  max-height: 1080px !important;
   position: relative;
   overflow: hidden;
 }
@@ -66,7 +74,8 @@ html, body {
   box-shadow: 0 0 16px rgba(255, 215, 0, 0.5);
 }
 
-.header-host-name {
+.header-host-name,
+.header-show-name {
   font-size: 22px;
   font-weight: 900;
   color: #FFD700;
@@ -74,13 +83,14 @@ html, body {
   text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
 }
 
-.header-host-role {
-  font-size: 11px;
+.header-host-role,
+.header-show-slogan {
+  font-size: 12px;
   font-weight: 700;
-  color: rgba(255, 215, 0, 0.6);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-top: 1px;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 1px;
+  margin-top: 2px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* ── Live badge dinámico ────────────────────────────────── */

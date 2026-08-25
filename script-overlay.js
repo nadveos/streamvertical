@@ -21,6 +21,7 @@
     scriptDir = scriptEl.src.substring(0, scriptEl.src.lastIndexOf('/') + 1);
   }
 
+  var cachedData = null;
   var lastJsonString = '';
 
   // ── Detectar Invitado Específico por URL o Nombre de Archivo ──
@@ -45,10 +46,22 @@
 
   function applyData(data) {
     if (!data) return;
+    cachedData = data;
 
     var jsonStr = JSON.stringify(data);
     if (jsonStr === lastJsonString) return;
     lastJsonString = jsonStr;
+
+    // ── 0. SHOW BRANDING (SESIONES RG & SLOGANS) ────────────────────────────
+    var showTitle = (data.show && data.show.title) ? data.show.title : 'SESIONES RG';
+    var showSlogan = (data.show && data.show.slogan) ? data.show.slogan : 'En Vivo: Entrevistas en vivo y zapadas con invitados.';
+
+    document.querySelectorAll('[data-bind="show-title"]').forEach(function (el) {
+      el.textContent = showTitle;
+    });
+    document.querySelectorAll('[data-bind="show-slogan"]').forEach(function (el) {
+      el.textContent = showSlogan;
+    });
 
     // ── 1. HOST ─────────────────────────────────────────────────────────────
     var hostName = (data.host && data.host.name) ? data.host.name : 'Guta Flores';
@@ -268,6 +281,13 @@
       });
   }
 
+  function reapplyData() {
+    if (cachedData) {
+      lastJsonString = '';
+      applyData(cachedData);
+    }
+  }
+
   function init() {
     var localStr = localStorage.getItem('streamData');
     if (localStr) {
@@ -278,7 +298,26 @@
     }
     fetchStreamData();
     setInterval(fetchStreamData, 2000);
+
+    // Ciclo de calibración escalonada al arrancar TTLS / OBS
+    [50, 150, 300, 600, 1200, 2500].forEach(function (delay) {
+      setTimeout(reapplyData, delay);
+    });
+
+    if (window.ResizeObserver && document.body) {
+      var ro = new ResizeObserver(function () {
+        reapplyData();
+      });
+      ro.observe(document.body);
+    }
   }
+
+  window.addEventListener('resize', function () {
+    reapplyData();
+  });
+  window.addEventListener('load', function () {
+    reapplyData();
+  });
 
   window.addEventListener('storage', function (e) {
     if (e.key === 'streamData' && e.newValue) {

@@ -124,9 +124,23 @@
         });
     });
 
-    // --- Ejecución inmediata (por si el DOM ya esta listo) -------------------
+    // --- Ejecución diferida escalonada (auto-calibración en arranque TTLS/OBS) ---
+    function scheduleStartupUpdates() {
+        [50, 150, 300, 600, 1200, 2500].forEach(function (delay) {
+            setTimeout(updateCutouts, delay);
+        });
+    }
+
+    // --- Ejecución inmediata y diferida -------------------------------------
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         updateCutouts();
+        scheduleStartupUpdates();
+    } else {
+        window.addEventListener('DOMContentLoaded', function () {
+            updateCutouts();
+            scheduleStartupUpdates();
+        });
     }
+    window.addEventListener('load', scheduleStartupUpdates);
 
 }());

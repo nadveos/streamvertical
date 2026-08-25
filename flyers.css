@@ -342,14 +342,59 @@
       border-bottom: 1.5px solid rgba(192, 57, 43, 0.45);
       padding-bottom: 8px;
       margin-bottom: 2px;
+      gap: 10px;
+    }
+
+    .flyer-brand-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .flyer-brand-titles {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1px;
+      min-width: 0;
+    }
+
+    .flyer-show-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: #FFD700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      line-height: 1.1;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.4), 0 2px 5px rgba(0, 0, 0, 0.9);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .flyer-show-slogan {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #E2E2E2;
+      letter-spacing: 0.5px;
+      line-height: 1.15;
+      max-width: 250px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .flyer-logo-img {
       height: 44px;
       width: auto;
-      max-width: 130px;
+      max-width: 110px;
       object-fit: contain;
       filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
+      flex-shrink: 0;
     }
 
     .flyer-event-badge {
@@ -363,6 +408,8 @@
       padding: 4px 12px;
       text-transform: uppercase;
       box-shadow: 0 0 12px rgba(192, 57, 43, 0.5);
+      flex-shrink: 0;
+      white-space: nowrap;
     }
 
     /* Main Central Content Block (Hero Artist) */
@@ -467,29 +514,45 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 3px;
       margin-top: 2px;
       width: 100%;
     }
 
+    .flyer-artist-badge-wrap {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      margin-bottom: 2px;
+      max-width: 95%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     .flyer-artist-name {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 900;
       color: #FFFFFF;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
       line-height: 1.15;
-      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9), 0 0 15px rgba(192, 57, 43, 0.5);
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.95), 0 0 15px rgba(192, 57, 43, 0.6);
       max-width: 480px;
       word-break: break-word;
     }
 
     .flyer-artist-role {
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 800;
       color: #FFD700;
       letter-spacing: 1.8px;
       text-transform: uppercase;
+      background: rgba(139, 0, 0, 0.35);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      padding: 2px 12px;
+      border-radius: 12px;
     }
 
     /* Bottom Event Info Card */
@@ -595,14 +658,31 @@
       height: 210px;
     }
     
+    .guest-version .flyer-artist-badge-wrap {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
+
     .guest-version .flyer-artist-name {
-      font-size: 32px;
+      font-size: 30px;
       color: #FFD700;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.95), 0 0 15px rgba(255, 215, 0, 0.4);
     }
 
     /* Story / Reel 9:16 Format Tweaks */
     .vertical-format .flyer-inner {
       padding: 24px 22px;
+    }
+
+    .vertical-format .flyer-show-title {
+      font-size: 20px;
+    }
+
+    .vertical-format .flyer-show-slogan {
+      font-size: 11px;
+      max-width: 290px;
     }
 
     .vertical-format .flyer-main-content {
@@ -630,8 +710,17 @@
       height: 230px;
     }
 
+    .vertical-format .flyer-artist-badge-wrap {
+      padding: 6px 22px;
+    }
+
     .vertical-format .flyer-artist-name {
-      font-size: 34px;
+      font-size: 30px;
+    }
+
+    .vertical-format .flyer-artist-role {
+      font-size: 13px;
+      padding: 3px 14px;
     }
 
     .vertical-format .flyer-info-card {
