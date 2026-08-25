@@ -1,260 +1,254 @@
-    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@700;900&display=swap');
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html, body {
-      width: 1080px;
-      height: 1920px;
-      overflow: hidden;
-      background: transparent;
-      font-family: 'Outfit', 'Segoe UI', sans-serif;
-    }
+html, body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: transparent;
+  font-family: 'Outfit', 'Segoe UI', sans-serif;
+}
 
-    /* ============================================================
-       OVERLAY CONTAINER
-       ============================================================ */
-    .transition-overlay {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
+/* ============================================================
+   OVERLAY CONTAINER
+   ============================================================ */
+.transition-overlay {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
 
-    /* ============================================================
-       STRIPES VERTICALES — Franjas de barrido de arriba hacia abajo
-       En 9:16 las franjas van verticalmente con barrido top->bottom
-       Duración total: 2.5s
-       0%  - 35%: Entrada (barrido cubre pantalla ~0.85s)
-       35% - 50%: Pantalla cubierta (~0.4s)
-       50% - 85%: Salida (descubre nueva escena)
-       85% - 100%: Transparente
-       ============================================================ */
-    .stripe {
-      position: absolute;
-      top: -100%;
-      height: 100%;
-      transform-origin: top center;
-      animation: stripeAnim 2.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
-    }
+/* ============================================================
+   STRIPES VERTICALES — Franjas de barrido de arriba hacia abajo
+   ============================================================ */
+.stripe {
+  position: absolute;
+  top: -100%;
+  height: 100%;
+  transform-origin: top center;
+  animation: stripeAnim 2.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
 
-    /* 9 franjas verticales cubren los 1080px de ancho */
-    .s1  { left: 0%;    width: 11.2%; background: #1a0000; animation-delay: 0s;     }
-    .s2  { left: 11.1%; width: 11.2%; background: #8B0000; animation-delay: 0.02s;  }
-    .s3  { left: 22.2%; width: 11.2%; background: #141414; animation-delay: 0.04s;  }
-    .s4  { left: 33.3%; width: 11.2%; background: #C0392B; animation-delay: 0.06s;  }
-    .s5  { left: 44.4%; width: 11.2%; background: #1A0505; animation-delay: 0.08s;  }
-    .s6  { left: 55.5%; width: 11.2%; background: #8B0000; animation-delay: 0.10s;  }
-    .s7  { left: 66.6%; width: 11.2%; background: #111111; animation-delay: 0.12s;  }
-    .s8  { left: 77.7%; width: 11.2%; background: #C0392B; animation-delay: 0.14s;  }
-    .s9  { left: 88.8%; width: 11.2%; background: #1a0000; animation-delay: 0.16s;  }
+/* 9 franjas verticales cubren los 1080px de ancho */
+.s1  { left: 0%;    width: 11.2%; background: #10121B; animation-delay: 0s;     }
+.s2  { left: 11.1%; width: 11.2%; background: #FF375F; animation-delay: 0.02s;  }
+.s3  { left: 22.2%; width: 11.2%; background: #171926; animation-delay: 0.04s;  }
+.s4  { left: 33.3%; width: 11.2%; background: #00E6C8; animation-delay: 0.06s;  }
+.s5  { left: 44.4%; width: 11.2%; background: #10121B; animation-delay: 0.08s;  }
+.s6  { left: 55.5%; width: 11.2%; background: #FF375F; animation-delay: 0.10s;  }
+.s7  { left: 66.6%; width: 11.2%; background: #171926; animation-delay: 0.12s;  }
+.s8  { left: 77.7%; width: 11.2%; background: #00E6C8; animation-delay: 0.14s;  }
+.s9  { left: 88.8%; width: 11.2%; background: #10121B; animation-delay: 0.16s;  }
 
-    @keyframes stripeAnim {
-      0%   { top: -100%; }
-      35%  { top: 0%;    }
-      50%  { top: 0%;    }
-      85%  { top: 100%;  }
-      100% { top: 100%;  }
-    }
+@keyframes stripeAnim {
+  0%   { top: -100%; }
+  35%  { top: 0%;    }
+  50%  { top: 0%;    }
+  85%  { top: 100%;  }
+  100% { top: 100%;  }
+}
 
-    /* ============================================================
-       GOLDEN ACCENT LINE — Barre verticalmente el centro de pantalla
-       ============================================================ */
-    .golden-line {
-      position: absolute;
-      left: 0;
-      top: -4px;
-      height: 4px;
-      width: 100%;
-      background: linear-gradient(90deg,
-        transparent 0%,
-        #FFD700 20%,
-        #FFF8DC 50%,
-        #FFD700 80%,
-        transparent 100%
-      );
-      box-shadow: 0 0 16px #FFD700, 0 0 35px rgba(255, 215, 0, 0.6);
-      animation: goldenLineAnim 2.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
-      animation-delay: 0.08s;
-      z-index: 5;
-    }
+/* ============================================================
+   TURQUOISE/CORAL ACCENT LINE
+   ============================================================ */
+.golden-line {
+  position: absolute;
+  left: 0;
+  top: -4px;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #00E6C8 20%,
+    #FFFFFF 50%,
+    #FF375F 80%,
+    transparent 100%
+  );
+  box-shadow: 0 0 16px #00E6C8, 0 0 35px rgba(255, 55, 95, 0.6);
+  animation: goldenLineAnim 2.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  animation-delay: 0.08s;
+  z-index: 5;
+}
 
-    @keyframes goldenLineAnim {
-      0%   { top: -4px;    opacity: 0; }
-      30%  { top: 960px;   opacity: 1; }
-      55%  { top: 960px;   opacity: 1; }
-      85%  { top: 1924px;  opacity: 0; }
-      100% { top: 1924px;  opacity: 0; }
-    }
+@keyframes goldenLineAnim {
+  0%   { top: -4px;    opacity: 0; }
+  30%  { top: 960px;   opacity: 1; }
+  55%  { top: 960px;   opacity: 1; }
+  85%  { top: 1924px;  opacity: 0; }
+  100% { top: 1924px;  opacity: 0; }
+}
 
-    /* ============================================================
-       LOGO CENTRAL
-       ============================================================ */
-    .center-logo {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      z-index: 10;
-      animation: logoAnim 2.5s ease infinite;
-      width: 900px;
-    }
+/* ============================================================
+   LOGO CENTRAL
+   ============================================================ */
+.center-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  animation: logoAnim 2.5s ease infinite;
+  width: 900px;
+}
 
-    @keyframes logoAnim {
-      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.85); filter: blur(8px); }
-      30%  { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0px); }
-      55%  { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0px); }
-      80%  { opacity: 0; transform: translate(-50%, -50%) scale(1.08); filter: blur(6px); }
-      100% { opacity: 0; transform: translate(-50%, -50%) scale(1.08); filter: blur(6px); }
-    }
+@keyframes logoAnim {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.85); filter: blur(8px); }
+  30%  { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0px); }
+  55%  { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0px); }
+  80%  { opacity: 0; transform: translate(-50%, -50%) scale(1.08); filter: blur(6px); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.08); filter: blur(6px); }
+}
 
-    .logo-brand {
-      font-family: 'Bebas Neue', 'Outfit', sans-serif;
-      font-size: 140px;
-      color: #FFFFFF;
-      letter-spacing: 14px;
-      text-shadow:
-        0 0 30px rgba(192, 57, 43, 0.9),
-        0 0 70px rgba(139, 0, 0, 0.7),
-        0 0 120px rgba(139, 0, 0, 0.4);
-      line-height: 1;
-    }
+.logo-brand {
+  font-family: 'Bebas Neue', 'Outfit', sans-serif;
+  font-size: 140px;
+  color: #FFFFFF;
+  letter-spacing: 14px;
+  text-shadow:
+    0 0 30px rgba(0, 230, 200, 0.9),
+    0 0 70px rgba(255, 55, 95, 0.7),
+    0 0 120px rgba(16, 18, 27, 0.9);
+  line-height: 1;
+}
 
-    .logo-divider {
-      width: 600px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #C0392B, #FFD700, #C0392B, transparent);
-      margin: 18px auto;
-      border-radius: 2px;
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
-    }
+.logo-divider {
+  width: 600px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #FF375F, #00E6C8, #FF375F, transparent);
+  margin: 18px auto;
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(0, 230, 200, 0.5);
+}
 
-    .logo-sub {
-      font-size: 32px;
-      font-weight: 700;
-      color: #FFD700;
-      letter-spacing: 10px;
-      text-transform: uppercase;
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-      margin-top: 6px;
-    }
+.logo-sub {
+  font-size: 32px;
+  font-weight: 700;
+  color: #00E6C8;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(0, 230, 200, 0.8);
+  margin-top: 6px;
+}
 
-    .logo-tagline {
-      font-size: 20px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.6);
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      margin-top: 16px;
-    }
+.logo-tagline {
+  font-size: 20px;
+  font-weight: 600;
+  color: #A0A5B5;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-top: 16px;
+}
 
-    /* ============================================================
-       ORNAMENTOS DECORATIVOS
-       ============================================================ */
-    .poncho-texture {
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 10px,
-        rgba(0, 0, 0, 0.12) 10px,
-        rgba(0, 0, 0, 0.12) 11px
-      );
-      z-index: 2;
-      pointer-events: none;
-      animation: textureAnim 2.5s ease infinite;
-    }
+/* ============================================================
+   ORNAMENTOS DECORATIVOS
+   ============================================================ */
+.poncho-texture {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 10px,
+    rgba(0, 0, 0, 0.12) 10px,
+    rgba(0, 0, 0, 0.12) 11px
+  );
+  z-index: 2;
+  pointer-events: none;
+  animation: textureAnim 2.5s ease infinite;
+}
 
-    @keyframes textureAnim {
-      0%, 100% { opacity: 0; }
-      30%, 55% { opacity: 1; }
-    }
+@keyframes textureAnim {
+  0%, 100% { opacity: 0; }
+  30%, 55% { opacity: 1; }
+}
 
-    .corner {
-      position: absolute;
-      z-index: 6;
-      animation: cornerAnim 2.5s ease infinite;
-    }
-    .corner-tl { top: 40px;  left: 40px; }
-    .corner-tr { top: 40px;  right: 40px; transform: scaleX(-1); }
-    .corner-bl { bottom: 40px; left: 40px; transform: scaleY(-1); }
-    .corner-br { bottom: 40px; right: 40px; transform: scale(-1); }
+.corner {
+  position: absolute;
+  z-index: 6;
+  animation: cornerAnim 2.5s ease infinite;
+}
+.corner-tl { top: 40px;  left: 40px; }
+.corner-tr { top: 40px;  right: 40px; transform: scaleX(-1); }
+.corner-bl { bottom: 40px; left: 40px; transform: scaleY(-1); }
+.corner-br { bottom: 40px; right: 40px; transform: scale(-1); }
 
-    @keyframes cornerAnim {
-      0%, 100% { opacity: 0; }
-      32%, 53%  { opacity: 1; }
-    }
+@keyframes cornerAnim {
+  0%, 100% { opacity: 0; }
+  32%, 53%  { opacity: 1; }
+}
 
-    .corner svg {
-      width: 120px;
-      height: 120px;
-      fill: none;
-      stroke: #C0392B;
-      stroke-width: 3;
-      filter: drop-shadow(0 0 10px rgba(192, 57, 43, 0.8));
-    }
+.corner svg {
+  width: 120px;
+  height: 120px;
+  fill: none;
+  stroke: #00E6C8;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 10px rgba(0, 230, 200, 0.8));
+}
 
-    /* Líneas decorativas alrededor del logo */
-    .deco-lines {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      z-index: 6;
-      animation: cornerAnim 2.5s ease infinite;
-    }
+/* Líneas decorativas alrededor del logo */
+.deco-lines {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  animation: cornerAnim 2.5s ease infinite;
+}
 
-    .deco-line-top {
-      position: absolute;
-      top: -190px;
-      left: 80px;
-      right: 80px;
-      height: 1px;
-      background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(192, 57, 43, 0.4) 20%,
-        #FFD700 50%,
-        rgba(192, 57, 43, 0.4) 80%,
-        transparent 100%
-      );
-    }
+.deco-line-top {
+  position: absolute;
+  top: -190px;
+  left: 80px;
+  right: 80px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 55, 95, 0.4) 20%,
+    #00E6C8 50%,
+    rgba(255, 55, 95, 0.4) 80%,
+    transparent 100%
+  );
+}
 
-    .deco-line-bottom {
-      position: absolute;
-      top: 190px;
-      left: 80px;
-      right: 80px;
-      height: 1px;
-      background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(192, 57, 43, 0.4) 20%,
-        #FFD700 50%,
-        rgba(192, 57, 43, 0.4) 80%,
-        transparent 100%
-      );
-    }
+.deco-line-bottom {
+  position: absolute;
+  bottom: -190px;
+  left: 80px;
+  right: 80px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0, 230, 200, 0.4) 20%,
+    #FF375F 50%,
+    rgba(0, 230, 200, 0.4) 80%,
+    transparent 100%
+  );
+}
 
-    /* Partículas de luz */
-    .sparkle {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #FFD700;
-      box-shadow: 0 0 12px #FFD700, 0 0 24px rgba(255, 215, 0, 0.6);
-      z-index: 7;
-      animation: sparkleAnim 2.5s ease infinite;
-    }
+/* Partículas de brillo */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #00E6C8;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00E6C8, 0 0 16px rgba(255, 55, 95, 0.8);
+  animation: sparkleAnim 2.5s ease infinite;
+  z-index: 7;
+}
 
-    @keyframes sparkleAnim {
-      0%, 100% { opacity: 0; transform: scale(0); }
-      35%, 55%  { opacity: 1; transform: scale(1); }
-    }
+.sp1 { top: 38%; left: 15%; animation-delay: 0.1s; }
+.sp2 { top: 42%; right: 18%; animation-delay: 0.25s; }
+.sp3 { top: 58%; left: 22%; animation-delay: 0.18s; }
+.sp4 { top: 62%; right: 14%; animation-delay: 0.3s; }
+.sp5 { top: 48%; left: 8%;  animation-delay: 0.05s; }
+.sp6 { top: 52%; right: 8%;  animation-delay: 0.2s; }
 
-    .sp1 { top: calc(50% - 200px); left: 80px;  animation-delay: 0.32s; }
-    .sp2 { top: calc(50% - 200px); right: 80px; animation-delay: 0.35s; }
-    .sp3 { top: calc(50% + 200px); left: 80px;  animation-delay: 0.38s; }
-    .sp4 { top: calc(50% + 200px); right: 80px; animation-delay: 0.41s; }
-    .sp5 { top: calc(50% - 360px); left: calc(50% - 4px); animation-delay: 0.44s; }
-    .sp6 { top: calc(50% + 360px); left: calc(50% - 4px); animation-delay: 0.47s; }
+@keyframes sparkleAnim {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  35%, 52% { opacity: 1; transform: scale(1.5); }
+}

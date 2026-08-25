@@ -145,12 +145,12 @@
     },
     {
       "prefix": "🎙️ Transmisión en vivo:",
-      "text": "GUTA FLORES RAUL DOMINGO CESAR CHOQUE",
+      "text": "GUTA FLORES | RAUL DOMINGO | CESAR CHOQUE",
       "highlight": true
     },
     {
       "prefix": "📲 Seguinos en redes:",
-      "text": "@gutafloresok @rauldomingooficial",
+      "text": "@gutafloresok | @rauldomingooficial",
       "highlight": true
     },
     {
@@ -169,7 +169,7 @@
       "highlight": true
     },
     {
-      "prefix": "☕ Alias MP / Cafecito:",
+      "prefix": "☕ ALITAS / Cafecito:",
       "text": "GUTA.FLORES",
       "highlight": true
     }

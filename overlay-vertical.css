@@ -84,9 +84,9 @@
       inset: 0;
       border-radius: 20px;
       padding: 7px;
-      background: linear-gradient(45deg, #FFD700, #8B0000, #C0392B, #FFD700);
+      background: linear-gradient(45deg, #FF375F, #10121B, #00E6C8, #FF375F);
       background-size: 300% 300%;
-      animation: borderGlowGold 6s ease infinite;
+      animation: borderGlowCoral 6s ease infinite;
       -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
@@ -109,21 +109,21 @@
     .guest-info-panel {
       flex: 1;
       max-width: 575px;
-      background: rgba(12, 12, 16, 0.92);
-      border: 2px solid #FFD700;
+      background: rgba(16, 18, 27, 0.94);
+      border: 2px solid #00E6C8;
       border-radius: 20px;
       padding: 20px 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 12px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(255, 215, 0, 0.18);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(0, 230, 200, 0.18);
       backdrop-filter: blur(8px);
       box-sizing: border-box;
     }
 
     .info-header {
-      border-bottom: 2px solid rgba(255, 215, 0, 0.4);
+      border-bottom: 2px solid rgba(0, 230, 200, 0.4);
       padding-bottom: 8px;
       text-align: center;
     }
@@ -131,7 +131,7 @@
     .info-tag {
       font-size: 12px;
       font-weight: 800;
-      color: #FFD700;
+      color: #00E6C8;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
@@ -145,8 +145,8 @@
     }
 
     .agenda-box-vertical {
-      background: rgba(255, 215, 0, 0.04);
-      border: 1px solid rgba(255, 215, 0, 0.25);
+      background: rgba(0, 230, 200, 0.05);
+      border: 1px solid rgba(0, 230, 200, 0.25);
       border-radius: 12px;
       padding: 10px 14px;
       display: flex;
@@ -154,10 +154,29 @@
       gap: 8px;
     }
 
+    .guest-brand-banner {
+      width: 100%;
+      height: 105px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1.5px solid rgba(0, 230, 200, 0.45);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), 0 0 10px rgba(0, 230, 200, 0.2);
+      background: #10121B;
+      margin: 4px 0;
+      flex-shrink: 0;
+    }
+
+    .guest-brand-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     .agenda-header-label {
       font-size: 11px;
       font-weight: 900;
-      color: #FFD700;
+      color: #00E6C8;
       letter-spacing: 1.5px;
       text-transform: uppercase;
     }
@@ -301,20 +320,20 @@
     .ticker-bar-vertical-mid {
       width: 100%;
       height: 64px;
-      background: linear-gradient(90deg, #0d0d0d 0%, #1a0000 40%, #0d0d0d 100%);
-      border: 2.5px solid #C0392B;
+      background: linear-gradient(90deg, #10121B 0%, #191d2c 40%, #10121B 100%);
+      border: 2.5px solid #FF375F;
       border-radius: 14px;
       display: flex;
       align-items: center;
       overflow: hidden;
-      box-shadow: 0 0 24px rgba(139, 0, 0, 0.6), inset 0 1px 0 rgba(255, 215, 0, 0.15);
+      box-shadow: 0 0 24px rgba(255, 55, 95, 0.45), inset 0 1px 0 rgba(0, 230, 200, 0.2);
       box-sizing: border-box;
     }
 
     .ticker-bar-vertical-mid .ticker-label {
       flex-shrink: 0;
-      background: linear-gradient(135deg, #8B0000, #C0392B);
-      color: #FFD700;
+      background: linear-gradient(135deg, #FF375F, #d91d44);
+      color: #FFFFFF;
       font-weight: 900;
       font-size: 16px;
       padding: 0 20px;
@@ -323,7 +342,7 @@
       align-items: center;
       letter-spacing: 2px;
       text-transform: uppercase;
-      border-right: 2px solid #FFD700;
+      border-right: 2px solid #00E6C8;
       gap: 10px;
       white-space: nowrap;
     }
@@ -331,9 +350,9 @@
     .ticker-bar-vertical-mid .ticker-dot {
       width: 10px;
       height: 10px;
-      background: #FF3B3B;
+      background: #00E6C8;
       border-radius: 50%;
-      box-shadow: 0 0 8px rgba(255, 59, 59, 0.9);
+      box-shadow: 0 0 8px rgba(0, 230, 200, 0.9);
       animation: blinkLive 1.4s infinite;
     }
 
@@ -348,18 +367,18 @@
     .ticker-bar-vertical-mid .ticker-content {
       font-size: 20px;
       font-weight: 600;
-      color: #DDD;
+      color: #FFFFFF;
       white-space: nowrap;
       animation: tickerScroll 35s linear infinite;
     }
 
     .ticker-bar-vertical-mid .ticker-content .highlight {
-      color: #FFD700;
+      color: #00E6C8;
       font-weight: 800;
     }
 
     .ticker-bar-vertical-mid .ticker-content .sep {
-      color: #C0392B;
+      color: #FF375F;
       margin: 0 12px;
       font-weight: 900;
     }
@@ -424,9 +443,9 @@
       inset: 0;
       border-radius: 20px;
       padding: 7px;
-      background: linear-gradient(45deg, #8B0000, #FFD700, #C0392B, #8B0000);
+      background: linear-gradient(45deg, #FF375F, #10121B, #00E6C8, #FF375F);
       background-size: 300% 300%;
-      animation: borderGlowGold 6s ease infinite;
+      animation: borderGlowCoral 6s ease infinite;
       -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
@@ -444,9 +463,9 @@
       inset: 0;
       border-radius: 20px;
       padding: 7px;
-      background: linear-gradient(45deg, #a855f7, #ec4899, #8b5cf6, #a855f7);
+      background: linear-gradient(45deg, #00E6C8, #10121B, #FF375F, #00E6C8);
       background-size: 300% 300%;
-      animation: borderGlowPurple 6s ease infinite;
+      animation: borderGlowTurquoise 6s ease infinite;
       -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
@@ -466,31 +485,46 @@
       border-radius: 14px;
     }
 
+    /* Badge circular de marca en esquina inferior izquierda del marco */
+    .cam-corner-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #10121B url('branding/logo-badge.png') center/cover no-repeat;
+      border: 2px solid #00E6C8;
+      box-shadow: 0 0 12px rgba(0, 230, 200, 0.6), 0 4px 10px rgba(0, 0, 0, 0.85);
+      z-index: 25;
+      pointer-events: none;
+    }
+
     /* Etiquetas de Nombre Personalizadas */
     .name-tag-custom {
       position: absolute;
       bottom: -22px;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(90deg, #0d0d0d 0%, #2a0000 50%, #0d0d0d 100%);
-      border: 2px solid #C0392B;
+      background: linear-gradient(90deg, #10121B 0%, #1c2030 50%, #10121B 100%);
+      border: 2px solid #00E6C8;
       border-radius: 14px;
       padding: 4px 22px;
       min-width: 220px;
       text-align: center;
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(192, 57, 43, 0.4);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 230, 200, 0.3);
       z-index: 20;
       white-space: nowrap;
     }
 
     .name-tag-custom-purple {
-      border-color: #a855f7;
-      background: linear-gradient(90deg, #0d0d0d 0%, #2b003a 50%, #0d0d0d 100%);
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(168, 85, 247, 0.4);
+      border-color: #FF375F;
+      background: linear-gradient(90deg, #10121B 0%, #25121c 50%, #10121B 100%);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 55, 95, 0.4);
     }
 
     .name-tag-custom .role-title {
-      color: #E74C3C;
+      color: #00E6C8;
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
@@ -498,7 +532,7 @@
     }
 
     .name-tag-custom-purple .role-title {
-      color: #a855f7;
+      color: #FF375F;
     }
 
     .name-tag-custom .user-name {
@@ -509,13 +543,44 @@
       letter-spacing: 1px;
     }
 
-    @keyframes borderGlowGold {
+    /* ── Banner rectangular de branding inferior (zona demarcada) ── */
+    .stage-bottom-branding {
+      position: absolute;
+      bottom: 134px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 540px;
+      max-width: calc(100% - 72px);
+      height: 76px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid rgba(0, 230, 200, 0.45);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 16px rgba(255, 55, 95, 0.35);
+      background: rgba(16, 18, 27, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 24;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      box-sizing: border-box;
+    }
+
+    .stage-bottom-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    @keyframes borderGlowCoral {
       0%   { background-position: 0% 50%; }
       50%  { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    @keyframes borderGlowPurple {
+    @keyframes borderGlowTurquoise {
       0%   { background-position: 0% 50%; }
       50%  { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }

@@ -86,11 +86,12 @@
 
     .event-badge {
       flex-shrink: 0;
-      background: linear-gradient(135deg, #8B0000, #C0392B);
+      background: linear-gradient(135deg, #FF375F, #d91d44);
+      border: 1.5px solid #00E6C8;
       border-radius: 14px;
       padding: 10px 20px;
       text-align: center;
-      box-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
+      box-shadow: 0 0 20px rgba(255, 55, 95, 0.4);
     }
 
     .event-badge .badge-icon {
@@ -101,7 +102,7 @@
     .event-badge .badge-label {
       font-size: 12px;
       font-weight: 900;
-      color: #FFD700;
+      color: #00E6C8;
       letter-spacing: 2px;
       text-transform: uppercase;
       margin-top: 4px;
@@ -118,7 +119,7 @@
       color: #FFFFFF;
       letter-spacing: 2px;
       line-height: 1.1;
-      text-shadow: 0 0 20px rgba(192, 57, 43, 0.6);
+      text-shadow: 0 0 20px rgba(0, 230, 200, 0.4), 0 0 15px rgba(255, 55, 95, 0.6);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -126,17 +127,17 @@
 
     .event-subtitle {
       font-size: 18px;
-      font-weight: 600;
-      color: #FFD700;
+      font-weight: 700;
+      color: #00E6C8;
       letter-spacing: 3px;
       text-transform: uppercase;
       margin-top: 4px;
-      opacity: 0.9;
+      opacity: 0.95;
     }
 
     .event-date {
       font-size: 15px;
-      color: rgba(255, 255, 255, 0.55);
+      color: #A0A5B5;
       letter-spacing: 2px;
       margin-top: 6px;
     }
@@ -148,13 +149,13 @@
       height: 3px;
       background: linear-gradient(90deg,
           transparent 0%,
-          #8B0000 15%,
-          #C0392B 35%,
-          #FFD700 50%,
-          #C0392B 65%,
-          #8B0000 85%,
+          #FF375F 15%,
+          #10121B 35%,
+          #00E6C8 50%,
+          #10121B 65%,
+          #FF375F 85%,
           transparent 100%);
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+      box-shadow: 0 0 10px rgba(0, 230, 200, 0.3);
       flex-shrink: 0;
     }
 
@@ -171,8 +172,8 @@
       position: absolute;
       inset: 0;
       background: transparent;
-      border-left: 3px solid rgba(139, 0, 0, 0.5);
-      border-right: 3px solid rgba(139, 0, 0, 0.5);
+      border-left: 3px solid rgba(0, 230, 200, 0.5);
+      border-right: 3px solid rgba(0, 230, 200, 0.5);
     }
 
     .cam-window {
@@ -190,11 +191,34 @@
       border-left: 3px solid transparent;
       border-right: 3px solid transparent;
       background: linear-gradient(180deg,
-          rgba(192, 57, 43, 0.8) 0%,
+          rgba(255, 55, 95, 0.8) 0%,
           transparent 8%,
           transparent 92%,
-          rgba(192, 57, 43, 0.8) 100%);
+          rgba(255, 55, 95, 0.8) 100%);
       pointer-events: none;
+    }
+
+    /* Badge circular de marca en esquina inferior izquierda del marco */
+    .cam-corner-badge {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #10121B url('branding/logo-badge.png') center/cover no-repeat;
+      border: 2px solid #00E6C8;
+      box-shadow: 0 0 14px rgba(0, 230, 200, 0.7), 0 4px 12px rgba(0, 0, 0, 0.85);
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    .header-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
     }
 
     /* ESQUINAS EN CÁMARA */

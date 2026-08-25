@@ -53,39 +53,62 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #8B0000, #C0392B);
-  border: 2px solid #FFD700;
+  background: #10121B url('../../branding/logo-badge.png') center/cover no-repeat;
+  border: 2px solid #00E6C8;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  box-shadow: 0 0 14px rgba(255, 215, 0, 0.45);
+  box-shadow: 0 0 14px rgba(255, 55, 95, 0.5);
+  overflow: hidden;
+}
+
+.header-logo-circle img,
+.header-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Badge circular de marca en esquina inferior izquierda del marco */
+.cam-corner-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #10121B url('../../branding/logo-badge.png') center/cover no-repeat;
+  border: 2px solid #00E6C8;
+  box-shadow: 0 0 12px rgba(0, 230, 200, 0.6), 0 4px 10px rgba(0, 0, 0, 0.85);
+  z-index: 25;
+  pointer-events: none;
 }
 
 .header-host-name,
 .header-show-name {
   font-size: 20px;
   font-weight: 900;
-  color: #FFD700;
+  color: #00E6C8;
   letter-spacing: 1.5px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 0 20px rgba(0, 230, 200, 0.4);
 }
 
 .header-host-role,
 .header-show-slogan {
   font-size: 12px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.9);
+  color: #A0A5B5;
   letter-spacing: 1px;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .participant-count-wrapper {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(0, 0, 0, 0.65);
-  border: 1px solid rgba(255, 215, 0, 0.35);
+  background: rgba(16, 18, 27, 0.85);
+  border: 1px solid rgba(0, 230, 200, 0.35);
   padding: 4px 14px;
   border-radius: 20px;
   backdrop-filter: blur(8px);

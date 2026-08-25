@@ -82,9 +82,9 @@ body {
   inset: 0;
   border-radius: 16px;
   padding: 5px;
-  background: linear-gradient(45deg, #8B0000, #FFD700, #C0392B, #8B0000);
+  background: linear-gradient(45deg, #FF375F, #10121B, #00E6C8, #FF375F);
   background-size: 300% 300%;
-  animation: borderGlowGold 6s ease infinite;
+  animation: borderGlowCoral 6s ease infinite;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -98,9 +98,9 @@ body {
   inset: 0;
   border-radius: 16px;
   padding: 5px;
-  background: linear-gradient(45deg, #FFD700, #E67E22, #FF8C00, #FFD700);
+  background: linear-gradient(45deg, #00E6C8, #10121B, #FF375F, #00E6C8);
   background-size: 300% 300%;
-  animation: borderGlowGold 6s ease infinite;
+  animation: borderGlowTurquoise 6s ease infinite;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -114,9 +114,25 @@ body {
   inset: 0;
   border-radius: 16px;
   padding: 5px;
-  background: linear-gradient(45deg, #00F2FE, #4FACFE, #00C6FF, #00F2FE);
+  background: linear-gradient(45deg, #FF375F, #10121B, #FFFFFF, #FF375F);
   background-size: 300% 300%;
-  animation: borderGlowCyan 6s ease infinite;
+  animation: borderGlowCoral 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.cam-box-grid.guest3-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 5px;
+  background: linear-gradient(45deg, #00E6C8, #10121B, #FF375F, #00E6C8);
+  background-size: 300% 300%;
+  animation: borderGlowTurquoise 6s ease infinite;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -144,7 +160,30 @@ body {
   width: 100%;
   height: 100%;
   background: transparent;
-  border-radius: 11px;
+  border-radius: 12px;
+}
+
+/* Badge circular de marca en esquina inferior izquierda del marco */
+.cam-corner-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #10121B url('branding/logo-badge.png') center/cover no-repeat;
+  border: 2px solid #00E6C8;
+  box-shadow: 0 0 10px rgba(0, 230, 200, 0.6), 0 3px 8px rgba(0, 0, 0, 0.85);
+  z-index: 25;
+  pointer-events: none;
+}
+
+.header-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
 }
 
 /* Panel de Redes / Agenda e Info Completa del Panel (Flexible y enriquecido) */
@@ -196,9 +235,28 @@ body {
 .info-header-wide .info-tag {
   font-size: 11px;
   font-weight: 800;
-  color: #FFD700;
+  color: #00E6C8;
   letter-spacing: 1.5px;
   text-transform: uppercase;
+}
+
+.guest-brand-banner {
+  width: 100%;
+  height: 90px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid rgba(0, 230, 200, 0.45);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), 0 0 10px rgba(0, 230, 200, 0.2);
+  background: #10121B;
+  margin: 2px 0;
+  flex-shrink: 0;
+}
+
+.guest-brand-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .info-header-wide .info-title {

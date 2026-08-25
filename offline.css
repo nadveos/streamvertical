@@ -53,7 +53,7 @@
       z-index: 1;
     }
 
-    /* ============================================================
+     /* ============================================================
        BANDAS PONCHO — decoración superior e inferior
        ============================================================ */
     .poncho-band {
@@ -62,12 +62,12 @@
       right: 0;
       height: 14px;
       background: repeating-linear-gradient(90deg,
-          #8B0000 0px, #8B0000 40px,
-          #1A1A1A 40px, #1A1A1A 60px,
-          #C0392B 60px, #C0392B 100px,
-          #1A1A1A 100px, #1A1A1A 120px,
-          #FFD700 120px, #FFD700 130px,
-          #1A1A1A 130px, #1A1A1A 150px);
+          #FF375F 0px, #FF375F 40px,
+          #10121B 40px, #10121B 60px,
+          #00E6C8 60px, #00E6C8 100px,
+          #10121B 100px, #10121B 120px,
+          #FF375F 120px, #FF375F 130px,
+          #10121B 130px, #10121B 150px);
       z-index: 5;
       opacity: 0.85;
     }
@@ -96,7 +96,7 @@
     .ring {
       position: absolute;
       border-radius: 50%;
-      border: 1.5px solid rgba(139, 0, 0, 0.5);
+      border: 1.5px solid rgba(255, 55, 95, 0.4);
       transform: translate(-50%, -50%);
       animation: ringExpand 5s ease-out infinite;
     }
@@ -123,13 +123,13 @@
       0% {
         transform: translate(-50%, -50%) scale(0.2);
         opacity: 0.8;
-        border-color: rgba(192, 57, 43, 0.6);
+        border-color: rgba(0, 230, 200, 0.6);
       }
 
       100% {
         transform: translate(-50%, -50%) scale(4.5);
         opacity: 0;
-        border-color: rgba(139, 0, 0, 0);
+        border-color: rgba(255, 55, 95, 0);
       }
     }
 
@@ -152,7 +152,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: rgba(10, 10, 10, 0.85);
+      background: rgba(16, 18, 27, 0.85);
       border: 1.5px solid #3a3a3a;
       border-radius: 30px;
       padding: 6px 20px;
@@ -198,8 +198,8 @@
       line-height: 1;
       text-align: center;
       text-shadow:
-        0 0 30px rgba(139, 0, 0, 0.7),
-        0 0 70px rgba(139, 0, 0, 0.3);
+        0 0 30px rgba(0, 230, 200, 0.7),
+        0 0 70px rgba(255, 55, 95, 0.4);
     }
 
     /* Línea decorativa dorada */
@@ -207,7 +207,7 @@
       width: 340px;
       height: 2px;
       background: linear-gradient(90deg,
-          transparent, #8B0000 20%, #FFD700 50%, #8B0000 80%, transparent);
+          transparent, #FF375F 20%, #00E6C8 50%, #FF375F 80%, transparent);
       border-radius: 2px;
       margin: 18px 0;
     }
@@ -216,16 +216,16 @@
     .main-msg {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 52px;
-      color: #C0392B;
+      color: #FF375F;
       letter-spacing: 6px;
       text-align: center;
-      text-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
+      text-shadow: 0 0 20px rgba(255, 55, 95, 0.5);
     }
 
     .sub-msg {
       font-size: 16px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.45);
+      color: #A0A5B5;
       letter-spacing: 3px;
       text-transform: uppercase;
       margin-top: 12px;
@@ -250,8 +250,8 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(15, 15, 15, 0.85);
-      border: 1.5px solid rgba(139, 0, 0, 0.4);
+      background: rgba(16, 18, 27, 0.85);
+      border: 1.5px solid rgba(0, 230, 200, 0.4);
       border-radius: 24px;
       padding: 8px 20px;
       color: rgba(255, 255, 255, 0.7);
@@ -266,7 +266,7 @@
     }
 
     .social-item .handle {
-      color: #FFD700;
+      color: #00E6C8;
     }
 
     /* ============================================================
@@ -304,8 +304,8 @@
       width: 60px;
       height: 60px;
       fill: none;
-      stroke: #8B0000;
+      stroke: #00E6C8;
       stroke-width: 2;
       opacity: 0.5;
-      filter: drop-shadow(0 0 4px rgba(139, 0, 0, 0.5));
+      filter: drop-shadow(0 0 4px rgba(0, 230, 200, 0.5));
     }

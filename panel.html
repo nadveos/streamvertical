@@ -178,16 +178,16 @@
     }
 
     /* Colores individuales de pestañas (Estilo imagen de referencia) */
-    .tab-color-hosts  { background: #E74C3C; } /* Coral / Rojo */
-    .tab-color-guests { background: #0099FF; } /* Azul Brillante */
-    .tab-color-agenda { background: #9B59B6; } /* Púrpura */
-    .tab-color-ticker { background: #2ECC71; } /* Verde Esmeralda */
-    .tab-color-urls   { background: #F39C12; } /* Amarillo Ámbar */
-    .tab-color-tools  { background: #34495E; } /* Pizarra Oscuro */
+    .tab-color-hosts  { background: #FF375F; } /* Coral Neón */
+    .tab-color-guests { background: #00E6C8; color: #10121B; } /* Turquesa Acústico */
+    .tab-color-agenda { background: #6C5CE7; } /* Púrpura */
+    .tab-color-ticker { background: #FF375F; } /* Coral Neón */
+    .tab-color-urls   { background: #00E6C8; color: #10121B; } /* Turquesa Acústico */
+    .tab-color-tools  { background: #232738; } /* Carbón Estudio */
 
     /* ── Cuerpo del Fichero ──────────────────────────────────── */
     .folder-body {
-      background: #E74C3C; /* Cambia con JS según la pestaña activa */
+      background: #FF375F; /* Cambia con JS según la pestaña activa */
       border-bottom-left-radius: 14px;
       border-bottom-right-radius: 14px;
       padding: 22px;
@@ -428,22 +428,22 @@
 
     <!-- Pestañas Tipo Fichero Multicolor -->
     <nav class="folder-tabs-bar" role="tablist">
-      <button type="button" class="folder-tab tab-color-hosts active" data-color="#E74C3C" onclick="switchFolderTab('tab-hosts', this)">
+      <button type="button" class="folder-tab tab-color-hosts active" data-color="#FF375F" onclick="switchFolderTab('tab-hosts', this)">
         🎬 SHOW & HOSTS
       </button>
-      <button type="button" class="folder-tab tab-color-guests" data-color="#0099FF" onclick="switchFolderTab('tab-guests', this)">
+      <button type="button" class="folder-tab tab-color-guests" data-color="#00E6C8" onclick="switchFolderTab('tab-guests', this)">
         💬 INVITADOS
       </button>
-      <button type="button" class="folder-tab tab-color-agenda" data-color="#9B59B6" onclick="switchFolderTab('tab-agenda', this)">
+      <button type="button" class="folder-tab tab-color-agenda" data-color="#6C5CE7" onclick="switchFolderTab('tab-agenda', this)">
         ⚡ AGENDA
       </button>
-      <button type="button" class="folder-tab tab-color-ticker" data-color="#2ECC71" onclick="switchFolderTab('tab-ticker', this)">
+      <button type="button" class="folder-tab tab-color-ticker" data-color="#FF375F" onclick="switchFolderTab('tab-ticker', this)">
         ✨ TICKER
       </button>
-      <button type="button" class="folder-tab tab-color-urls" data-color="#F39C12" onclick="switchFolderTab('tab-urls', this)">
+      <button type="button" class="folder-tab tab-color-urls" data-color="#00E6C8" onclick="switchFolderTab('tab-urls', this)">
         📡 URLS OBS
       </button>
-      <button type="button" class="folder-tab tab-color-tools" data-color="#34495E" onclick="switchFolderTab('tab-tools', this)">
+      <button type="button" class="folder-tab tab-color-tools" data-color="#232738" onclick="switchFolderTab('tab-tools', this)">
         🚀 HERRAMIENTAS
       </button>
     </nav>
