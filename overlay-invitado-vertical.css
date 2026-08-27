@@ -95,7 +95,7 @@ body {
   white-space: nowrap;
 }
 
-/*.guest-cam-box-9x16 {
+.guest-cam-box-9x16 {
   width: 500px;
   height: 888px;
   aspect-ratio: 9 / 16;
@@ -106,7 +106,7 @@ body {
   transition: width 0.35s ease, height 0.35s ease;
 }
 
-/* Si Co-Host está activo, ajustamos la altura a 764px para que entren cómodamente las 2 cams 16:9 abajo */
+/* Con Co-Host activo el invitado se reduce para dar espacio a los hosts */
 .vertical-guest-layout:has(.cohost-card-wrapper:not([style*="display: none"])) .guest-cam-box-9x16 {
   width: 430px;
   height: 764px;
@@ -352,16 +352,34 @@ body {
 }
 
 /* ── 3. SECCIÓN ANFITRIÓN Y CO-ANFITRIÓN (ABAJO - 16:9) ───── */
+
+/* FILA (row) — host y cohost lado a lado */
 .host-cohost-row-16x9 {
   width: 100%;
   max-width: 1000px;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 20px;
   flex-shrink: 0;
 }
 
+/* COLUMNA (col) — host arriba, cohost abajo */
+.host-cohost-col-16x9 {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+/* Wrappers en modo FILA */
 .host-cohost-row-16x9 .host-card-wrapper {
   width: 980px;
   max-width: 1000px;
@@ -383,6 +401,35 @@ body {
 
 .host-cohost-row-16x9:has(.cohost-card-wrapper:not([style*="display: none"])) .host-card-wrapper {
   width: 490px;
+}
+
+/* Wrappers en modo COLUMNA */
+.host-cohost-col-16x9 .host-card-wrapper {
+  width: 980px;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: width 0.35s ease;
+}
+
+.host-cohost-col-16x9 .cohost-card-wrapper {
+  width: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: width 0.35s ease;
+}
+
+/* Con Co-Host activo: ambos a 750px × 422px apilados */
+.vertical-guest-layout:has(.cohost-card-wrapper:not([style*="display: none"])) .host-cohost-col-16x9 .host-card-wrapper {
+  width: 750px;
+}
+
+.vertical-guest-layout:has(.cohost-card-wrapper:not([style*="display: none"])) .host-cohost-col-16x9 .cohost-card-wrapper {
+  width: 750px;
 }
 
 .host-cam-box-16x9,
@@ -508,3 +555,13 @@ body {
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
+/* ── ESCALA RESPONSIVA PARA PREVIEW EN BROWSER ─────────────
+   Solo aplica cuando el viewport es más angosto que el canvas (1080px).
+   TikTok Live Studio / OBS renderiza a exactamente 1080px de ancho,
+   por lo que esta media query NUNCA se activa en producción.
+   Eso evita el 'position: fixed' que causaba desfases de posición.
+   ──────────────────────────────────────────────────────── */
+/* Media query de escala eliminada intencionalmente.
+   En TikTok Live Studio / OBS el canvas es 1080×1920 y no necesita transform.
+   El body fijo 1080×1920 con overflow:hidden es suficiente para producción. */
