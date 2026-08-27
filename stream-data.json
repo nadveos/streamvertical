@@ -1,8 +1,8 @@
 {
   "show": {
     "title": "SESIONES RG",
-    "slogan": "En Vivo: Entrevistas en vivo y zapadas con invitados.",
-    "preset": "envivo"
+    "slogan": "En Vivo: Invitados de lujo",
+    "preset": "custom"
   },
   "host": {
     "name": "GUTA FLORES",
@@ -12,14 +12,6 @@
     "enabled": true,
     "name": "RAÚL DOMINGO",
     "role": ""
-  },
-  "socials": {
-    "tiktok": "@gutafloresok",
-    "instagram": "@gutafloresok",
-    "youtube": "@gutaflores",
-    "facebook": "",
-    "twitch": "",
-    "kick": ""
   },
   "guest": {
     "enabled": true,
@@ -127,6 +119,14 @@
     "phrase1": "HOY INVITADOS ESTELARES",
     "connector": "|",
     "phrase2": "GUITARREAMOS UN RATO"
+  },
+  "socials": {
+    "tiktok": "@gutafloresok",
+    "instagram": "@gutafloresok",
+    "youtube": "@gutaflores",
+    "facebook": "gutafloresOK",
+    "twitch": "",
+    "kick": ""
   },
   "agenda": [
     {
