@@ -156,39 +156,58 @@
       </div>
 
       <div class="card-section">
-        <div class="section-title">📡 Plataformas de Transmisión</div>
-        <div class="platforms-grid">
-          <label class="platform-checkbox">
-            <input type="checkbox" id="platYT" checked onchange="updatePlatforms()">
-            <span>🔴 YouTube</span>
-          </label>
-          <label class="platform-checkbox">
-            <input type="checkbox" id="platIG" checked onchange="updatePlatforms()">
-            <span>📸 Instagram</span>
-          </label>
-          <label class="platform-checkbox">
-            <input type="checkbox" id="platTK" checked onchange="updatePlatforms()">
-            <span>🎵 TikTok</span>
-          </label>
-          <label class="platform-checkbox">
-            <input type="checkbox" id="platFB" checked onchange="updatePlatforms()">
-            <span>💙 Facebook</span>
-          </label>
+        <div class="section-title">📲 Redes Sociales y Handles (Show / Host)</div>
+        <p style="font-size:11px; color:#888; margin-bottom:4px;">
+          Solo se mostrarán en el flyer las redes que tengan un handle cargado.
+        </p>
+        
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:6px;">
+              <img src="logos/tiktok.png" alt="TikTok" style="width:14px; height:14px; object-fit:contain;"> TikTok
+            </label>
+            <input type="text" id="flyerSocialTikTok" placeholder="@gutafloresok" value="@gutafloresok">
+          </div>
+
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:6px;">
+              <img src="logos/instagram.png" alt="Instagram" style="width:14px; height:14px; object-fit:contain;"> Instagram
+            </label>
+            <input type="text" id="flyerSocialInstagram" placeholder="@gutafloresok" value="@gutafloresok">
+          </div>
+
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:6px;">
+              <img src="logos/youtube.png" alt="YouTube" style="width:14px; height:14px; object-fit:contain;"> YouTube
+            </label>
+            <input type="text" id="flyerSocialYouTube" placeholder="@gutaflores" value="@gutaflores">
+          </div>
+
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:6px;">
+              <img src="logos/facebook.png" alt="Facebook" style="width:14px; height:14px; object-fit:contain;"> Facebook
+            </label>
+            <input type="text" id="flyerSocialFacebook" placeholder="gutaflores">
+          </div>
+
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:6px;">
+              <img src="logos/twitch.png" alt="Twitch" style="width:14px; height:14px; object-fit:contain;"> Twitch
+            </label>
+            <input type="text" id="flyerSocialTwitch" placeholder="gutaflores">
+          </div>
+
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:6px;">
+              <img src="logos/kick.png" alt="Kick" style="width:14px; height:14px; object-fit:contain;"> Kick
+            </label>
+            <input type="text" id="flyerSocialKick" placeholder="gutaflores">
+          </div>
         </div>
       </div>
 
       <div class="card-section">
-        <div class="section-title">📲 Usernames / Handles</div>
-
-        <div class="form-group">
-          <label>Handle Host</label>
-          <input type="text" id="inputHostHandle" value="@gutafloresok" placeholder="@usuario">
-        </div>
-
-        <div class="form-group">
-          <label>Handle Co-Host <span style="font-weight:normal; color:#888;">(Opcional)</span></label>
-          <input type="text" id="inputCohostHandle" value="@rauldomingooficial" placeholder="Dejar vacío si no hay">
-        </div>
+        <div class="section-title">💬 Handles del Invitado</div>
 
         <div class="form-group">
           <label>Handle(s) del Invitado</label>
@@ -268,13 +287,8 @@
                 Conducción: 🎙️ <span class="highlight">Guta Flores y Raúl Domingo</span>
               </div>
 
-              <!-- Social Platforms Row -->
-              <div id="displayPlatformsRow" class="flyer-platforms-row">
-                <div class="platform-pill">🔴 YouTube</div>
-                <div class="platform-pill">📸 Instagram</div>
-                <div class="platform-pill">🎵 TikTok</div>
-                <div class="platform-pill">💙 Facebook</div>
-              </div>
+              <!-- Social Platforms & Handles Row -->
+              <div id="displaySocialsRow" class="flyer-socials-row"></div>
             </div>
 
             <!-- Footer Handles (Dynamic: Host, Cohost, Guest) -->
@@ -305,15 +319,22 @@
       'inputDateTime',
       'inputHostName',
       'inputCohostName',
-      'inputHostHandle',
-      'inputCohostHandle',
+      'flyerSocialTikTok',
+      'flyerSocialInstagram',
+      'flyerSocialYouTube',
+      'flyerSocialFacebook',
+      'flyerSocialTwitch',
+      'flyerSocialKick',
       'inputGuestHandle'
     ];
 
     liveTextInputs.forEach(inputId => {
       const el = document.getElementById(inputId);
       if (el) {
-        el.addEventListener('input', updateFlyerText);
+        el.addEventListener('input', () => {
+          updateFlyerText();
+          updateSocialsDisplay();
+        });
       }
     });
 
@@ -346,8 +367,6 @@
     }
 
     function updateFooterHandles() {
-      const hostHandle = (document.getElementById('inputHostHandle')?.value || '').trim();
-      const cohostHandle = (document.getElementById('inputCohostHandle')?.value || '').trim();
       const guestHandle = (document.getElementById('inputGuestHandle')?.value || '').trim();
       const footerEl = document.getElementById('displayFooterHandles');
 
@@ -355,29 +374,11 @@
 
       const isValid = (h) => h && h !== '@' && h.length > 1;
 
-      let hostBadges = [];
-      if (isValid(hostHandle)) {
-        hostBadges.push(`<span class="handle-badge">${hostHandle}</span>`);
-      }
-      if (isValid(cohostHandle)) {
-        hostBadges.push(`<span class="handle-badge">${cohostHandle}</span>`);
-      }
-
-      let leftHtml = '';
-      if (hostBadges.length > 0) {
-        leftHtml = `<div>🎙️ ${hostBadges.join(' ')}</div>`;
-      }
-
-      let rightHtml = '';
       if (isValid(guestHandle)) {
-        rightHtml = `<div>💬 <span class="handle-badge">${guestHandle}</span></div>`;
-      }
-
-      if (!leftHtml && !rightHtml) {
-        footerEl.style.display = 'none';
-      } else {
         footerEl.style.display = 'flex';
-        footerEl.innerHTML = (leftHtml || '<div></div>') + (rightHtml || '<div></div>');
+        footerEl.innerHTML = `<div>Invitado:</div><div>💬 <span class="handle-badge">${guestHandle}</span></div>`;
+      } else {
+        footerEl.style.display = 'none';
       }
     }
 
@@ -527,15 +528,41 @@
       }
     }
 
-    // Actualizar plataformas seleccionadas
-    function updatePlatforms() {
-      const container = document.getElementById('displayPlatformsRow');
+    const SOCIAL_CONFIG = [
+      { key: 'tiktok',    name: 'TikTok',    inputId: 'flyerSocialTikTok',    logo: 'logos/tiktok.png' },
+      { key: 'instagram', name: 'Instagram', inputId: 'flyerSocialInstagram', logo: 'logos/instagram.png' },
+      { key: 'youtube',   name: 'YouTube',   inputId: 'flyerSocialYouTube',   logo: 'logos/youtube.png' },
+      { key: 'facebook',  name: 'Facebook',  inputId: 'flyerSocialFacebook',  logo: 'logos/facebook.png' },
+      { key: 'twitch',    name: 'Twitch',    inputId: 'flyerSocialTwitch',    logo: 'logos/twitch.png' },
+      { key: 'kick',      name: 'Kick',      inputId: 'flyerSocialKick',      logo: 'logos/kick.png' }
+    ];
+
+    // Actualizar sección de redes sociales del flyer
+    function updateSocialsDisplay() {
+      const container = document.getElementById('displaySocialsRow');
+      if (!container) return;
+
       let html = '';
-      if (document.getElementById('platYT').checked) html += '<div class="platform-pill">🔴 YouTube</div>';
-      if (document.getElementById('platIG').checked) html += '<div class="platform-pill">📸 Instagram</div>';
-      if (document.getElementById('platTK').checked) html += '<div class="platform-pill">🎵 TikTok</div>';
-      if (document.getElementById('platFB').checked) html += '<div class="platform-pill">💙 Facebook</div>';
-      container.innerHTML = html;
+      SOCIAL_CONFIG.forEach(item => {
+        const val = (document.getElementById(item.inputId)?.value || '').trim();
+        if (val) {
+          html += `
+            <div class="social-pill">
+              <div class="social-pill-logo-box">
+                <img src="${item.logo}" alt="${item.name}" class="social-pill-logo">
+              </div>
+              <span class="social-pill-text">${val}</span>
+            </div>
+          `;
+        }
+      });
+
+      if (html) {
+        container.style.display = 'flex';
+        container.innerHTML = html;
+      } else {
+        container.style.display = 'none';
+      }
     }
 
     // Alternar entre pestañas de formato (Nuestras Redes vs Para el Invitado)
@@ -632,7 +659,16 @@
           const handles = activeGuest.socials.filter(s => s.handle).map(s => s.handle).join(' ');
           if (handles) document.getElementById('inputGuestHandle').value = handles;
         }
+        if (data.socials) {
+          if (data.socials.tiktok !== undefined) document.getElementById('flyerSocialTikTok').value = data.socials.tiktok;
+          if (data.socials.instagram !== undefined) document.getElementById('flyerSocialInstagram').value = data.socials.instagram;
+          if (data.socials.youtube !== undefined) document.getElementById('flyerSocialYouTube').value = data.socials.youtube;
+          if (data.socials.facebook !== undefined) document.getElementById('flyerSocialFacebook').value = data.socials.facebook;
+          if (data.socials.twitch !== undefined) document.getElementById('flyerSocialTwitch').value = data.socials.twitch;
+          if (data.socials.kick !== undefined) document.getElementById('flyerSocialKick').value = data.socials.kick;
+        }
         updateFlyerText();
+        updateSocialsDisplay();
       }
     }
 
@@ -647,7 +683,16 @@
           const activeGuest = data.guest || data.guest1;
           if (activeGuest && activeGuest.name) document.getElementById('inputArtistName').value = activeGuest.name.toUpperCase();
           if (activeGuest && activeGuest.role) document.getElementById('inputArtistRole').value = activeGuest.role.replace(/^[^\w\s]+/g, '').trim();
+          if (data.socials) {
+            if (data.socials.tiktok !== undefined) document.getElementById('flyerSocialTikTok').value = data.socials.tiktok;
+            if (data.socials.instagram !== undefined) document.getElementById('flyerSocialInstagram').value = data.socials.instagram;
+            if (data.socials.youtube !== undefined) document.getElementById('flyerSocialYouTube').value = data.socials.youtube;
+            if (data.socials.facebook !== undefined) document.getElementById('flyerSocialFacebook').value = data.socials.facebook;
+            if (data.socials.twitch !== undefined) document.getElementById('flyerSocialTwitch').value = data.socials.twitch;
+            if (data.socials.kick !== undefined) document.getElementById('flyerSocialKick').value = data.socials.kick;
+          }
           updateFlyerText();
+          updateSocialsDisplay();
         } catch (err) {}
       }
     });

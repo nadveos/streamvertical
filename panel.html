@@ -182,7 +182,8 @@
     .tab-color-guests { background: #00E6C8; color: #10121B; } /* Turquesa Acústico */
     .tab-color-agenda { background: #6C5CE7; } /* Púrpura */
     .tab-color-ticker { background: #FF375F; } /* Coral Neón */
-    .tab-color-urls   { background: #00E6C8; color: #10121B; } /* Turquesa Acústico */
+    .tab-color-rrss   { background: #00E6C8; color: #10121B; } /* Turquesa RRSS */
+    .tab-color-urls   { background: #E67E22; } /* Naranja */
     .tab-color-tools  { background: #232738; } /* Carbón Estudio */
 
     /* ── Cuerpo del Fichero ──────────────────────────────────── */
@@ -440,7 +441,10 @@
       <button type="button" class="folder-tab tab-color-ticker" data-color="#FF375F" onclick="switchFolderTab('tab-ticker', this)">
         ✨ TICKER
       </button>
-      <button type="button" class="folder-tab tab-color-urls" data-color="#00E6C8" onclick="switchFolderTab('tab-urls', this)">
+      <button type="button" class="folder-tab tab-color-rrss" data-color="#00E6C8" onclick="switchFolderTab('tab-rrss', this)">
+        📲 REDES / RRSS
+      </button>
+      <button type="button" class="folder-tab tab-color-urls" data-color="#E67E22" onclick="switchFolderTab('tab-urls', this)">
         📡 URLS OBS
       </button>
       <button type="button" class="folder-tab tab-color-tools" data-color="#232738" onclick="switchFolderTab('tab-tools', this)">
@@ -805,7 +809,102 @@
       </section>
 
       <!-- ══════════════════════════════════════════════════════════
-           PESTAÑA 5: URLS OBS & TIKTOK (Ámbar #F39C12)
+           PESTAÑA 5: REDES SOCIALES / RRSS
+           ══════════════════════════════════════════════════════════ -->
+      <section id="tab-rrss" class="tab-pane">
+        <div class="inner-card" style="border: 2px solid #00E6C8; background: linear-gradient(135deg, rgba(0, 230, 200, 0.08) 0%, rgba(20, 22, 30, 0.95) 100%);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div class="card-title" style="margin-bottom:0; color: #00E6C8; display:flex; align-items:center; gap:8px;">
+              <span>📲</span> REDES SOCIALES DEL PROGRAMA (SHOW / HOST)
+            </div>
+            <span style="font-size:11px; background:rgba(0,230,200,0.18); color:#00E6C8; padding:3px 10px; border-radius:12px; font-weight:800; border:1px solid rgba(0,230,200,0.4);">
+              FLYERS & OVERLAYS
+            </span>
+          </div>
+          <div class="card-subtitle" style="margin-bottom:16px;">
+            Configurá los handles / nombres de usuario oficiales. <strong>Solo las redes que tengan un handle definido se mostrarán en los flyers y pantallas.</strong>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:14px;">
+            
+            <!-- TikTok -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,55,95,0.3); border-radius:10px; padding:14px; display:flex; align-items:center; gap:14px;">
+              <div style="width:42px; height:42px; min-width:42px; background:#0B0C12; border:1px solid #333; border-radius:8px; display:flex; align-items:center; justify-content:center; padding:6px; box-sizing:border-box;">
+                <img src="logos/tiktok.png" alt="TikTok" style="width:100%; height:100%; object-fit:contain; display:block;">
+              </div>
+              <div style="flex:1;">
+                <label style="font-size:11px; color:#FF375F; font-weight:800; letter-spacing:0.5px;">TIKTOK</label>
+                <input type="text" id="socialTikTok" placeholder="@gutafloresok" style="width:100%; margin-top:4px;">
+              </div>
+            </div>
+
+            <!-- Instagram -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(225,48,108,0.3); border-radius:10px; padding:14px; display:flex; align-items:center; gap:14px;">
+              <div style="width:42px; height:42px; min-width:42px; background:#0B0C12; border:1px solid #333; border-radius:8px; display:flex; align-items:center; justify-content:center; padding:6px; box-sizing:border-box;">
+                <img src="logos/instagram.png" alt="Instagram" style="width:100%; height:100%; object-fit:contain; display:block;">
+              </div>
+              <div style="flex:1;">
+                <label style="font-size:11px; color:#E1306C; font-weight:800; letter-spacing:0.5px;">INSTAGRAM</label>
+                <input type="text" id="socialInstagram" placeholder="@gutafloresok" style="width:100%; margin-top:4px;">
+              </div>
+            </div>
+
+            <!-- YouTube -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,0,0,0.3); border-radius:10px; padding:14px; display:flex; align-items:center; gap:14px;">
+              <div style="width:42px; height:42px; min-width:42px; background:#0B0C12; border:1px solid #333; border-radius:8px; display:flex; align-items:center; justify-content:center; padding:6px; box-sizing:border-box;">
+                <img src="logos/youtube.png" alt="YouTube" style="width:100%; height:100%; object-fit:contain; display:block;">
+              </div>
+              <div style="flex:1;">
+                <label style="font-size:11px; color:#FF0000; font-weight:800; letter-spacing:0.5px;">YOUTUBE</label>
+                <input type="text" id="socialYouTube" placeholder="@gutaflores" style="width:100%; margin-top:4px;">
+              </div>
+            </div>
+
+            <!-- Facebook -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(24,119,242,0.3); border-radius:10px; padding:14px; display:flex; align-items:center; gap:14px;">
+              <div style="width:42px; height:42px; min-width:42px; background:#0B0C12; border:1px solid #333; border-radius:8px; display:flex; align-items:center; justify-content:center; padding:6px; box-sizing:border-box;">
+                <img src="logos/facebook.png" alt="Facebook" style="width:100%; height:100%; object-fit:contain; display:block;">
+              </div>
+              <div style="flex:1;">
+                <label style="font-size:11px; color:#1877F2; font-weight:800; letter-spacing:0.5px;">FACEBOOK</label>
+                <input type="text" id="socialFacebook" placeholder="gutaflores" style="width:100%; margin-top:4px;">
+              </div>
+            </div>
+
+            <!-- Twitch -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(145,70,255,0.3); border-radius:10px; padding:14px; display:flex; align-items:center; gap:14px;">
+              <div style="width:42px; height:42px; min-width:42px; background:#0B0C12; border:1px solid #333; border-radius:8px; display:flex; align-items:center; justify-content:center; padding:6px; box-sizing:border-box;">
+                <img src="logos/twitch.png" alt="Twitch" style="width:100%; height:100%; object-fit:contain; display:block;">
+              </div>
+              <div style="flex:1;">
+                <label style="font-size:11px; color:#9146FF; font-weight:800; letter-spacing:0.5px;">TWITCH</label>
+                <input type="text" id="socialTwitch" placeholder="gutaflores" style="width:100%; margin-top:4px;">
+              </div>
+            </div>
+
+            <!-- Kick -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(83,252,24,0.3); border-radius:10px; padding:14px; display:flex; align-items:center; gap:14px;">
+              <div style="width:42px; height:42px; min-width:42px; background:#0B0C12; border:1px solid #333; border-radius:8px; display:flex; align-items:center; justify-content:center; padding:6px; box-sizing:border-box;">
+                <img src="logos/kick.png" alt="Kick" style="width:100%; height:100%; object-fit:contain; display:block;">
+              </div>
+              <div style="flex:1;">
+                <label style="font-size:11px; color:#53FC18; font-weight:800; letter-spacing:0.5px;">KICK</label>
+                <input type="text" id="socialKick" placeholder="gutaflores" style="width:100%; margin-top:4px;">
+              </div>
+            </div>
+
+          </div>
+
+          <div style="margin-top:16px; display:flex; justify-content:flex-end;">
+            <a href="flyers.html" target="_blank" class="btn-action-pill" style="display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:#00E6C8; border-color:#00E6C8;">
+              🎨 Ir al Generador de Flyers →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           PESTAÑA 6: URLS OBS & TIKTOK (Ámbar #F39C12)
            ══════════════════════════════════════════════════════════ -->
       <section id="tab-urls" class="tab-pane">
         <div class="inner-card">
@@ -1437,6 +1536,15 @@
       if (data.ticker) {
         document.getElementById('tickerText').value = data.ticker.map(t => t.prefix ? `${t.prefix} | ${t.text}` : t.text).join('\n');
       }
+
+      // ── Cargar Redes Sociales / RRSS ──
+      var socials = data.socials || {};
+      if (document.getElementById('socialTikTok')) document.getElementById('socialTikTok').value = socials.tiktok || '';
+      if (document.getElementById('socialInstagram')) document.getElementById('socialInstagram').value = socials.instagram || '';
+      if (document.getElementById('socialYouTube')) document.getElementById('socialYouTube').value = socials.youtube || '';
+      if (document.getElementById('socialFacebook')) document.getElementById('socialFacebook').value = socials.facebook || '';
+      if (document.getElementById('socialTwitch')) document.getElementById('socialTwitch').value = socials.twitch || '';
+      if (document.getElementById('socialKick')) document.getElementById('socialKick').value = socials.kick || '';
     }
 
     // ── Guardado de Datos ──────────────────────────────────────────
@@ -1580,6 +1688,14 @@
           phrase1: document.getElementById('mottoPhrase1').value,
           connector: document.getElementById('mottoConnector').value,
           phrase2: document.getElementById('mottoPhrase2').value
+        },
+        socials: {
+          tiktok: (document.getElementById('socialTikTok')?.value || '').trim(),
+          instagram: (document.getElementById('socialInstagram')?.value || '').trim(),
+          youtube: (document.getElementById('socialYouTube')?.value || '').trim(),
+          facebook: (document.getElementById('socialFacebook')?.value || '').trim(),
+          twitch: (document.getElementById('socialTwitch')?.value || '').trim(),
+          kick: (document.getElementById('socialKick')?.value || '').trim()
         },
         agenda: agendaObj,
         ticker: tickerObj

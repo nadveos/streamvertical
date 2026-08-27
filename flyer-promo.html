@@ -118,12 +118,32 @@
         </div>
 
         <div class="form-group">
-          <label>Plataformas Activas</label>
+          <label>Redes Sociales y Handles</label>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:4px;">
-            <label style="font-size:12px; font-weight:700;"><input type="checkbox" id="platYT" checked onchange="renderPromo()"> 🔴 YouTube</label>
-            <label style="font-size:12px; font-weight:700;"><input type="checkbox" id="platIG" checked onchange="renderPromo()"> 📸 Instagram</label>
-            <label style="font-size:12px; font-weight:700;"><input type="checkbox" id="platTK" checked onchange="renderPromo()"> 🎵 TikTok</label>
-            <label style="font-size:12px; font-weight:700;"><input type="checkbox" id="platFB" checked onchange="renderPromo()"> 💙 Facebook</label>
+            <div>
+              <label style="font-size:11px; display:flex; align-items:center; gap:4px;"><img src="logos/tiktok.png" style="width:12px; height:12px; object-fit:contain;"> TikTok</label>
+              <input type="text" id="promoSocialTikTok" placeholder="@gutafloresok" oninput="renderPromo()">
+            </div>
+            <div>
+              <label style="font-size:11px; display:flex; align-items:center; gap:4px;"><img src="logos/instagram.png" style="width:12px; height:12px; object-fit:contain;"> Instagram</label>
+              <input type="text" id="promoSocialInstagram" placeholder="@gutafloresok" oninput="renderPromo()">
+            </div>
+            <div>
+              <label style="font-size:11px; display:flex; align-items:center; gap:4px;"><img src="logos/youtube.png" style="width:12px; height:12px; object-fit:contain;"> YouTube</label>
+              <input type="text" id="promoSocialYouTube" placeholder="@gutaflores" oninput="renderPromo()">
+            </div>
+            <div>
+              <label style="font-size:11px; display:flex; align-items:center; gap:4px;"><img src="logos/facebook.png" style="width:12px; height:12px; object-fit:contain;"> Facebook</label>
+              <input type="text" id="promoSocialFacebook" placeholder="gutaflores" oninput="renderPromo()">
+            </div>
+            <div>
+              <label style="font-size:11px; display:flex; align-items:center; gap:4px;"><img src="logos/twitch.png" style="width:12px; height:12px; object-fit:contain;"> Twitch</label>
+              <input type="text" id="promoSocialTwitch" placeholder="gutaflores" oninput="renderPromo()">
+            </div>
+            <div>
+              <label style="font-size:11px; display:flex; align-items:center; gap:4px;"><img src="logos/kick.png" style="width:12px; height:12px; object-fit:contain;"> Kick</label>
+              <input type="text" id="promoSocialKick" placeholder="gutaflores" oninput="renderPromo()">
+            </div>
           </div>
         </div>
       </div>
@@ -182,15 +202,7 @@
 
           <!-- Footer Platforms & Handles -->
           <div class="promo-footer-platforms">
-            <div id="displayPlatformsRow" class="platforms-pills-row">
-              <div class="platform-pill">🔴 YouTube</div>
-              <div class="platform-pill">📸 Instagram</div>
-              <div class="platform-pill">🎵 TikTok</div>
-              <div class="platform-pill">💙 Facebook</div>
-            </div>
-            <div class="handles-row">
-              <span>Sintonizá y Seguinos en: <strong id="displayHostHandle" class="handle-badge">@gutafloresok</strong></span>
-            </div>
+            <div id="displayPlatformsRow" class="platforms-pills-row"></div>
           </div>
 
         </div>
@@ -228,13 +240,30 @@
 
       document.getElementById('displayHostHandle').textContent = document.getElementById('inputHostHandle').value;
 
-      // Update platforms
       const row = document.getElementById('displayPlatformsRow');
+      const socialsList = [
+        { id: 'promoSocialTikTok', logo: 'logos/tiktok.png', name: 'TikTok' },
+        { id: 'promoSocialInstagram', logo: 'logos/instagram.png', name: 'Instagram' },
+        { id: 'promoSocialYouTube', logo: 'logos/youtube.png', name: 'YouTube' },
+        { id: 'promoSocialFacebook', logo: 'logos/facebook.png', name: 'Facebook' },
+        { id: 'promoSocialTwitch', logo: 'logos/twitch.png', name: 'Twitch' },
+        { id: 'promoSocialKick', logo: 'logos/kick.png', name: 'Kick' }
+      ];
+
       let html = '';
-      if (document.getElementById('platYT').checked) html += '<div class="platform-pill">🔴 YouTube</div>';
-      if (document.getElementById('platIG').checked) html += '<div class="platform-pill">📸 Instagram</div>';
-      if (document.getElementById('platTK').checked) html += '<div class="platform-pill">🎵 TikTok</div>';
-      if (document.getElementById('platFB').checked) html += '<div class="platform-pill">💙 Facebook</div>';
+      socialsList.forEach(s => {
+        const val = (document.getElementById(s.id)?.value || '').trim();
+        if (val) {
+          html += `
+            <div class="social-pill">
+              <div class="social-pill-logo-box">
+                <img src="${s.logo}" alt="${s.name}" class="social-pill-logo">
+              </div>
+              <span class="social-pill-text">${val}</span>
+            </div>
+          `;
+        }
+      });
       row.innerHTML = html;
     }
 
@@ -297,8 +326,13 @@
         if (data.show && data.show.slogan) {
           document.getElementById('inputPromoSubtitle').value = data.show.slogan;
         }
-        if (data.host && data.host.name) {
-          document.getElementById('inputHostHandle').value = '@' + data.host.name.toLowerCase().replace(/\s+/g, '');
+        if (data.socials) {
+          if (data.socials.tiktok !== undefined) document.getElementById('promoSocialTikTok').value = data.socials.tiktok;
+          if (data.socials.instagram !== undefined) document.getElementById('promoSocialInstagram').value = data.socials.instagram;
+          if (data.socials.youtube !== undefined) document.getElementById('promoSocialYouTube').value = data.socials.youtube;
+          if (data.socials.facebook !== undefined) document.getElementById('promoSocialFacebook').value = data.socials.facebook;
+          if (data.socials.twitch !== undefined) document.getElementById('promoSocialTwitch').value = data.socials.twitch;
+          if (data.socials.kick !== undefined) document.getElementById('promoSocialKick').value = data.socials.kick;
         }
         renderPromo();
       }
@@ -313,6 +347,14 @@
           if (data.show && data.show.title) document.getElementById('inputPromoTitle').value = data.show.title;
           if (data.show && data.show.slogan) document.getElementById('inputPromoSubtitle').value = data.show.slogan;
           if (data.host && data.host.name) document.getElementById('inputHostHandle').value = '@' + data.host.name.toLowerCase().replace(/\s+/g, '');
+          if (data.socials) {
+            if (data.socials.tiktok !== undefined) document.getElementById('promoSocialTikTok').value = data.socials.tiktok;
+            if (data.socials.instagram !== undefined) document.getElementById('promoSocialInstagram').value = data.socials.instagram;
+            if (data.socials.youtube !== undefined) document.getElementById('promoSocialYouTube').value = data.socials.youtube;
+            if (data.socials.facebook !== undefined) document.getElementById('promoSocialFacebook').value = data.socials.facebook;
+            if (data.socials.twitch !== undefined) document.getElementById('promoSocialTwitch').value = data.socials.twitch;
+            if (data.socials.kick !== undefined) document.getElementById('promoSocialKick').value = data.socials.kick;
+          }
           renderPromo();
         } catch (err) {}
       }
