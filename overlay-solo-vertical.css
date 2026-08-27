@@ -15,6 +15,20 @@
       background-color: transparent !important;
     }
 
+    @media (max-width: 1080px) {
+
+      html,
+      body {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .main-border {
+        width: 100vw !important;
+        height: 100vh !important;
+      }
+    }
+
     /* 2. MARCO CONTENEDOR PRINCIPAL (1080x1920 exacto) */
     .main-border {
       position: relative;
@@ -54,34 +68,98 @@
       border-radius: 20px;
     }
 
-    /* 5. ZONA MULTIMEDIA / TEXTO SUPERIOR */
+    /* 5. ZONA MULTIMEDIA / TEXTO SUPERIOR & BRANDING BANNER */
     .top-info-zone {
-      flex: 0 0 180px;
-      height: 180px;
+      flex: 0 0 190px;
+      height: 190px;
       flex-shrink: 0;
-      background: rgba(10, 10, 10, 0.85);
-      border: 1.5px solid rgba(192, 57, 43, 0.4);
-      border-radius: 20px 20px 0 0;
+      background: linear-gradient(135deg,
+          rgba(16, 18, 27, 0.95) 0%,
+          rgba(23, 26, 38, 0.92) 50%,
+          rgba(16, 18, 27, 0.96) 100%);
+      border: 1.5px solid rgba(0, 230, 200, 0.45);
+      border-radius: 22px 22px 0 0;
       border-bottom: none;
-      padding: 18px 32px;
+      padding: 14px 20px;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 24px;
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       position: relative;
       overflow: hidden;
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.85),
+        inset 0 1px 0 rgba(0, 230, 200, 0.4),
+        inset 0 0 20px rgba(0, 230, 200, 0.08);
     }
 
     .top-info-zone::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg,
-          rgba(139, 0, 0, 0.15) 0%,
-          transparent 40%,
-          transparent 60%,
-          rgba(139, 0, 0, 0.15) 100%);
+      background: radial-gradient(circle at 50% 50%, rgba(0, 230, 200, 0.12) 0%, rgba(255, 55, 95, 0.08) 50%, transparent 80%);
       pointer-events: none;
+      animation: topZonePulse 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes topZonePulse {
+      0% {
+        opacity: 0.6;
+        transform: scale(0.98);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1.02);
+      }
+    }
+
+    /* Contenedor del Banner de Branding en Top Zone */
+    .top-info-zone .stage-bottom-branding,
+    .top-info-zone .top-branding-banner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      background: rgba(16, 18, 27, 0.7);
+      border: 1.5px solid rgba(0, 230, 200, 0.35);
+      box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.8),
+        0 0 16px rgba(0, 230, 200, 0.15),
+        inset 0 0 15px rgba(255, 55, 95, 0.1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 10px 18px;
+      box-sizing: border-box;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .top-info-zone .stage-bottom-branding:hover,
+    .top-info-zone .top-branding-banner:hover {
+      border-color: rgba(255, 55, 95, 0.6);
+      box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.9),
+        0 0 22px rgba(255, 55, 95, 0.35);
+    }
+
+    /* Imagen del banner de branding */
+    .top-info-zone .stage-bottom-banner-img,
+    .top-info-zone .top-branding-img {
+      width: 100%;
+      height: 100%;
+      max-height: 155px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.9));
+      transition: transform 0.4s ease, filter 0.4s ease;
     }
 
     .event-badge {
@@ -198,19 +276,24 @@
       pointer-events: none;
     }
 
-    /* Badge circular de marca en esquina inferior izquierda del marco */
+    /* Badge circular de marca en esquina inferior derecha del marco (más grande y sin tapar texto) */
     .cam-corner-badge {
       position: absolute;
       bottom: 24px;
-      left: 24px;
-      width: 44px;
-      height: 44px;
+      right: 28px;
+      left: auto;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       background: #10121B url('branding/logo-badge.png') center/cover no-repeat;
-      border: 2px solid #00E6C8;
-      box-shadow: 0 0 14px rgba(0, 230, 200, 0.7), 0 4px 12px rgba(0, 0, 0, 0.85);
+      border: 2.5px solid #00E6C8;
+      box-shadow:
+        0 0 20px rgba(0, 230, 200, 0.75),
+        0 6px 18px rgba(0, 0, 0, 0.9),
+        inset 0 0 10px rgba(0, 230, 200, 0.2);
       z-index: 25;
       pointer-events: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .header-logo-img {
@@ -286,6 +369,7 @@
     }
 
     @keyframes livePulse {
+
       0%,
       100% {
         opacity: 1;
@@ -314,28 +398,29 @@
       right: 0;
       background: linear-gradient(180deg,
           transparent 0%,
-          rgba(10, 5, 5, 0.85) 40%,
-          rgba(15, 5, 5, 0.97) 100%);
-      padding: 40px 32px 20px 32px;
+          rgba(10, 12, 18, 0.85) 35%,
+          rgba(16, 18, 27, 0.98) 100%);
+      padding: 40px 120px 22px 36px;
       z-index: 4;
     }
 
     .name-role {
       font-size: 16px;
       font-weight: 800;
-      color: #E74C3C;
+      color: #FF375F;
       letter-spacing: 3px;
       text-transform: uppercase;
+      text-shadow: 0 0 12px rgba(255, 55, 95, 0.4);
     }
 
     .name-main {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Bebas Neue', 'Outfit', sans-serif;
       font-size: 64px;
       color: #FFFFFF;
-      letter-spacing: 6px;
-      line-height: 1;
+      letter-spacing: 5px;
+      line-height: 1.05;
       text-shadow:
-        0 0 20px rgba(192, 57, 43, 0.7),
+        0 0 20px rgba(0, 230, 200, 0.4),
         0 2px 8px rgba(0, 0, 0, 0.9);
     }
 
@@ -345,7 +430,8 @@
       color: #FFD700;
       letter-spacing: 2px;
       margin-top: 4px;
-      opacity: 0.9;
+      opacity: 0.95;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
     }
 
     /* 8. MOTTO BANNER EN LAYOUT SOLO VERTICAL */

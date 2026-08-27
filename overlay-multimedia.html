@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="main.css">
-  <title>Guta Flores — Overlay Multimedia</title>
   <link rel="stylesheet" href="overlay-multimedia.css">
+  <title>Guta Flores — Overlay Multimedia</title>
 </head>
 
 <body>
@@ -13,47 +13,66 @@
   <div class="main-border">
     <div class="main-inner">
 
-      <!-- Header -->
+      <!-- Header Superior con Branding y Slogan (Punto 1) -->
       <div class="top-header">
-        <span class="badge">● EN VIVO</span>
-        <span data-bind="host-name">Guta Flores</span>
+        <div class="header-brand">
+          <div class="header-logo-circle">
+            <img src="branding/logo-badge.png" class="header-logo-img" alt="Logo">
+          </div>
+          <div class="header-titles">
+            <div class="header-show-name" data-bind="show-title">SESIONES RG</div>
+            <div class="header-show-slogan" data-bind="show-slogan">En Vivo: Entrevistas en vivo y zapadas con invitados.</div>
+          </div>
+        </div>
+        <div class="header-live-badge">
+          <span class="live-pulse-dot"></span>
+          <span>EN VIVO</span>
+        </div>
       </div>
 
       <!-- Divisor vertical decorativo -->
       <div class="col-divider"></div>
 
-      <!-- Columna izquierda: 2 cámaras apiladas (30% ancho) -->
+      <!-- Columna izquierda: 3 cámaras apiladas (Host, Co-Host, Invitado) (Punto 2) -->
       <div class="cameras-container">
 
         <!-- Marco Host -->
-        <div class="cam-box">
+        <div class="cam-box cam-host">
           <div class="cam-window" data-cutout></div>
+          <div class="cam-corner-badge"></div>
           <div class="name-tag">
-            <div class="role-title" data-bind="host-role">🎙️ HOST</div>
+            <div class="role-title" data-bind="host-role">🎙️ ANFITRIÓN / HOST</div>
             <div class="user-name" data-bind="host-name">GUTA FLORES</div>
           </div>
         </div>
 
-        <!-- Marco Invitado -->
-        <div class="cam-box">
+        <!-- Marco Co-Host -->
+        <div class="cam-box cam-cohost" data-bind="cohost-box">
           <div class="cam-window" data-cutout></div>
+          <div class="cam-corner-badge cam-corner-badge-cohost"></div>
           <div class="name-tag">
-            <div class="role-title" data-bind="guest-role">💬 INVITADO</div>
-            <div class="user-name" data-bind="guest-name"></div>
+            <div class="role-title" data-bind="cohost-role">🎙️ CO-HOST / CO-ANFITRIÓN</div>
+            <div class="user-name" data-bind="cohost-name">RAÚL DOMINGO</div>
+          </div>
+        </div>
+
+        <!-- Marco Invitado -->
+        <div class="cam-box cam-guest" data-bind="guest-box">
+          <div class="cam-window" data-cutout></div>
+          <div class="cam-corner-badge cam-corner-badge-guest"></div>
+          <div class="name-tag">
+            <div class="role-title" data-bind="guest-role">💬 INVITADO ESPECIAL</div>
+            <div class="user-name" data-bind="guest-name">INVITADO</div>
           </div>
         </div>
 
       </div>
 
-      <!-- Área derecha: Marco Multimedia centrado (16:9) -->
+      <!-- Área derecha: Marco Multimedia centrado (16:9) + Banner Branding (Puntos 2 y 3) -->
       <div class="multimedia-wrapper">
         <div class="mm-container">
 
-          <!-- <div class="mm-header">
-            <span class="mm-badge">🎬 MULTIMEDIA</span>
-            <span class="mm-title">VIDEO OFICIAL / LOGO / PRESENTACIÓN</span>
-          </div> -->
-
+          <!-- Marco Multimedia -->
           <div class="mm-frame">
             <div class="mm-window" data-cutout>
               <div class="mm-placeholder">
@@ -66,6 +85,11 @@
               <div class="role-title">🎵 REPRODUCIENDO</div>
               <div class="user-name" data-bind="guest-name">VIDEO OFICIAL - INVITADO</div>
             </div>
+          </div>
+
+          <!-- Banner de Branding Inferior (Punto 3) -->
+          <div class="mm-branding-banner">
+            <img src="branding/banner-rectangular.png" class="mm-branding-img" alt="Sesiones RG">
           </div>
 
         </div>
