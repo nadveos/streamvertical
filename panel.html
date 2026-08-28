@@ -755,7 +755,12 @@
 
         <!-- Motto Banner -->
         <div class="inner-card">
-          <div class="card-title" style="color: #FFD700;">📜 Lema / Frase Destacada (Motto Banner)</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div class="card-title" style="margin-bottom:0; color: #FFD700;">📜 Lema / Frase Destacada (Motto Banner)</div>
+            <button type="button" id="mottoToggleBtn" onclick="toggleVisibility('motto')" style="display:inline-flex; align-items:center; gap:8px; padding:7px 16px; border-radius:8px; border:none; cursor:pointer; font-size:13px; font-weight:800; letter-spacing:0.5px; transition:all 0.2s; background:rgba(39,174,96,0.18); color:#2ecc71; border:1.5px solid #2ecc71;">
+              <span id="mottoToggleIcon">👁️</span> <span id="mottoToggleLabel">VISIBLE</span>
+            </button>
+          </div>
           <div style="display: flex; gap: 10px;">
             <div class="form-group" style="flex: 2;">
               <label>Primera Frase (Destacada)</label>
@@ -771,6 +776,62 @@
             </div>
           </div>
         </div>
+
+        <!-- Branding / Banners Rectangulares -->
+        <div class="inner-card" style="border: 2px solid rgba(108, 92, 231, 0.5); background: linear-gradient(135deg, rgba(108, 92, 231, 0.07) 0%, rgba(16, 18, 26, 0.97) 100%);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+            <div class="card-title" style="margin-bottom:0; color:#c084fc;">🎨 Branding — Banner en Overlays</div>
+            <span style="font-size:11px; background:rgba(192,132,252,0.15); color:#c084fc; padding:3px 10px; border-radius:12px; font-weight:800; border:1px solid rgba(192,132,252,0.35);">SE MUESTRA CUANDO MOTTO/TICKER ESTÁN OCULTOS</span>
+          </div>
+          <div class="card-subtitle" style="margin-bottom:14px;">Elegí qué banner se muestra en los overlays cuando el <strong>Motto</strong> y/o el <strong>Ticker</strong> están desactivados. El banner ocupa el espacio liberado automáticamente.</div>
+
+          <!-- Selector de Banner Activo -->
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:12px; margin-bottom:16px;">
+
+            <!-- Opción 1: Banner Rectangular -->
+            <button type="button" id="brandingBanner-rectangular" onclick="selectBrandingBanner('rectangular')"
+              style="background:rgba(0,0,0,0.45); border:2px solid #c084fc; border-radius:10px; overflow:hidden; cursor:pointer; padding:0; text-align:left; transition:all 0.2s;">
+              <div style="padding:0; line-height:0; background:#0a0a0f;">
+                <img src="branding/banner-rectangular.png" alt="Banner Rectangular" style="width:100%; height:auto; display:block; object-fit:cover;">
+              </div>
+              <div style="padding:10px 12px; display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                <div>
+                  <div style="font-size:12px; font-weight:800; color:#c084fc;">Banner Rectangular</div>
+                  <div style="font-size:11px; color:#888; margin-top:2px;">Formato compacto — Recomendado</div>
+                </div>
+                <div style="display:flex; gap:6px; align-items:center;">
+                  <span id="brandingBanner-rectangular-badge" style="background:#c084fc; color:#000; font-size:10px; font-weight:900; padding:3px 8px; border-radius:10px;">✓ ACTIVO</span>
+                  <a href="branding/banner-rectangular.png" download onclick="event.stopPropagation()" class="btn-action-pill" style="font-size:11px; padding:5px 8px; color:#c084fc; border-color:rgba(192,132,252,0.5);">⬇️</a>
+                </div>
+              </div>
+            </button>
+
+            <!-- Opción 2: Banner 16x9 -->
+            <button type="button" id="brandingBanner-16x9" onclick="selectBrandingBanner('16x9')"
+              style="background:rgba(0,0,0,0.25); border:1.5px solid rgba(192,132,252,0.3); border-radius:10px; overflow:hidden; cursor:pointer; padding:0; text-align:left; transition:all 0.2s; opacity:0.65;">
+              <div style="padding:0; line-height:0; background:#0a0a0f;">
+                <img src="branding/banner-16x9.png" alt="Banner 16:9" style="width:100%; height:auto; display:block; object-fit:cover;">
+              </div>
+              <div style="padding:10px 12px; display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                <div>
+                  <div style="font-size:12px; font-weight:800; color:#c084fc;">Banner 16:9</div>
+                  <div style="font-size:11px; color:#888; margin-top:2px;">Portada YouTube / Twitch</div>
+                </div>
+                <div style="display:flex; gap:6px; align-items:center;">
+                  <span id="brandingBanner-16x9-badge" style="display:none; background:#c084fc; color:#000; font-size:10px; font-weight:900; padding:3px 8px; border-radius:10px;">✓ ACTIVO</span>
+                  <a href="branding/banner-16x9.png" download onclick="event.stopPropagation()" class="btn-action-pill" style="font-size:11px; padding:5px 8px; color:#c084fc; border-color:rgba(192,132,252,0.5);">⬇️</a>
+                </div>
+              </div>
+            </button>
+
+          </div>
+
+          <!-- Estado actual -->
+          <div style="background:rgba(192,132,252,0.08); border:1px solid rgba(192,132,252,0.25); border-radius:8px; padding:10px 14px; font-size:12px; color:#bbb; display:flex; align-items:center; gap:10px;">
+            <span style="font-size:16px;">💡</span>
+            <span>El banner seleccionado reemplazará el <strong>motto</strong> y/o <strong>ticker</strong> en <strong>todos los overlays</strong> (verticales y horizontales) en tiempo real, sin recargar OBS.</span>
+          </div>
+        </div>
       </section>
 
       <!-- ══════════════════════════════════════════════════════════
@@ -779,7 +840,12 @@
       <section id="tab-ticker" class="tab-pane">
         <!-- Ticker Animado -->
         <div class="inner-card">
-          <div class="card-title" style="color: #2ecc71;">✨ Ticker / Texto Animado Continuo</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div class="card-title" style="margin-bottom:0; color: #2ecc71;">✨ Ticker / Texto Animado Continuo</div>
+            <button type="button" id="tickerToggleBtn" onclick="toggleVisibility('ticker')" style="display:inline-flex; align-items:center; gap:8px; padding:7px 16px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:800; letter-spacing:0.5px; transition:all 0.2s; background:rgba(39,174,96,0.18); color:#2ecc71; border:1.5px solid #2ecc71;">
+              <span id="tickerToggleIcon">👁️</span> <span id="tickerToggleLabel">VISIBLE</span>
+            </button>
+          </div>
           <div class="form-group">
             <label>Items del Ticker (Separados por línea. Usá "Prefijo | Texto" para resaltar el prefijo):</label>
             <textarea id="tickerText" rows="6" placeholder="🎙️ Transmisión en vivo: | GUTA FLORES&#10;🌟 ¡Bienvenidos al stream!&#10;📲 Seguinos en redes: | @gutafloresok&#10;☕ Alias MP / Cafecito: | GUTA.FLORES"></textarea>
@@ -927,19 +993,39 @@
               <!-- Bloque Invitado 1 -->
               <div style="background:rgba(0,0,0,0.5); border:1px solid #FFD700; border-radius:8px; padding:10px 14px; margin-bottom:10px;">
                 <div style="color:#FFD700; font-weight:900; font-size:13px; margin-bottom:6px;">⭐ BLOQUE 1: INVITADO 1 DEDICADO (Ej: Cecilia Camacho)</div>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px;">
                   <div style="display:flex; flex-direction:column; gap:4px;">
-                    <span style="font-size:11px; color:#AAA; font-weight:700;">📱 TikTok / Vertical 9:16 (vv1 / ovv1)</span>
+                    <span style="font-size:11px; color:#AAA; font-weight:700;">📱 TikTok / Vertical 9:16 (Invitado Vertical 9:16)</span>
                     <div style="display:flex; gap:6px;">
                       <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/vv1.html</code>
                       <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/vv1.html')" class="btn-action-pill">Copiar</button>
                     </div>
                   </div>
                   <div style="display:flex; flex-direction:column; gap:4px;">
-                    <span style="font-size:11px; color:#AAA; font-weight:700;">📺 Marcos Dinámicos 16:9 (ov1)</span>
+                    <span style="font-size:11px; color:#AAA; font-weight:700;">📺 Marcos Dinámicos 16:9 (Invitado Vertical 9:16)</span>
                     <div style="display:flex; gap:6px;">
                       <code style="background:#0a0a0f; color:#4fc; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/ov1.html</code>
                       <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/ov1.html')" class="btn-action-pill">Copiar</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Versiones con Invitado 16:9 Horizontal -->
+                <div style="background:rgba(255,215,0,0.08); border:1px dashed rgba(255,215,0,0.4); border-radius:6px; padding:8px 10px;">
+                  <div style="color:#FFD700; font-size:11px; font-weight:800; margin-bottom:6px;">✨ NUEVO: Versiones con Invitado en 16:9 Horizontal</div>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <div style="display:flex; flex-direction:column; gap:4px;">
+                      <span style="font-size:11px; color:#AAA; font-weight:700;">📱 TikTok Vertical (Invitado 16:9)</span>
+                      <div style="display:flex; gap:6px;">
+                        <code style="background:#0a0a0f; color:#FFD700; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/vv1-16x9.html</code>
+                        <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/vv1-16x9.html')" class="btn-action-pill">Copiar</button>
+                      </div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:4px;">
+                      <span style="font-size:11px; color:#AAA; font-weight:700;">📺 Marcos Dinámicos (Invitado 16:9)</span>
+                      <div style="display:flex; gap:6px;">
+                        <code style="background:#0a0a0f; color:#FFD700; padding:5px 8px; border-radius:4px; font-size:11px; flex:1; overflow:hidden; text-overflow:ellipsis;">http://127.0.0.1:8000/frames/vertical/ov1-16x9.html</code>
+                        <button type="button" onclick="copyUrl('http://127.0.0.1:8000/frames/vertical/ov1-16x9.html')" class="btn-action-pill">Copiar</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1325,6 +1411,62 @@
 
   <!-- ══ JAVASCRIPT DEL PANEL ═══════════════════════════════════════ -->
   <script>
+    // ── Estado de Visibilidad (Motto / Ticker) ──────────────────────
+    var visibilityState = {
+      motto: true,
+      ticker: true
+    };
+
+    // ── Estado de Banner de Branding Seleccionado ───────────────────
+    var currentBrandingBanner = 'rectangular';
+
+    function selectBrandingBanner(key) {
+      currentBrandingBanner = key;
+      var allKeys = ['rectangular', '16x9'];
+      allKeys.forEach(function(k) {
+        var btn   = document.getElementById('brandingBanner-' + k);
+        var badge = document.getElementById('brandingBanner-' + k + '-badge');
+        if (!btn) return;
+        if (k === key) {
+          btn.style.border   = '2px solid #c084fc';
+          btn.style.opacity  = '1';
+          btn.style.background = 'rgba(0,0,0,0.45)';
+          if (badge) badge.style.display = 'inline-block';
+        } else {
+          btn.style.border   = '1.5px solid rgba(192,132,252,0.3)';
+          btn.style.opacity  = '0.55';
+          btn.style.background = 'rgba(0,0,0,0.25)';
+          if (badge) badge.style.display = 'none';
+        }
+      });
+    }
+
+    function toggleVisibility(key) {
+      visibilityState[key] = !visibilityState[key];
+      updateToggleUI(key);
+    }
+
+    function updateToggleUI(key) {
+      var isVisible = visibilityState[key];
+      var btn = document.getElementById(key + 'ToggleBtn');
+      var iconEl = document.getElementById(key + 'ToggleIcon');
+      var labelEl = document.getElementById(key + 'ToggleLabel');
+      if (!btn) return;
+      if (isVisible) {
+        btn.style.background = 'rgba(39,174,96,0.18)';
+        btn.style.color = '#2ecc71';
+        btn.style.border = '1.5px solid #2ecc71';
+        if (iconEl) iconEl.textContent = '👁️';
+        if (labelEl) labelEl.textContent = 'VISIBLE';
+      } else {
+        btn.style.background = 'rgba(231,76,60,0.18)';
+        btn.style.color = '#e74c3c';
+        btn.style.border = '1.5px solid #e74c3c';
+        if (iconEl) iconEl.textContent = '🙈';
+        if (labelEl) labelEl.textContent = 'OCULTO';
+      }
+    }
+
     // ── Cambio de Pestañas Tipo Fichero ────────────────────────────
     function switchFolderTab(tabId, btn) {
       document.querySelectorAll('.tab-pane').forEach(el => {
@@ -1521,6 +1663,10 @@
         document.getElementById('mottoPhrase1').value = data.motto.phrase1 || '';
         document.getElementById('mottoConnector').value = data.motto.connector || '';
         document.getElementById('mottoPhrase2').value = data.motto.phrase2 || '';
+        if (data.motto.visible === false) {
+          visibilityState.motto = false;
+          updateToggleUI('motto');
+        }
       }
 
       if (data.agenda && Array.isArray(data.agenda)) {
@@ -1535,6 +1681,15 @@
 
       if (data.ticker) {
         document.getElementById('tickerText').value = data.ticker.map(t => t.prefix ? `${t.prefix} | ${t.text}` : t.text).join('\n');
+      }
+      if (data.tickerVisible === false) {
+        visibilityState.ticker = false;
+        updateToggleUI('ticker');
+      }
+
+      // ── Cargar banner de branding seleccionado ──
+      if (data.brandingBanner) {
+        selectBrandingBanner(data.brandingBanner);
       }
 
       // ── Cargar Redes Sociales / RRSS ──
@@ -1687,8 +1842,10 @@
         motto: {
           phrase1: document.getElementById('mottoPhrase1').value,
           connector: document.getElementById('mottoConnector').value,
-          phrase2: document.getElementById('mottoPhrase2').value
+          phrase2: document.getElementById('mottoPhrase2').value,
+          visible: visibilityState.motto
         },
+        brandingBanner: currentBrandingBanner,
         socials: {
           tiktok: (document.getElementById('socialTikTok')?.value || '').trim(),
           instagram: (document.getElementById('socialInstagram')?.value || '').trim(),
@@ -1698,7 +1855,8 @@
           kick: (document.getElementById('socialKick')?.value || '').trim()
         },
         agenda: agendaObj,
-        ticker: tickerObj
+        ticker: tickerObj,
+        tickerVisible: visibilityState.ticker
       };
 
       // 1. Guardar en localStorage (sincroniza en el mismo navegador)

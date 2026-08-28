@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Guta Flores — Overlay Dinámico 16:9 (Bloque Invitado 1 en 16:9 - Cecilia Camacho)</title>
+  <link rel="stylesheet" href="overlay-frames-dinamico.css">
+  <style>
+    /* ── Adaptación de Frames de Invitado a Formato 16:9 Horizontal ── */
+    .guests-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .pf-guest1,
+    .pf-guest2,
+    .pf-guest3 {
+      width: 470px !important;
+      height: 264px !important;
+      aspect-ratio: 16 / 9 !important;
+    }
+
+    /* Cuando hay 1 solo host y 1 solo invitado, los frames de cámara crecen simétricamente */
+    .dynamic-stage-container:has(#slotCohost[style*="display: none"]) .pf-host,
+    .dynamic-stage-container:has(#slotCohost[style*="display: none"]) .pf-guest1 {
+      width: 520px !important;
+      height: 292px !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="stage">
+
+    <!-- ══ HEADER SUPERIOR ══════════════════════════════════════════ -->
+    <div class="stage-header">
+
+      <!-- Branding del show -->
+      <div class="header-brand">
+        <div class="header-logo-circle"><img src="../../branding/logo-badge.png" class="header-logo-img" alt="Logo"></div>
+        <div>
+          <div class="header-host-name" id="headerHostName" data-bind="show-title">SESIONES RG</div>
+          <div class="header-host-role" id="headerHostRole" data-bind="show-slogan">En Vivo: Entrevistas en vivo y zapadas con invitados.</div>
+        </div>
+      </div>
+
+      <!-- Contador de participantes en escena -->
+      <div class="participant-count-wrapper" style="display:flex; align-items:center; gap:10px;">
+        <span class="header-participant-count">EN ESCENA:</span>
+        <span class="header-participant-count participant-count-number" id="participantCount">16:9</span>
+      </div>
+
+      <!-- Badge de live -->
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        EN VIVO
+      </div>
+
+    </div>
+
+    <!-- ══ ESQUINAS DECORATIVAS ═══════════════════════════════════ -->
+    <div class="deco-corner deco-tl"></div>
+    <div class="deco-corner deco-tr"></div>
+    <div class="deco-corner deco-bl"></div>
+    <div class="deco-corner deco-br"></div>
+
+    <!-- ══ ÁREA DE FRAMES DINÁMICOS (TODAS LAS CÁMARAS EN 16:9) ════ -->
+    <div class="frames-area">
+
+      <!-- Contenedor adaptativo inteligente -->
+      <div class="dynamic-stage-container" id="stageContainer" data-layout="1">
+
+        <!-- ── 1. BLOQUE DE ANFITRIONES (HOST + CO-HOST EN COLUMNA 16:9) ── -->
+        <div class="hosts-block" id="hostsBlock">
+          <!-- Slot Host (16:9) -->
+          <div class="pframe pf-host" id="slotHost">
+            <div class="cam-cutout" data-cutout></div>
+            <div class="frame-border-anim fb-host"></div>
+            <div class="cam-corner-badge"></div>
+            <div class="name-tag nt-host">
+              <div class="nt-role" id="slotHostRole">🎙️ ANFITRIÓN / HOST</div>
+              <div class="nt-name" id="slotHostName">GUTA FLORES</div>
+            </div>
+          </div>
+
+          <!-- Slot Co-Host (16:9 apilado) -->
+          <div class="pframe pf-cohost" id="slotCohost" style="display: none;">
+            <div class="cam-cutout" data-cutout></div>
+            <div class="frame-border-anim fb-cohost"></div>
+            <div class="cam-corner-badge"></div>
+            <div class="name-tag nt-cohost">
+              <div class="nt-role" id="slotCohostRole">🎙️ CO-HOST / CO-ANFITRIÓN</div>
+              <div class="nt-name" id="slotCohostName">CO-HOST</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 2. PANEL DE INFORMACIÓN / REDES / AGENDA DEL INVITADO ── -->
+        <div class="stage-info-card" id="stageInfoCard" style="display: none;">
+          <!-- 1. Encabezado e Identificación del Invitado -->
+          <div class="info-card-header">
+            <div class="info-card-badge">💬 INVITADO 1 (16:9)</div>
+            <div class="info-card-title" data-bind="guest-name">INVITADO 1</div>
+          </div>
+
+          <!-- 2. Bio / Resumen justo debajo del nombre -->
+          <div class="info-card-bio">
+            <div class="bio-header-mini">
+              <span class="bio-icon">📖</span>
+              <span class="bio-tag">RESEÑA & TRAYECTORIA</span>
+            </div>
+            <div class="bio-text" data-bind="guest-bio"></div>
+          </div>
+
+          <!-- 3. Redes Sociales del invitado por debajo de la bio -->
+          <div class="info-card-socials" data-bind="guest-socials"></div>
+
+          <!-- 4. Agenda / Cronograma del stream en la base -->
+          <div class="info-card-agenda">
+            <div class="agenda-mini-title">⚡ CRONOGRAMA DE HOY</div>
+            <div class="agenda-mini-list" data-bind="agenda-list">
+              <div class="agenda-mini-item">
+                <span class="agenda-mini-icon" data-bind="agenda-icon-0">🎙️</span>
+                <div class="agenda-mini-text">
+                  <div class="agenda-mini-item-title" data-bind="agenda-title-0">1. ENTREVISTA EN VIVO</div>
+                  <div class="agenda-mini-item-sub" data-bind="agenda-sub-0">CECILIA CAMACHO | TARIJA, BOLIVIA</div>
+                </div>
+              </div>
+              <div class="agenda-mini-item">
+                <span class="agenda-mini-icon" data-bind="agenda-icon-1">🪕</span>
+                <div class="agenda-mini-text">
+                  <div class="agenda-mini-item-title" data-bind="agenda-title-1">2. SHOW & GUITARREADA</div>
+                  <div class="agenda-mini-item-sub" data-bind="agenda-sub-1">Canciones y folklore a la gorra</div>
+                </div>
+              </div>
+              <div class="agenda-mini-item">
+                <span class="agenda-mini-icon" data-bind="agenda-icon-2">💬</span>
+                <div class="agenda-mini-text">
+                  <div class="agenda-mini-item-title" data-bind="agenda-title-2">3. CHAT EN DIRECTO</div>
+                  <div class="agenda-mini-item-sub" data-bind="agenda-sub-2">Preguntas, saludos y peticiones</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 3. BLOQUE DE INVITADOS (FRAMES EN FORMATO 16:9) ────────── -->
+        <div class="guests-block" id="guestsBlock" style="display: none;">
+          <!-- Slot Guest 1 (16:9) -->
+          <div class="pframe pf-guest1" id="slotGuest1" style="display: none;">
+            <div class="cam-cutout" data-cutout></div>
+            <div class="frame-border-anim fb-guest1"></div>
+            <div class="name-tag nt-guest1">
+              <div class="nt-role" id="slotGuest1Role">💬 INVITADO 1</div>
+              <div class="nt-name" id="slotGuest1Name">INVITADO 1</div>
+            </div>
+          </div>
+
+          <!-- Slot Guest 2 (16:9) -->
+          <div class="pframe pf-guest2" id="slotGuest2" style="display: none;">
+            <div class="cam-cutout" data-cutout></div>
+            <div class="frame-border-anim fb-guest2"></div>
+            <div class="name-tag nt-guest2">
+              <div class="nt-role" id="slotGuest2Role">💬 INVITADO 2</div>
+              <div class="nt-name" id="slotGuest2Name">INVITADO 2</div>
+            </div>
+          </div>
+
+          <!-- Slot Guest 3 (16:9) -->
+          <div class="pframe pf-guest3" id="slotGuest3" style="display: none;">
+            <div class="cam-cutout" data-cutout></div>
+            <div class="frame-border-anim fb-guest3"></div>
+            <div class="name-tag nt-guest3">
+              <div class="nt-role" id="slotGuest3Role">💬 INVITADO 3</div>
+              <div class="nt-name" id="slotGuest3Name">INVITADO 3</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /dynamic-stage-container -->
+    </div><!-- /frames-area -->
+
+    <!-- ══ BANNER DE BRANDING RECTANGULAR INFERIOR ═════════════════ -->
+    <div class="stage-bottom-branding">
+      <img src="../../branding/Code_Generated_Image_15.png" class="stage-bottom-banner-img" alt="Sesiones RG">
+    </div>
+
+    <!-- ══ MOTTO BANNER ═══════════════════════════════════════════ -->
+    <div class="motto-bar">
+      <span class="motto-p1" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+      <span class="motto-sep" data-bind="motto-connector">Y</span>
+      <span class="motto-p2" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+    </div>
+
+    <!-- ══ TICKER INFERIOR ════════════════════════════════════════ -->
+    <div class="ticker-bar">
+      <div class="ticker-label">
+        <span class="ticker-live-dot"></span>
+        ✨ DESTACADO
+      </div>
+      <div class="ticker-track">
+        <div class="ticker-content" data-bind="ticker-content">
+          🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
+          <span class="sep">◆</span>
+          🌟 ¡Bienvenidos al stream!
+          <span class="sep">◆</span>
+          📲 Seguinos en redes: <span class="highlight">@gutafloresok</span>
+          <span class="sep">◆</span>
+          🎶 Música, folklore y entretenimiento en vivo
+          <span class="sep">◆</span>
+          💬 ¡Dejá tu comentario y saludá!
+          <span class="sep">◆</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /stage -->
+
+  <!-- ══ SCRIPTS ════════════════════════════════════════════════ -->
+  <script src="overlay-frames-dinamico-engine.js"></script>
+
+</body>
+
+</html>

@@ -216,6 +216,8 @@
     var mottoP1 = (data.motto && data.motto.phrase1) ? data.motto.phrase1 : '🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS';
     var mottoConn = (data.motto && data.motto.connector) ? data.motto.connector : 'Y';
     var mottoP2 = (data.motto && data.motto.phrase2) ? data.motto.phrase2 : 'GUITARREAMOS A LA GORRA 🪕';
+    var mottoVisible = (data.motto && data.motto.visible === false) ? false : true;
+    var tickerVisible = (data.tickerVisible === false) ? false : true;
 
     document.querySelectorAll('[data-bind="motto-phrase1"]').forEach(function (el) {
       el.textContent = mottoP1;
@@ -258,6 +260,200 @@
         }
       });
     }
+
+    // ── 5. BRANDING BANNER (reemplaza motto y/o ticker cuando están ocultos) ─
+    applyBrandingBanners(mottoVisible, tickerVisible, data.brandingBanner);
+  }
+
+  // ── Resolución del path base para imágenes de branding ─────────────────────
+  // Determina cuántos niveles de subdirectorio está el HTML desde la raíz
+  // para construir la ruta relativa correcta a /branding/*.png
+  function getBrandingBasePath() {
+    try {
+      var path = window.location.pathname;
+      // Contar cuántos segmentos de subdirectorio hay después de la raíz
+      // /frames/vertical/xx.html -> ../../
+      // /frames/xx.html          -> ../
+      // /xx.html                 -> ./
+      var segments = path.split('/').filter(function(s){ return s !== ''; });
+      // El último segmento es el archivo .html, antes de él son carpetas
+      var depth = segments.length - 1; // profundidad de directorios
+      if (depth <= 0) return './';
+      var prefix = '';
+      for (var i = 0; i < depth; i++) prefix += '../';
+      return prefix;
+    } catch(e) {
+      return '../../';
+    }
+  }
+
+  // ── Nombre del archivo de banner a usar ────────────────────────────────────
+  var BANNER_FILES = {
+    'rectangular': 'banner-rectangular.png',
+    'banner-rectangular': 'banner-rectangular.png',
+    '16x9': 'banner-16x9.png',
+    'banner-16x9': 'banner-16x9.png'
+  };
+
+  function getBannerSrc(key) {
+    var file = BANNER_FILES[key] || 'banner-rectangular.png';
+    return getBrandingBasePath() + 'branding/' + file;
+  }
+
+  // ── CSS de inyección de branding (se agrega una sola vez al documento) ─────
+  var _brandingStyleInjected = false;
+  function injectBrandingStyles() {
+    if (_brandingStyleInjected) return;
+    _brandingStyleInjected = true;
+    var style = document.createElement('style');
+    style.textContent = [
+      '/* --- Branding Banner Injection (script-overlay.js) --- */',
+      '.middle-info-branding-banner {',
+      '  width: 100%;',
+      '  max-width: 1000px;',
+      '  height: 120px;',
+      '  background: rgba(16, 18, 27, 0.95);',
+      '  border: 1.5px solid rgba(0, 230, 200, 0.45);',
+      '  border-radius: 14px;',
+      '  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 16px rgba(255, 55, 95, 0.35);',
+      '  display: flex !important;',
+      '  align-items: center !important;',
+      '  justify-content: center !important;',
+      '  padding: 0 !important;',
+      '  box-sizing: border-box !important;',
+      '  overflow: hidden !important;',
+      '  backdrop-filter: blur(10px);',
+      '  margin-top: 4px;',
+      '}',
+      '.middle-info-branding-banner img {',
+      '  width: 100%;',
+      '  height: 100%;',
+      '  object-fit: cover;',
+      '  display: block;',
+      '}',
+      '.horizontal-bottom-branding-banner {',
+      '  position: absolute;',
+      '  bottom: 14px;',
+      '  left: 14px;',
+      '  right: 14px;',
+      '  height: 72px;',
+      '  background: rgba(16, 18, 27, 0.95);',
+      '  border: 1.5px solid rgba(0, 230, 200, 0.45);',
+      '  border-radius: 12px;',
+      '  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9), 0 0 16px rgba(255, 55, 95, 0.35);',
+      '  display: flex !important;',
+      '  align-items: center !important;',
+      '  justify-content: center !important;',
+      '  padding: 0 !important;',
+      '  box-sizing: border-box !important;',
+      '  overflow: hidden !important;',
+      '  z-index: 25;',
+      '  backdrop-filter: blur(10px);',
+      '}',
+      '.horizontal-bottom-branding-banner img {',
+      '  width: 100%;',
+      '  height: 100%;',
+      '  object-fit: cover;',
+      '  display: block;',
+      '}',
+      '.branding-banner-active {',
+      '  display: flex !important;',
+      '  align-items: center !important;',
+      '  justify-content: center !important;',
+      '  padding: 0 !important;',
+      '  box-sizing: border-box !important;',
+      '  overflow: hidden !important;',
+      '}',
+      '.branding-banner-img {',
+      '  width: 100% !important;',
+      '  height: 100% !important;',
+      '  max-height: 100% !important;',
+      '  object-fit: cover !important;',
+      '  display: block !important;',
+      '}'
+    ].join('\n');
+    document.head.appendChild(style);
+  }
+
+  // ── Selectores de todos los tipos de motto y ticker en horizontal y vertical ─
+  var MOTTO_SELECTORS  = '.motto-banner, .motto-banner-mid, .motto-banner-high, .motto-bar';
+  var TICKER_SELECTORS = '.ticker-bar, .ticker-bar-v, .ticker-bar-vertical-mid, .ticker-bar-high, .ticker-bar-vertical';
+
+
+
+  function applyBrandingBanners(mottoVisible, tickerVisible, bannerKey) {
+    injectBrandingStyles();
+    bannerKey = bannerKey || 'rectangular';
+    var src = getBannerSrc(bannerKey);
+
+    // ── CASO A: AMBOS DESACTIVADOS (Motto y Ticker desactivados) ─────────────
+    // Debe desaparecer el bloque doble y mostrarse un único branding limpio y prominente
+    if (!mottoVisible && !tickerVisible) {
+      // 1. Ocultar todos los elementos de motto y ticker
+      document.querySelectorAll(MOTTO_SELECTORS).forEach(function(el) {
+        el.style.display = 'none';
+      });
+      document.querySelectorAll(TICKER_SELECTORS).forEach(function(el) {
+        el.style.display = 'none';
+      });
+
+      // 2. En overlays verticales con middle-info-band: insertar / mostrar un único banner
+      var middleBand = document.querySelector('.middle-info-band');
+      if (middleBand) {
+        var unifiedMidBanner = middleBand.querySelector('#unified-middle-branding');
+        if (!unifiedMidBanner) {
+          unifiedMidBanner = document.createElement('div');
+          unifiedMidBanner.id = 'unified-middle-branding';
+          unifiedMidBanner.className = 'middle-info-branding-banner';
+          var imgMid = document.createElement('img');
+          imgMid.alt = 'Sesiones RG';
+          unifiedMidBanner.appendChild(imgMid);
+          middleBand.appendChild(unifiedMidBanner);
+        }
+        var mImg = unifiedMidBanner.querySelector('img');
+        if (mImg && mImg.src !== src) mImg.src = src;
+        unifiedMidBanner.style.display = 'flex';
+      }
+
+      // 3. En overlays horizontales estándar
+      var mainInner = document.querySelector('.main-inner, .stage-16x9');
+      if (mainInner && !middleBand && !document.querySelector('.stage-bottom-branding')) {
+        var unifiedHorizBanner = mainInner.querySelector('#unified-horiz-branding');
+        if (!unifiedHorizBanner) {
+          unifiedHorizBanner = document.createElement('div');
+          unifiedHorizBanner.id = 'unified-horiz-branding';
+          unifiedHorizBanner.className = 'horizontal-bottom-branding-banner';
+          var imgHoriz = document.createElement('img');
+          imgHoriz.alt = 'Sesiones RG';
+          unifiedHorizBanner.appendChild(imgHoriz);
+          mainInner.appendChild(unifiedHorizBanner);
+        }
+        var hImg = unifiedHorizBanner.querySelector('img');
+        if (hImg && hImg.src !== src) hImg.src = src;
+        unifiedHorizBanner.style.display = 'flex';
+      }
+
+      // 4. En overlay-solo-vertical (ocultar motto/ticker y mostrar el branding allí si es necesario, o dejar que el script se encargue)
+      // Como ya ocultamos .motto-banner, aquí no inyectamos nada extra, se verá limpio.
+
+      return;
+    }
+
+    // ── CASO B: AL MENOS UNO ESTÁ ACTIVO ────────────────────────────────────
+    // Ocultar cualquier banner unificado
+    var prevMid = document.getElementById('unified-middle-branding');
+    if (prevMid) prevMid.style.display = 'none';
+    var prevHoriz = document.getElementById('unified-horiz-branding');
+    if (prevHoriz) prevHoriz.style.display = 'none';
+
+    // Mostrar u ocultar completamente los contenedores Motto y Ticker según su estado individual
+    document.querySelectorAll(MOTTO_SELECTORS).forEach(function(el) {
+      el.style.display = mottoVisible ? '' : 'none';
+    });
+
+    document.querySelectorAll(TICKER_SELECTORS).forEach(function(el) {
+      el.style.display = tickerVisible ? '' : 'none';
+    });
   }
 
   function fetchStreamData() {

@@ -430,6 +430,110 @@
         });
       }
     }
+
+    /* ── 10. Branding Banners (Motto & Ticker Replacement) ── */
+    var mottoVisible = (data.motto && data.motto.visible === false) ? false : true;
+    var tickerVisible = (data.tickerVisible === false) ? false : true;
+    applyBrandingBanners(mottoVisible, tickerVisible, data.brandingBanner);
+  }
+
+  /* ── Resolución de rutas e inyección de branding ──────────── */
+  function getBrandingBasePath() {
+    try {
+      var path = window.location.pathname;
+      var segments = path.split('/').filter(function(s){ return s !== ''; });
+      var depth = segments.length - 1;
+      if (depth <= 0) return './';
+      var prefix = '';
+      for (var i = 0; i < depth; i++) prefix += '../';
+      return prefix;
+    } catch(e) {
+      return '../../';
+    }
+  }
+
+  var BANNER_FILES = {
+    'rectangular': 'banner-rectangular.png',
+    'banner-rectangular': 'banner-rectangular.png',
+    '16x9': 'banner-16x9.png',
+    'banner-16x9': 'banner-16x9.png'
+  };
+
+  function getBannerSrc(key) {
+    var file = BANNER_FILES[key] || 'banner-rectangular.png';
+    return getBrandingBasePath() + 'branding/' + file;
+  }
+
+  var _brandingStyleInjected = false;
+  function injectBrandingStyles() {
+    if (_brandingStyleInjected) return;
+    _brandingStyleInjected = true;
+    var style = document.createElement('style');
+    style.textContent = [
+      '/* --- Branding Banner Injection (dinamico-engine) --- */',
+      '.branding-banner-active {',
+      '  display: flex !important;',
+      '  align-items: center !important;',
+      '  justify-content: center !important;',
+      '  padding: 0 !important;',
+      '  box-sizing: border-box !important;',
+      '  overflow: hidden !important;',
+      '}',
+      '.branding-banner-img {',
+      '  width: 100% !important;',
+      '  height: 100% !important;',
+      '  max-height: 100% !important;',
+      '  object-fit: cover !important;',
+      '  display: block !important;',
+      '}'
+    ].join('\n');
+    document.head.appendChild(style);
+  }
+
+  var MOTTO_SELECTORS  = '.motto-bar, .motto-banner, .motto-banner-mid, .motto-banner-high';
+  var TICKER_SELECTORS = '.ticker-bar, .ticker-bar-v, .ticker-bar-vertical-mid, .ticker-bar-high, .ticker-bar-vertical';
+
+
+
+  function applyBrandingBanners(mottoVisible, tickerVisible, bannerKey) {
+    injectBrandingStyles();
+    bannerKey = bannerKey || 'rectangular';
+    var src = getBannerSrc(bannerKey);
+
+    // Actualizar imagen en stage-bottom-branding si existe
+    var stageBottom = document.querySelector('.stage-bottom-branding');
+    var bottomBrandImg = document.querySelector('.stage-bottom-banner-img');
+    if (bottomBrandImg && bottomBrandImg.src !== src) {
+      bottomBrandImg.src = src;
+    }
+
+    // ── CASO A: AMBOS DESACTIVADOS ──
+    if (!mottoVisible && !tickerVisible) {
+      document.querySelectorAll(MOTTO_SELECTORS).forEach(function(el) {
+        el.style.display = 'none';
+      });
+      document.querySelectorAll(TICKER_SELECTORS).forEach(function(el) {
+        el.style.display = 'none';
+      });
+
+      if (stageBottom) {
+        stageBottom.style.display = 'flex';
+      }
+      return;
+    }
+
+    // ── CASO B: AL MENOS UNO ACTIVO ──
+    if (stageBottom) {
+      stageBottom.style.display = 'none';
+    }
+
+    document.querySelectorAll(MOTTO_SELECTORS).forEach(function(el) {
+      el.style.display = mottoVisible ? '' : 'none';
+    });
+
+    document.querySelectorAll(TICKER_SELECTORS).forEach(function(el) {
+      el.style.display = tickerVisible ? '' : 'none';
+    });
   }
 
   /* ── Resolver URL de stream-data.json ─────────────── */

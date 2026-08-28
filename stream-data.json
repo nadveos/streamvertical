@@ -1,7 +1,7 @@
 {
   "show": {
     "title": "SESIONES RG",
-    "slogan": "En Vivo: Invitados de lujo",
+    "slogan": "En Vivo: Entrevistas en vivo.",
     "preset": "custom"
   },
   "host": {
@@ -10,39 +10,63 @@
   },
   "cohost": {
     "enabled": true,
-    "name": "RAÚL DOMINGO",
+    "name": "RAUL DOMINGO",
     "role": ""
   },
   "guest": {
     "enabled": true,
-    "name": "Martin Ferraro de LA CLAVE TRIO",
+    "name": "PIKILLINES",
     "role": "💬 INVITADO ESPECIAL",
-    "bio": "La Clave Trío es una agrupación folclórica con más de 15 años de trayectoria, recorriendo los escenarios de los principales festivales y fiestas populares de Argentina y países vecinos",
-    "events": "📅 Próximamente en vivo",
+    "bio": "Pikillines lleva la escencia del circuito peñero de la noche salteña",
+    "events": "",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "@laclavetrio"
+        "handle": "@pikillines2024"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "@LaClaveTrio"
+        "handle": "@pikillines2024"
       },
       {
         "icon": "☕",
         "platform": "TIKTOK",
-        "handle": "@martinferreralaclavetrio"
+        "handle": "@pikillines2024"
       }
     ]
   },
   "guest1": {
     "enabled": true,
-    "name": "Martin Ferraro de LA CLAVE TRIO",
+    "name": "PIKILLINES",
     "role": "💬 INVITADO ESPECIAL",
-    "bio": "La Clave Trío es una agrupación folclórica con más de 15 años de trayectoria, recorriendo los escenarios de los principales festivales y fiestas populares de Argentina y países vecinos",
-    "events": "📅 Próximamente en vivo",
+    "bio": "Pikillines lleva la escencia del circuito peñero de la noche salteña",
+    "events": "",
+    "socials": [
+      {
+        "icon": "📸",
+        "platform": "INSTAGRAM",
+        "handle": "@pikillines2024"
+      },
+      {
+        "icon": "📺",
+        "platform": "YOUTUBE",
+        "handle": "@pikillines2024"
+      },
+      {
+        "icon": "☕",
+        "platform": "TIKTOK",
+        "handle": "@pikillines2024"
+      }
+    ]
+  },
+  "guest2": {
+    "enabled": true,
+    "name": "Martin Ferrara de La Clave Trio",
+    "role": "💬 INVITADO ESTELAR",
+    "bio": "La Clave Trío es una reconocida agrupación de música folclórica argentina originaria de la ciudad de Alta Gracia, Córdoba, con más de 15 años de trayectoria en los escenarios del país.",
+    "events": "",
     "socials": [
       {
         "icon": "📸",
@@ -52,50 +76,26 @@
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "@LaClaveTrio"
-      },
-      {
-        "icon": "☕",
-        "platform": "TIKTOK",
-        "handle": "@martinferreralaclavetrio"
-      }
-    ]
-  },
-  "guest2": {
-    "enabled": true,
-    "name": "PIKILLINES ",
-    "role": "💬 INVITADOS ESPECIALES ",
-    "bio": "Dúo emergente de música peñera del circuito de peñas de Salta",
-    "events": "📅 Nuevos lanzamientos en plataformas",
-    "socials": [
-      {
-        "icon": "📸",
-        "platform": "INSTAGRAM",
-        "handle": "@pikillines2024"
-      },
-      {
-        "icon": "📺",
-        "platform": "YOUTUBE",
-        "handle": "@pikillines2024"
+        "handle": "@laclavetrio"
       },
       {
         "icon": "🎵",
         "platform": "SPOTIFY",
-        "handle": "@pikillines2024"
+        "handle": "@laclavetrio"
       }
     ]
   },
   "guest3": {
     "enabled": true,
     "name": "Diego Loza",
-    "role": "💬 INVITADO ESPECIAL ",
-    "bio": "Soy Diego Loza, cantante solista de folklore de Salta, Argentina.\n\nA través del canto, me transporto a un mundo donde puedo expresar lo que siento y llevo dentro. Busco transmitir emociones a mis oyentes para que puedan sentirse identificados con las canciones que interpreto.",
-    "events": "📅 Gira y shows acústicos",
+    "role": "💬 INVITADO Especial",
+    "bio": "Cantautor satleño.",
+    "events": "",
     "socials": [
       {
-        "icon": "🌐",
-        "platform": "WEB",
-        "handle": "https://diegolozafolklore.infinityfreeapp.com/?i=1"
+        "icon": "📸",
+        "platform": "INSTAGRAM",
+        "handle": "@diegolozafolklore"
       },
       {
         "icon": "📺",
@@ -104,27 +104,29 @@
       },
       {
         "icon": "🎵",
-        "platform": "INSTAGRAM",
-        "handle": "diegolozafolklore"
+        "platform": "TIKTOK",
+        "handle": "@diegolozafolklore"
       }
     ]
   },
   "solo": {
-    "descLabel": "Bienvenidos !!!",
-    "bio": "HOY  ESCUCHAMOS MUSICA DE ARTISTAS EMERGENTES",
-    "tags": "#artistasemergentes #nuevamusica #charlemos #jovenes",
-    "handle": "@gutafloresok @rauldomingooficial"
+    "descLabel": "Hoy",
+    "bio": "Bienvenidos, hoy buscamos nuevos artistas emergentes mientras escuchamos música !!!",
+    "tags": "#artistasemergentes #nuevamusica #charlemos",
+    "handle": ""
   },
   "motto": {
-    "phrase1": "HOY INVITADOS ESTELARES",
+    "phrase1": "",
     "connector": "|",
-    "phrase2": "GUITARREAMOS UN RATO"
+    "phrase2": "ESCUCHAMOS MÚSICA ",
+    "visible": false
   },
+  "brandingBanner": "16x9",
   "socials": {
-    "tiktok": "@gutafloresok",
-    "instagram": "@gutafloresok",
-    "youtube": "@gutaflores",
-    "facebook": "gutafloresOK",
+    "tiktok": "",
+    "instagram": "",
+    "youtube": "",
+    "facebook": "",
     "twitch": "",
     "kick": ""
   },
@@ -136,24 +138,24 @@
     },
     {
       "icon": "🪕",
-      "title": "2. ENTREVISTA EN VIVO ",
-      "sub": "MARTIN FERRARO LA CLAVE TRIO"
+      "title": "2. ENTREVISTA ESPECIAL",
+      "sub": "MARTIN FERRARA"
     },
     {
       "icon": "💬",
-      "title": "3. ENTREVISTA EXCLUSIVA ",
-      "sub": "DIEGO LOZA"
+      "title": "3. ENTREVISTA EN VIVO ",
+      "sub": "DEIGO LOZA"
     }
   ],
   "ticker": [
     {
-      "prefix": "",
-      "text": "🌟 ¡Bienvenidos al stream!",
+      "prefix": "🎙️ Transmisión en vivo:",
+      "text": "GUTA FLORES",
       "highlight": true
     },
     {
-      "prefix": "🎙️ Transmisión en vivo:",
-      "text": "GUTA FLORES",
+      "prefix": "",
+      "text": "🌟 ¡Bienvenidos al stream!",
       "highlight": true
     },
     {
@@ -177,9 +179,10 @@
       "highlight": true
     },
     {
-      "prefix": "☕ ALITAS / Cafecito:",
+      "prefix": "☕ Alias MP / Cafecito:",
       "text": "GUTA.FLORES",
       "highlight": true
     }
-  ]
+  ],
+  "tickerVisible": false
 }
