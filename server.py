@@ -57,6 +57,19 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(overlays_info).encode('utf-8'))
             return
 
+        if self.path == '/api/sponsors':
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            sponsors_dir = os.path.join(DIR, 'sponsors')
+            images = []
+            if os.path.exists(sponsors_dir):
+                for f in os.listdir(sponsors_dir):
+                    if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg')):
+                        images.append(f)
+            self.wfile.write(json.dumps(images).encode('utf-8'))
+            return
+
         super().do_GET()
 
     def do_POST(self):

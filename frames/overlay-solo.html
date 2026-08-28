@@ -7,6 +7,70 @@
   <link rel="stylesheet" href="../overlay-solo.css">
   <link rel="stylesheet" href="../transparent-mode.css">
   <title>Guta Flores — Overlay Solo Horizontal (Frame Transparente)</title>
+  <style>
+    /* 1. Achicar el frame del host y centrarlo a la izquierda */
+    .cam-solo-wrapper {
+      left: 20px !important;
+      width: 48% !important; /* Limita la cámara a la mitad izquierda */
+      right: auto !important;
+      top: 100px !important;
+      bottom: 180px !important; /* 2. Mayor separación para el branding */
+    }
+    
+    .cam-solo-box {
+      width: 90% !important; /* Más chico relativo a la mitad de la pantalla */
+      max-width: 800px !important;
+    }
+
+    /* 2. Ajuste para unified-horiz-branding (tamaño explícito y padding) */
+    #unified-horiz-branding {
+      width: 100% !important;
+      max-width: 1920px !important;
+      height: 130px !important;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      box-sizing: border-box !important;
+      padding: 5px !important;
+    }
+    #unified-horiz-branding img {
+      object-fit: contain !important;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* 3. Dejar el espacio a la derecha SIN RECUADRO, nada de nada */
+    .main-border {
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+    .main-border::before {
+      display: none !important; /* Oculta el borde animado global */
+    }
+    .main-inner {
+      border: none !important;
+    }
+    .side-deco {
+      display: none !important; /* Oculta las franjas laterales */
+    }
+    
+    /* Mover el badge derecho (Gorra virtual) más a la izquierda */
+    .solo-badge-right {
+      right: auto !important;
+      left: 32% !important; /* Desplazado a la izquierda */
+      transform: none !important;
+    }
+    
+    /* Mover el label de EN VIVO a la derecha */
+    .top-header {
+      left: auto !important;
+      right: 25% !important; /* Centrado en la mitad derecha libre */
+      transform: translateX(50%) !important;
+    }
+  </style>
 </head>
 
 <body>

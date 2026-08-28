@@ -450,6 +450,9 @@
       <button type="button" class="folder-tab tab-color-tools" data-color="#232738" onclick="switchFolderTab('tab-tools', this)">
         🚀 HERRAMIENTAS
       </button>
+      <button type="button" class="folder-tab tab-color-sponsors" data-color="#FFD700" onclick="switchFolderTab('tab-sponsors', this)" style="background: #FFD700; color: #10121B;">
+        🤝 AUSPICIANTES
+      </button>
     </nav>
 
     <!-- Cuerpo del Fichero (Color adaptativo según la pestaña activa) -->
@@ -711,6 +714,27 @@
           </div>
         </div>
 
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           PESTAÑA AUSPICIANTES (Dorado #FFD700)
+           ══════════════════════════════════════════════════════════ -->
+      <section id="tab-sponsors" class="tab-pane">
+        <div class="inner-card" style="border: 2px solid #FFD700;">
+          <div class="card-title" style="color: #FFD700;">🤝 Gestor de Auspiciantes</div>
+          <div class="card-subtitle">Agregá los sponsors que aparecerán en el bloque animado.</div>
+          
+          <div id="sponsorsList">
+            <!-- Sponsor inputs injected here -->
+          </div>
+          
+          <button type="button" class="btn-action-pill" onclick="addSponsorField()" style="margin-top:10px; background:rgba(255,215,0,0.1); color:#FFD700; border-color:#FFD700;">➕ Agregar Auspiciante</button>
+
+          <div style="margin-top: 20px;">
+            <div class="card-subtitle" style="color:#FFD700;">Vista Previa del Bloque Animado</div>
+            <iframe id="sponsorsPreviewFrame" src="sponsors-overlay.html" style="width:320px; height:180px; border:1px solid rgba(255,215,0,0.5); border-radius:16px; background:rgba(0,0,0,0.5);"></iframe>
+          </div>
+        </div>
       </section>
 
       <!-- ══════════════════════════════════════════════════════════
@@ -1687,6 +1711,9 @@
         updateToggleUI('ticker');
       }
 
+      window.currentSponsors = data.sponsors || [];
+      if (typeof renderSponsorFields === 'function') renderSponsorFields();
+      
       // ── Cargar banner de branding seleccionado ──
       if (data.brandingBanner) {
         selectBrandingBanner(data.brandingBanner);
@@ -1856,7 +1883,8 @@
         },
         agenda: agendaObj,
         ticker: tickerObj,
-        tickerVisible: visibilityState.ticker
+        tickerVisible: visibilityState.ticker,
+        sponsors: window.currentSponsors || []
       };
 
       // 1. Guardar en localStorage (sincroniza en el mismo navegador)
@@ -1886,6 +1914,98 @@
 
       setTimeout(() => toast.style.display = 'none', 3500);
     }
+
+    // ── Auspiciantes ────────────────────────────────────────────────
+    async function loadSponsorImages() {
+      try {
+        const res = await fetch('/api/sponsors');
+        if (res.ok) {
+          window.sponsorImageOptions = await res.json();
+        } else {
+          window.sponsorImageOptions = [];
+        }
+      } catch (e) {
+        window.sponsorImageOptions = [];
+      }
+    }
+    
+    function renderSponsorFields() {
+      const container = document.getElementById('sponsorsList');
+      if (!container) return;
+      container.innerHTML = '';
+      if (!window.currentSponsors) window.currentSponsors = [];
+      
+      window.currentSponsors.forEach((sponsor, idx) => {
+        const row = document.createElement('div');
+        row.className = 'form-group';
+        row.style.background = 'rgba(255,255,255,0.05)';
+        row.style.padding = '10px';
+        row.style.borderRadius = '8px';
+        row.style.marginBottom = '10px';
+        
+        let selectHtml = `<select id="sponsorImage_${idx}" onchange="updateSponsor(${idx})" style="background:#0B0C12; border:1px solid #383E4E; color:#FFF; padding:8px; border-radius:4px; width:100%;">
+            <option value="">Seleccionar imagen...</option>`;
+        
+        (window.sponsorImageOptions || []).forEach(img => {
+          const selected = sponsor.image === img ? 'selected' : '';
+          selectHtml += `<option value="${img}" ${selected}>${img}</option>`;
+        });
+        selectHtml += `</select>`;
+        
+        row.innerHTML = `
+          <div style="display:flex; gap:10px; align-items:flex-end;">
+            <div style="flex:1;">
+              <label>Nombre Auspiciante</label>
+              <input type="text" id="sponsorName_${idx}" value="${sponsor.name || ''}" onchange="updateSponsor(${idx})" placeholder="Ej: Sponsor">
+            </div>
+            <div style="flex:1;">
+              <label>Imagen (carpeta sponsors/)</label><br>
+              ${selectHtml}
+            </div>
+            <button type="button" class="btn-action-pill" style="background:#E74C3C; border:none; padding:8px 12px; height:36px;" onclick="removeSponsor(${idx})">🗑️</button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+    
+    function updateSponsorsPreview() {
+      const frame = document.getElementById('sponsorsPreviewFrame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({
+          type: 'previewSponsors',
+          sponsors: window.currentSponsors || []
+        }, '*');
+      }
+    }
+
+    function addSponsorField() {
+      if (!window.currentSponsors) window.currentSponsors = [];
+      window.currentSponsors.push({name: '', image: ''});
+      renderSponsorFields();
+      updateSponsorsPreview();
+    }
+    
+    window.updateSponsor = function(idx) {
+      if (window.currentSponsors && window.currentSponsors[idx]) {
+        window.currentSponsors[idx].name = document.getElementById('sponsorName_' + idx).value;
+        window.currentSponsors[idx].image = document.getElementById('sponsorImage_' + idx).value;
+      }
+      updateSponsorsPreview();
+    };
+    
+    window.removeSponsor = function(idx) {
+      if (window.currentSponsors) {
+        window.currentSponsors.splice(idx, 1);
+        renderSponsorFields();
+        updateSponsorsPreview();
+      }
+    };
+    
+    loadSponsorImages().then(() => {
+      if (window.currentSponsors) renderSponsorFields();
+      setTimeout(updateSponsorsPreview, 500);
+    });
 
     // ── Copiar URLs ────────────────────────────────────────────────
     function copyUrl(url) {

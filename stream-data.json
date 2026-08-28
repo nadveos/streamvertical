@@ -111,9 +111,9 @@
   },
   "solo": {
     "descLabel": "Hoy",
-    "bio": "Bienvenidos, hoy buscamos nuevos artistas emergentes mientras escuchamos música !!!",
-    "tags": "#artistasemergentes #nuevamusica #charlemos",
-    "handle": ""
+    "bio": "Bienvenidos, hoy buscamos nuevos artistas emergentes mientras escuchamos música !!!\nLike > Follow > Compartí > PEDI TU CANCION",
+    "tags": "#artistasemergentes #nuevamusica #charlemos #musica ",
+    "handle": "@gutafloresok"
   },
   "motto": {
     "phrase1": "",
@@ -184,5 +184,15 @@
       "highlight": true
     }
   ],
-  "tickerVisible": false
+  "tickerVisible": false,
+  "sponsors": [
+    {
+      "name": "Milonguita Dev",
+      "image": "milonguita_logo.png"
+    },
+    {
+      "name": "Grupo Sanar",
+      "image": "sanar.jpg"
+    }
+  ]
 }
