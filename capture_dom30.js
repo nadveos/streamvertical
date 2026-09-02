@@ -12,10 +12,10 @@ if (!fs.existsSync(OUT_DIR)) {
 const TARGETS = [
   // { key: 'vv1', file: 'frames/vertical/vv1.html', width: 1080, height: 1920 },
   // { key: 'ov1', file: 'frames/vertical/ov1.html', width: 1920, height: 1080 },
-  { key: 'vv2', file: 'frames/vertical/overlay-solo-vertical.html', width: 1080, height: 1920 },
-  { key: 'ov2', file: 'frames/vertical/overlay-solo.html', width: 1920, height: 1080 },
-  //   { key: 'vv3', file: 'frames/vertical/vv3.html', width: 1080, height: 1920 },
-  //   { key: 'ov3', file: 'frames/vertical/ov3.html', width: 1920, height: 1080 },
+  { key: 'solo-v', file: 'frames/vertical/overlay-solo-vertical.html', width: 1080, height: 1920 },
+  { key: 'solo-h', file: 'frames/overlay-solo.html', width: 1920, height: 1080 },
+  // { key: 'vv3', file: 'frames/vertical/vv3.html', width: 1080, height: 1920 },
+  // { key: 'ov3', file: 'frames/vertical/ov3.html', width: 1920, height: 1080 },
 ];
 
 async function run() {
@@ -51,7 +51,7 @@ async function run() {
       // Breve pausa para animaciones y script-overlay.js
       await page.waitForTimeout(1000);
 
-      // Detectar ventanas de cámara y elementos protegidos (nametags, badges)
+      // Detectar ventanas de cámara y elementos protegidos (nametags, badges, esquinas)
       const { camRects, protectedRects } = await page.evaluate(() => {
         const cams = [];
         document.querySelectorAll('.cam-window, .mm-window, .cam-cutout, [data-cutout]').forEach(el => {
@@ -67,14 +67,32 @@ async function run() {
         });
 
         const prot = [];
-        document.querySelectorAll('.name-tag, .name-tag-custom, .nt-host, .nt-cohost, .cam-corner-badge, .guest-featured-badge, .cam-badge, .header-logo-circle').forEach(el => {
+        const protSelectors = [
+          '.name-tag',
+          '.name-tag-custom',
+          '.name-tag-overlay',
+          '.name-tag-solo',
+          '.nt-host',
+          '.nt-cohost',
+          '.cam-corner-badge',
+          '.guest-featured-badge',
+          '.cam-badge',
+          '.header-logo-circle',
+          '.live-indicator',
+          '.live-badge',
+          '.cam-corner'
+        ].join(', ');
+
+        document.querySelectorAll(protSelectors).forEach(el => {
           const r = el.getBoundingClientRect();
           if (r.width > 0 && r.height > 0) {
+            // Se añade margen de seguridad para resplandores/sombras de bordes
+            const pad = 4;
             prot.push({
-              x: Math.round(r.left),
-              y: Math.round(r.top),
-              w: Math.round(r.width),
-              h: Math.round(r.height)
+              x: Math.max(0, Math.round(r.left) - pad),
+              y: Math.max(0, Math.round(r.top) - pad),
+              w: Math.round(r.width) + pad * 2,
+              h: Math.round(r.height) + pad * 2
             });
           }
         });
