@@ -142,32 +142,50 @@
     var g3Name = (data.guest3 && data.guest3.name) ? data.guest3.name : 'INVITADO 3';
     var g3Role = (data.guest3 && data.guest3.role) ? data.guest3.role : '💬 INVITADO 3';
 
+    function getSocialsHtml(socials) {
+      if (!socials || !Array.isArray(socials)) return '';
+      var html = '';
+      socials.forEach(function (s) {
+        if (s.handle && s.handle.trim() !== '') {
+          html += '<div class="social-item">'
+               +   '<span class="social-icon">' + (s.icon || '📱') + '</span>'
+               +   '<div class="social-text">'
+               +     '<span class="social-platform">' + (s.platform || 'Red Social') + '</span>'
+               +     '<span class="social-handle">' + s.handle + '</span>'
+               +   '</div>'
+               + '</div>';
+        }
+      });
+      return html;
+    }
+
     document.querySelectorAll('[data-bind="guest1-name"]').forEach(function (el) { el.textContent = g1Name; });
     document.querySelectorAll('[data-bind="guest1-role"]').forEach(function (el) { el.textContent = g1Role; });
+    var g1Bio = (data.guest1 && data.guest1.bio) ? data.guest1.bio : '';
+    document.querySelectorAll('[data-bind="guest1-bio"]').forEach(function (el) { el.textContent = g1Bio; });
+    document.querySelectorAll('[data-bind="guest1-socials"]').forEach(function (el) {
+      el.innerHTML = getSocialsHtml(data.guest1 ? data.guest1.socials : null);
+    });
 
     document.querySelectorAll('[data-bind="guest2-name"]').forEach(function (el) { el.textContent = g2Name; });
     document.querySelectorAll('[data-bind="guest2-role"]').forEach(function (el) { el.textContent = g2Role; });
+    var g2Bio = (data.guest2 && data.guest2.bio) ? data.guest2.bio : '';
+    document.querySelectorAll('[data-bind="guest2-bio"]').forEach(function (el) { el.textContent = g2Bio; });
+    document.querySelectorAll('[data-bind="guest2-socials"]').forEach(function (el) {
+      el.innerHTML = getSocialsHtml(data.guest2 ? data.guest2.socials : null);
+    });
 
     document.querySelectorAll('[data-bind="guest3-name"]').forEach(function (el) { el.textContent = g3Name; });
     document.querySelectorAll('[data-bind="guest3-role"]').forEach(function (el) { el.textContent = g3Role; });
+    var g3Bio = (data.guest3 && data.guest3.bio) ? data.guest3.bio : '';
+    document.querySelectorAll('[data-bind="guest3-bio"]').forEach(function (el) { el.textContent = g3Bio; });
+    document.querySelectorAll('[data-bind="guest3-socials"]').forEach(function (el) {
+      el.innerHTML = getSocialsHtml(data.guest3 ? data.guest3.socials : null);
+    });
 
     // Redes del invitado activo
     document.querySelectorAll('[data-bind="guest-socials"]').forEach(function (container) {
-      if (activeGuest && activeGuest.socials && Array.isArray(activeGuest.socials)) {
-        var html = '';
-        activeGuest.socials.forEach(function (s) {
-          if (s.handle && s.handle.trim() !== '') {
-            html += '<div class="social-item">'
-                 +   '<span class="social-icon">' + (s.icon || '📱') + '</span>'
-                 +   '<div class="social-text">'
-                 +     '<span class="social-platform">' + (s.platform || 'Red Social') + '</span>'
-                 +     '<span class="social-handle">' + s.handle + '</span>'
-                 +   '</div>'
-                 + '</div>';
-          }
-        });
-        container.innerHTML = html;
-      }
+      container.innerHTML = getSocialsHtml(activeGuest ? activeGuest.socials : null);
     });
 
     // ── 2b. SOLO VERTICAL STREAM INFO ───────────────────────────────────────

@@ -27,7 +27,8 @@
 
       <div class="form-group">
         <label for="showSloganInput">Slogan / Temática del Programa</label>
-        <input type="text" id="showSloganInput" value="En Vivo: Entrevistas en vivo y zapadas con invitados." placeholder="Ej. En Vivo: Entrevistas en vivo...">
+        <input type="text" id="showSloganInput" value="En Vivo: Entrevistas en vivo y zapadas con invitados."
+          placeholder="Ej. En Vivo: Entrevistas en vivo...">
       </div>
 
       <div class="form-group">
@@ -108,7 +109,7 @@ Les escribo porque sigo de cerca su trabajo musical y me gustaría invitarlos a 
 
 La idea es tener una charla amena sobre sus inicios, el camino recorrido y compartir su experiencia con artistas emergentes que están buscando su propio espacio.
 
-La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieren en vivo en nuestro stream principal de los domingos que arranca a las 15:00 hs. (y no tomaría más de 15 a 20 minutos). Luego, los fragmentos destacados se compartirán en nuestras redes (TikTok, Instagram, Facebook y YouTube) para darle visibilidad a su proyecto y conectar con nueva audiencia.
+La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieren en vivo en nuestro stream principal de los domingos que arranca a las 12:00 hs. (y no tomaría más de 15 a 20 minutos). Luego, los fragmentos destacados se compartirán en nuestras RRSS y nuestra web https://guta.meapp.com.ar para darle visibilidad a su proyecto y conectar con nueva audiencia.
 
 Avisenme si les interesa la propuesta y coordinamos el día y horario que mejor les quede. ¡Sería un verdadero gusto contar con ustedes!`;
     }
@@ -122,7 +123,7 @@ Te escribo porque sigo de cerca tu trabajo musical y me gustaría invitarte a se
 
 La idea es tener una charla amena sobre tus inicios, el camino recorrido y compartir tu experiencia con artistas emergentes que están buscando su propio espacio.
 
-La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieres en vivo en nuestro stream principal de los domingos que arranca a las 15:00 hs. (y no tomaría más de 15 a 20 minutos). Luego, los fragmentos destacados se compartirán en nuestras redes (TikTok, Instagram, Facebook y YouTube) para darle visibilidad a tu proyecto y conectar con nueva audiencia.
+La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieres en vivo en nuestro stream principal de los domingos que arranca a las 12:00 hs. (y no tomaría más de 15 a 20 minutos). Luego, los fragmentos destacados se compartirán en nuestras RRSS y nuestra web https://guta.meapp.com.ar para darle visibilidad a tu proyecto y conectar con nueva audiencia.
 
 Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te quede. ¡Sería un verdadero gusto contar con vos!`;
     }
@@ -144,7 +145,7 @@ Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te
 
     function resetTemplate(forceUpdateText = false) {
       const showTitle = showTitleInput.value.trim() || 'SESIONES RG';
-      const showSlogan = showSloganInput.value.trim() || 'En Vivo: Entrevistas en vivo y zapadas con invitados.';
+      const showSlogan = "Entrevistas en vivo.";
       const hostName = hostInput.value.trim() || 'Guta Flores';
 
       if (currentType === 'group') {
@@ -172,7 +173,7 @@ Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te
       const artistName = artistInput.value.trim() || '[Nombre del artista]';
       const hostName = hostInput.value.trim() || 'GUTA FLORES';
       const showTitle = showTitleInput.value.trim() || 'SESIONES RG';
-      const showSlogan = showSloganInput.value.trim() || 'En Vivo: Entrevistas en vivo y zapadas con invitados.';
+      const showSlogan = "Entrevistas en vivo";
 
       displayHostName.textContent = hostName;
       displayShowTitleBadge.textContent = showTitle;
@@ -194,7 +195,7 @@ Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te
         try {
           const reg = new RegExp(`"${escapeRegExp(showTitle)}"`, 'gi');
           formattedText = formattedText.replace(reg, `"<strong class="show-highlight">${showTitle}</strong>"`);
-        } catch (e) {}
+        } catch (e) { }
       }
 
       invitationContent.innerHTML = formattedText;
@@ -216,13 +217,13 @@ Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te
       try {
         const localStr = localStorage.getItem('streamData');
         if (localStr) data = JSON.parse(localStr);
-      } catch (e) {}
+      } catch (e) { }
 
       if (!data) {
         try {
           const res = await fetch('stream-data.json?t=' + Date.now());
           if (res.ok) data = await res.json();
-        } catch (e) {}
+        } catch (e) { }
       }
 
       if (data) {
@@ -256,7 +257,7 @@ Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te
           if (data.guest && data.guest.name) artistInput.value = data.guest.name;
           if (data.host && data.host.name) hostInput.value = data.host.name;
           renderCard();
-        } catch (err) {}
+        } catch (err) { }
       }
     });
 

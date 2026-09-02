@@ -62,7 +62,7 @@
       opacity: 0;
       transform: translateX(100%);
       transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-      padding: 21vh 4.7vw 8.3vh 4.7vw;
+      padding: 13vh 4vw 7vh 4vw;
       box-sizing: border-box;
     }
 
@@ -82,17 +82,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 5.5vh;
-      max-height: 44vh;
+      margin-bottom: 2.5vh;
+      max-height: 56vh;
     }
 
     .header-fixed {
       position: absolute;
-      top: 7.7vh;
+      top: 6vh;
       left: 0;
       width: 100%;
       text-align: center;
-      font-size: 3.1vw;
+      font-size: 3.5vw;
       font-weight: 900;
       color: var(--gold);
       letter-spacing: 2px;
@@ -105,20 +105,39 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.6));
     }
 
     .sponsor-name {
-      font-size: 5vw;
-      font-weight: 900;
+      font-size: 6.8vw;
+      font-weight: 950;
       color: #FFF;
       text-transform: uppercase;
       letter-spacing: 1px;
       text-align: center;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      text-shadow: 0 3px 6px rgba(0,0,0,0.9);
       background: linear-gradient(90deg, var(--turquoise), #FFF);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    .sponsor-phone {
+      font-size: 3.8vw;
+      font-weight: 700;
+      color: #FFF;
+      margin-top: 1.5vh;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      background: linear-gradient(90deg, #FFF, var(--turquoise));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 1.2vw;
+      justify-content: center;
+    }
+
+    .sponsor-phone-icon {
+      -webkit-text-fill-color: var(--turquoise);
     }
     
     .sponsor-label {
@@ -189,11 +208,19 @@
         slide.className = 'sponsor-slide' + (index === 0 ? ' active' : '');
         slide.id = 'sponsor-slide-' + index;
         
+        const phoneHtml = sponsor.phone ? `
+          <div class="sponsor-phone">
+            <span class="sponsor-phone-icon">📞</span>
+            <span>${sponsor.phone}</span>
+          </div>
+        ` : '';
+        
         slide.innerHTML = `
           <div class="sponsor-image-wrapper">
             <img src="sponsors/${sponsor.image}" class="sponsor-image" alt="${sponsor.name}">
           </div>
           <div class="sponsor-name">${sponsor.name}</div>
+          ${phoneHtml}
         `;
         container.appendChild(slide);
       });

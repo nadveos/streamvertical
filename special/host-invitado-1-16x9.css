@@ -1,0 +1,481 @@
+/* ══════════════════════════════════════════════════════════════════
+   OVERLAY HORIZONTAL 16:9 — HOST & INVITADO 1 EN ROW (1920x1080)
+   2 Marcos 16:9 dispuestos en fila con separador vertical demarcado
+   ══════════════════════════════════════════════════════════════════ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: transparent !important;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #ffffff;
+}
+
+/* ── Escenario 1920x1080 ───────────────────────────────────────── */
+.stage-16x9 {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  background: transparent !important;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ── 1. HEADER SUPERIOR ────────────────────────────────────────── */
+.stage-header {
+  position: absolute;
+  top: 16px;
+  left: 36px;
+  right: 36px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #10121B url('../branding/logo-badge.png') center/cover no-repeat;
+  border: 2px solid #00E6C8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 14px rgba(255, 55, 95, 0.5);
+  overflow: hidden;
+}
+
+.header-logo-circle img,
+.header-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Badge circular de marca en esquina inferior izquierda del marco */
+.cam-corner-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #10121B url('../branding/logo-badge.png') center/cover no-repeat;
+  border: 2px solid #00E6C8;
+  box-shadow: 0 0 12px rgba(0, 230, 200, 0.6), 0 4px 10px rgba(0, 0, 0, 0.85);
+  z-index: 25;
+  pointer-events: none;
+}
+
+.header-host-name,
+.header-show-name {
+  font-size: 20px;
+  font-weight: 900;
+  color: #00E6C8;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 20px rgba(0, 230, 200, 0.4);
+}
+
+.header-host-role,
+.header-show-slogan {
+  font-size: 12px;
+  font-weight: 700;
+  color: #A0A5B5;
+  letter-spacing: 1px;
+}
+
+.participant-count-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 18, 27, 0.85);
+  border: 1px solid rgba(0, 230, 200, 0.35);
+  padding: 4px 14px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.header-participant-count {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 1px;
+}
+
+.participant-count-number {
+  color: #FFD700;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #8B0000, #C0392B);
+  border: 1.5px solid #FF3B3B;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 900;
+  padding: 6px 16px;
+  border-radius: 20px;
+  letter-spacing: 2px;
+  box-shadow: 0 0 16px rgba(192, 57, 43, 0.6);
+}
+
+.live-dot {
+  width: 9px;
+  height: 9px;
+  background: #FF3B3B;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 59, 59, 0.9);
+  animation: blinkLive 1.4s infinite;
+}
+
+/* ── Decoraciones de esquina ───────────────────────────────────── */
+.deco-corner {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  z-index: 28;
+  pointer-events: none;
+}
+
+.deco-tl { top: 80px; left: 14px; border-top: 3px solid rgba(255, 215, 0, 0.6); border-left: 3px solid rgba(255, 215, 0, 0.6); border-radius: 10px 0 0 0; }
+.deco-tr { top: 80px; right: 14px; border-top: 3px solid rgba(255, 215, 0, 0.6); border-right: 3px solid rgba(255, 215, 0, 0.6); border-radius: 0 10px 0 0; }
+.deco-bl { bottom: 155px; left: 14px; border-bottom: 3px solid rgba(192, 57, 43, 0.7); border-left: 3px solid rgba(192, 57, 43, 0.7); border-radius: 0 0 0 10px; }
+.deco-br { bottom: 155px; right: 14px; border-bottom: 3px solid rgba(192, 57, 43, 0.7); border-right: 3px solid rgba(192, 57, 43, 0.7); border-radius: 0 0 10px 0; }
+
+/* ── 2. ÁREA PRINCIPAL HORIZONTAL (ROW DE 2 FRAMES 16:9) ───────── */
+.hosts-row-area {
+  position: absolute;
+  top: 76px;
+  left: 36px;
+  right: 36px;
+  bottom: 155px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  box-sizing: border-box;
+}
+
+.hosts-row-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  width: 100%;
+  max-width: 1820px;
+  height: 100%;
+  position: relative;
+}
+
+/* ── Marcos Individuales 16:9 ──────────────────────────────────── */
+.cam-card-horiz {
+  width: 860px;
+  height: 484px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  border-radius: 22px;
+  background: transparent;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.95);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+}
+
+/* Marco Host (Oro & Rojo) */
+.host-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  padding: 7px;
+  background: linear-gradient(135deg, #8B0000, #FFD700, #C0392B, #E67E22, #8B0000);
+  background-size: 300% 300%;
+  animation: borderGlowGold 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Marco Invitado (Púrpura & Magenta) */
+.guest-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  padding: 7px;
+  background: linear-gradient(135deg, #a855f7, #ec4899, #8b5cf6, #c084fc, #a855f7);
+  background-size: 300% 300%;
+  animation: borderGlowPurple 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.cam-card-horiz .cam-window {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 16px;
+}
+
+/* ── SEPARADOR VERTICAL CENTRAL DEMARCADO ──────────────────────── */
+.vertical-divider-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  height: 480px;
+  width: 40px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.divider-line-top,
+.divider-line-bottom {
+  width: 3px;
+  flex: 1;
+  background: linear-gradient(180deg, rgba(255, 215, 0, 0) 0%, rgba(255, 215, 0, 0.8) 50%, #C0392B 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.divider-line-bottom {
+  background: linear-gradient(180deg, #C0392B 0%, rgba(168, 85, 247, 0.8) 50%, rgba(168, 85, 247, 0) 100%);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.divider-center-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1c0000, #380000);
+  border: 2px solid #FFD700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.6), inset 0 0 8px rgba(255, 215, 0, 0.3);
+  z-index: 10;
+}
+
+/* ── ETIQUETAS DE NOMBRE ──────────────────────────────────────── */
+.name-tag {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 14px;
+  padding: 5px 24px;
+  min-width: 220px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.95);
+  z-index: 20;
+  white-space: nowrap;
+}
+
+.nt-host {
+  border: 2px solid #FFD700;
+  background: linear-gradient(90deg, #0d0d0d 0%, #3a2500 50%, #0d0d0d 100%);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.95), 0 0 16px rgba(255, 215, 0, 0.45);
+}
+
+.nt-guest {
+  border: 2px solid #a855f7;
+  background: linear-gradient(90deg, #0d0d0d 0%, #2b003a 50%, #0d0d0d 100%);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.95), 0 0 16px rgba(168, 85, 247, 0.45);
+}
+
+.name-tag .nt-role {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+}
+
+.nt-host .nt-role { color: #FFD700; }
+.nt-guest .nt-role { color: #c084fc; }
+
+.name-tag .nt-name {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 900;
+  margin-top: 2px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* ── 3. MOTTO BANNER INFERIOR ─────────────────────────────────── */
+.motto-bar {
+  position: absolute;
+  bottom: 84px;
+  left: 36px;
+  right: 36px;
+  height: 48px;
+  background: linear-gradient(90deg,
+    rgba(10, 0, 0, 0.94) 0%,
+    rgba(40, 0, 0, 0.94) 40%,
+    rgba(40, 0, 0, 0.94) 60%,
+    rgba(10, 0, 0, 0.94) 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.45);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  backdrop-filter: blur(8px);
+  z-index: 25;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+}
+
+.motto-p1, .motto-p2 {
+  font-size: 15px;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.motto-p1 {
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.motto-sep {
+  font-size: 13px;
+  font-weight: 900;
+  color: #C0392B;
+  background: rgba(192, 57, 43, 0.25);
+  border: 2px solid rgba(192, 57, 43, 0.8);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(192, 57, 43, 0.5);
+}
+
+/* ── 4. TICKER INFERIOR ───────────────────────────────────────── */
+.ticker-bar {
+  position: absolute;
+  bottom: 14px;
+  left: 36px;
+  right: 36px;
+  height: 60px;
+  background: linear-gradient(90deg, #0a0a0f 0%, #1a0000 40%, #0a0a0f 100%);
+  border: 2px solid #C0392B;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 25;
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.5), inset 0 1px 0 rgba(255, 215, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.ticker-label {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #8B0000, #C0392B);
+  color: #FFD700;
+  font-weight: 900;
+  font-size: 15px;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-right: 2px solid #FFD700;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.ticker-live-dot {
+  width: 9px;
+  height: 9px;
+  background: #FF3B3B;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 59, 59, 0.9);
+  animation: blinkLive 1.4s infinite;
+}
+
+.ticker-track {
+  overflow: hidden;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-content {
+  font-size: 20px;
+  font-weight: 600;
+  color: #DDD;
+  white-space: nowrap;
+  animation: tickerScroll 35s linear infinite;
+}
+
+.ticker-content .highlight {
+  color: #FFD700;
+  font-weight: 800;
+}
+
+.ticker-content .sep {
+  color: #C0392B;
+  margin: 0 12px;
+  font-weight: 900;
+}
+
+/* ── ANIMACIONES ──────────────────────────────────────────────── */
+@keyframes borderGlowGold {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes borderGlowPurple {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes blinkLive {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Guta Flores — Overlay 16:9 (Host & Invitado 3 - Marcos 9:16 con Tarjeta)</title>
+  <link class="stylesheet" rel="stylesheet" href="invitados-3-1-16x9.css">
+  <style>
+    /* Specific fix requested by user for this overlay only */
+    #unified-horiz-branding {
+      height: 180px !important; 
+    }
+    #unified-horiz-branding img {
+      object-fit: cover !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="stage-16x9">
+
+    <!-- ══ HEADER SUPERIOR ══════════════════════════════════════════ -->
+    <div class="stage-header">
+
+      <!-- Branding del show -->
+      <div class="header-brand">
+        <div class="header-logo-circle">
+          <img src="../branding/logo-badge.png" class="header-logo-img" alt="Logo">
+        </div>
+        <div>
+          <div class="header-host-name" id="headerHostName" data-bind="show-title">SESIONES RG</div>
+          <div class="header-host-role" id="headerHostRole" data-bind="show-slogan">En Vivo: Entrevistas en vivo y zapadas con invitados.</div>
+        </div>
+      </div>
+
+      <!-- Contador de participantes en escena -->
+      <div class="participant-count-wrapper">
+        <span class="header-participant-count">EN ESCENA:</span>
+        <span class="header-participant-count participant-count-number">2 PARTICIPANTES</span>
+      </div>
+
+      <!-- Badge de live -->
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        EN VIVO
+      </div>
+
+    </div>
+
+    <!-- ══ ESQUINAS DECORATIVAS ═══════════════════════════════════ -->
+    <div class="deco-corner deco-tl"></div>
+    <div class="deco-corner deco-tr"></div>
+    <div class="deco-corner deco-bl"></div>
+    <div class="deco-corner deco-br"></div>
+
+    <!-- ══ ÁREA DE FRAMES CON DETALLE DE INVITADO ═════════════════ -->
+    <div class="frames-area-custom">
+      <div class="dynamic-stage-container-custom">
+
+        <!-- 1. Frame Host (Izquierda - 16:9) -->
+        <div class="pframe pf-host">
+          <div class="cam-cutout" data-cutout></div>
+          <div class="frame-border-anim fb-host"></div>
+          <div class="cam-corner-badge"></div>
+          <div class="name-tag nt-host">
+            <div class="nt-role" data-bind="host-role">🎙️ ANFITRIÓN / HOST</div>
+            <div class="nt-name" data-bind="host-name">GUTA FLORES</div>
+          </div>
+        </div>
+
+        <!-- 2. Tarjeta de Información de Guest 3 (Centro) -->
+        <div class="stage-info-card card-guest3">
+          <div class="info-card-header">
+            <div class="info-card-badge" data-bind="guest3-role">💬 INVITADO 3</div>
+            <div class="info-card-title" data-bind="guest3-name">Diego Loza</div>
+          </div>
+          <div class="info-card-bio">
+            <div class="bio-header-mini">
+              <span class="bio-icon">📖</span>
+              <span class="bio-tag">RESEÑA & TRAYECTORIA</span>
+            </div>
+            <div class="bio-text" data-bind="guest3-bio"></div>
+          </div>
+          <div class="info-card-socials" data-bind="guest3-socials"></div>
+        </div>
+
+        <!-- 3. Frame Invitado 3 (Derecha - 9:16) -->
+        <div class="pframe pf-guest3">
+          <div class="cam-cutout" data-cutout></div>
+          <div class="frame-border-anim fb-guest3"></div>
+          <div class="name-tag nt-guest3">
+            <div class="nt-role" data-bind="guest3-role">💬 INVITADO 3</div>
+            <div class="nt-name" data-bind="guest3-name">Diego Loza</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ MOTTO BANNER INFERIOR ═══════════════════════════════════ -->
+    <div class="motto-bar">
+      <span class="motto-p1" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+      <span class="motto-sep" data-bind="motto-connector">Y</span>
+      <span class="motto-p2" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+    </div>
+
+    <!-- ══ TICKER INFERIOR ════════════════════════════════════════ -->
+    <div class="ticker-bar">
+      <div class="ticker-label">
+        <span class="ticker-live-dot"></span>
+        ✨ DESTACADO
+      </div>
+      <div class="ticker-track">
+        <div class="ticker-content" data-bind="ticker-content">
+          🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
+          <span class="sep">◆</span>
+          🌟 ¡Bienvenidos al stream!
+          <span class="sep">◆</span>
+          📲 Seguinos en redes: <span class="highlight">@gutafloresok</span>
+          <span class="sep">◆</span>
+          🎶 Música, folklore y entretenimiento en vivo
+          <span class="sep">◆</span>
+          💬 ¡Dejá tu comentario y saludá!
+          <span class="sep">◆</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../script-overlay.js"></script>
+</body>
+
+</html>

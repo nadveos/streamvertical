@@ -390,46 +390,61 @@
       text-transform: uppercase;
     }
 
-    /* 7. NAME TAG DE CÁMARA (Anclado al borde inferior de la cámara) */
+    /* 7. NAME TAG DE CÁMARA (Centrado debajo de la cámara 16:9) */
     .name-tag-overlay {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(180deg,
-          transparent 0%,
-          rgba(10, 12, 18, 0.85) 35%,
+      top: 550px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg,
+          rgba(16, 18, 27, 0.96) 0%,
+          rgba(23, 26, 38, 0.94) 50%,
           rgba(16, 18, 27, 0.98) 100%);
-      padding: 40px 120px 22px 36px;
-      z-index: 4;
+      border: 2px solid rgba(0, 230, 200, 0.7);
+      border-radius: 20px;
+      padding: 10px 44px 12px 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.95),
+        0 0 25px rgba(0, 230, 200, 0.35),
+        inset 0 0 15px rgba(255, 55, 95, 0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 15;
+      white-space: nowrap;
     }
 
     .name-role {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 800;
       color: #FF375F;
-      letter-spacing: 3px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      text-shadow: 0 0 12px rgba(255, 55, 95, 0.4);
+      text-shadow: 0 0 12px rgba(255, 55, 95, 0.5);
     }
 
     .name-main {
       font-family: 'Bebas Neue', 'Outfit', sans-serif;
-      font-size: 64px;
+      font-size: 56px;
       color: #FFFFFF;
-      letter-spacing: 5px;
+      letter-spacing: 4px;
       line-height: 1.05;
       text-shadow:
-        0 0 20px rgba(0, 230, 200, 0.4),
+        0 0 20px rgba(0, 230, 200, 0.45),
         0 2px 8px rgba(0, 0, 0, 0.9);
+      margin: 2px 0;
     }
 
     .name-social {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       color: #FFD700;
       letter-spacing: 2px;
-      margin-top: 4px;
+      margin-top: 2px;
       opacity: 0.95;
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
     }

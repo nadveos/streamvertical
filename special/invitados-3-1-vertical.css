@@ -1,0 +1,399 @@
+/* ══════════════════════════════════════════════════════════════════
+   OVERLAY VERTICAL 9:16 — HOST & INVITADO 3 (1080x1920)
+   Guest Cam 9:16 (Arriba) + Tarjeta Info (Centro) + Host Cam 16:9 (Abajo)
+   ══════════════════════════════════════════════════════════════════ */
+
+html,
+body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.main-border {
+  width: 1080px;
+  height: 1920px;
+  padding: 16px;
+  background: transparent !important;
+  box-shadow: none !important;
+  box-sizing: border-box;
+}
+
+.main-border::before {
+  display: none !important;
+}
+
+.main-inner {
+  background: transparent !important;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ── CONTENEDOR PRINCIPAL VERTICAL ────────────────────────────── */
+.hosts-vertical-layout {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+/* ── MARCOS EN COLUMNA ────────────────────────────────────────── */
+.cam-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+}
+
+/* Guest Cam (9:16 - 400px x 711px) */
+.cam-box-9x16 {
+  width: 400px;
+  height: 711px;
+  aspect-ratio: 9 / 16;
+  position: relative;
+  border-radius: 22px;
+  background: transparent;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.95);
+  box-sizing: border-box;
+}
+
+/* Host Cam (16:9 - 700px x 394px) */
+.cam-box-16x9 {
+  width: 700px;
+  height: 394px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  border-radius: 22px;
+  background: transparent;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.95);
+  box-sizing: border-box;
+}
+
+/* Badge circular de marca en esquina inferior izquierda del marco */
+.cam-corner-badge {
+  position: absolute;
+  bottom: 16px;
+  left: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #10121B url('../branding/logo-badge.png') center/cover no-repeat;
+  border: 2px solid #FFD700;
+  box-shadow: 0 0 14px rgba(255, 215, 0, 0.6), 0 4px 10px rgba(0, 0, 0, 0.85);
+  z-index: 25;
+  pointer-events: none;
+}
+
+.header-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Marco Invitado 3 (Borde Púrpura) */
+.guest3-box-style::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  padding: 7px;
+  background: linear-gradient(45deg, #a855f7, #10121B, #ec4899, #10121B, #a855f7);
+  background-size: 300% 300%;
+  animation: borderGlowPurple 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Marco Host (Borde Coral) */
+.host-box-style::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  padding: 7px;
+  background: linear-gradient(45deg, #FF375F, #10121B, #00E6C8, #10121B, #FF375F);
+  background-size: 300% 300%;
+  animation: borderGlowCoral 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.show-logo-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #10121B;
+  border: 1.5px solid #FFD700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+@keyframes borderGlowPurple {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes borderGlowCoral {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.cam-box-9x16 .cam-window,
+.cam-box-16x9 .cam-window {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 16px;
+}
+
+/* ── SEPARADOR CENTRAL PROMINENTE (TARJETA + BRANDING) ────────── */
+.middle-separator-zone {
+  width: 740px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  z-index: 20;
+  padding: 8px 0;
+}
+
+/* ── Tarjetas de Información en Columna ───────────────────────── */
+.stage-info-card {
+  width: 740px;
+  height: 154px;
+  background: rgba(16, 18, 27, 0.95);
+  border-radius: 18px;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  box-sizing: border-box;
+  border: 2px solid #a855f7;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), inset 0 0 15px rgba(168, 85, 247, 0.12);
+}
+
+.info-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px solid rgba(168, 85, 247, 0.3);
+  padding-bottom: 4px;
+}
+
+.info-card-badge {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #c084fc;
+}
+
+.info-card-title {
+  font-size: 17px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.info-card-body-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  flex-grow: 1;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.info-card-bio {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 6px 12px;
+  overflow: hidden;
+  border-left: 3px solid #a855f7;
+}
+
+.bio-text {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.4;
+  overflow-y: auto;
+  max-height: 72px;
+}
+
+.info-card-socials {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.info-card-socials .social-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border-left: 2px solid #a855f7;
+}
+
+.info-card-socials .social-icon {
+  font-size: 13px;
+}
+
+.info-card-socials .social-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.info-card-socials .social-platform {
+  font-size: 8px;
+  color: #A0A5B5;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.info-card-socials .social-handle {
+  font-size: 11px;
+  color: #FFF;
+  font-weight: 700;
+}
+
+/* ── Branding Sesiones RG / Slogan Vertical ───────────── */
+.show-brand-banner-vertical {
+  width: 100%;
+  min-height: 38px;
+  background: linear-gradient(90deg,
+    rgba(10, 0, 0, 0.95) 0%,
+    rgba(38, 5, 5, 0.95) 30%,
+    rgba(38, 5, 5, 0.95) 70%,
+    rgba(10, 0, 0, 0.95) 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.55);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.75), 0 0 14px rgba(255, 215, 0, 0.2);
+  box-sizing: border-box;
+  padding: 6px 20px;
+}
+
+.show-brand-banner-vertical .show-logo-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8B0000, #C0392B);
+  border: 1.5px solid #FFD700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+  flex-shrink: 0;
+}
+
+.show-brand-banner-vertical .show-title-text {
+  font-size: 15px;
+  font-weight: 900;
+  color: #FFD700;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+.show-brand-banner-vertical .show-slogan-text {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.5px;
+}
+
+/* ── ETIQUETAS DE NOMBRE ──────────────────────────────────────── */
+.name-tag-custom {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 14px;
+  padding: 5px 24px;
+  min-width: 220px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.95);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.name-tag-guest3 {
+  border: 2px solid #a855f7;
+  background: linear-gradient(90deg, #0d0d0d 0%, #2b003a 50%, #0d0d0d 100%);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.95), 0 0 16px rgba(168, 85, 247, 0.45);
+}
+
+.name-tag-host {
+  border: 2px solid #00E6C8;
+  background: linear-gradient(90deg, #0d0d0d 0%, #112629 50%, #0d0d0d 100%);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.95), 0 0 16px rgba(0, 230, 200, 0.45);
+}
+
+.name-tag-custom .role-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+}
+
+.name-tag-guest3 .role-title { color: #c084fc; }
+.name-tag-host .role-title { color: #00E6C8; }
+
+.name-tag-custom .user-name {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 900;
+  margin-top: 2px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}

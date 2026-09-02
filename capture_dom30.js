@@ -4,18 +4,18 @@ const { chromium } = require('playwright-core');
 const { Jimp } = require('jimp');
 
 const DIR = __dirname;
-const OUT_DIR = path.join(DIR, 'dom30');
+const OUT_DIR = path.join(DIR, 'dom06-09');
 if (!fs.existsSync(OUT_DIR)) {
   fs.mkdirSync(OUT_DIR, { recursive: true });
 }
 
 const TARGETS = [
-  { key: 'vv1', file: 'frames/vertical/vv1.html', width: 1080, height: 1920 },
-  { key: 'ov1', file: 'frames/vertical/ov1.html', width: 1920, height: 1080 },
-  { key: 'vv2', file: 'frames/vertical/vv2.html', width: 1080, height: 1920 },
-  { key: 'ov2', file: 'frames/vertical/ov2.html', width: 1920, height: 1080 },
-  { key: 'vv3', file: 'frames/vertical/vv3.html', width: 1080, height: 1920 },
-  { key: 'ov3', file: 'frames/vertical/ov3.html', width: 1920, height: 1080 },
+  // { key: 'vv1', file: 'frames/vertical/vv1.html', width: 1080, height: 1920 },
+  // { key: 'ov1', file: 'frames/vertical/ov1.html', width: 1920, height: 1080 },
+  { key: 'vv2', file: 'frames/vertical/overlay-solo-vertical.html', width: 1080, height: 1920 },
+  { key: 'ov2', file: 'frames/vertical/overlay-solo.html', width: 1920, height: 1080 },
+  //   { key: 'vv3', file: 'frames/vertical/vv3.html', width: 1080, height: 1920 },
+  //   { key: 'ov3', file: 'frames/vertical/ov3.html', width: 1920, height: 1080 },
 ];
 
 async function run() {

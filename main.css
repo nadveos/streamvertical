@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;900&display=swap');
+
 :root {
     --color-coral: #FF375F;
     --color-coral-glow: rgba(255, 55, 95, 0.4);
@@ -15,8 +17,6 @@
     margin: 0;
     padding: 0;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;900&display=swap');
 
 html,
 body {

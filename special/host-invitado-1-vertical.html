@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <title>Guta Flores — Overlay Vertical 9:16 (Host & Invitado 1 en 16:9)</title>
+  <link rel="stylesheet" href="../main.css">
+  <link rel="stylesheet" href="host-invitado-1-vertical.css">
+  <link rel="stylesheet" href="../transparent-mode.css">
+</head>
+
+<body>
+
+  <!-- Marco General Animado (Fondo Transparente) -->
+  <div class="main-border">
+    <div class="main-inner">
+
+      <!-- Estructura Vertical: Invitado Arriba + Separador Central (Motto + Ticker) + Host Abajo -->
+      <div class="hosts-vertical-layout">
+
+        <!-- 1. SECCIÓN INVITADO (ARRIBA - 16:9 1000x562) -->
+        <div class="cam-card-wrapper" data-bind="guest-box">
+          <div class="cam-box-16x9 guest-box-style">
+            <div class="cam-window" data-cutout></div>
+            <div class="cam-corner-badge"></div>
+            <div class="name-tag-custom name-tag-guest">
+              <div class="role-title" data-bind="guest-role">💬 INVITADO ESPECIAL</div>
+              <div class="user-name" data-bind="guest-name">PIKILLINES</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. SECCIÓN SEPARADOR CENTRAL (SHOW BRAND + MOTTO BANNER + TICKER BAR) -->
+        <div class="middle-separator-zone">
+
+          <!-- Branding Sesiones RG / Slogan -->
+          <div class="show-brand-banner-vertical">
+            <div class="show-logo-circle">
+              <img src="../branding/logo-badge.png" class="header-logo-img" alt="Logo">
+            </div>
+            <div class="show-title-text" data-bind="show-title">SESIONES RG</div>
+            <div class="show-slogan-text" data-bind="show-slogan">En Vivo: Entrevistas en vivo y zapadas con invitados.</div>
+          </div>
+
+          <!-- Motto Banner Prominente -->
+          <div class="motto-banner-high">
+            <div class="motto-text-group">
+              <span class="motto-phrase highlight" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+              <span class="motto-connector" data-bind="motto-connector">Y</span>
+              <span class="motto-phrase" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+            </div>
+          </div>
+
+          <!-- Ticker Bar Prominente -->
+          <div class="ticker-bar-high">
+            <div class="ticker-label">
+              <span class="ticker-dot"></span>
+              ✨ DESTACADO
+            </div>
+            <div class="ticker-track">
+              <div class="ticker-content" data-bind="ticker-content">
+                🎙️ Transmisión en vivo: <span class="highlight">GUTA FLORES</span>
+                <span class="sep">◆</span>
+                🌟 ¡Bienvenidos al stream!
+                <span class="sep">◆</span>
+                📲 Seguinos en redes: <span class="highlight">@gutafloresok</span>
+                <span class="sep">◆</span>
+                🎶 Música, folklore y entretenimiento en vivo
+                <span class="sep">◆</span>
+                💬 ¡Dejá tu comentario y saludá!
+                <span class="sep">◆</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 3. SECCIÓN ANFITRIÓN (ABAJO - 16:9 1000x562) -->
+        <div class="cam-card-wrapper">
+          <div class="cam-box-16x9 host-box-style">
+            <div class="cam-window" data-cutout></div>
+            <div class="cam-corner-badge"></div>
+            <div class="name-tag-custom name-tag-host">
+              <div class="role-title" data-bind="host-role">🎙️ ANFITRIÓN / HOST</div>
+              <div class="user-name" data-bind="host-name">GUTA FLORES</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../script-overlay.js"></script>
+</body>
+
+</html>

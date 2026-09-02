@@ -9,60 +9,60 @@
     "role": ""
   },
   "cohost": {
-    "enabled": true,
+    "enabled": false,
     "name": "RAUL DOMINGO",
     "role": ""
   },
   "guest": {
     "enabled": true,
-    "name": "PIKILLINES",
+    "name": "Tupay Bolivia ",
     "role": "💬 INVITADO ESPECIAL",
-    "bio": "Pikillines lleva la escencia del circuito peñero de la noche salteña",
+    "bio": "Tupay es una de las agrupaciones más influyentes del folclore boliviano contemporáneo, fundada en 1996 en Cochabamba por Edwin Castellanos y Fernando Torrico, ambos exintegrantes del legendario grupo Los Kjarkas. Su nombre proviene del quechua y significa \"punto de encuentro\", reflejando su estilo musical: una fusión de ritmos andinos tradicionales (como la saya, el caporal y la morenada) con la balada romántica latinoamericana.",
     "events": "",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "@pikillines2024"
+        "handle": "tupaybo"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "@pikillines2024"
+        "handle": "@tupaybolivia"
       },
       {
         "icon": "☕",
         "platform": "TIKTOK",
-        "handle": "@pikillines2024"
+        "handle": "@tupay_bolivia"
       }
     ]
   },
   "guest1": {
     "enabled": true,
-    "name": "PIKILLINES",
+    "name": "Tupay Bolivia ",
     "role": "💬 INVITADO ESPECIAL",
-    "bio": "Pikillines lleva la escencia del circuito peñero de la noche salteña",
+    "bio": "Tupay es una de las agrupaciones más influyentes del folclore boliviano contemporáneo, fundada en 1996 en Cochabamba por Edwin Castellanos y Fernando Torrico, ambos exintegrantes del legendario grupo Los Kjarkas. Su nombre proviene del quechua y significa \"punto de encuentro\", reflejando su estilo musical: una fusión de ritmos andinos tradicionales (como la saya, el caporal y la morenada) con la balada romántica latinoamericana.",
     "events": "",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "@pikillines2024"
+        "handle": "tupaybo"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "@pikillines2024"
+        "handle": "@tupaybolivia"
       },
       {
         "icon": "☕",
         "platform": "TIKTOK",
-        "handle": "@pikillines2024"
+        "handle": "@tupay_bolivia"
       }
     ]
   },
   "guest2": {
-    "enabled": true,
+    "enabled": false,
     "name": "Martin Ferrara de La Clave Trio",
     "role": "💬 INVITADO ESTELAR",
     "bio": "La Clave Trío es una reconocida agrupación de música folclórica argentina originaria de la ciudad de Alta Gracia, Córdoba, con más de 15 años de trayectoria en los escenarios del país.",
@@ -86,7 +86,7 @@
     ]
   },
   "guest3": {
-    "enabled": true,
+    "enabled": false,
     "name": "Diego Loza",
     "role": "💬 INVITADO Especial",
     "bio": "Cantautor satleño.",
@@ -110,20 +110,20 @@
     ]
   },
   "solo": {
-    "descLabel": "Hoy",
-    "bio": "Bienvenidos, hoy buscamos nuevos artistas emergentes mientras escuchamos música !!!\nLike > Follow > Compartí > PEDI TU CANCION",
-    "tags": "#artistasemergentes #nuevamusica #charlemos #musica ",
+    "descLabel": "Hoy Invitado Estelar",
+    "bio": "Bienvenidos, hacemos la previa de lo que será la visita estelar de TUPAY",
+    "tags": "#artistasemergentes #nuevamusica #charlemos #musica #universotupay #tupay30años",
     "handle": "@gutafloresok"
   },
   "motto": {
-    "phrase1": "",
+    "phrase1": "INVITADOS ESPECIALES EN VIVO",
     "connector": "|",
     "phrase2": "ESCUCHAMOS MÚSICA ",
     "visible": false
   },
   "brandingBanner": "16x9",
   "socials": {
-    "tiktok": "",
+    "tiktok": "@sesionesrg",
     "instagram": "",
     "youtube": "",
     "facebook": "",
@@ -133,18 +133,18 @@
   "agenda": [
     {
       "icon": "🎙️",
-      "title": "1. ENTREVISTA EN VIVO",
-      "sub": "PIKILLINES"
+      "title": "1. ESCUCHAMOS MUSICA",
+      "sub": "MUSICA A LA CARTA"
     },
     {
       "icon": "🪕",
-      "title": "2. ENTREVISTA ESPECIAL",
-      "sub": "MARTIN FERRARA"
+      "title": "2. ENTREVISTA EN VIVO",
+      "sub": "Sr. EDWIN CASTELLANOS | TUPAY"
     },
     {
       "icon": "💬",
-      "title": "3. ENTREVISTA EN VIVO ",
-      "sub": "DEIGO LOZA"
+      "title": "3. CHARLAMOS DE TODO",
+      "sub": "MUSICA Y CHARLA"
     }
   ],
   "ticker": [
@@ -188,11 +188,18 @@
   "sponsors": [
     {
       "name": "Milonguita Dev",
-      "image": "milonguita_logo.png"
+      "image": "milonguita_logo.png",
+      "phone": "+54 9 387 123-4567"
     },
     {
       "name": "Grupo Sanar",
-      "image": "sanar.jpg"
+      "image": "sanar.jpg",
+      "phone": "+54 9 387 765-4321"
+    },
+    {
+      "name": "Issa Pizza",
+      "image": "issapizza.jpeg",
+      "phone": "+54 9 387 999-8888"
     }
   ]
 }

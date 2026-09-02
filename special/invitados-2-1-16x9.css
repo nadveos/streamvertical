@@ -1,0 +1,565 @@
+/* ══════════════════════════════════════════════════════════════════
+   OVERLAY HORIZONTAL 16:9 — HOST & INVITADO 2 (1920x1080)
+   Host Cam 16:9 (Izquierda) + Tarjeta Info (Centro) + Invitado Cam 9:16 (Derecha)
+   ══════════════════════════════════════════════════════════════════ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: transparent !important;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #ffffff;
+}
+
+/* ── Escenario 1920x1080 ───────────────────────────────────────── */
+.stage-16x9 {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  background: transparent !important;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ── 1. HEADER SUPERIOR ────────────────────────────────────────── */
+.stage-header {
+  position: absolute;
+  top: 16px;
+  left: 36px;
+  right: 36px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #10121B url('../branding/logo-badge.png') center/cover no-repeat;
+  border: 2px solid #00E6C8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 14px rgba(255, 55, 95, 0.5);
+  overflow: hidden;
+}
+
+.header-logo-circle img,
+.header-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.header-host-name,
+.header-show-name {
+  font-size: 20px;
+  font-weight: 900;
+  color: #00E6C8;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 20px rgba(0, 230, 200, 0.4);
+}
+
+.header-host-role,
+.header-show-slogan {
+  font-size: 12px;
+  font-weight: 700;
+  color: #A0A5B5;
+  letter-spacing: 1px;
+}
+
+.participant-count-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 18, 27, 0.85);
+  border: 1px solid rgba(0, 230, 200, 0.35);
+  padding: 4px 14px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.header-participant-count {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 1px;
+}
+
+.participant-count-number {
+  color: #FFD700;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #8B0000, #C0392B);
+  border: 1.5px solid #FF3B3B;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 900;
+  padding: 6px 16px;
+  border-radius: 20px;
+  letter-spacing: 2px;
+  box-shadow: 0 0 16px rgba(192, 57, 43, 0.6);
+}
+
+.live-dot {
+  width: 9px;
+  height: 9px;
+  background: #FF3B3B;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 59, 59, 0.9);
+  animation: blinkLive 1.4s infinite;
+}
+
+/* ── Decoraciones de esquina ───────────────────────────────────── */
+.deco-corner {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  z-index: 28;
+  pointer-events: none;
+}
+
+.deco-tl { top: 80px; left: 14px; border-top: 3px solid rgba(0, 230, 200, 0.6); border-left: 3px solid rgba(0, 230, 200, 0.6); border-radius: 10px 0 0 0; }
+.deco-tr { top: 80px; right: 14px; border-top: 3px solid rgba(0, 230, 200, 0.6); border-right: 3px solid rgba(0, 230, 200, 0.6); border-radius: 0 10px 0 0; }
+.deco-bl { bottom: 155px; left: 14px; border-bottom: 3px solid rgba(255, 55, 95, 0.7); border-left: 3px solid rgba(255, 55, 95, 0.7); border-radius: 0 0 0 10px; }
+.deco-br { bottom: 155px; right: 14px; border-bottom: 3px solid rgba(255, 55, 95, 0.7); border-right: 3px solid rgba(255, 55, 95, 0.7); border-radius: 0 0 10px 0; }
+
+/* ── 2. ÁREA DE FRAMES CON TARJETA (FLEX LAYOUT) ──────────────── */
+.frames-area-custom {
+  position: absolute;
+  top: 86px;
+  left: 36px;
+  right: 36px;
+  bottom: 155px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.dynamic-stage-container-custom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  width: 100%;
+  max-width: 1780px;
+  height: 100%;
+}
+
+/* ── Marcos Individuales ──────────────────────────────────────── */
+.pframe {
+  position: relative;
+  border-radius: 20px;
+  background: transparent;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.95);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* Host Cam (16:9 - 470px x 264px) */
+.pf-host {
+  width: 470px;
+  height: 264px;
+  aspect-ratio: 16 / 9;
+}
+
+/* Invitado Cam (9:16 - 304px x 540px) */
+.pf-guest2 {
+  width: 304px;
+  height: 540px;
+  aspect-ratio: 9 / 16;
+}
+
+.cam-cutout {
+  position: absolute;
+  inset: 6px;
+  border-radius: 16px;
+  background: transparent;
+}
+
+/* Borde animado degradé */
+.frame-border-anim {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 5px;
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Host — Coral / Turquesa */
+.fb-host {
+  background: linear-gradient(135deg, #FF375F, #10121B, #00E6C8, #10121B, #FF375F);
+  animation: borderGlowCoral 5s ease infinite;
+}
+
+/* Invitado 2 — Coral / Rosado */
+.fb-guest2 {
+  background: linear-gradient(135deg, #FF375F, #10121B, #FFFFFF, #10121B, #FF375F);
+  animation: borderGlowCoral 6s ease infinite;
+}
+
+/* Badge de marca circular en esquina de la cámara */
+.cam-corner-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #10121B url('../branding/logo-badge.png') center/cover no-repeat;
+  border: 2px solid #00E6C8;
+  box-shadow: 0 0 12px rgba(0, 230, 200, 0.5), 0 4px 10px rgba(0, 0, 0, 0.85);
+  z-index: 25;
+  pointer-events: none;
+}
+
+.pf-guest2 .cam-corner-badge {
+  border-color: #FF375F;
+  box-shadow: 0 0 12px rgba(255, 55, 95, 0.5), 0 4px 10px rgba(0, 0, 0, 0.85);
+}
+
+/* Etiquetas de Nombre */
+.name-tag {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 14px;
+  padding: 4px 20px;
+  min-width: 180px;
+  text-align: center;
+  z-index: 20;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.9);
+}
+
+.nt-host {
+  border: 2px solid #FF375F;
+  background: linear-gradient(90deg, #10121B 0%, #25121c 50%, #10121B 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 0 12px rgba(255, 55, 95, 0.4);
+}
+
+.nt-guest2 {
+  border: 2px solid #FF375F;
+  background: linear-gradient(90deg, #10121B 0%, #25121c 50%, #10121B 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 0 12px rgba(255, 55, 95, 0.4);
+}
+
+.name-tag .nt-role {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+}
+
+.nt-host .nt-role { color: #FF375F; }
+.nt-guest2 .nt-role { color: #FF375F; }
+
+.name-tag .nt-name {
+  font-size: 16px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+/* ── 3. TARJETA DE INFORMACIÓN (CENTRO - 410px x 540px) ────────── */
+.stage-info-card {
+  width: 410px;
+  height: 540px;
+  background: rgba(16, 18, 27, 0.95);
+  border-radius: 18px;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  border: 2px solid #FF375F;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85), inset 0 0 20px rgba(255, 55, 95, 0.15);
+}
+
+.info-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-bottom: 1.5px solid rgba(255, 55, 95, 0.35);
+  padding-bottom: 8px;
+}
+
+.info-card-badge {
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #FF375F;
+}
+
+.info-card-title {
+  font-size: 19px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-card-bio {
+  background: linear-gradient(145deg, rgba(23, 25, 38, 0.95) 0%, rgba(16, 18, 27, 0.98) 100%);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+  flex-grow: 1;
+  border: 1.5px solid rgba(255, 55, 95, 0.5);
+  border-left: 4px solid #FF375F;
+}
+
+.bio-header-mini {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bio-header-mini .bio-icon {
+  font-size: 13px;
+}
+
+.bio-header-mini .bio-tag {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #FF375F;
+}
+
+.bio-text {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.45;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+  overflow-y: auto;
+  max-height: 180px;
+}
+
+.info-card-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.info-card-socials .social-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border-left: 3px solid #FF375F;
+}
+
+.info-card-socials .social-icon {
+  font-size: 15px;
+}
+
+.info-card-socials .social-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-card-socials .social-platform {
+  font-size: 8px;
+  color: #A0A5B5;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.info-card-socials .social-handle {
+  font-size: 13px;
+  color: #FFF;
+  font-weight: 700;
+}
+
+/* ── 4. MOTTO BANNER INFERIOR ─────────────────────────────────── */
+.motto-bar {
+  position: absolute;
+  bottom: 84px;
+  left: 36px;
+  right: 36px;
+  height: 48px;
+  background: linear-gradient(90deg,
+    rgba(10, 0, 0, 0.94) 0%,
+    rgba(40, 0, 0, 0.94) 40%,
+    rgba(40, 0, 0, 0.94) 60%,
+    rgba(10, 0, 0, 0.94) 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.45);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  backdrop-filter: blur(8px);
+  z-index: 25;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+}
+
+.motto-p1, .motto-p2 {
+  font-size: 15px;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.motto-p1 {
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.motto-sep {
+  font-size: 13px;
+  font-weight: 900;
+  color: #C0392B;
+  background: rgba(192, 57, 43, 0.25);
+  border: 2px solid rgba(192, 57, 43, 0.8);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(192, 57, 43, 0.5);
+}
+
+/* ── 5. TICKER INFERIOR ───────────────────────────────────────── */
+.ticker-bar {
+  position: absolute;
+  bottom: 14px;
+  left: 36px;
+  right: 36px;
+  height: 60px;
+  background: linear-gradient(90deg, #0a0a0f 0%, #1a0000 40%, #0a0a0f 100%);
+  border: 2px solid #C0392B;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 25;
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.5), inset 0 1px 0 rgba(255, 215, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.ticker-label {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #8B0000, #C0392B);
+  color: #FFD700;
+  font-weight: 900;
+  font-size: 15px;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-right: 2px solid #FFD700;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.ticker-live-dot {
+  width: 9px;
+  height: 9px;
+  background: #FF3B3B;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 59, 59, 0.9);
+  animation: blinkLive 1.4s infinite;
+}
+
+.ticker-track {
+  overflow: hidden;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-content {
+  font-size: 20px;
+  font-weight: 600;
+  color: #DDD;
+  white-space: nowrap;
+  animation: tickerScroll 35s linear infinite;
+}
+
+.ticker-content .highlight {
+  color: #FFD700;
+  font-weight: 800;
+}
+
+.ticker-content .sep {
+  color: #C0392B;
+  margin: 0 12px;
+  font-weight: 900;
+}
+
+/* ── ANIMACIONES ──────────────────────────────────────────────── */
+@keyframes borderGlowCoral {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes blinkLive {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}

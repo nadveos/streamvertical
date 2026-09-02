@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <title>Guta Flores — Overlay Vertical 9:16 (Host & Invitado 2 - Marcos con Tarjeta)</title>
+  <link rel="stylesheet" href="../main.css">
+  <link rel="stylesheet" href="invitados-2-1-vertical.css">
+  <link rel="stylesheet" href="../transparent-mode.css">
+</head>
+
+<body>
+
+  <!-- Marco General Animado (Fondo Transparente) -->
+  <div class="main-border">
+    <div class="main-inner">
+
+      <!-- Estructura Vertical: Invitado 2 Arriba + Separador Central (Tarjeta) + Host Abajo -->
+      <div class="hosts-vertical-layout">
+
+        <!-- 1. SECCIÓN INVITADO 2 (ARRIBA - 9:16 400x711) -->
+        <div class="cam-card-wrapper">
+          <div class="cam-box-9x16 guest2-box-style">
+            <div class="cam-window" data-cutout></div>
+            <div class="cam-corner-badge"></div>
+            <div class="name-tag-custom name-tag-guest2">
+              <div class="role-title" data-bind="guest2-role">💬 INVITADO 2</div>
+              <div class="user-name" data-bind="guest2-name">Martin Ferrara</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. SECCIÓN SEPARADOR CENTRAL (TARJETA DE INFORMACIÓN Y BRANDING) -->
+        <div class="middle-separator-zone">
+
+          <!-- Tarjeta de Información Invitado 2 -->
+          <div class="stage-info-card card-guest2">
+            <div class="info-card-header">
+              <div class="info-card-badge" data-bind="guest2-role">💬 INVITADO 2</div>
+              <div class="info-card-title" data-bind="guest2-name">Martin Ferrara</div>
+            </div>
+            <div class="info-card-body-row">
+              <div class="info-card-bio">
+                <div class="bio-text" data-bind="guest2-bio"></div>
+              </div>
+              <div class="info-card-socials" data-bind="guest2-socials"></div>
+            </div>
+          </div>
+
+          <!-- Branding Sesiones RG / Slogan -->
+          <div class="show-brand-banner-vertical">
+            <div class="show-logo-circle">
+              <img src="../branding/logo-badge.png" class="header-logo-img" alt="Logo">
+            </div>
+            <div class="show-title-text" data-bind="show-title">SESIONES RG</div>
+            <div class="show-slogan-text" data-bind="show-slogan">En Vivo: Entrevistas y zapadas con invitados.</div>
+          </div>
+
+        </div>
+
+        <!-- 3. SECCIÓN ANFITRIÓN (ABAJO - 16:9 700x394) -->
+        <div class="cam-card-wrapper">
+          <div class="cam-box-16x9 host-box-style">
+            <div class="cam-window" data-cutout></div>
+            <div class="cam-corner-badge"></div>
+            <div class="name-tag-custom name-tag-host">
+              <div class="role-title" data-bind="host-role">🎙️ ANFITRIÓN / HOST</div>
+              <div class="user-name" data-bind="host-name">GUTA FLORES</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../script-overlay.js"></script>
+</body>
+
+</html>
