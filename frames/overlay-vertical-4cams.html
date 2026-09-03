@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, initial-scale=1.0">
+  <title>Guta Flores — Overlay Vertical 4 Cámaras (2x 9:16 + 2x 16:9)</title>
+  <link rel="stylesheet" href="../main.css">
+  <link rel="stylesheet" href="overlay-vertical-4cams.css">
+  <link rel="stylesheet" href="../transparent-mode.css">
+</head>
+
+<body>
+
+  <!-- Escenario Vertical Principal (1080x1920) -->
+  <div class="stage-vertical-4cams">
+
+    <!-- Esquinas decorativas del escenario -->
+    <div class="deco-corner deco-tl"></div>
+    <div class="deco-corner deco-tr"></div>
+    <div class="deco-corner deco-bl"></div>
+    <div class="deco-corner deco-br"></div>
+
+    <!-- ══ 1. HEADER SUPERIOR MINIMALISTA ══════════════════════════════════ -->
+    <header class="top-header-bar">
+      <div class="header-left-group">
+        <div class="header-logo-circle">
+          <img src="../branding/logo-badge.png" alt="Logo Sesiones RG">
+        </div>
+        <div class="header-show-title" data-bind="show-title">SESIONES RG</div>
+      </div>
+
+      <div class="header-participant-badge">
+        4 CÁMARAS EN ESCENA
+      </div>
+
+      <div class="live-indicator">
+        <span class="live-pulse-dot"></span>
+        EN VIVO
+      </div>
+    </header>
+
+    <!-- ══ 2. SECCIÓN SUPERIOR: 2 CÁMARAS VERTICALES 9:16 (INVITADOS) ══════ -->
+    <main class="guests-section-9x16">
+
+      <!-- Invitado 1 (9:16 - 510x906) -->
+      <article class="guest-card-wrapper" data-bind="guest1-box">
+        <div class="cam-box-9x16 guest1-frame">
+          <div class="cam-window" data-cutout></div>
+          <div class="cam-corner-badge"></div>
+          <div class="name-tag-custom nt-guest1">
+            <div class="role-title" data-bind="guest1-role">💬 INVITADO 1</div>
+            <div class="user-name" data-bind="guest1-name">INVITADO 1</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Invitado 2 (9:16 - 510x906) -->
+      <article class="guest-card-wrapper" data-bind="guest2-box">
+        <div class="cam-box-9x16 guest2-frame">
+          <div class="cam-window" data-cutout></div>
+          <div class="cam-corner-badge"></div>
+          <div class="name-tag-custom nt-guest2">
+            <div class="role-title" data-bind="guest2-role">💬 INVITADO 2</div>
+            <div class="user-name" data-bind="guest2-name">INVITADO 2</div>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+    <!-- ══ 3. SEPARADOR ESTILIZADO COMPACTO (ESPACIO OPTIMIZADO) ═══════════ -->
+    <div class="compact-divider-bar">
+      <div class="divider-line"></div>
+      <div class="divider-badge">⚡ TRANSMISIÓN OFICIAL ⚡</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- ══ 4. SECCIÓN INFERIOR: 2 CÁMARAS HORIZONTALES 16:9 (CO-HOST & HOST) ═ -->
+    <section class="hosts-section-16x9">
+
+      <!-- Co-Anfitrión / Co-Host (16:9 - 720x405) -->
+      <article class="host-card-wrapper" data-bind="cohost-box">
+        <div class="cam-box-16x9 cohost-frame">
+          <div class="cam-window" data-cutout></div>
+          <div class="cam-corner-badge"></div>
+          <div class="name-tag-custom nt-cohost">
+            <div class="role-title" data-bind="cohost-role">🎙️ CO-HOST / CO-ANFITRIÓN</div>
+            <div class="user-name" data-bind="cohost-name">CO-HOST</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Anfitrión / Host (16:9 - 720x405) -->
+      <article class="host-card-wrapper" data-bind="host-box">
+        <div class="cam-box-16x9 host-frame">
+          <div class="cam-window" data-cutout></div>
+          <div class="cam-corner-badge"></div>
+          <div class="name-tag-custom nt-host">
+            <div class="role-title" data-bind="host-role">🎙️ ANFITRIÓN / HOST</div>
+            <div class="user-name" data-bind="host-name">GUTA FLORES</div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+  </div>
+
+  <!-- Sincronización en tiempo real con stream-data.json y localStorage -->
+  <script src="../script-overlay.js"></script>
+</body>
+
+</html>

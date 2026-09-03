@@ -1,0 +1,478 @@
+/* ==========================================================================
+   OVERLAY VERTICAL 4 CÁMARAS HÍBRIDO (9:16 + 16:9)
+   Dimensiones maestras: 1080px x 1920px (Formato Vertical Nativo OBS / TikTok / Reels)
+   Distribución:
+     - 2 Marcos Verticales 9:16 lado a lado (Invitado 1 + Invitado 2)
+     - Separador estilizado minimalista (sin ticker ni motto banner para máximo espacio)
+     - 2 Marcos Horizontales 16:9 apilados (Co-Host + Host)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cabinet+Grotesk:wght@500;700;800;900&family=Inter:wght@400;600;700;900&display=swap');
+
+html,
+body {
+  width: 1080px;
+  height: 1920px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent !important;
+  font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ── MARCO PRINCIPAL / RAÍZ ────────────────────────────────────────────── */
+.stage-vertical-4cams {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  padding: 16px 20px 24px 20px;
+  background: transparent !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Esquinas decorativas sutiles en el borde exterior */
+.deco-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  z-index: 40;
+}
+.deco-tl {
+  top: 8px;
+  left: 8px;
+  border-top: 3px solid #FFD700;
+  border-left: 3px solid #FFD700;
+  border-top-left-radius: 6px;
+  box-shadow: -2px -2px 10px rgba(255, 215, 0, 0.4);
+}
+.deco-tr {
+  top: 8px;
+  right: 8px;
+  border-top: 3px solid #FFD700;
+  border-right: 3px solid #FFD700;
+  border-top-right-radius: 6px;
+  box-shadow: 2px -2px 10px rgba(255, 215, 0, 0.4);
+}
+.deco-bl {
+  bottom: 8px;
+  left: 8px;
+  border-bottom: 3px solid #FFD700;
+  border-left: 3px solid #FFD700;
+  border-bottom-left-radius: 6px;
+  box-shadow: -2px 2px 10px rgba(255, 215, 0, 0.4);
+}
+.deco-br {
+  bottom: 8px;
+  right: 8px;
+  border-bottom: 3px solid #FFD700;
+  border-right: 3px solid #FFD700;
+  border-bottom-right-radius: 6px;
+  box-shadow: 2px 2px 10px rgba(255, 215, 0, 0.4);
+}
+
+/* ── 1. HEADER SUPERIOR MINIMALISTA ────────────────────────────────────── */
+.top-header-bar {
+  width: 100%;
+  max-width: 1040px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, rgba(15, 12, 10, 0.85) 0%, rgba(28, 10, 10, 0.9) 50%, rgba(15, 12, 10, 0.85) 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.4);
+  border-radius: 24px;
+  padding: 0 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 30;
+  flex-shrink: 0;
+}
+
+.header-left-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid #FFD700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  background: #10121B;
+  flex-shrink: 0;
+}
+
+.header-logo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.header-show-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.header-participant-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #00E6C8;
+  letter-spacing: 1.2px;
+  background: rgba(0, 230, 200, 0.12);
+  border: 1px solid rgba(0, 230, 200, 0.4);
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.25), rgba(192, 57, 43, 0.35));
+  border: 1.5px solid #FF3B3B;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 1.5px;
+  box-shadow: 0 0 12px rgba(255, 59, 59, 0.4);
+}
+
+.live-pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #FF3B3B;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #FF3B3B;
+  animation: blinkLive 1.2s infinite;
+}
+
+@keyframes blinkLive {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.85); }
+}
+
+/* ── 2. SECCIÓN SUPERIOR: 2 CÁMARAS VERTICALES 9:16 LADO A LADO ─────────── */
+.guests-section-9x16 {
+  width: 100%;
+  max-width: 1040px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.guest-card-wrapper {
+  width: 510px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.cam-box-9x16 {
+  width: 510px;
+  height: 906px;
+  aspect-ratio: 9 / 16;
+  position: relative;
+  border-radius: 20px;
+  background: transparent !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.9);
+}
+
+/* Interior de la cámara transparente para OBS */
+.cam-window {
+  width: 100%;
+  height: 100%;
+  background: transparent !important;
+  border-radius: 14px;
+}
+
+/* Borde Neón Cian / Turquesa para Invitado 1 */
+.guest1-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 6px;
+  background: linear-gradient(45deg, #00E6C8, #0a1f24, #00B4D8, #00E6C8);
+  background-size: 300% 300%;
+  animation: borderGlowTurquoise 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Borde Neón Coral / Salmón para Invitado 2 */
+.guest2-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 6px;
+  background: linear-gradient(45deg, #FF375F, #260a12, #FF758C, #FF375F);
+  background-size: 300% 300%;
+  animation: borderGlowCoral 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes borderGlowTurquoise {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes borderGlowCoral {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── 3. SEPARADOR ESTILIZADO COMPACTO (REEMPLAZA TICKER Y MOTTO) ────────── */
+.compact-divider-bar {
+  width: 100%;
+  max-width: 1040px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+  flex-shrink: 0;
+  margin: 6px 0;
+}
+
+.divider-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0) 0%, rgba(255, 215, 0, 0.6) 50%, rgba(255, 215, 0, 0) 100%);
+  border-radius: 2px;
+}
+
+.divider-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #FFD700;
+  background: rgba(18, 14, 10, 0.95);
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  padding: 2px 14px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
+  text-transform: uppercase;
+}
+
+/* ── 4. SECCIÓN INFERIOR: HOST Y CO-HOST EN 16:9 APILADOS (720x405) ──────── */
+.hosts-section-16x9 {
+  width: 100%;
+  max-width: 1040px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.host-card-wrapper {
+  width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.cam-box-16x9 {
+  width: 720px;
+  height: 405px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  border-radius: 20px;
+  background: transparent !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.9);
+}
+
+/* Borde Neón Púrpura / Violeta / Magenta para Co-Host */
+.cohost-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 6px;
+  background: linear-gradient(45deg, #a855f7, #210d33, #ec4899, #8b5cf6, #a855f7);
+  background-size: 300% 300%;
+  animation: borderGlowPurple 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Borde Neón Oro & Fuego para Host / Anfitrión */
+.host-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 6px;
+  background: linear-gradient(45deg, #8B0000, #FFD700, #1f0505, #C0392B, #FFD700);
+  background-size: 300% 300%;
+  animation: borderGlowGold 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes borderGlowPurple {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes borderGlowGold {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── 5. PLACAS DE NOMBRE (NAMETAGS) ESTILO VIDRIO OSCURO ─────────────────── */
+.name-tag-custom {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, rgba(14, 12, 10, 0.95) 0%, rgba(30, 8, 8, 0.96) 50%, rgba(14, 12, 10, 0.95) 100%);
+  border: 1.5px solid #C0392B;
+  border-radius: 12px;
+  padding: 4px 18px;
+  min-width: 210px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  z-index: 25;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+}
+
+.name-tag-custom .role-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #AAAAAA;
+  margin-bottom: 2px;
+}
+
+.name-tag-custom .user-name {
+  font-family: 'Cinzel', 'Cabinet Grotesk', serif;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  color: #FFFFFF;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* Variaciones de color de nametags */
+/* Host: Oro y Rubí */
+.nt-host {
+  border-color: #FFD700;
+  background: linear-gradient(90deg, rgba(20, 10, 5, 0.96) 0%, rgba(46, 10, 10, 0.97) 50%, rgba(20, 10, 5, 0.96) 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 215, 0, 0.25);
+}
+.nt-host .role-title {
+  color: #FFD700;
+}
+.nt-host .user-name {
+  color: #FFF9E6;
+}
+
+/* Co-Host: Púrpura y Rosa */
+.nt-cohost {
+  border-color: #a855f7;
+  background: linear-gradient(90deg, rgba(16, 8, 25, 0.96) 0%, rgba(32, 12, 44, 0.97) 50%, rgba(16, 8, 25, 0.96) 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(168, 85, 247, 0.25);
+}
+.nt-cohost .role-title {
+  color: #d8b4fe;
+}
+.nt-cohost .user-name {
+  color: #fdf4ff;
+}
+
+/* Invitado 1: Turquesa Neón */
+.nt-guest1 {
+  border-color: #00E6C8;
+  background: linear-gradient(90deg, rgba(8, 20, 22, 0.96) 0%, rgba(10, 32, 34, 0.97) 50%, rgba(8, 20, 22, 0.96) 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 230, 200, 0.25);
+}
+.nt-guest1 .role-title {
+  color: #00E6C8;
+}
+.nt-guest1 .user-name {
+  color: #e6fffa;
+}
+
+/* Invitado 2: Coral Neón */
+.nt-guest2 {
+  border-color: #FF375F;
+  background: linear-gradient(90deg, rgba(25, 10, 16, 0.96) 0%, rgba(38, 12, 22, 0.97) 50%, rgba(25, 10, 16, 0.96) 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 55, 95, 0.25);
+}
+.nt-guest2 .role-title {
+  color: #FF758C;
+}
+.nt-guest2 .user-name {
+  color: #fff1f2;
+}
+
+/* Badge circular de marca en esquina inferior izquierda de los marcos */
+.cam-corner-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #10121B url('../branding/logo-badge.png') center/cover no-repeat;
+  border: 1.5px solid rgba(255, 215, 0, 0.7);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 0 4px 10px rgba(0, 0, 0, 0.85);
+  z-index: 20;
+  pointer-events: none;
+}

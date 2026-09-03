@@ -15,73 +15,73 @@
   },
   "guest": {
     "enabled": true,
-    "name": "Tupay Bolivia ",
-    "role": "💬 INVITADO ESPECIAL",
-    "bio": "Tupay es una de las agrupaciones más influyentes del folclore boliviano contemporáneo, fundada en 1996 en Cochabamba por Edwin Castellanos y Fernando Torrico, ambos exintegrantes del legendario grupo Los Kjarkas. Su nombre proviene del quechua y significa \"punto de encuentro\", reflejando su estilo musical: una fusión de ritmos andinos tradicionales (como la saya, el caporal y la morenada) con la balada romántica latinoamericana.",
+    "name": "Gonzalo Pereira Romero ",
+    "role": "💬 Perlas Gauchas",
+    "bio": "Perlas Gauchas en un tiempo de renacer genuino para el folclore de Salta y el de su país agradecen a todos aquellos que apoyan y se unen a su propuesta musical en pos del arte y la cultura de nuestra Nación.",
     "events": "",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "tupaybo"
+        "handle": "perlas_gauchas"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "@tupaybolivia"
+        "handle": "@perlasgauchas"
       },
       {
         "icon": "☕",
-        "platform": "TIKTOK",
-        "handle": "@tupay_bolivia"
+        "platform": "FACEBOOK",
+        "handle": "perlas.gauchas"
       }
     ]
   },
   "guest1": {
     "enabled": true,
-    "name": "Tupay Bolivia ",
-    "role": "💬 INVITADO ESPECIAL",
-    "bio": "Tupay es una de las agrupaciones más influyentes del folclore boliviano contemporáneo, fundada en 1996 en Cochabamba por Edwin Castellanos y Fernando Torrico, ambos exintegrantes del legendario grupo Los Kjarkas. Su nombre proviene del quechua y significa \"punto de encuentro\", reflejando su estilo musical: una fusión de ritmos andinos tradicionales (como la saya, el caporal y la morenada) con la balada romántica latinoamericana.",
+    "name": "Gonzalo Pereira Romero ",
+    "role": "💬 Perlas Gauchas",
+    "bio": "Perlas Gauchas en un tiempo de renacer genuino para el folclore de Salta y el de su país agradecen a todos aquellos que apoyan y se unen a su propuesta musical en pos del arte y la cultura de nuestra Nación.",
     "events": "",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "tupaybo"
+        "handle": "perlas_gauchas"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "@tupaybolivia"
+        "handle": "@perlasgauchas"
       },
       {
         "icon": "☕",
-        "platform": "TIKTOK",
-        "handle": "@tupay_bolivia"
+        "platform": "FACEBOOK",
+        "handle": "perlas.gauchas"
       }
     ]
   },
   "guest2": {
-    "enabled": false,
-    "name": "Martin Ferrara de La Clave Trio",
-    "role": "💬 INVITADO ESTELAR",
-    "bio": "La Clave Trío es una reconocida agrupación de música folclórica argentina originaria de la ciudad de Alta Gracia, Córdoba, con más de 15 años de trayectoria en los escenarios del país.",
+    "enabled": true,
+    "name": "Imar Pereira Romero",
+    "role": "💬 Perlas Gauchas",
+    "bio": "Perlas Gauchas en un tiempo de renacer genuino para el folclore de Salta y el de su país agradecen a todos aquellos que apoyan y se unen a su propuesta musical en pos del arte y la cultura de nuestra Nación.",
     "events": "",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "@laclavetrio"
+        "handle": "perlas_gauchas"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "@laclavetrio"
+        "handle": "@perlasgauchas"
       },
       {
         "icon": "🎵",
-        "platform": "SPOTIFY",
-        "handle": "@laclavetrio"
+        "platform": "Facebook",
+        "handle": "perlas.gauchas"
       }
     ]
   },
