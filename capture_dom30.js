@@ -10,10 +10,10 @@ if (!fs.existsSync(OUT_DIR)) {
 }
 
 const TARGETS = [
-  // { key: 'vv1', file: 'frames/vertical/vv1.html', width: 1080, height: 1920 },
-  // { key: 'ov1', file: 'frames/vertical/ov1.html', width: 1920, height: 1080 },
-  { key: 'solo-v', file: 'frames/vertical/overlay-solo-vertical.html', width: 1080, height: 1920 },
-  { key: 'solo-h', file: 'frames/overlay-solo.html', width: 1920, height: 1080 },
+  { key: '2h-vv1', file: 'frames/vertical/vv1.html', width: 1080, height: 1920 },
+  { key: '2h-ov1', file: 'frames/vertical/ov1.html', width: 1920, height: 1080 },
+  // { key: 'solo-v', file: 'frames/vertical/overlay-solo-vertical.html', width: 1080, height: 1920 },
+  // { key: 'solo-h', file: 'frames/overlay-solo.html', width: 1920, height: 1080 },
   // { key: 'vv3', file: 'frames/vertical/vv3.html', width: 1080, height: 1920 },
   // { key: 'ov3', file: 'frames/vertical/ov3.html', width: 1920, height: 1080 },
 ];
