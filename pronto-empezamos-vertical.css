@@ -1,0 +1,515 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;700;800;900&display=swap');
+
+:root {
+  --color-coral: #FF375F;
+  --color-coral-glow: rgba(255, 55, 95, 0.55);
+  --color-turquoise: #00E6C8;
+  --color-turquoise-glow: rgba(0, 230, 200, 0.55);
+  --color-carbon: #10121B;
+  --color-carbon-surface: #171926;
+  --color-carbon-dark: #0A0C13;
+  --color-white: #FFFFFF;
+  --color-muted: #A0A5B5;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  font-family: 'Outfit', 'Segoe UI', sans-serif;
+  background: #08090E;
+}
+
+/* ============================================================
+   FONDO VERTICAL — Acelerado por GPU
+   ============================================================ */
+.bg {
+  position: fixed;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  background: linear-gradient(165deg,
+    #0A0C13 0%,
+    #10121B 30%,
+    #171926 55%,
+    #121522 80%,
+    #08090E 100%
+  );
+  background-size: 200% 200%;
+  will-change: transform;
+  transform: translateZ(0);
+  animation: bgShift 14s ease-in-out infinite alternate;
+}
+
+@keyframes bgShift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-2%, -2%, 0) scale(1.04); }
+}
+
+/* Resplandor ambiental Aurora */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 40% at 30% 35%, rgba(0, 230, 200, 0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 40% at 70% 60%, rgba(255, 55, 95, 0.2) 0%, transparent 65%);
+  will-change: opacity, transform;
+  transform: translateZ(0);
+  animation: glowPulse 5s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0%   { opacity: 0.7; transform: scale(0.98); }
+  100% { opacity: 1;   transform: scale(1.02); }
+}
+
+/* Textura de puntos */
+.dots-overlay {
+  position: fixed;
+  inset: -40px;
+  background-image: radial-gradient(circle, rgba(0, 230, 200, 0.12) 1.5px, transparent 1.5px);
+  background-size: 38px 38px;
+  will-change: transform;
+  transform: translateZ(0);
+  animation: dotsDrift 25s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes dotsDrift {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(38px, 38px, 0); }
+}
+
+/* ============================================================
+   BANDAS PONCHO VERTICALES
+   ============================================================ */
+.poncho-band {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 14px;
+  z-index: 5;
+  background: repeating-linear-gradient(
+    90deg,
+    #FF375F  0px,   #FF375F  40px,
+    #10121B  40px,  #10121B  60px,
+    #00E6C8  60px,  #00E6C8  100px,
+    #10121B  100px, #10121B  120px,
+    #FF375F  120px, #FF375F  135px,
+    #10121B  135px, #10121B  155px
+  );
+  opacity: 0.95;
+  box-shadow: 0 0 18px rgba(255, 55, 95, 0.5), 0 0 30px rgba(0, 230, 200, 0.4);
+}
+.poncho-band-top    { top: 0; }
+.poncho-band-bottom { bottom: 0; }
+
+/* ============================================================
+   ANILLOS CONCÉNTRICOS DE ENERGÍA
+   ============================================================ */
+.rings-wrap {
+  position: fixed;
+  top: 42%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  transform: translate3d(-50%, -50%, 0) scale(0.3);
+  animation: energyRing 4.5s ease-out infinite;
+}
+
+.ring:nth-child(1) { width: 450px; height: 450px; border: 2.5px solid rgba(0, 230, 200, 0.45); animation-delay: 0s;   }
+.ring:nth-child(2) { width: 450px; height: 450px; border: 2.5px solid rgba(255, 55, 95, 0.45); animation-delay: 1.5s; }
+.ring:nth-child(3) { width: 450px; height: 450px; border: 2.5px solid rgba(0, 230, 200, 0.35); animation-delay: 3s;   }
+
+@keyframes energyRing {
+  0%   { transform: translate3d(-50%, -50%, 0) scale(0.3); opacity: 0.95; }
+  100% { transform: translate3d(-50%, -50%, 0) scale(4.2); opacity: 0; }
+}
+
+/* ============================================================
+   CONTENEDOR CENTRAL VERTICAL (1080x1920)
+   ============================================================ */
+.center-vertical {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  padding: 80px 40px 160px 40px; /* Margen inferior para zona segura TikTok */
+}
+
+/* Badge de Estado */
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(16, 18, 27, 0.9);
+  border: 2px solid #00E6C8;
+  border-radius: 35px;
+  padding: 10px 28px;
+  margin-bottom: 30px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 25px rgba(0, 230, 200, 0.4);
+}
+
+.live-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #00E6C8;
+  animation: liveBlink 1.2s ease-in-out infinite;
+  box-shadow: 0 0 12px #00E6C8;
+}
+
+@keyframes liveBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.75); }
+}
+
+.live-badge-text {
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   ISOTIPO VÚMETRO / SUBWOOFER REACTIVO VERTICAL
+   ============================================================ */
+.vumeter-hero {
+  position: relative;
+  width: 290px;
+  height: 290px;
+  margin: 0 auto 24px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vumeter-shockwave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  pointer-events: none;
+  border: 2.5px solid #00E6C8;
+  transform: translate(-50%, -50%) scale(0.9);
+  animation: heroShockwaveVertical 1s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+}
+
+.shockwave-2 {
+  animation-delay: 0.4s;
+  border-color: #FF375F;
+}
+
+.shockwave-3 {
+  animation-delay: 0.75s;
+  border-color: #00E6C8;
+}
+
+@keyframes heroShockwaveVertical {
+  0% {
+    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0.95;
+    box-shadow: 0 0 15px rgba(0, 230, 200, 0.6);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.52);
+    opacity: 0;
+    box-shadow: 0 0 35px rgba(255, 55, 95, 0);
+  }
+}
+
+.vumeter-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  position: relative;
+  z-index: 2;
+  will-change: transform, filter;
+  animation: heroVumeterVibeVertical 0.45s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 25px rgba(0, 230, 200, 0.75)) drop-shadow(0 0 45px rgba(255, 55, 95, 0.5));
+}
+
+@keyframes heroVumeterVibeVertical {
+  0% {
+    transform: scale(0.97) translate3d(-1px, 0.5px, 0);
+    filter: drop-shadow(0 0 20px rgba(0, 230, 200, 0.7)) drop-shadow(0 0 30px rgba(255, 55, 95, 0.4));
+  }
+  30% {
+    transform: scale(1.03) translate3d(1.5px, -1px, 0);
+    filter: drop-shadow(0 0 28px rgba(0, 230, 200, 0.95)) drop-shadow(0 0 40px rgba(255, 55, 95, 0.6));
+  }
+  65% {
+    transform: scale(1.08) translate3d(-1px, -0.6px, 0);
+    filter: drop-shadow(0 0 38px rgba(255, 55, 95, 1)) drop-shadow(0 0 52px rgba(0, 230, 200, 0.7));
+  }
+  85% {
+    transform: scale(1.02) translate3d(0.8px, 1px, 0);
+  }
+  100% {
+    transform: scale(1.1) translate3d(0, -1.2px, 0);
+    filter: drop-shadow(0 0 45px rgba(255, 55, 95, 1)) drop-shadow(0 0 65px rgba(0, 230, 200, 0.85));
+  }
+}
+
+/* Títulos y Subtítulos */
+.show-title-tag {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 7px;
+  color: #00E6C8;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  text-shadow: 0 0 15px rgba(0, 230, 200, 0.85);
+}
+
+.channel-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 110px;
+  color: #FFFFFF;
+  letter-spacing: 10px;
+  line-height: 1;
+  text-align: center;
+  text-shadow:
+    0 0 25px rgba(0, 230, 200, 0.85),
+    0 0 65px rgba(255, 55, 95, 0.6),
+    0 0 100px rgba(16, 18, 27, 0.95);
+}
+
+.gold-line {
+  width: 520px;
+  height: 4px;
+  background: linear-gradient(90deg,
+    transparent, #FF375F 15%, #00E6C8 50%, #FF375F 85%, transparent
+  );
+  border-radius: 2px;
+  margin: 22px 0 18px 0;
+  will-change: opacity;
+  animation: lineGlow 3s ease-in-out infinite;
+  box-shadow: 0 0 16px rgba(0, 230, 200, 0.6);
+}
+
+@keyframes lineGlow {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1;   }
+}
+
+.main-msg {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 92px;
+  color: #FF375F;
+  letter-spacing: 6px;
+  text-align: center;
+  text-shadow:
+    0 0 25px rgba(255, 55, 95, 0.85),
+    0 0 55px rgba(255, 55, 95, 0.45);
+  will-change: opacity;
+  animation: mainMsgPulse 3s ease-in-out infinite;
+  line-height: 1.05;
+}
+
+@keyframes mainMsgPulse {
+  0%, 100% { opacity: 0.88; }
+  50%       { opacity: 1;    }
+}
+
+.sub-msg {
+  font-size: 21px;
+  font-weight: 700;
+  color: #A0A5B5;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* ============================================================
+   MOTTO BANNER VERTICAL
+   ============================================================ */
+.motto-banner {
+  margin-top: 30px;
+  max-width: 960px;
+  width: 95%;
+  background: linear-gradient(90deg, rgba(16, 18, 27, 0.94) 0%, rgba(25, 28, 42, 0.96) 50%, rgba(16, 18, 27, 0.94) 100%);
+  border: 2px solid rgba(0, 230, 200, 0.65);
+  border-radius: 20px;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(0, 230, 200, 0.25);
+  backdrop-filter: blur(14px);
+}
+
+.motto-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.motto-phrase {
+  color: #FFFFFF;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.motto-phrase.highlight {
+  color: #00E6C8;
+  font-weight: 900;
+  text-shadow: 0 0 18px rgba(0, 230, 200, 0.9);
+}
+
+.motto-connector {
+  background: linear-gradient(135deg, #FF375F 0%, #D91D44 100%);
+  color: #FFFFFF;
+  font-weight: 900;
+  font-size: 15px;
+  padding: 4px 18px;
+  border-radius: 30px;
+  border: 1.5px solid #00E6C8;
+  box-shadow: 0 0 16px rgba(255, 55, 95, 0.8);
+  letter-spacing: 1.5px;
+}
+
+/* ============================================================
+   BARRA DE PROGRESO DECORATIVA VERTICAL
+   ============================================================ */
+.progress-wrap {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+}
+
+.progress-bar {
+  width: 420px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 230, 200, 0.35);
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #FF375F, #00E6C8, #FF375F);
+  border-radius: 3px;
+  transform-origin: left center;
+  will-change: transform;
+  animation: progressAnim 3s ease-in-out infinite;
+  box-shadow: 0 0 14px rgba(0, 230, 200, 0.6);
+}
+
+@keyframes progressAnim {
+  0%   { transform: translate3d(-100%, 0, 0) scaleX(0.2); }
+  50%  { transform: translate3d(-20%, 0, 0) scaleX(0.65); }
+  100% { transform: translate3d(100%, 0, 0) scaleX(0.2); }
+}
+
+/* ============================================================
+   INFO SHOW VERTICAL — GRID 2x2 ELEGANTE
+   ============================================================ */
+.show-info-vertical {
+  margin-top: 36px;
+  width: 100%;
+  max-width: 960px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  z-index: 10;
+}
+
+.info-card {
+  background: rgba(16, 18, 27, 0.9);
+  border: 1.5px solid rgba(0, 230, 200, 0.45);
+  border-radius: 16px;
+  padding: 12px 20px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+.info-card .label {
+  color: #FF375F;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.info-card .value {
+  color: #FFFFFF;
+  font-size: 19px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.info-card .value.gold {
+  color: #00E6C8;
+}
+
+/* ============================================================
+   ORNAMENTOS ESQUINAS VERTICALES
+   ============================================================ */
+.corner-orn {
+  position: fixed;
+  z-index: 6;
+}
+.c-tl { top: 32px; left: 32px; }
+.c-tr { top: 32px; right: 32px; transform: scaleX(-1); }
+.c-bl { bottom: 32px; left: 32px; transform: scaleY(-1); }
+.c-br { bottom: 32px; right: 32px; transform: scale(-1); }
+
+.corner-orn svg {
+  width: 80px;
+  height: 80px;
+  fill: none;
+  stroke: #00E6C8;
+  stroke-width: 2.5;
+  opacity: 0.65;
+  filter: drop-shadow(0 0 8px rgba(0, 230, 200, 0.75));
+  will-change: opacity;
+  animation: ornGlow 4s ease-in-out infinite;
+}
+
+@keyframes ornGlow {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 0.85; }
+}

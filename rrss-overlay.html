@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RRSS Overlay - Banners Automáticos</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Inter:wght@700;800;900&display=swap');
+
+    :root {
+      --font-display: 'Outfit', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --color-white: #FFFFFF;
+      --pill-bg: rgba(22, 25, 33, 0.78);
+      --pill-border: rgba(255, 255, 255, 0.28);
+      --pill-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    /* Dimensiones de contención estricta idénticas a sponsors-overlay.html */
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+    }
+
+    /* Contenedor adaptativo para TikTok Live Studio */
+    .rrss-viewport {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: min(2vw, 2vh, 16px);
+      box-sizing: border-box;
+    }
+
+    /* Banner flotante fiel a la referencia */
+    .rrss-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(12px, 3.2vw, 28px);
+      padding: clamp(6px, 1.5vw, 14px) clamp(10px, 2.5vw, 24px);
+      background: transparent;
+      transform-origin: center center;
+      will-change: transform, opacity;
+      max-width: 98vw;
+      max-height: 95vh;
+    }
+
+    /* Animación Zoom In */
+    .rrss-banner.zoom-in {
+      animation: zoomInAnim 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* Animación Zoom Out */
+    .rrss-banner.zoom-out {
+      animation: zoomOutAnim 0.45s cubic-bezier(0.4, 0, 0.8, 0.3) forwards;
+    }
+
+    @keyframes zoomInAnim {
+      0% {
+        opacity: 0;
+        transform: scale(0.25);
+      }
+      75% {
+        transform: scale(1.05);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes zoomOutAnim {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      30% {
+        transform: scale(1.06);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.25);
+      }
+    }
+
+    /* Sección Izquierda: Logo */
+    .rrss-logo-wrapper {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: clamp(48px, 11vw, 90px);
+    }
+
+    /* Kick Badge con SVG oficial y borde negro como la referencia */
+    .kick-badge-box {
+      background: #000000;
+      border: clamp(2px, 0.5vw, 4px) solid #000000;
+      border-radius: clamp(4px, 0.8vw, 8px);
+      padding: clamp(4px, 0.8vw, 8px) clamp(10px, 1.8vw, 18px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    }
+
+    .kick-badge-box svg {
+      height: clamp(28px, 6.5vw, 55px);
+      width: auto;
+      display: block;
+    }
+
+    /* Imágenes de logos de otras plataformas */
+    .rrss-logo-img {
+      height: clamp(46px, 10vw, 85px);
+      width: auto;
+      max-width: clamp(60px, 14vw, 120px);
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.65));
+      display: block;
+    }
+
+    /* Sección Derecha: Texto & Cápsula */
+    .rrss-text-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(3px, 0.8vw, 8px);
+    }
+
+    /* Texto Superior: SEGUINOS EN */
+    .rrss-action-title {
+      font-size: clamp(18px, 4vw, 36px);
+      font-weight: 900;
+      color: var(--color-white);
+      text-transform: uppercase;
+      letter-spacing: clamp(1px, 0.3vw, 2.5px);
+      line-height: 1;
+      text-shadow: 
+        0 2px 5px rgba(0, 0, 0, 0.95),
+        0 0 12px rgba(0, 0, 0, 0.7);
+      white-space: nowrap;
+    }
+
+    /* Cápsula del Handle: /TU_CANAL_AQUÍ */
+    .rrss-handle-pill {
+      display: inline-flex;
+      align-items: center;
+      background: var(--pill-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: clamp(1.5px, 0.35vw, 2.5px) solid var(--pill-border);
+      border-radius: clamp(6px, 1.2vw, 12px);
+      padding: clamp(4px, 0.8vw, 7px) clamp(12px, 2.4vw, 22px);
+      box-shadow: var(--pill-shadow);
+      white-space: nowrap;
+    }
+
+    .rrss-handle-text {
+      font-size: clamp(16px, 3.4vw, 30px);
+      font-weight: 800;
+      color: var(--color-white);
+      letter-spacing: clamp(0.5px, 0.15vw, 1.2px);
+      line-height: 1.15;
+      text-transform: uppercase;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="rrss-viewport">
+    <div id="rrss-banner" class="rrss-banner" style="display: none;">
+      <!-- Logo a la izquierda -->
+      <div id="rrss-logo" class="rrss-logo-wrapper"></div>
+
+      <!-- Texto y cápsula a la derecha -->
+      <div class="rrss-text-group">
+        <div id="rrss-action" class="rrss-action-title">SEGUINOS EN</div>
+        <div class="rrss-handle-pill">
+          <span id="rrss-handle" class="rrss-handle-text">/TU_CANAL_AQUÍ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // SVG oficial de Kick con sus bloques pixelados característicos
+    const kickSvg = `
+      <div class="kick-badge-box">
+        <svg viewBox="0 0 933 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H100V66.6667H133.333V33.3333H166.667V0H266.667V100H233.333V133.333H200V166.667H233.333V200H266.667V300H166.667V266.667H133.333V233.333H100V300H0V0ZM666.667 0H766.667V66.6667H800V33.3333H833.333V0H933.333V100H900V133.333H866.667V166.667H900V200H933.333V300H833.333V266.667H800V233.333H766.667V300H666.667V0ZM300 0H400V300H300V0ZM533.333 0H466.667V33.3333H433.333V266.667H466.667V300H533.333H633.333V200H533.333V100H633.333V0H533.333Z" fill="#53FC18"/>
+        </svg>
+      </div>
+    `;
+
+    // SVG oficial de YouTube nítido
+    const youtubeSvg = `
+      <svg viewBox="0 0 24 24" style="height: clamp(34px, 8vw, 68px); width: auto; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.65));">
+        <path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
+        <polygon fill="#FFFFFF" points="9.545,15.568 15.818,12 9.545,8.432"/>
+      </svg>
+    `;
+
+    // SVG oficial de Twitch con badge morado
+    const twitchSvg = `
+      <div style="background: #9146FF; border-radius: clamp(4px, 0.8vw, 8px); padding: clamp(5px, 1vw, 10px); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(145, 70, 255, 0.5);">
+        <svg viewBox="0 0 24 28" style="height: clamp(26px, 6vw, 48px); width: auto; display: block;" fill="#FFFFFF">
+          <path d="M19 17l4-4V2H3v20h5v4l4-4h4l3-3v-2zM5 4h16v11l-3 3h-4l-3 3v-3H5V4z"/>
+          <path d="M11 7h2v6h-2zm5 0h2v6h-2z"/>
+        </svg>
+      </div>
+    `;
+
+    // Redes configuradas por defecto
+    const defaultSocials = [
+      {
+        key: 'kick',
+        action: 'SEGUINOS EN',
+        handle: '/gutaflores',
+        isSvg: true,
+        svgHtml: kickSvg,
+        alt: 'Kick'
+      },
+      {
+        key: 'tiktok',
+        action: 'SEGUINOS EN',
+        handle: '@sesionesrg',
+        isSvg: false,
+        logoSrc: 'logos/tiktok.png',
+        alt: 'TikTok'
+      },
+      {
+        key: 'instagram',
+        action: 'SEGUINOS EN',
+        handle: '@gutafloresok',
+        isSvg: false,
+        logoSrc: 'logos/instagram.png',
+        alt: 'Instagram'
+      },
+      {
+        key: 'youtube',
+        action: 'SUSCRIBITE EN',
+        handle: '@gutaflores',
+        isSvg: true,
+        svgHtml: youtubeSvg,
+        alt: 'YouTube'
+      },
+      {
+        key: 'twitch',
+        action: 'SEGUINOS EN',
+        handle: '/gutaflores',
+        isSvg: true,
+        svgHtml: twitchSvg,
+        alt: 'Twitch'
+      },
+      {
+        key: 'facebook',
+        action: 'SEGUINOS EN',
+        handle: '/gutaflores',
+        isSvg: false,
+        logoSrc: 'logos/facebook.png',
+        alt: 'Facebook'
+      }
+    ];
+
+    // Opciones vía URL (?interval=5000&action=SEGUINOS)
+    const urlParams = new URLSearchParams(window.location.search);
+    const displayTime = parseInt(urlParams.get('interval') || '5000', 10);
+    const customAction = urlParams.get('action');
+    const dataUrl = 'stream-data.json';
+
+    let activeSocials = [...defaultSocials];
+    let currentIndex = 0;
+    let cycleTimer = null;
+    let isTransitioning = false;
+
+    const bannerEl = document.getElementById('rrss-banner');
+    const logoEl = document.getElementById('rrss-logo');
+    const actionEl = document.getElementById('rrss-action');
+    const handleEl = document.getElementById('rrss-handle');
+
+    // Sincronizar dinámicamente con stream-data.json
+    async function syncStreamData() {
+      try {
+        const response = await fetch(dataUrl + '?t=' + Date.now());
+        if (!response.ok) return;
+        const data = await response.json();
+
+        if (data && data.socials && typeof data.socials === 'object') {
+          activeSocials.forEach(s => {
+            const raw = data.socials[s.key];
+            if (raw && typeof raw === 'string' && raw.trim() !== '') {
+              let clean = raw.trim();
+              if (s.key === 'kick' || s.key === 'twitch' || s.key === 'facebook') {
+                if (!clean.startsWith('/') && !clean.startsWith('@')) {
+                  clean = '/' + clean;
+                }
+              } else if (s.key === 'tiktok' || s.key === 'instagram' || s.key === 'youtube') {
+                if (!clean.startsWith('@') && !clean.startsWith('/')) {
+                  clean = '@' + clean;
+                }
+              }
+              s.handle = clean;
+            }
+          });
+        }
+      } catch (e) {
+        // Modo offline / local
+      }
+    }
+
+    // Renderizar red y activar Zoom In
+    function showSocial(index) {
+      if (activeSocials.length === 0) return;
+      const item = activeSocials[index];
+
+      bannerEl.setAttribute('data-platform', item.key);
+      actionEl.textContent = customAction || item.action;
+      handleEl.textContent = item.handle;
+
+      // Inyectar Logo
+      if (item.isSvg) {
+        logoEl.innerHTML = item.svgHtml;
+      } else {
+        logoEl.innerHTML = `<img src="${item.logoSrc}" class="rrss-logo-img" alt="${item.alt}">`;
+      }
+
+      // Animación Zoom In
+      bannerEl.style.display = 'inline-flex';
+      bannerEl.classList.remove('zoom-out');
+      bannerEl.classList.add('zoom-in');
+      isTransitioning = false;
+
+      // Programar Zoom Out
+      if (cycleTimer) clearTimeout(cycleTimer);
+      cycleTimer = setTimeout(() => {
+        triggerZoomOut();
+      }, displayTime);
+    }
+
+    // Animación Zoom Out y pase a la siguiente
+    function triggerZoomOut() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+
+      bannerEl.classList.remove('zoom-in');
+      bannerEl.classList.add('zoom-out');
+
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % activeSocials.length;
+        showSocial(currentIndex);
+      }, 480);
+    }
+
+    // Inicializar
+    async function init() {
+      await syncStreamData();
+      showSocial(currentIndex);
+
+      // Polling cada 5 segundos
+      setInterval(syncStreamData, 5000);
+    }
+
+    // Soporte para postMessage
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'setRRSS') {
+        if (Array.isArray(event.data.socials) && event.data.socials.length > 0) {
+          activeSocials = event.data.socials;
+          currentIndex = 0;
+          showSocial(0);
+        }
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>

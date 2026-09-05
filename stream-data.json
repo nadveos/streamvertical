@@ -15,54 +15,54 @@
   },
   "guest": {
     "enabled": true,
-    "name": "Gonzalo Pereira Romero ",
-    "role": "💬 Perlas Gauchas",
-    "bio": "Perlas Gauchas en un tiempo de renacer genuino para el folclore de Salta y el de su país agradecen a todos aquellos que apoyan y se unen a su propuesta musical en pos del arte y la cultura de nuestra Nación.",
+    "name": "Edwin Castellanos",
+    "role": "💬 Tupay Bolivia",
+    "bio": "Tupay es una de las agrupaciones musicales más importantes del folclore boliviano contemporáneo, fundada en 1996 en Cochabamba por los músicos Edwin Castellanos y Fernando Torrico. Ambos artistas formaron parte durante más de diez años del legendario grupo Los Kjarkas y del proyecto derivado Pacha antes de consolidar este nuevo camino.",
     "events": "",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "perlas_gauchas"
+        "handle": "tupaybo"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "@perlasgauchas"
+        "handle": "@tupaybolivia"
       },
       {
         "icon": "☕",
-        "platform": "FACEBOOK",
-        "handle": "perlas.gauchas"
+        "platform": "TIKTOK",
+        "handle": "@tupay_bolivia"
       }
     ]
   },
   "guest1": {
     "enabled": true,
-    "name": "Gonzalo Pereira Romero ",
-    "role": "💬 Perlas Gauchas",
-    "bio": "Perlas Gauchas en un tiempo de renacer genuino para el folclore de Salta y el de su país agradecen a todos aquellos que apoyan y se unen a su propuesta musical en pos del arte y la cultura de nuestra Nación.",
+    "name": "Edwin Castellanos",
+    "role": "💬 Tupay Bolivia",
+    "bio": "Tupay es una de las agrupaciones musicales más importantes del folclore boliviano contemporáneo, fundada en 1996 en Cochabamba por los músicos Edwin Castellanos y Fernando Torrico. Ambos artistas formaron parte durante más de diez años del legendario grupo Los Kjarkas y del proyecto derivado Pacha antes de consolidar este nuevo camino.",
     "events": "",
     "socials": [
       {
         "icon": "📸",
         "platform": "INSTAGRAM",
-        "handle": "perlas_gauchas"
+        "handle": "tupaybo"
       },
       {
         "icon": "📺",
         "platform": "YOUTUBE",
-        "handle": "@perlasgauchas"
+        "handle": "@tupaybolivia"
       },
       {
         "icon": "☕",
-        "platform": "FACEBOOK",
-        "handle": "perlas.gauchas"
+        "platform": "TIKTOK",
+        "handle": "@tupay_bolivia"
       }
     ]
   },
   "guest2": {
-    "enabled": true,
+    "enabled": false,
     "name": "Imar Pereira Romero",
     "role": "💬 Perlas Gauchas",
     "bio": "Perlas Gauchas en un tiempo de renacer genuino para el folclore de Salta y el de su país agradecen a todos aquellos que apoyan y se unen a su propuesta musical en pos del arte y la cultura de nuestra Nación.",
@@ -124,11 +124,11 @@
   "brandingBanner": "16x9",
   "socials": {
     "tiktok": "@sesionesrg",
-    "instagram": "",
-    "youtube": "",
-    "facebook": "",
-    "twitch": "",
-    "kick": ""
+    "instagram": "@gutafloresok",
+    "youtube": "@gutaflores",
+    "facebook": "/gutaflores",
+    "twitch": "/gutaflores",
+    "kick": "/gutaflores"
   },
   "agenda": [
     {
