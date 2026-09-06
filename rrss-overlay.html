@@ -14,6 +14,14 @@
       --pill-bg: rgba(22, 25, 33, 0.78);
       --pill-border: rgba(255, 255, 255, 0.28);
       --pill-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+      /* Unidad responsiva proporcional que llena el recuadro eliminando el espacio muerto */
+      --unit: min(calc(100vh / 96), calc(100vw / 440));
+    }
+
+    @supports (height: 1cqh) {
+      .rrss-viewport {
+        --unit: min(calc(100cqh / 96), calc(100cqw / 440));
+      }
     }
 
     * {
@@ -23,11 +31,10 @@
       user-select: none;
     }
 
-    /* Dimensiones de contención estricta idénticas a sponsors-overlay.html */
     html,
     body {
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       margin: 0;
       padding: 0;
       overflow: hidden;
@@ -45,21 +52,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: min(2vw, 2vh, 16px);
       box-sizing: border-box;
+      container-type: size;
     }
 
-    /* Banner flotante fiel a la referencia */
+    /* Banner flotante ajustado al contenedor */
     .rrss-banner {
       display: inline-flex;
       align-items: center;
-      gap: clamp(12px, 3.2vw, 28px);
-      padding: clamp(6px, 1.5vw, 14px) clamp(10px, 2.5vw, 24px);
+      gap: calc(16 * var(--unit));
+      padding: calc(4 * var(--unit)) calc(12 * var(--unit));
       background: transparent;
       transform-origin: center center;
       will-change: transform, opacity;
-      max-width: 98vw;
-      max-height: 95vh;
+      max-width: 96%;
+      max-height: 94%;
     }
 
     /* Animación Zoom In */
@@ -79,7 +86,7 @@
       }
 
       75% {
-        transform: scale(1.05);
+        transform: scale(1.04);
       }
 
       100% {
@@ -95,7 +102,7 @@
       }
 
       30% {
-        transform: scale(1.06);
+        transform: scale(1.04);
       }
 
       100% {
@@ -110,34 +117,59 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: clamp(48px, 11vw, 90px);
+      height: calc(72 * var(--unit));
     }
 
     /* Kick Badge con SVG oficial y borde negro como la referencia */
     .kick-badge-box {
       background: #000000;
-      border: clamp(2px, 0.5vw, 4px) solid #000000;
-      border-radius: clamp(4px, 0.8vw, 8px);
-      padding: clamp(4px, 0.8vw, 8px) clamp(10px, 1.8vw, 18px);
+      border: calc(2.5 * var(--unit)) solid #000000;
+      border-radius: calc(6 * var(--unit));
+      padding: calc(5 * var(--unit)) calc(12 * var(--unit));
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 calc(4 * var(--unit)) calc(12 * var(--unit)) rgba(0, 0, 0, 0.7);
     }
 
     .kick-badge-box svg {
-      height: clamp(28px, 6.5vw, 55px);
+      height: calc(38 * var(--unit));
+      width: auto;
+      display: block;
+    }
+
+    /* SVG YouTube */
+    .youtube-svg {
+      height: calc(54 * var(--unit));
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 calc(4 * var(--unit)) calc(12 * var(--unit)) rgba(0, 0, 0, 0.65));
+    }
+
+    /* Badge Twitch */
+    .twitch-badge-box {
+      background: #9146FF;
+      border-radius: calc(8 * var(--unit));
+      padding: calc(7 * var(--unit)) calc(11 * var(--unit));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 calc(4 * var(--unit)) calc(15 * var(--unit)) rgba(145, 70, 255, 0.5);
+    }
+
+    .twitch-badge-box svg {
+      height: calc(38 * var(--unit));
       width: auto;
       display: block;
     }
 
     /* Imágenes de logos de otras plataformas */
     .rrss-logo-img {
-      height: clamp(46px, 10vw, 85px);
+      height: calc(70 * var(--unit));
       width: auto;
-      max-width: clamp(60px, 14vw, 120px);
+      max-width: calc(110 * var(--unit));
       object-fit: contain;
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.65));
+      filter: drop-shadow(0 calc(4 * var(--unit)) calc(12 * var(--unit)) rgba(0, 0, 0, 0.65));
       display: block;
     }
 
@@ -146,20 +178,20 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: clamp(3px, 0.8vw, 8px);
+      gap: calc(4 * var(--unit));
     }
 
     /* Texto Superior: SEGUINOS EN */
     .rrss-action-title {
-      font-size: clamp(18px, 4vw, 36px);
+      font-size: calc(27 * var(--unit));
       font-weight: 900;
       color: var(--color-white);
       text-transform: uppercase;
-      letter-spacing: clamp(1px, 0.3vw, 2.5px);
+      letter-spacing: calc(1.5 * var(--unit));
       line-height: 1;
       text-shadow:
-        0 2px 5px rgba(0, 0, 0, 0.95),
-        0 0 12px rgba(0, 0, 0, 0.7);
+        0 calc(2 * var(--unit)) calc(5 * var(--unit)) rgba(0, 0, 0, 0.95),
+        0 0 calc(12 * var(--unit)) rgba(0, 0, 0, 0.7);
       white-space: nowrap;
     }
 
@@ -170,21 +202,21 @@
       background: var(--pill-bg);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: clamp(1.5px, 0.35vw, 2.5px) solid var(--pill-border);
-      border-radius: clamp(6px, 1.2vw, 12px);
-      padding: clamp(4px, 0.8vw, 7px) clamp(12px, 2.4vw, 22px);
+      border: calc(2 * var(--unit)) solid var(--pill-border);
+      border-radius: calc(8 * var(--unit));
+      padding: calc(4 * var(--unit)) calc(16 * var(--unit));
       box-shadow: var(--pill-shadow);
       white-space: nowrap;
     }
 
     .rrss-handle-text {
-      font-size: clamp(16px, 3.4vw, 30px);
+      font-size: calc(23 * var(--unit));
       font-weight: 800;
       color: var(--color-white);
-      letter-spacing: clamp(0.5px, 0.15vw, 1.2px);
+      letter-spacing: calc(0.8 * var(--unit));
       line-height: 1.15;
       text-transform: uppercase;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+      text-shadow: 0 calc(1 * var(--unit)) calc(4 * var(--unit)) rgba(0, 0, 0, 0.85);
     }
   </style>
 </head>
@@ -218,7 +250,7 @@
 
     // SVG oficial de YouTube nítido
     const youtubeSvg = `
-      <svg viewBox="0 0 24 24" style="height: clamp(34px, 8vw, 68px); width: auto; display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.65));">
+      <svg class="youtube-svg" viewBox="0 0 24 24">
         <path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
         <polygon fill="#FFFFFF" points="9.545,15.568 15.818,12 9.545,8.432"/>
       </svg>
@@ -226,8 +258,8 @@
 
     // SVG oficial de Twitch con badge morado
     const twitchSvg = `
-      <div style="background: #9146FF; border-radius: clamp(4px, 0.8vw, 8px); padding: clamp(5px, 1vw, 10px); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(145, 70, 255, 0.5);">
-        <svg viewBox="0 0 24 28" style="height: clamp(26px, 6vw, 48px); width: auto; display: block;" fill="#FFFFFF">
+      <div class="twitch-badge-box">
+        <svg viewBox="0 0 24 28" fill="#FFFFFF">
           <path d="M19 17l4-4V2H3v20h5v4l4-4h4l3-3v-2zM5 4h16v11l-3 3h-4l-3 3v-3H5V4z"/>
           <path d="M11 7h2v6h-2zm5 0h2v6h-2z"/>
         </svg>
