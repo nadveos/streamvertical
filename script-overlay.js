@@ -280,7 +280,8 @@
     }
 
     // ── 5. BRANDING BANNER (reemplaza motto y/o ticker cuando están ocultos) ─
-    applyBrandingBanners(mottoVisible, tickerVisible, data.brandingBanner);
+    var brandingVisible = (data.brandingVisible === false) ? false : true;
+    applyBrandingBanners(mottoVisible, tickerVisible, data.brandingBanner, brandingVisible);
   }
 
   // ── Resolución del path base para imágenes de branding ─────────────────────
@@ -399,13 +400,40 @@
 
 
 
-  function applyBrandingBanners(mottoVisible, tickerVisible, bannerKey) {
+  function applyBrandingBanners(mottoVisible, tickerVisible, bannerKey, brandingVisible) {
     injectBrandingStyles();
     bannerKey = bannerKey || 'rectangular';
     var src = getBannerSrc(bannerKey);
+    if (brandingVisible === undefined) brandingVisible = true;
+
+    var stageBottomList = document.querySelectorAll('.stage-bottom-branding');
+
+    // ── Si brandingVisible está desactivado (OCULTO) ──
+    if (!brandingVisible) {
+      stageBottomList.forEach(function(el) {
+        el.style.display = 'none';
+      });
+      var prevMid = document.getElementById('unified-middle-branding');
+      if (prevMid) prevMid.style.display = 'none';
+      var prevHoriz = document.getElementById('unified-horiz-branding');
+      if (prevHoriz) prevHoriz.style.display = 'none';
+
+      document.querySelectorAll(MOTTO_SELECTORS).forEach(function(el) {
+        el.style.display = mottoVisible ? '' : 'none';
+      });
+      document.querySelectorAll(TICKER_SELECTORS).forEach(function(el) {
+        el.style.display = tickerVisible ? '' : 'none';
+      });
+      return;
+    }
+
+    // Actualizar imagen si existe en stage-bottom-branding
+    stageBottomList.forEach(function(el) {
+      var bImg = el.querySelector('.stage-bottom-banner-img, img');
+      if (bImg && bImg.src !== src) bImg.src = src;
+    });
 
     // ── CASO A: AMBOS DESACTIVADOS (Motto y Ticker desactivados) ─────────────
-    // Debe desaparecer el bloque doble y mostrarse un único branding limpio y prominente
     if (!mottoVisible && !tickerVisible) {
       // 1. Ocultar todos los elementos de motto y ticker
       document.querySelectorAll(MOTTO_SELECTORS).forEach(function(el) {
@@ -414,6 +442,14 @@
       document.querySelectorAll(TICKER_SELECTORS).forEach(function(el) {
         el.style.display = 'none';
       });
+
+      // Si existe stage-bottom-branding nativo, mostrarlo
+      if (stageBottomList.length > 0) {
+        stageBottomList.forEach(function(el) {
+          el.style.display = 'flex';
+        });
+        return;
+      }
 
       // 2. En overlays verticales con middle-info-band: insertar / mostrar un único banner
       var middleBand = document.querySelector('.middle-info-band');
@@ -451,20 +487,19 @@
         unifiedHorizBanner.style.display = 'flex';
       }
 
-      // 4. En overlay-solo-vertical (ocultar motto/ticker y mostrar el branding allí si es necesario, o dejar que el script se encargue)
-      // Como ya ocultamos .motto-banner, aquí no inyectamos nada extra, se verá limpio.
-
       return;
     }
 
     // ── CASO B: AL MENOS UNO ESTÁ ACTIVO ────────────────────────────────────
-    // Ocultar cualquier banner unificado
     var prevMid = document.getElementById('unified-middle-branding');
     if (prevMid) prevMid.style.display = 'none';
     var prevHoriz = document.getElementById('unified-horiz-branding');
     if (prevHoriz) prevHoriz.style.display = 'none';
 
-    // Mostrar u ocultar completamente los contenedores Motto y Ticker según su estado individual
+    stageBottomList.forEach(function(el) {
+      el.style.display = 'none';
+    });
+
     document.querySelectorAll(MOTTO_SELECTORS).forEach(function(el) {
       el.style.display = mottoVisible ? '' : 'none';
     });

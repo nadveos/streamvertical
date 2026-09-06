@@ -434,7 +434,8 @@
     /* ── 10. Branding Banners (Motto & Ticker Replacement) ── */
     var mottoVisible = (data.motto && data.motto.visible === false) ? false : true;
     var tickerVisible = (data.tickerVisible === false) ? false : true;
-    applyBrandingBanners(mottoVisible, tickerVisible, data.brandingBanner);
+    var brandingVisible = (data.brandingVisible === false) ? false : true;
+    applyBrandingBanners(mottoVisible, tickerVisible, data.brandingBanner, brandingVisible);
   }
 
   /* ── Resolución de rutas e inyección de branding ──────────── */
@@ -495,10 +496,11 @@
 
 
 
-  function applyBrandingBanners(mottoVisible, tickerVisible, bannerKey) {
+  function applyBrandingBanners(mottoVisible, tickerVisible, bannerKey, brandingVisible) {
     injectBrandingStyles();
     bannerKey = bannerKey || 'rectangular';
     var src = getBannerSrc(bannerKey);
+    if (brandingVisible === undefined) brandingVisible = true;
 
     // Actualizar imagen en stage-bottom-branding si existe
     var stageBottom = document.querySelector('.stage-bottom-branding');
@@ -507,7 +509,23 @@
       bottomBrandImg.src = src;
     }
 
-    // ── CASO A: AMBOS DESACTIVADOS ──
+    // ── Si brandingVisible está desactivado (OCULTO) ──
+    if (!brandingVisible) {
+      if (stageBottom) stageBottom.style.display = 'none';
+      document.querySelectorAll('.stage-bottom-branding').forEach(function(el) {
+        el.style.display = 'none';
+      });
+
+      document.querySelectorAll(MOTTO_SELECTORS).forEach(function(el) {
+        el.style.display = mottoVisible ? '' : 'none';
+      });
+      document.querySelectorAll(TICKER_SELECTORS).forEach(function(el) {
+        el.style.display = tickerVisible ? '' : 'none';
+      });
+      return;
+    }
+
+    // ── CASO A: AMBOS DESACTIVADOS (y branding visible) ──
     if (!mottoVisible && !tickerVisible) {
       document.querySelectorAll(MOTTO_SELECTORS).forEach(function(el) {
         el.style.display = 'none';

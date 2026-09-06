@@ -906,9 +906,15 @@
           <div
             style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
             <div class="card-title" style="margin-bottom:0; color:#c084fc;">🎨 Branding — Banner en Overlays</div>
-            <span
-              style="font-size:11px; background:rgba(192,132,252,0.15); color:#c084fc; padding:3px 10px; border-radius:12px; font-weight:800; border:1px solid rgba(192,132,252,0.35);">SE
-              MUESTRA CUANDO MOTTO/TICKER ESTÁN OCULTOS</span>
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span
+                style="font-size:11px; background:rgba(192,132,252,0.15); color:#c084fc; padding:3px 10px; border-radius:12px; font-weight:800; border:1px solid rgba(192,132,252,0.35);">SE
+                MUESTRA CUANDO MOTTO/TICKER ESTÁN OCULTOS</span>
+              <button type="button" id="brandingToggleBtn" onclick="toggleVisibility('branding')"
+                style="display:inline-flex; align-items:center; gap:8px; padding:7px 16px; border-radius:8px; border:none; cursor:pointer; font-size:13px; font-weight:800; letter-spacing:0.5px; transition:all 0.2s; background:rgba(39,174,96,0.18); color:#2ecc71; border:1.5px solid #2ecc71;">
+                <span id="brandingToggleIcon">👁️</span> <span id="brandingToggleLabel">VISIBLE</span>
+              </button>
+            </div>
           </div>
           <div class="card-subtitle" style="margin-bottom:14px;">Elegí qué banner se muestra en los overlays cuando el
             <strong>Motto</strong> y/o el <strong>Ticker</strong> están desactivados. El banner ocupa el espacio
@@ -1721,10 +1727,11 @@
 
   <!-- ══ JAVASCRIPT DEL PANEL ═══════════════════════════════════════ -->
   <script>
-    // ── Estado de Visibilidad (Motto / Ticker) ──────────────────────
+    // ── Estado de Visibilidad (Motto / Ticker / Branding) ─────────
     var visibilityState = {
       motto: true,
-      ticker: true
+      ticker: true,
+      branding: true
     };
 
     // ── Estado de Banner de Branding Seleccionado ───────────────────
@@ -1997,6 +2004,14 @@
         updateToggleUI('ticker');
       }
 
+      if (data.brandingVisible === false) {
+        visibilityState.branding = false;
+        updateToggleUI('branding');
+      } else {
+        visibilityState.branding = true;
+        updateToggleUI('branding');
+      }
+
       window.currentSponsors = data.sponsors || [];
       if (typeof renderSponsorFields === 'function') renderSponsorFields();
 
@@ -2159,6 +2174,7 @@
           visible: visibilityState.motto
         },
         brandingBanner: currentBrandingBanner,
+        brandingVisible: visibilityState.branding,
         socials: {
           tiktok: (document.getElementById('socialTikTok')?.value || '').trim(),
           instagram: (document.getElementById('socialInstagram')?.value || '').trim(),

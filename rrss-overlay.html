@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +24,8 @@
     }
 
     /* Dimensiones de contención estricta idénticas a sponsors-overlay.html */
-    html, body {
+    html,
+    body {
       width: 100vw;
       height: 100vh;
       margin: 0;
@@ -75,9 +77,11 @@
         opacity: 0;
         transform: scale(0.25);
       }
+
       75% {
         transform: scale(1.05);
       }
+
       100% {
         opacity: 1;
         transform: scale(1);
@@ -89,9 +93,11 @@
         opacity: 1;
         transform: scale(1);
       }
+
       30% {
         transform: scale(1.06);
       }
+
       100% {
         opacity: 0;
         transform: scale(0.25);
@@ -151,7 +157,7 @@
       text-transform: uppercase;
       letter-spacing: clamp(1px, 0.3vw, 2.5px);
       line-height: 1;
-      text-shadow: 
+      text-shadow:
         0 2px 5px rgba(0, 0, 0, 0.95),
         0 0 12px rgba(0, 0, 0, 0.7);
       white-space: nowrap;
@@ -182,6 +188,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="rrss-viewport">
@@ -232,7 +239,7 @@
       {
         key: 'kick',
         action: 'SEGUINOS EN',
-        handle: '/gutaflores',
+        handle: '/sesionesrg',
         isSvg: true,
         svgHtml: kickSvg,
         alt: 'Kick'
@@ -256,7 +263,7 @@
       {
         key: 'youtube',
         action: 'SUSCRIBITE EN',
-        handle: '@gutaflores',
+        handle: '@sesionesrg',
         isSvg: true,
         svgHtml: youtubeSvg,
         alt: 'YouTube'
@@ -272,7 +279,7 @@
       {
         key: 'facebook',
         action: 'SEGUINOS EN',
-        handle: '/gutaflores',
+        handle: '/gutafloresok',
         isSvg: false,
         logoSrc: 'logos/facebook.png',
         alt: 'Facebook'
@@ -391,4 +398,5 @@
     init();
   </script>
 </body>
+
 </html>

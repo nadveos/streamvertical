@@ -122,6 +122,7 @@
     "visible": false
   },
   "brandingBanner": "16x9",
+  "brandingVisible": false,
   "socials": {
     "tiktok": "@sesionesrg",
     "instagram": "@gutafloresok",
