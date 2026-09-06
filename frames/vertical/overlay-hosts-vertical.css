@@ -44,7 +44,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   gap: 32px;
   box-sizing: border-box;
@@ -153,15 +153,31 @@ body {
 }
 
 @keyframes borderGlowCoral {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes borderGlowTurquoise {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .cam-box-16x9 .cam-window {
@@ -189,10 +205,10 @@ body {
   width: 100%;
   min-height: 44px;
   background: linear-gradient(90deg,
-    rgba(10, 0, 0, 0.95) 0%,
-    rgba(38, 5, 5, 0.95) 30%,
-    rgba(38, 5, 5, 0.95) 70%,
-    rgba(10, 0, 0, 0.95) 100%);
+      rgba(10, 0, 0, 0.95) 0%,
+      rgba(38, 5, 5, 0.95) 30%,
+      rgba(38, 5, 5, 0.95) 70%,
+      rgba(10, 0, 0, 0.95) 100%);
   border: 1.5px solid rgba(255, 215, 0, 0.55);
   border-radius: 14px;
   display: flex;
@@ -239,10 +255,10 @@ body {
   width: 100%;
   height: 58px;
   background: linear-gradient(90deg,
-    rgba(12, 0, 0, 0.96) 0%,
-    rgba(45, 0, 0, 0.96) 40%,
-    rgba(45, 0, 0, 0.96) 60%,
-    rgba(12, 0, 0, 0.96) 100%);
+      rgba(12, 0, 0, 0.96) 0%,
+      rgba(45, 0, 0, 0.96) 40%,
+      rgba(45, 0, 0, 0.96) 60%,
+      rgba(12, 0, 0, 0.96) 100%);
   border: 2px solid rgba(255, 215, 0, 0.6);
   border-radius: 16px;
   display: flex;
@@ -392,8 +408,13 @@ body {
   letter-spacing: 1.6px;
 }
 
-.name-tag-host .role-title { color: #FFD700; }
-.name-tag-cohost .role-title { color: #c084fc; }
+.name-tag-host .role-title {
+  color: #FFD700;
+}
+
+.name-tag-cohost .role-title {
+  color: #c084fc;
+}
 
 .name-tag-custom .user-name {
   color: #FFFFFF;
@@ -406,23 +427,51 @@ body {
 
 /* ── ANIMACIONES ──────────────────────────────────────────────── */
 @keyframes borderGlowGold {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes borderGlowPurple {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes tickerScroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes blinkLive {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.2; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
 }
