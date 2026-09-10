@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invitación Digital — Entrevista Musical</title>
+  <title>Invitación Digital — Sesiones RG</title>
   <link rel="stylesheet" href="main.css">
   <link rel="stylesheet" href="overlay-invitacion.css">
-  <!-- Library for PNG Export -->
+  <!-- Librería para exportar PNG -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 
@@ -15,9 +15,41 @@
 
   <div class="app-container">
     <!-- PANEL DE EDICIÓN LATERAL -->
-    <div class="controls-sidebar">
+    <aside class="controls-sidebar">
       <div class="controls-title">
         <span>✉️ Editor de Invitación</span>
+      </div>
+
+      <!-- SELECTOR DE PERFIL PRINCIPAL -->
+      <div class="form-group">
+        <label>Perfil del Invitado</label>
+        <div class="profile-cards">
+          <button type="button" class="profile-card-btn active" id="btnProfileConsagrados"
+            onclick="setProfile('consagrados')">
+            <div class="profile-card-title">🏆 Artistas Consagrados</div>
+            <div class="profile-card-desc">Para managers, agentes de prensa o artistas de gran trayectoria. Destaca
+              legado e inspiración.</div>
+          </button>
+          <button type="button" class="profile-card-btn" id="btnProfileEmergentes"
+            onclick="setProfile('emergentes')">
+            <div class="profile-card-title">🚀 Artistas Emergentes</div>
+            <div class="profile-card-desc">Contacto directo colega a colega. Profundiza en lanzamientos y autogestión
+              en la escena actual.</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- VARIANTE DE DESTINATARIO -->
+      <div class="form-group">
+        <label id="variantLabel">Enfoque de Destinatario</label>
+        <div class="toggle-buttons" id="variantToggleContainer">
+          <!-- Botones inyectados dinámicamente según el perfil seleccionado -->
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="artistInput">Nombre del Artista / Banda</label>
+        <input type="text" id="artistInput" value="[Nombre del artista]" placeholder="Ej. Pedro Aznar / Conociendo Rusia">
       </div>
 
       <div class="form-group">
@@ -26,68 +58,91 @@
       </div>
 
       <div class="form-group">
-        <label for="showSloganInput">Slogan / Temática del Programa</label>
+        <label for="hostInput">Firma del Anfitrión</label>
+        <input type="text" id="hostInput" value="Guta Flores" placeholder="Ej. Guta Flores">
+      </div>
+
+      <div class="form-group">
+        <label for="showSloganInput">Slogan / Temática</label>
         <input type="text" id="showSloganInput" value="En Vivo: Entrevistas en vivo y zapadas con invitados."
           placeholder="Ej. En Vivo: Entrevistas en vivo...">
       </div>
 
       <div class="form-group">
-        <label for="artistInput">Nombre del Artista / Banda</label>
-        <input type="text" id="artistInput" value="[Nombre del artista]" placeholder="Ej. Gustavo Cerati">
-      </div>
-
-      <div class="form-group">
-        <label>Tipo de Invitación</label>
-        <div class="toggle-buttons">
-          <button type="button" class="btn-toggle active" id="btnGroup" onclick="setArtistType('group')">
-            👥 Grupo / Banda (Plural)
-          </button>
-          <button type="button" class="btn-toggle" id="btnSolo" onclick="setArtistType('solo')">
-            🧑‍🎤 Solista (Singular)
+        <label for="subjectInput">Asunto del Correo / Mensaje</label>
+        <div class="input-with-action">
+          <input type="text" id="subjectInput" value="">
+          <button type="button" class="btn-mini-action" onclick="copySubjectOnly()" title="Copiar asunto al portapapeles">
+            📋 Copiar
           </button>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="hostInput">Firma del Anfitrión</label>
-        <input type="text" id="hostInput" value="GUTA FLORES" placeholder="Tu nombre">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <label for="bodyInput" style="margin: 0;">Cuerpo de la Invitación</label>
+          <button type="button" class="btn-mini-action" onclick="restoreCurrentTemplate()"
+            style="padding: 2px 8px; font-size: 11px;" title="Restablecer redacción original según la opción elegida">
+            ↺ Restaurar
+          </button>
+        </div>
+        <textarea id="bodyInput" rows="12" style="resize: vertical;"></textarea>
       </div>
 
       <div class="form-group">
-        <label for="bodyInput">Mensaje de Invitación</label>
-        <textarea id="bodyInput" rows="11" style="resize: vertical;"></textarea>
+        <label for="valedictionInput">Fórmula de Despedida</label>
+        <input type="text" id="valedictionInput" value="Un cordial saludo,">
       </div>
 
+      <!-- BOTONES DE ACCIÓN RÁPIDA -->
       <button class="btn-action" onclick="downloadImage()">
         <span>📸 Descargar como Imagen (PNG)</span>
       </button>
 
-      <button class="btn-action btn-secondary" onclick="copyText()">
-        <span>📋 Copiar Texto del Mensaje</span>
-      </button>
-    </div>
+      <div class="actions-grid">
+        <button class="btn-secondary btn-full" onclick="copyAll()">
+          <span>📋 Copiar Todo (Asunto + Mensaje + Firma)</span>
+        </button>
+        <button class="btn-secondary" onclick="copyBodyOnly()">
+          <span>💬 Copiar Solo Mensaje</span>
+        </button>
+        <button class="btn-secondary" onclick="copySubjectOnly()">
+          <span>✉️ Copiar Solo Asunto</span>
+        </button>
+      </div>
+    </aside>
 
     <!-- ÁREA DE PREVISUALIZACIÓN / OVERLAY DIGITAL -->
-    <div class="preview-area">
+    <main class="preview-area">
       <div class="invitation-card" id="invitationCard">
         <div class="card-brand-header">
           <div class="card-header-badge">
             <span class="badge-dot"></span>
             <span id="displayShowTitleBadge" class="brand-title-text">SESIONES RG</span>
             <span class="badge-sep">◆</span>
-            <span class="badge-tag-text">Invitación Especial</span>
+            <span class="badge-tag-text" id="displayBadgeCategory">ARTISTAS CONSAGRADOS</span>
           </div>
           <div class="card-slogan-line" id="displayShowSlogan">
             En Vivo: Entrevistas en vivo y zapadas con invitados.
           </div>
         </div>
 
+        <!-- Encabezado de Asunto dentro de la carta -->
+        <div class="card-subject-box" id="displaySubjectBox">
+          <span class="card-subject-tag">ASUNTO</span>
+          <span class="card-subject-text" id="displaySubjectText">Invitación especial: Sesiones RG con Guta Flores | Entrevista a [Nombre del artista]</span>
+        </div>
+
+        <!-- Cuerpo del texto formateado -->
         <div class="invitation-body" id="invitationContent"></div>
 
+        <!-- Bloque de Pie de Carta & Firma -->
         <div class="invitation-footer">
           <div class="signature-block">
-            <span class="sign-valediction">Un abrazo,</span>
+            <span class="sign-valediction" id="displayValediction">Un cordial saludo,</span>
             <span class="sign-name" id="displayHostName">GUTA FLORES</span>
+            <span class="sign-role" id="displayHostRole">Sesiones RG</span>
+            <span class="sign-link" id="displayWebLink">https://guta.meapp.com.ar</span>
           </div>
 
           <div class="brand-stamp">
@@ -96,123 +151,303 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
   </div>
 
+  <!-- Toast Notificación -->
+  <div id="toast" class="toast-notice">✓ ¡Copiado al portapapeles!</div>
+
   <script>
-    function getTemplateGroup(showTitle, showSlogan, hostName) {
-      return `Hola [Nombre del artista], ¿cómo están?.
+    // ═══════════════════════════════════════════════════════════════
+    // ESTADO Y DEFINICIÓN DE PLANTILLAS OFICIALES
+    // ═══════════════════════════════════════════════════════════════
+    let currentProfile = 'consagrados'; // 'consagrados' | 'emergentes'
+    let currentVariant = 'prensa';      // 'prensa' | 'directo' (para consagrados) // 'solista' | 'banda' (para emergentes)
 
-Soy ${hostName || 'Gustavo "Guta" Flores'}, cantor, guitarrero y conductor del programa "${showTitle || 'SESIONES RG'}".
+    const TEMPLATES = {
+      consagrados: {
+        badge: 'ARTISTAS CONSAGRADOS',
+        valediction: 'Un cordial saludo,',
+        subject: (show, host, artist) =>
+          `Invitación especial: ${show} con ${host} | Entrevista a ${artist}`,
+        variants: [
+          { id: 'prensa', label: '👥 Prensa / Management (Plural)' },
+          { id: 'directo', label: '👤 Directo al Artista (Singular)' }
+        ],
+        body: {
+          prensa: (show, host, artist) =>
+`Estimados ${artist} / Equipo de prensa,
 
-Les escribo porque sigo de cerca su trabajo musical y me gustaría invitarlos a ser parte de una entrevista especial que estamos realizando sobre música y trayectoria. 
+Mi nombre es ${host}, músico y conductor del ciclo de entrevistas ${show}.
 
-La idea es tener una charla amena sobre sus inicios, el camino recorrido y compartir su experiencia con artistas emergentes que están buscando su propio espacio.
+Me pongo en contacto con ustedes con motivo de extenderles una cordial invitación para formar parte de un episodio especial enfocado en la trayectoria, los procesos creativos y el legado artístico que han construido a lo largo de estos años. El propósito central es registrar un testimonio de valor para nuestra comunidad y acercar su experiencia a las nuevas generaciones de músicos.
 
-La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieren en vivo en nuestro stream principal de los domingos que arranca a las 12:00 hs. (y no tomaría más de 15 a 20 minutos). Luego, los fragmentos destacados se compartirán en nuestras RRSS y nuestra web https://guta.meapp.com.ar para darle visibilidad a su proyecto y conectar con nueva audiencia.
+Dinámica de la entrevista:
+• Formato: Remoto mediante enlace dedicado de video (vdo.ninja, sin necesidad de instalaciones previas) o bien con participación en vivo durante nuestra emisión de los domingos a las 12:00 hs.
+• Duración: Entre 15 y 20 minutos.
+• Difusión: Difusión completa y cortes destacados en redes sociales y en nuestro sitio web oficial (https://guta.meapp.com.ar).
 
-Avisenme si les interesa la propuesta y coordinamos el día y horario que mejor les quede. ¡Sería un verdadero gusto contar con ustedes!`;
-    }
+Nos adaptamos completamente a su agenda y disponibilidad. Quedo a disposición para coordinar los detalles técnicos y de producción que consideren necesarios.
 
-    function getTemplateSolo(showTitle, showSlogan, hostName) {
-      return `Hola [Nombre del artista], ¿cómo estás?.
+Sería un honor contar con su testimonio en el programa.`,
 
-Soy ${hostName || 'Gustavo "Guta" Flores'}, cantor, guitarrero y conductor del programa "${showTitle || 'SESIONES RG'}".
+          directo: (show, host, artist) =>
+`Estimado/a ${artist},
 
-Te escribo porque sigo de cerca tu trabajo musical y me gustaría invitarte a ser parte de una entrevista especial que estamos realizando sobre música y trayectoria. 
+Mi nombre es ${host}, músico y conductor del ciclo de entrevistas ${show}.
 
-La idea es tener una charla amena sobre tus inicios, el camino recorrido y compartir tu experiencia con artistas emergentes que están buscando su propio espacio.
+Me pongo en contacto con usted con motivo de extenderle una cordial invitación para formar parte de un episodio especial enfocado en su trayectoria, sus procesos creativos y el legado artístico que ha construido a lo largo de estos años. El propósito central es registrar un testimonio de valor para nuestra comunidad y acercar su experiencia a las nuevas generaciones de músicos.
 
-La grabación la realizamos de forma remota (vía vdo.ninja) o si lo prefieres en vivo en nuestro stream principal de los domingos que arranca a las 12:00 hs. (y no tomaría más de 15 a 20 minutos). Luego, los fragmentos destacados se compartirán en nuestras RRSS y nuestra web https://guta.meapp.com.ar para darle visibilidad a tu proyecto y conectar con nueva audiencia.
+Dinámica de la entrevista:
+• Formato: Remoto mediante enlace dedicado de video (vdo.ninja, sin necesidad de instalaciones previas) o bien con participación en vivo durante nuestra emisión de los domingos a las 12:00 hs.
+• Duración: Entre 15 y 20 minutos.
+• Difusión: Difusión completa y cortes destacados en redes sociales y en nuestro sitio web oficial (https://guta.meapp.com.ar).
 
-Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te quede. ¡Sería un verdadero gusto contar con vos!`;
-    }
+Nos adaptamos completamente a su agenda y disponibilidad. Quedo a disposición para coordinar los detalles técnicos y de producción que considere necesarios.
 
-    let currentType = 'group';
-
-    const showTitleInput = document.getElementById('showTitleInput');
-    const showSloganInput = document.getElementById('showSloganInput');
-    const bodyInput = document.getElementById('bodyInput');
-    const artistInput = document.getElementById('artistInput');
-    const hostInput = document.getElementById('hostInput');
-    const invitationContent = document.getElementById('invitationContent');
-    const displayHostName = document.getElementById('displayHostName');
-    const displayShowTitleBadge = document.getElementById('displayShowTitleBadge');
-    const displayShowSlogan = document.getElementById('displayShowSlogan');
-    const displayFooterShowTitle = document.getElementById('displayFooterShowTitle');
-    const btnGroup = document.getElementById('btnGroup');
-    const btnSolo = document.getElementById('btnSolo');
-
-    function resetTemplate(forceUpdateText = false) {
-      const showTitle = showTitleInput.value.trim() || 'SESIONES RG';
-      const showSlogan = "Entrevistas en vivo.";
-      const hostName = hostInput.value.trim() || 'Guta Flores';
-
-      if (currentType === 'group') {
-        btnGroup.classList.add('active');
-        btnSolo.classList.remove('active');
-        if (forceUpdateText || !bodyInput.value) {
-          bodyInput.value = getTemplateGroup(showTitle, showSlogan, hostName);
+Sería un honor contar con su testimonio en el programa.`
         }
-      } else {
-        btnSolo.classList.add('active');
-        btnGroup.classList.remove('active');
-        if (forceUpdateText || !bodyInput.value) {
-          bodyInput.value = getTemplateSolo(showTitle, showSlogan, hostName);
+      },
+
+      emergentes: {
+        badge: 'ARTISTAS EMERGENTES',
+        valediction: 'Un gran abrazo,',
+        subject: (show, host, artist) =>
+          `Invitación a ${show} | Entrevista sobre tu música y camino independiente`,
+        variants: [
+          { id: 'solista', label: '🧑‍🎤 Solista (Singular)' },
+          { id: 'banda', label: '👥 Banda / Dúo (Plural)' }
+        ],
+        body: {
+          solista: (show, host, artist) =>
+`Hola ${artist}, ¿cómo estás?
+
+Te saluda ${host}, cantor, guitarrero y conductor de ${show}.
+
+Vengo siguiendo de cerca tu proyecto y el trabajo que venís haciendo musicalmente. Me gustaría invitarte a una charla mano a mano en el programa para profundizar en tus inicios, tus lanzamientos y los desafíos de autogestión en la escena actual.
+
+Detalles de la participación:
+• Modalidad: Grabación remota vía vdo.ninja (solo abrís un enlace en el navegador) o en vivo durante el stream de los domingos a las 12:00 hs.
+• Tiempo: 15 a 20 minutos de charla relajada.
+• Alcance: El material se publica en nuestras redes sociales y queda registrado en https://guta.meapp.com.ar para amplificar la difusión de tu obra.
+
+Contame si te suma la propuesta y coordinamos el día y horario que te quede más cómodo. ¡Será un gusto enorme charlar sobre tu música!`,
+
+          banda: (show, host, artist) =>
+`Hola ${artist}, ¿cómo están?
+
+Les saluda ${host}, cantor, guitarrero y conductor de ${show}.
+
+Vengo siguiendo de cerca su proyecto y el trabajo que vienen haciendo musicalmente. Me gustaría invitarlos a una charla en el programa para profundizar en sus inicios, sus lanzamientos y los desafíos de autogestión en la escena actual.
+
+Detalles de la participación:
+• Modalidad: Grabación remota vía vdo.ninja (solo abren un enlace en el navegador) o en vivo durante el stream de los domingos a las 12:00 hs.
+• Tiempo: 15 a 20 minutos de charla relajada.
+• Alcance: El material se publica en nuestras redes sociales y queda registrado en https://guta.meapp.com.ar para amplificar la difusión de su obra.
+
+Cuéntenme si les suma la propuesta y coordinamos el día y horario que les quede más cómodo. ¡Será un gusto enorme charlar sobre tu música!`
         }
       }
+    };
+
+    // ═══════════════════════════════════════════════════════════════
+    // ELEMENTOS DOM
+    // ═══════════════════════════════════════════════════════════════
+    const showTitleInput = document.getElementById('showTitleInput');
+    const showSloganInput = document.getElementById('showSloganInput');
+    const artistInput = document.getElementById('artistInput');
+    const hostInput = document.getElementById('hostInput');
+    const subjectInput = document.getElementById('subjectInput');
+    const bodyInput = document.getElementById('bodyInput');
+    const valedictionInput = document.getElementById('valedictionInput');
+
+    const btnProfileConsagrados = document.getElementById('btnProfileConsagrados');
+    const btnProfileEmergentes = document.getElementById('btnProfileEmergentes');
+    const variantToggleContainer = document.getElementById('variantToggleContainer');
+
+    const displayShowTitleBadge = document.getElementById('displayShowTitleBadge');
+    const displayBadgeCategory = document.getElementById('displayBadgeCategory');
+    const displayShowSlogan = document.getElementById('displayShowSlogan');
+    const displaySubjectText = document.getElementById('displaySubjectText');
+    const invitationContent = document.getElementById('invitationContent');
+    const displayValediction = document.getElementById('displayValediction');
+    const displayHostName = document.getElementById('displayHostName');
+    const displayHostRole = document.getElementById('displayHostRole');
+    const displayFooterShowTitle = document.getElementById('displayFooterShowTitle');
+    const displayWebLink = document.getElementById('displayWebLink');
+
+    // ═══════════════════════════════════════════════════════════════
+    // GESTIÓN DE PERFILES Y VARIANTES
+    // ═══════════════════════════════════════════════════════════════
+    function setProfile(profileKey) {
+      currentProfile = profileKey;
+      if (profileKey === 'consagrados') {
+        btnProfileConsagrados.classList.add('active');
+        btnProfileEmergentes.classList.remove('active');
+        currentVariant = 'prensa';
+      } else {
+        btnProfileEmergentes.classList.add('active');
+        btnProfileConsagrados.classList.remove('active');
+        currentVariant = 'solista';
+      }
+
+      renderVariantButtons();
+      applyTemplate(true);
+    }
+
+    function renderVariantButtons() {
+      const config = TEMPLATES[currentProfile];
+      variantToggleContainer.innerHTML = '';
+
+      config.variants.forEach(v => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `btn-toggle ${currentVariant === v.id ? 'active' : ''}`;
+        btn.textContent = v.label;
+        btn.onclick = () => setVariant(v.id);
+        variantToggleContainer.appendChild(btn);
+      });
+    }
+
+    function setVariant(variantId) {
+      currentVariant = variantId;
+      const buttons = variantToggleContainer.querySelectorAll('.btn-toggle');
+      const config = TEMPLATES[currentProfile];
+      buttons.forEach((btn, index) => {
+        if (config.variants[index].id === variantId) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      applyTemplate(true);
+    }
+
+    function restoreCurrentTemplate() {
+      applyTemplate(true);
+      showToast('Redacción restablecida a la plantilla original');
+    }
+
+    function applyTemplate(forceTextUpdate = false) {
+      const showTitle = showTitleInput.value.trim() || 'SESIONES RG';
+      const hostName = hostInput.value.trim() || 'Guta Flores';
+      const artistName = artistInput.value.trim() || '[Nombre del artista]';
+      const config = TEMPLATES[currentProfile];
+
+      // Actualizar asunto
+      subjectInput.value = config.subject(showTitle, hostName, artistName);
+
+      // Actualizar despedida si no fue personalizada
+      valedictionInput.value = config.valediction;
+
+      // Actualizar cuerpo si se solicita
+      if (forceTextUpdate || !bodyInput.value) {
+        const bodyGenerator = config.body[currentVariant] || Object.values(config.body)[0];
+        bodyInput.value = bodyGenerator(showTitle, hostName, artistName);
+      }
+
       renderCard();
     }
 
-    function setArtistType(type) {
-      currentType = type;
-      resetTemplate(true);
+    // ═══════════════════════════════════════════════════════════════
+    // RENDERIZADO VISUAL DE LA TARJETA DIGITAL
+    // ═══════════════════════════════════════════════════════════════
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
     function renderCard() {
       const artistName = artistInput.value.trim() || '[Nombre del artista]';
-      const hostName = hostInput.value.trim() || 'GUTA FLORES';
+      const hostName = hostInput.value.trim() || 'Guta Flores';
       const showTitle = showTitleInput.value.trim() || 'SESIONES RG';
-      const showSlogan = "Entrevistas en vivo";
+      const showSlogan = showSloganInput.value.trim() || 'En Vivo: Entrevistas en vivo y zapadas con invitados.';
+      const subjectText = subjectInput.value.trim() || TEMPLATES[currentProfile].subject(showTitle, hostName, artistName);
+      const valediction = valedictionInput.value.trim() || TEMPLATES[currentProfile].valediction;
+      const webUrl = 'https://guta.meapp.com.ar';
 
-      displayHostName.textContent = hostName;
-      displayShowTitleBadge.textContent = showTitle;
+      // Cabecera y sellos
+      displayShowTitleBadge.textContent = showTitle.toUpperCase();
+      displayBadgeCategory.textContent = TEMPLATES[currentProfile].badge;
       displayShowSlogan.textContent = showSlogan;
-      displayFooterShowTitle.textContent = showTitle;
+      displaySubjectText.textContent = subjectText;
 
-      let formattedText = bodyInput.value;
+      // Pie de carta
+      displayValediction.textContent = valediction;
+      displayHostName.textContent = hostName.toUpperCase();
+      displayHostRole.textContent = showTitle;
+      displayFooterShowTitle.textContent = showTitle.toUpperCase();
+      displayWebLink.textContent = webUrl;
 
-      // Resaltar nombre de artista con espaciado natural
-      formattedText = formattedText.replace(/Hola\s+([^,]+?)\s*,/i, function (match, p1) {
-        return `Hola <strong class="artist-highlight">${artistName}</strong>,`;
+      // Formateo visual del cuerpo
+      let text = bodyInput.value;
+
+      // Resaltar artista en saludos habituales
+      // Hola [Nombre del artista],
+      text = text.replace(/(Hola\s+)([^,\n\?]+)([\?,\.])/gi, function (match, p1, p2, p3) {
+        return `${p1}<strong class="artist-highlight">${p2}</strong>${p3}`;
       });
 
-      // Resaltar nombre del programa si aparece entre comillas
-      function escapeRegExp(string) {
-        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      }
-      if (showTitle) {
+      // Estimados [Nombre / Prensa], o Estimado/a [Nombre],
+      text = text.replace(/(Estimad[oa]s?\s+)([^,\n]+)(,)/gi, function (match, p1, p2, p3) {
+        return `${p1}<strong class="artist-highlight">${p2}</strong>${p3}`;
+      });
+
+      // Si el nombre del artista aparece en el texto, destacarlo
+      if (artistName && artistName !== '[Nombre del artista]') {
         try {
-          const reg = new RegExp(`"${escapeRegExp(showTitle)}"`, 'gi');
-          formattedText = formattedText.replace(reg, `"<strong class="show-highlight">${showTitle}</strong>"`);
+          const regArtist = new RegExp(`(${escapeRegExp(artistName)})`, 'gi');
+          text = text.replace(regArtist, `<strong class="artist-highlight">$1</strong>`);
         } catch (e) { }
       }
 
-      invitationContent.innerHTML = formattedText;
+      // Resaltar títulos de sección (Dinámica de la entrevista / Detalles de la participación)
+      text = text.replace(/(Dinámica de la entrevista:|Detalles de la participación:)/gi,
+        `<span class="section-heading">$1</span>`);
+
+      // Resaltar URL web oficial
+      text = text.replace(/(https?:\/\/guta\.meapp\.com\.ar[^\s\)]*)/gi,
+        `<span class="url-highlight">$1</span>`);
+
+      invitationContent.innerHTML = text;
     }
 
-    showTitleInput.addEventListener('input', () => {
+    // ═══════════════════════════════════════════════════════════════
+    // EVENT LISTENERS DE REACTIVIDAD EN VIVO
+    // ═══════════════════════════════════════════════════════════════
+    artistInput.addEventListener('input', () => {
+      const showTitle = showTitleInput.value.trim() || 'SESIONES RG';
+      const hostName = hostInput.value.trim() || 'Guta Flores';
+      const artistName = artistInput.value.trim() || '[Nombre del artista]';
+      subjectInput.value = TEMPLATES[currentProfile].subject(showTitle, hostName, artistName);
       renderCard();
     });
-    showSloganInput.addEventListener('input', () => {
-      renderCard();
-    });
-    artistInput.addEventListener('input', renderCard);
-    hostInput.addEventListener('input', renderCard);
-    bodyInput.addEventListener('input', renderCard);
 
-    // Cargar valores iniciales desde localStorage o stream-data.json
-    async function loadData() {
+    showTitleInput.addEventListener('input', () => {
+      const showTitle = showTitleInput.value.trim() || 'SESIONES RG';
+      const hostName = hostInput.value.trim() || 'Guta Flores';
+      const artistName = artistInput.value.trim() || '[Nombre del artista]';
+      subjectInput.value = TEMPLATES[currentProfile].subject(showTitle, hostName, artistName);
+      renderCard();
+    });
+
+    hostInput.addEventListener('input', () => {
+      const showTitle = showTitleInput.value.trim() || 'SESIONES RG';
+      const hostName = hostInput.value.trim() || 'Guta Flores';
+      const artistName = artistInput.value.trim() || '[Nombre del artista]';
+      subjectInput.value = TEMPLATES[currentProfile].subject(showTitle, hostName, artistName);
+      renderCard();
+    });
+
+    showSloganInput.addEventListener('input', renderCard);
+    subjectInput.addEventListener('input', renderCard);
+    bodyInput.addEventListener('input', renderCard);
+    valedictionInput.addEventListener('input', renderCard);
+
+    // ═══════════════════════════════════════════════════════════════
+    // CARGA DE DATOS DESDE LOCALSTORAGE / STREAM-DATA.JSON
+    // ═══════════════════════════════════════════════════════════════
+    async function loadInitialData() {
       let data = null;
       try {
         const localStr = localStorage.getItem('streamData');
@@ -243,11 +478,13 @@ Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te
         }
       }
 
-      resetTemplate(true);
+      renderVariantButtons();
+      applyTemplate(true);
     }
 
-    loadData();
+    loadInitialData();
 
+    // Sincronización en tiempo real con otras pestañas del panel
     window.addEventListener('storage', function (e) {
       if (e.key === 'streamData' && e.newValue) {
         try {
@@ -256,31 +493,81 @@ Avisame si te interesa la propuesta y coordinamos el día y horario que mejor te
           if (data.show && data.show.slogan) showSloganInput.value = data.show.slogan;
           if (data.guest && data.guest.name) artistInput.value = data.guest.name;
           if (data.host && data.host.name) hostInput.value = data.host.name;
-          renderCard();
+          applyTemplate(true);
         } catch (err) { }
       }
     });
 
+    // ═══════════════════════════════════════════════════════════════
+    // ACCIONES: EXPORTACIÓN Y PORTAPAPELES
+    // ═══════════════════════════════════════════════════════════════
     function downloadImage() {
       const card = document.getElementById('invitationCard');
+      const artist = artistInput.value.replace(/[^a-z0-9]/gi, '_').toLowerCase() || 'artista';
+      const show = showTitleInput.value.replace(/[^a-z0-9]/gi, '_') || 'SesionesRG';
+      const profileSlug = currentProfile === 'consagrados' ? 'Consagrados' : 'Emergentes';
+
       html2canvas(card, {
-        backgroundColor: '#0d0d0d',
+        backgroundColor: '#0B0D14',
         scale: 2,
-        useCORS: true
+        useCORS: true,
+        logging: false
       }).then(canvas => {
         const link = document.createElement('a');
-        const artist = artistInput.value.replace(/[^a-z0-9]/gi, '_').toLowerCase() || 'artista';
-        link.download = `Invitacion_${showTitleInput.value.replace(/[^a-z0-9]/gi, '_')}_${artist}.png`;
+        link.download = `Invitacion_${profileSlug}_${show}_${artist}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
+        showToast('📸 Imagen de invitación descargada en alta resolución');
+      }).catch(err => {
+        alert('Error al generar la imagen: ' + err.message);
       });
     }
 
-    function copyText() {
-      const textToCopy = `${bodyInput.value}\n\nUn abrazo,\n${hostInput.value}\n${showTitleInput.value}`;
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        alert('¡Texto de la invitación copiado al portapapeles!');
+    function copyAll() {
+      const subject = subjectInput.value.trim();
+      const body = bodyInput.value.trim();
+      const valediction = valedictionInput.value.trim();
+      const host = hostInput.value.trim();
+      const show = showTitleInput.value.trim();
+      const web = 'https://guta.meapp.com.ar';
+
+      const fullText = `Asunto: ${subject}\n\n${body}\n\n${valediction}\n${host}\n${show}\n${web}`;
+
+      navigator.clipboard.writeText(fullText).then(() => {
+        showToast('✓ Mensaje completo copiado al portapapeles');
       });
+    }
+
+    function copyBodyOnly() {
+      const body = bodyInput.value.trim();
+      const valediction = valedictionInput.value.trim();
+      const host = hostInput.value.trim();
+      const show = showTitleInput.value.trim();
+      const web = 'https://guta.meapp.com.ar';
+
+      const text = `${body}\n\n${valediction}\n${host}\n${show}\n${web}`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('✓ Texto de la invitación copiado al portapapeles');
+      });
+    }
+
+    function copySubjectOnly() {
+      const subject = subjectInput.value.trim();
+      navigator.clipboard.writeText(subject).then(() => {
+        showToast('✓ Asunto copiado al portapapeles');
+      });
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
     }
   </script>
 </body>

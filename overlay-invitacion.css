@@ -88,7 +88,70 @@
       box-shadow: 0 0 10px rgba(0, 230, 200, 0.3);
     }
 
-    /* Toggle Buttons para Tipo de Artista */
+    /* Selector de Perfiles de Invitación (Consagrados vs Emergentes) */
+    .profile-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .profile-card-btn {
+      background: #0D101A;
+      border: 1.5px solid #232738;
+      border-radius: 10px;
+      padding: 12px 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: relative;
+    }
+
+    .profile-card-btn:hover {
+      border-color: #00E6C8;
+      background: #131724;
+      transform: translateY(-1px);
+    }
+
+    .profile-card-btn.active {
+      border-color: #00E6C8;
+      background: linear-gradient(135deg, rgba(255, 55, 95, 0.15), rgba(0, 230, 200, 0.12));
+      box-shadow: 0 0 15px rgba(0, 230, 200, 0.25), inset 0 0 10px rgba(255, 55, 95, 0.1);
+    }
+
+    .profile-card-btn.active::after {
+      content: '✓';
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      color: #00E6C8;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .profile-card-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .profile-card-btn.active .profile-card-title {
+      color: #00E6C8;
+    }
+
+    .profile-card-desc {
+      font-size: 11px;
+      color: #8E95A5;
+      line-height: 1.35;
+    }
+
+    /* Toggle Buttons para Tipo / Variante de Destinatario */
     .toggle-buttons {
       display: flex;
       gap: 6px;
@@ -105,11 +168,12 @@
       color: #888;
       padding: 8px 10px;
       font-family: 'Outfit', sans-serif;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.2s ease;
+      text-align: center;
     }
 
     .btn-toggle:hover {
@@ -123,6 +187,40 @@
       box-shadow: 0 2px 10px rgba(255, 55, 95, 0.4);
     }
 
+    /* Input con botón integrado para copiar asunto */
+    .input-with-action {
+      display: flex;
+      gap: 6px;
+    }
+
+    .input-with-action input {
+      flex: 1;
+    }
+
+    .btn-mini-action {
+      background: #171926;
+      border: 1px solid #292D3E;
+      color: #00E6C8;
+      padding: 0 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .btn-mini-action:hover {
+      background: #25293c;
+      border-color: #00E6C8;
+      transform: translateY(-1px);
+    }
+
+    /* Acciones de Copiado y Descarga */
     .btn-action {
       background: linear-gradient(135deg, #FF375F, #d91d44);
       color: #fff;
@@ -130,7 +228,7 @@
       border-radius: 8px;
       padding: 12px 16px;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 13.5px;
       text-transform: uppercase;
       letter-spacing: 1px;
       cursor: pointer;
@@ -140,7 +238,7 @@
       gap: 8px;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(255, 55, 95, 0.4);
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     .btn-action:hover {
@@ -149,15 +247,67 @@
       background: linear-gradient(135deg, #FF375F, #00E6C8);
     }
 
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
     .btn-secondary {
       background: #171926;
       border: 1px solid #292D3E;
-      color: #ccc;
+      color: #D6D6D6;
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-align: center;
     }
 
     .btn-secondary:hover {
-      background: #25293c;
+      background: #232738;
+      border-color: #00E6C8;
       color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary.btn-full {
+      grid-column: span 2;
+    }
+
+    /* Toast Flotante */
+    .toast-notice {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #101424;
+      border: 1.5px solid #00E6C8;
+      color: #FFFFFF;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 230, 200, 0.3);
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toast-notice.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
 
     /* Área de Previsualización del Overlay / Invitación */
@@ -253,10 +403,39 @@
       animation: pulse 1.5s infinite;
     }
 
+    /* Caja de Asunto en la Tarjeta de Invitación */
+    .card-subject-box {
+      margin-bottom: 20px;
+      padding: 10px 14px;
+      background: rgba(0, 230, 200, 0.06);
+      border-left: 3px solid #00E6C8;
+      border-radius: 4px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .card-subject-tag {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #FF375F;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .card-subject-text {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: 0.2px;
+      line-height: 1.4;
+    }
+
     .invitation-body {
-      font-size: 15px;
+      font-size: 14.5px;
       line-height: 1.75;
-      color: #D6D6D6;
+      color: #D8DBE2;
       white-space: pre-line;
       margin-bottom: 24px;
     }
@@ -268,7 +447,7 @@
       border: none;
       padding: 0;
       font-size: inherit;
-      text-shadow: none;
+      text-shadow: 0 0 10px rgba(0, 230, 200, 0.25);
     }
 
     .invitation-body strong.show-highlight {
@@ -281,12 +460,29 @@
       text-shadow: none;
     }
 
+    .invitation-body .section-heading {
+      color: #FF375F;
+      font-weight: 800;
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 2px;
+      letter-spacing: 0.5px;
+      font-size: 14px;
+    }
+
+    .invitation-body .url-highlight {
+      color: #00E6C8;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
     /* Footer con Firma e Identidad */
     .invitation-footer {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
       padding-top: 18px;
       margin-top: 8px;
     }
@@ -294,7 +490,7 @@
     .signature-block {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
     .sign-valediction {
@@ -304,10 +500,23 @@
     }
 
     .sign-name {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
       color: #FFFFFF;
       letter-spacing: 1px;
+    }
+
+    .sign-role {
+      font-size: 12px;
+      font-weight: 700;
+      color: #00E6C8;
+      letter-spacing: 0.5px;
+    }
+
+    .sign-link {
+      font-size: 11.5px;
+      color: #8E95A5;
+      letter-spacing: 0.2px;
     }
 
     .brand-stamp {
