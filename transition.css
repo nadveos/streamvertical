@@ -2,188 +2,266 @@
 
 :root {
   --color-coral: #FF375F;
-  --color-coral-glow: rgba(255, 55, 95, 0.5);
+  --color-coral-glow: rgba(255, 55, 95, 0.6);
   --color-turquoise: #00E6C8;
-  --color-turquoise-glow: rgba(0, 230, 200, 0.5);
-  --color-carbon: #10121B;
-  --color-carbon-surface: #171926;
-  --color-carbon-dark: #0B0D14;
+  --color-turquoise-glow: rgba(0, 230, 200, 0.6);
+  --color-carbon: #0A0C13;
+  --color-carbon-surface: #10121B;
+  --color-carbon-mid: #171926;
   --color-white: #FFFFFF;
+  --color-gold: #FFD700;
   --color-muted: #A0A5B5;
 }
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html, body {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   background: transparent;
-  font-family: 'Outfit', 'Segoe UI', sans-serif;
+  font-family: 'Outfit', 'Segoe UI', -apple-system, sans-serif;
+  color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ============================================================
-   OVERLAY CONTAINER
+   CONTENEDOR MAESTRO DE LA TRANSICIÓN
    ============================================================ */
-.transition-overlay {
+.transition-container {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
   pointer-events: none;
+  z-index: 9999;
 }
 
 /* ============================================================
-   STRIPES — Franjas de barrido RÁPIDAS (Stinger 2.5s)
-   0% - 35%: Entrada rápida cubriendo pantalla
-   35% - 55%: Cobertura total y centro protagonista
-   55% - 85%: Salida descubriendo la nueva escena
-   85% - 100%: Transparente
+   1. CORTINA SÓLIDA DE FONDO (100% COBERTURA SÓLIDA EN EL CLÍMAX)
+   Garantiza que entre 30% y 68% la pantalla esté 100% cubierta
+   sin transparencias ni huecos visibles durante el cambio de escena.
    ============================================================ */
+.curtain-base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(165deg,
+    #07080D 0%,
+    #0E1018 25%,
+    #171926 50%,
+    #101320 75%,
+    #06070B 100%
+  );
+  transform-origin: left center;
+  animation: curtainWipeHoriz 2.8s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.95);
+  z-index: 1;
+}
+
+@keyframes curtainWipeHoriz {
+  0%   { transform: translate3d(-105%, 0, 0); }
+  28%  { transform: translate3d(0, 0, 0);     }
+  68%  { transform: translate3d(0, 0, 0);     }
+  94%  { transform: translate3d(105%, 0, 0);  }
+  100% { transform: translate3d(105%, 0, 0);  }
+}
+
+/* ============================================================
+   2. FRANJAS DINÁMICAS NEÓN (STRIPES)
+   ============================================================ */
+.stripes-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
 .stripe {
   position: absolute;
   left: -105%;
   width: 105%;
-  transform-origin: left center;
-  animation: stripeAnim 2.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+  animation: stripeHorizAnim 2.8s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.85);
 }
 
-.s1  { top: 0%;    height: 11.4%; background: linear-gradient(90deg, #0B0D14, #10121B 80%, #00E6C8 100%); animation-delay: 0s;     }
-.s2  { top: 11.1%; height: 11.4%; background: linear-gradient(90deg, #171926, #FF375F 85%, #FF6B8B 100%); animation-delay: 0.02s;  }
-.s3  { top: 22.2%; height: 11.4%; background: linear-gradient(90deg, #10121B, #171926 80%, #00E6C8 100%); animation-delay: 0.04s;  }
-.s4  { top: 33.3%; height: 11.4%; background: linear-gradient(90deg, #171926, #00E6C8 85%, #70FFF0 100%); animation-delay: 0.06s;  }
-.s5  { top: 44.4%; height: 11.4%; background: linear-gradient(90deg, #0B0D14, #10121B 80%, #FF375F 100%); animation-delay: 0.08s;  }
-.s6  { top: 55.5%; height: 11.4%; background: linear-gradient(90deg, #171926, #FF375F 85%, #FF6B8B 100%); animation-delay: 0.10s;  }
-.s7  { top: 66.6%; height: 11.4%; background: linear-gradient(90deg, #10121B, #171926 80%, #00E6C8 100%); animation-delay: 0.12s;  }
-.s8  { top: 77.7%; height: 11.4%; background: linear-gradient(90deg, #171926, #00E6C8 85%, #70FFF0 100%); animation-delay: 0.14s;  }
-.s9  { top: 88.8%; height: 11.4%; background: linear-gradient(90deg, #0B0D14, #10121B 80%, #FF375F 100%); animation-delay: 0.16s;  }
+.s1 { top: 0%;    height: 15%; background: linear-gradient(90deg, #0A0C13, #10121B 80%, #00E6C8 100%); animation-delay: 0s;     }
+.s2 { top: 14%;   height: 15%; background: linear-gradient(90deg, #171926, #FF375F 85%, #FF6B8B 100%); animation-delay: 0.02s;  }
+.s3 { top: 28%;   height: 16%; background: linear-gradient(90deg, #10121B, #171926 80%, #00E6C8 100%); animation-delay: 0.04s;  }
+.s4 { top: 43%;   height: 16%; background: linear-gradient(90deg, #171926, #00E6C8 85%, #70FFF0 100%); animation-delay: 0.06s;  }
+.s5 { top: 58%;   height: 16%; background: linear-gradient(90deg, #0A0C13, #10121B 80%, #FF375F 100%); animation-delay: 0.08s;  }
+.s6 { top: 73%;   height: 15%; background: linear-gradient(90deg, #171926, #FF375F 85%, #FF6B8B 100%); animation-delay: 0.10s;  }
+.s7 { top: 86%;   height: 15%; background: linear-gradient(90deg, #0A0C13, #10121B 80%, #00E6C8 100%); animation-delay: 0.12s;  }
 
-@keyframes stripeAnim {
+@keyframes stripeHorizAnim {
   0%   { left: -105%; }
-  35%  { left: 0%;    }
-  55%  { left: 0%;    }
-  85%  { left: 105%;  }
+  30%  { left: 0%;    }
+  66%  { left: 0%;    }
+  92%  { left: 105%;  }
   100% { left: 105%;  }
 }
 
 /* ============================================================
-   LÍNEA NEÓN DE ALTA VELOCIDAD
+   3. RESPLANDOR AMBIENTAL AURORA & TEXTURA DE PUNTOS
    ============================================================ */
-.golden-line {
+.bg-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 35% at 30% 35%, rgba(0, 230, 200, 0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 35% at 70% 65%, rgba(255, 55, 95, 0.25) 0%, transparent 65%);
+  z-index: 3;
+  animation: glowCycle 2.8s ease infinite;
+}
+
+@keyframes glowCycle {
+  0%, 100% { opacity: 0; transform: scale(0.9); }
+  32%, 66% { opacity: 1; transform: scale(1.02); }
+}
+
+.dots-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0, 230, 200, 0.14) 1.5px, transparent 1.5px);
+  background-size: 34px 34px;
+  z-index: 4;
+  animation: dotsCycle 2.8s linear infinite;
+}
+
+@keyframes dotsCycle {
+  0%, 100% { opacity: 0; }
+  30%, 68% { opacity: 0.7; }
+}
+
+/* ============================================================
+   LÍNEA LÁSER NEÓN DE ALTA VELOCIDAD
+   ============================================================ */
+.laser-line {
   position: absolute;
   top: 50%;
   left: -105%;
   width: 105%;
-  height: 4px;
+  height: 5px;
   background: linear-gradient(90deg,
     transparent 0%,
-    #00E6C8 25%,
+    var(--color-turquoise) 25%,
     #FFFFFF 50%,
-    #FF375F 75%,
+    var(--color-coral) 75%,
     transparent 100%
   );
-  box-shadow: 0 0 20px #00E6C8, 0 0 40px rgba(255, 55, 95, 0.8);
-  animation: neonLineAnim 2.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
-  animation-delay: 0.08s;
+  box-shadow: 0 0 25px var(--color-turquoise), 0 0 45px rgba(255, 55, 95, 0.85);
+  animation: laserHorizAnim 2.8s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  animation-delay: 0.05s;
   z-index: 8;
 }
 
-@keyframes neonLineAnim {
+@keyframes laserHorizAnim {
   0%   { left: -105%; opacity: 0; }
-  32%  { left: 0%;    opacity: 1; }
-  56%  { left: 0%;    opacity: 1; }
-  85%  { left: 105%;  opacity: 0; }
+  28%  { left: 0%;    opacity: 1; }
+  68%  { left: 0%;    opacity: 1; }
+  92%  { left: 105%;  opacity: 0; }
   100% { left: 105%;  opacity: 0; }
 }
 
 /* ============================================================
-   ISOTIPO VÚMETRO / SUBWOOFER REACTIVO (Image_4.png)
+   4. BANDAS PONCHO ESTILO SESIONES RG (TOP & BOTTOM)
    ============================================================ */
-.vumeter-wrapper {
-  position: relative;
-  width: 220px;
-  height: 220px;
-  margin: 0 auto 14px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Anillos de choque acústico */
-.vumeter-shockwave {
+.poncho-band {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 210px;
-  height: 210px;
-  border-radius: 50%;
-  pointer-events: none;
-  border: 2px solid #00E6C8;
-  transform: translate(-50%, -50%) scale(0.9);
-  animation: shockwavePulse 0.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+  left: 0;
+  right: 0;
+  height: 12px;
+  z-index: 9;
+  background: repeating-linear-gradient(
+    90deg,
+    #FF375F  0px,   #FF375F  40px,
+    #10121B  40px,  #10121B  60px,
+    #00E6C8  60px,  #00E6C8  100px,
+    #10121B  100px, #10121B  120px,
+    #FF375F  120px, #FF375F  135px,
+    #10121B  135px, #10121B  155px
+  );
+  box-shadow: 0 0 20px rgba(255, 55, 95, 0.6), 0 0 30px rgba(0, 230, 200, 0.5);
+  animation: ponchoCycle 2.8s ease infinite;
 }
+.poncho-band-top    { top: 0; }
+.poncho-band-bottom { bottom: 0; }
 
-.shockwave-2 {
-  animation-delay: 0.35s;
-  border-color: #FF375F;
-}
-
-@keyframes shockwavePulse {
-  0% {
-    transform: translate(-50%, -50%) scale(0.92);
-    opacity: 0.9;
-    box-shadow: 0 0 10px rgba(0, 230, 200, 0.5);
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1.42);
-    opacity: 0;
-    box-shadow: 0 0 25px rgba(255, 55, 95, 0);
-  }
-}
-
-/* Imagen con vibración física y salto de volumen estilo vúmetro */
-.vumeter-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  position: relative;
-  z-index: 2;
-  will-change: transform, filter;
-  animation: vumeterVibe 0.45s ease-in-out infinite alternate;
-  filter: drop-shadow(0 0 20px rgba(0, 230, 200, 0.65)) drop-shadow(0 0 35px rgba(255, 55, 95, 0.45));
-}
-
-@keyframes vumeterVibe {
-  0% {
-    transform: scale(0.98) translate3d(-1px, 0.5px, 0);
-    filter: drop-shadow(0 0 18px rgba(0, 230, 200, 0.6)) drop-shadow(0 0 25px rgba(255, 55, 95, 0.3));
-  }
-  30% {
-    transform: scale(1.02) translate3d(1px, -0.8px, 0);
-    filter: drop-shadow(0 0 24px rgba(0, 230, 200, 0.85)) drop-shadow(0 0 35px rgba(255, 55, 95, 0.5));
-  }
-  65% {
-    transform: scale(1.06) translate3d(-0.8px, -0.5px, 0);
-    filter: drop-shadow(0 0 32px rgba(255, 55, 95, 0.9)) drop-shadow(0 0 45px rgba(0, 230, 200, 0.6));
-  }
-  85% {
-    transform: scale(1.01) translate3d(0.6px, 0.8px, 0);
-  }
-  100% {
-    transform: scale(1.08) translate3d(0, -1px, 0);
-    filter: drop-shadow(0 0 38px rgba(255, 55, 95, 1)) drop-shadow(0 0 50px rgba(0, 230, 200, 0.7));
-  }
+@keyframes ponchoCycle {
+  0%, 100% { opacity: 0; transform: scaleX(0); }
+  28%, 68% { opacity: 0.95; transform: scaleX(1); }
 }
 
 /* ============================================================
-   LOGO CENTRAL Y TIPOGRAFÍA
+   5. ANILLOS CONCÉNTRICOS DE ENERGÍA (Estilo Pronto Empezamos)
    ============================================================ */
-.center-logo {
+.rings-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  transform: translate3d(-50%, -50%, 0) scale(0.2);
+  animation: transitionRing 2.8s ease-out infinite;
+}
+
+.ring:nth-child(1) { width: 350px; height: 350px; border: 2.5px solid rgba(0, 230, 200, 0.55); animation-delay: 0.3s; }
+.ring:nth-child(2) { width: 350px; height: 350px; border: 2.5px solid rgba(255, 55, 95, 0.55); animation-delay: 0.5s; }
+.ring:nth-child(3) { width: 350px; height: 350px; border: 2.5px solid rgba(0, 230, 200, 0.45); animation-delay: 0.7s; }
+
+@keyframes transitionRing {
+  0%   { transform: translate3d(-50%, -50%, 0) scale(0.2); opacity: 0; }
+  35%  { opacity: 0.95; }
+  68%  { transform: translate3d(-50%, -50%, 0) scale(3.2); opacity: 0; }
+  100% { transform: translate3d(-50%, -50%, 0) scale(3.5); opacity: 0; }
+}
+
+/* ============================================================
+   6. ORNAMENTOS NEÓN EN ESQUINAS
+   ============================================================ */
+.corner-orn {
+  position: absolute;
+  z-index: 9;
+  animation: cornerCycle 2.8s ease infinite;
+}
+.c-tl { top: 24px; left: 24px; }
+.c-tr { top: 24px; right: 24px; transform: scaleX(-1); }
+.c-bl { bottom: 24px; left: 24px; transform: scaleY(-1); }
+.c-br { bottom: 24px; right: 24px; transform: scale(-1); }
+
+@keyframes cornerCycle {
+  0%, 100% { opacity: 0; }
+  30%, 68% { opacity: 0.85; }
+}
+
+.corner-orn svg {
+  width: 65px;
+  height: 65px;
+  fill: none;
+  stroke: var(--color-turquoise);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 10px rgba(0, 230, 200, 0.8));
+}
+
+/* ============================================================
+   7. CENTRO PROTAGONISTA CON VÚMETRO Y SUBWOOFER REACTIVO
+   ============================================================ */
+.center-hero {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -194,101 +272,303 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  animation: logoAnim 2.5s ease infinite;
+  animation: heroEntryCycle 2.8s ease infinite;
+  width: 90%;
+  max-width: 1000px;
 }
 
-@keyframes logoAnim {
+@keyframes heroEntryCycle {
   0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.85); filter: blur(10px); }
-  30%  { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0px); }
-  56%  { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0px); }
-  80%  { opacity: 0; transform: translate(-50%, -50%) scale(1.06); filter: blur(6px); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.06); filter: blur(6px); }
+  28%  { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0px); }
+  68%  { opacity: 1; transform: translate(-50%, -50%) scale(1);    filter: blur(0px); }
+  88%  { opacity: 0; transform: translate(-50%, -50%) scale(1.08); filter: blur(6px); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.08); filter: blur(6px); }
 }
 
-.logo-brand {
-  font-family: 'Bebas Neue', 'Outfit', sans-serif;
-  font-size: 76px;
-  color: #FFFFFF;
-  letter-spacing: 7px;
-  text-shadow:
-    0 0 20px rgba(0, 230, 200, 0.9),
-    0 0 45px rgba(255, 55, 95, 0.7);
-  line-height: 1;
+/* Badge En Vivo */
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(16, 18, 27, 0.92);
+  border: 1.5px solid var(--color-turquoise);
+  border-radius: 30px;
+  padding: 6px 20px;
+  margin-bottom: 14px;
+  box-shadow: 0 0 20px rgba(0, 230, 200, 0.4);
 }
 
-.logo-divider {
-  width: 220px;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #FF375F, #00E6C8, #FF375F, transparent);
-  margin: 10px auto;
-  border-radius: 2px;
-  box-shadow: 0 0 12px rgba(0, 230, 200, 0.6);
+.live-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--color-turquoise);
+  animation: dotBlink 1.2s infinite;
+  box-shadow: 0 0 10px var(--color-turquoise);
 }
 
-.logo-sub {
-  font-size: 15px;
-  font-weight: 800;
-  color: #00E6C8;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  text-shadow: 0 0 14px rgba(0, 230, 200, 0.9);
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.75); }
 }
 
-.logo-tagline {
+.live-badge-text {
   font-size: 14px;
   font-weight: 800;
-  margin-top: 10px;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
+  color: var(--color-white);
   text-transform: uppercase;
+}
+
+.live-badge-sub {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--color-coral);
+  letter-spacing: 2px;
+}
+
+/* Vúmetro y Subwoofer Hero */
+.vumeter-hero {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 12px auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+}
+
+.vumeter-shockwave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  pointer-events: none;
+  border: 2.5px solid var(--color-turquoise);
+  transform: translate(-50%, -50%) scale(0.9);
+  animation: shockwavePulse 0.9s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+}
+
+.shockwave-2 {
+  animation-delay: 0.35s;
+  border-color: var(--color-coral);
+}
+
+.shockwave-3 {
+  animation-delay: 0.7s;
+  border-color: var(--color-turquoise);
+}
+
+@keyframes shockwavePulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0.95;
+    box-shadow: 0 0 16px rgba(0, 230, 200, 0.6);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.48);
+    opacity: 0;
+    box-shadow: 0 0 30px rgba(255, 55, 95, 0);
+  }
+}
+
+.vumeter-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  position: relative;
+  z-index: 2;
+  will-change: transform, filter;
+  animation: heroVumeterVibe 0.45s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 22px rgba(0, 230, 200, 0.8)) drop-shadow(0 0 45px rgba(255, 55, 95, 0.5));
+}
+
+@keyframes heroVumeterVibe {
+  0% {
+    transform: scale(0.97) translate3d(-1px, 0.5px, 0);
+    filter: drop-shadow(0 0 18px rgba(0, 230, 200, 0.7)) drop-shadow(0 0 30px rgba(255, 55, 95, 0.4));
+  }
+  50% {
+    transform: scale(1.05) translate3d(1px, -1px, 0);
+    filter: drop-shadow(0 0 30px rgba(255, 55, 95, 0.9)) drop-shadow(0 0 45px rgba(0, 230, 200, 0.75));
+  }
+  100% {
+    transform: scale(1.09) translate3d(0, -1px, 0);
+    filter: drop-shadow(0 0 40px rgba(255, 55, 95, 1)) drop-shadow(0 0 60px rgba(0, 230, 200, 0.85));
+  }
+}
+
+.channel-name {
+  font-family: 'Bebas Neue', 'Outfit', sans-serif;
+  font-size: 84px;
+  color: var(--color-white);
+  letter-spacing: 8px;
+  line-height: 0.95;
+  text-align: center;
+  text-shadow:
+    0 0 25px rgba(0, 230, 200, 0.9),
+    0 0 65px rgba(255, 55, 95, 0.65),
+    0 0 90px rgba(16, 18, 27, 0.95);
+}
+
+.gold-line {
+  width: 440px;
+  height: 4px;
+  background: linear-gradient(90deg,
+    transparent, var(--color-coral) 15%, var(--color-turquoise) 50%, var(--color-coral) 85%, transparent
+  );
+  border-radius: 2px;
+  margin: 14px 0 16px 0;
+  box-shadow: 0 0 16px rgba(0, 230, 200, 0.6);
+}
+
+.motto-banner {
+  background: linear-gradient(90deg, rgba(16, 18, 27, 0.94) 0%, rgba(25, 28, 42, 0.96) 50%, rgba(16, 18, 27, 0.94) 100%);
+  border: 1.5px solid rgba(0, 230, 200, 0.65);
+  border-radius: 16px;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), 0 0 20px rgba(0, 230, 200, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.motto-text-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.motto-phrase {
+  color: var(--color-white);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.motto-phrase.highlight {
+  color: var(--color-turquoise);
+  font-weight: 900;
+  text-shadow: 0 0 16px rgba(0, 230, 200, 0.9);
+}
+
+.motto-connector {
+  background: linear-gradient(135deg, var(--color-coral) 0%, #D91D44 100%);
+  color: var(--color-white);
+  font-weight: 900;
+  font-size: 13px;
+  padding: 3px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--color-turquoise);
+  box-shadow: 0 0 12px rgba(255, 55, 95, 0.8);
 }
 
 /* ============================================================
-   TEXTURA Y ORNAMENTOS
+   MODO VERTICAL 9:16 (Adaptación automática y vía clase .mode-vertical)
    ============================================================ */
-.poncho-texture {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 6px,
-    rgba(0, 0, 0, 0.18) 6px,
-    rgba(0, 0, 0, 0.18) 7px
-  );
-  z-index: 2;
-  pointer-events: none;
-  animation: textureAnim 2.5s ease infinite;
+@media (max-aspect-ratio: 1/1), (orientation: portrait) {
+  body {
+    --is-portrait: 1;
+  }
 }
 
-@keyframes textureAnim {
-  0%, 100% { opacity: 0; }
-  30%, 56% { opacity: 1; }
-}
+body.mode-vertical,
+@media (max-aspect-ratio: 1/1) {
+  .curtain-base {
+    transform-origin: top center;
+    animation: curtainWipeVert 2.8s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  }
 
-.corner {
-  position: absolute;
-  z-index: 6;
-  animation: cornerAnim 2.5s ease infinite;
-}
-.corner-tl { top: 24px; left: 24px; }
-.corner-tr { top: 24px; right: 24px; transform: scaleX(-1); }
-.corner-bl { bottom: 24px; left: 24px; transform: scaleY(-1); }
-.corner-br { bottom: 24px; right: 24px; transform: scale(-1); }
+  @keyframes curtainWipeVert {
+    0%   { transform: translate3d(0, -105%, 0); }
+    28%  { transform: translate3d(0, 0, 0);     }
+    68%  { transform: translate3d(0, 0, 0);     }
+    94%  { transform: translate3d(0, 105%, 0);  }
+    100% { transform: translate3d(0, 105%, 0);  }
+  }
 
-@keyframes cornerAnim {
-  0%, 100% { opacity: 0; }
-  32%, 54%  { opacity: 1; }
-}
+  .stripe {
+    left: 0;
+    top: -105%;
+    width: 100%;
+    height: 15%;
+    animation: stripeVertAnim 2.8s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  }
 
-.corner svg {
-  width: 60px;
-  height: 60px;
-  fill: none;
-  stroke: #00E6C8;
-  stroke-width: 2.5;
-  filter: drop-shadow(0 0 8px rgba(0, 230, 200, 0.8));
+  .s1 { left: 0%;    width: 15%; height: 105%; top: -105%; background: linear-gradient(180deg, #0A0C13, #10121B 80%, #00E6C8 100%); animation-delay: 0s;     }
+  .s2 { left: 14%;   width: 15%; height: 105%; top: -105%; background: linear-gradient(180deg, #171926, #FF375F 85%, #FF6B8B 100%); animation-delay: 0.02s;  }
+  .s3 { left: 28%;   width: 16%; height: 105%; top: -105%; background: linear-gradient(180deg, #10121B, #171926 80%, #00E6C8 100%); animation-delay: 0.04s;  }
+  .s4 { left: 43%;   width: 16%; height: 105%; top: -105%; background: linear-gradient(180deg, #171926, #00E6C8 85%, #70FFF0 100%); animation-delay: 0.06s;  }
+  .s5 { left: 58%;   width: 16%; height: 105%; top: -105%; background: linear-gradient(180deg, #0A0C13, #10121B 80%, #FF375F 100%); animation-delay: 0.08s;  }
+  .s6 { left: 73%;   width: 15%; height: 105%; top: -105%; background: linear-gradient(180deg, #171926, #FF375F 85%, #FF6B8B 100%); animation-delay: 0.10s;  }
+  .s7 { left: 86%;   width: 15%; height: 105%; top: -105%; background: linear-gradient(180deg, #0A0C13, #10121B 80%, #00E6C8 100%); animation-delay: 0.12s;  }
+
+  @keyframes stripeVertAnim {
+    0%   { top: -105%; }
+    30%  { top: 0%;    }
+    66%  { top: 0%;    }
+    92%  { top: 105%;  }
+    100% { top: 105%;  }
+  }
+
+  .laser-line {
+    top: -105%;
+    left: 50%;
+    width: 5px;
+    height: 105%;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      var(--color-turquoise) 25%,
+      #FFFFFF 50%,
+      var(--color-coral) 75%,
+      transparent 100%
+    );
+    animation: laserVertAnim 2.8s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  }
+
+  @keyframes laserVertAnim {
+    0%   { top: -105%; opacity: 0; }
+    28%  { top: 0%;    opacity: 1; }
+    68%  { top: 0%;    opacity: 1; }
+    92%  { top: 105%;  opacity: 0; }
+    100% { top: 105%;  opacity: 0; }
+  }
+
+  /* Tamaños para Vertical */
+  .vumeter-hero {
+    width: 280px;
+    height: 280px;
+    margin-bottom: 18px;
+  }
+
+  .vumeter-shockwave {
+    width: 270px;
+    height: 270px;
+  }
+
+  .channel-name {
+    font-size: 105px;
+    letter-spacing: 10px;
+  }
+
+  .gold-line {
+    width: 500px;
+  }
+
+  .motto-text-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .motto-phrase {
+    font-size: 20px;
+  }
 }

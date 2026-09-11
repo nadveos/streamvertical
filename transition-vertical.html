@@ -2,78 +2,95 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Guta Flores — Transición Vertical 9:16 (Stinger)</title>
-  <link rel="stylesheet" href="transition-vertical.css">
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0">
+  <title>Guta Flores — Transición Stinger Vertical 9:16</title>
+  <link rel="stylesheet" href="transition.css">
 </head>
-<body>
+<body class="mode-vertical">
 
-  <div class="transition-overlay">
+  <!-- Contenedor de Transición Stinger Vertical 9:16 -->
+  <div class="transition-container" id="transitionContainer">
 
-    <!-- Franjas de barrido vertical (de arriba hacia abajo) -->
-    <div class="stripe s1"></div>
-    <div class="stripe s2"></div>
-    <div class="stripe s3"></div>
-    <div class="stripe s4"></div>
-    <div class="stripe s5"></div>
-    <div class="stripe s6"></div>
-    <div class="stripe s7"></div>
-    <div class="stripe s8"></div>
-    <div class="stripe s9"></div>
+    <!-- 1. CORTINA SÓLIDA DE FONDO (100% cobertura sin transparencias) -->
+    <div class="curtain-base"></div>
 
-    <!-- Textura de líneas -->
-    <div class="poncho-texture"></div>
-    <div class="golden-line"></div>
-
-    <!-- Ornamentos de esquina -->
-    <div class="corner corner-tl">
-      <svg viewBox="0 0 70 70"><path d="M4 66 L4 4 L66 4"/><path d="M4 20 L20 4"/><path d="M4 36 L36 4"/></svg>
-    </div>
-    <div class="corner corner-tr">
-      <svg viewBox="0 0 70 70"><path d="M4 66 L4 4 L66 4"/><path d="M4 20 L20 4"/><path d="M4 36 L36 4"/></svg>
-    </div>
-    <div class="corner corner-bl">
-      <svg viewBox="0 0 70 70"><path d="M4 66 L4 4 L66 4"/><path d="M4 20 L20 4"/><path d="M4 36 L36 4"/></svg>
-    </div>
-    <div class="corner corner-br">
-      <svg viewBox="0 0 70 70"><path d="M4 66 L4 4 L66 4"/><path d="M4 20 L20 4"/><path d="M4 36 L36 4"/></svg>
+    <!-- 2. FRANJAS DINÁMICAS NEÓN DE BARRIDO -->
+    <div class="stripes-wrap">
+      <div class="stripe s1"></div>
+      <div class="stripe s2"></div>
+      <div class="stripe s3"></div>
+      <div class="stripe s4"></div>
+      <div class="stripe s5"></div>
+      <div class="stripe s6"></div>
+      <div class="stripe s7"></div>
     </div>
 
-    <!-- Partículas de luz -->
-    <div class="sparkle sp1"></div>
-    <div class="sparkle sp2"></div>
-    <div class="sparkle sp3"></div>
-    <div class="sparkle sp4"></div>
-    <div class="sparkle sp5"></div>
-    <div class="sparkle sp6"></div>
+    <!-- 3. EFECTOS VISUALES AURORA Y TEXTURA -->
+    <div class="bg-glow"></div>
+    <div class="dots-overlay"></div>
+    <div class="laser-line"></div>
 
-    <!-- Líneas decorativas alrededor del logo -->
-    <div class="deco-lines">
-      <div class="deco-line-top"></div>
-      <div class="deco-line-bottom"></div>
+    <!-- 4. BANDAS PONCHO ESTILO SESIONES RG -->
+    <div class="poncho-band poncho-band-top"></div>
+    <div class="poncho-band poncho-band-bottom"></div>
+
+    <!-- 5. ANILLOS CONCÉNTRICOS DE ENERGÍA -->
+    <div class="rings-wrap">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
     </div>
 
-    <!-- Logo Central con Vúmetro Reactivo -->
-    <div class="center-logo">
-      
-      <!-- Badge con animación de vúmetro y ondas de choque acústico -->
-      <div class="vumeter-wrapper">
+    <!-- 6. ORNAMENTOS NEÓN EN ESQUINAS -->
+    <div class="corner-orn c-tl">
+      <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
+    </div>
+    <div class="corner-orn c-tr">
+      <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
+    </div>
+    <div class="corner-orn c-bl">
+      <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
+    </div>
+    <div class="corner-orn c-br">
+      <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
+    </div>
+
+    <!-- 7. CENTRO PROTAGONISTA CON VÚMETRO Y SUBWOOFER REACTIVO -->
+    <div class="center-hero">
+
+      <!-- Badge En Vivo -->
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        <span class="live-badge-text" data-bind="show-title">SESIONES RG</span>
+        <span class="live-badge-sub">● EN VIVO</span>
+      </div>
+
+      <!-- Isotipo Oficial Sesiones RG con animación de vúmetro y subwoofer -->
+      <div class="vumeter-hero">
         <div class="vumeter-shockwave"></div>
         <div class="vumeter-shockwave shockwave-2"></div>
+        <div class="vumeter-shockwave shockwave-3"></div>
         <img src="branding/Image_4.png" alt="Sesiones RG" class="vumeter-img">
       </div>
 
-      <div class="logo-brand" data-bind="host-name">GUTA FLORES</div>
-      <div class="logo-divider"></div>
-      <div class="logo-sub">🎙️ EN VIVO 🎙️</div>
-      <div class="logo-tagline">
-        <span style="color:#00E6C8; font-weight:800;" data-bind="motto-phrase1">DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
-        <span style="color:#FF375F; margin:0 8px;" data-bind="motto-connector">◆ Y ◆</span>
-        <span style="color:#FFF; font-weight:800;" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+      <!-- Títulos y Nombre del Conductor -->
+      <div class="channel-name" data-bind="host-name">GUTA FLORES</div>
+      <div class="gold-line"></div>
+
+      <!-- Motto / Frases Dinámicas -->
+      <div class="motto-banner" data-bind="motto-banner">
+        <div class="motto-text-group">
+          <span class="motto-phrase highlight" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+          <span class="motto-connector" data-bind="motto-connector">Y</span>
+          <span class="motto-phrase" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+        </div>
       </div>
+
     </div>
 
   </div>
 
+  <!-- Motor de sincronización en tiempo real con stream-data.json -->
   <script src="script-overlay.js"></script>
 </body>
 </html>

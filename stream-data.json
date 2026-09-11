@@ -1,8 +1,8 @@
 {
   "show": {
     "title": "SESIONES RG",
-    "slogan": "En Vivo: Entrevistas en vivo.",
-    "preset": "custom"
+    "slogan": "A la Carta: Pedí tus temas.",
+    "preset": "alacarta"
   },
   "host": {
     "name": "GUTA FLORES",
