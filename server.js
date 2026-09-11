@@ -40,7 +40,7 @@ const OVERLAY_CONFIGS = {
   'transition': { file: 'transition.html', width: 1920, height: 1080 },
   'transition_vertical': { file: 'transition-vertical.html', width: 1080, height: 1920 },
   'pronto_empezamos': { file: 'pronto-empezamos.html', width: 1920, height: 1080 },
-  'pronto_empezamos_9x16': { file: 'pronto-empezamos.html', width: 1080, height: 1920 },
+  'pronto_empezamos_9x16': { file: 'pronto-empezamos-vertical.html', width: 1080, height: 1920 },
   'offline': { file: 'offline.html', width: 1920, height: 1080 },
   'animation_9x16': { file: 'animation.html', width: 1080, height: 1920 },
   'animation_1_9x16': { file: 'animation-1.html', width: 1080, height: 1920 },

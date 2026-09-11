@@ -2,108 +2,196 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=1080, initial-scale=1.0">
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0">
   <title>Guta Flores — Pronto Empezamos Vertical 9:16</title>
   <link rel="stylesheet" href="pronto-empezamos-vertical.css">
 </head>
 <body>
 
-  <!-- Fondos GPU -->
-  <div class="bg"></div>
-  <div class="bg-glow"></div>
-  <div class="dots-overlay"></div>
-  <div class="poncho-band poncho-band-top"></div>
-  <div class="poncho-band poncho-band-bottom"></div>
+  <!-- Contenedor Maestro Vertical 9:16 (1080x1920) -->
+  <div class="stage-vertical">
 
-  <!-- Anillos concéntricos de energía -->
-  <div class="rings-wrap">
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="ring"></div>
-  </div>
+    <!-- Fondos Acelerados por GPU dentro del canvas 1080x1920 -->
+    <div class="bg"></div>
+    <div class="bg-glow"></div>
+    <div class="dots-overlay"></div>
+    <div class="poncho-band poncho-band-top"></div>
+    <div class="poncho-band poncho-band-bottom"></div>
 
-  <!-- Ornamentos esquinas -->
-  <div class="corner-orn c-tl">
-    <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
-  </div>
-  <div class="corner-orn c-tr">
-    <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
-  </div>
-  <div class="corner-orn c-bl">
-    <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
-  </div>
-  <div class="corner-orn c-br">
-    <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
-  </div>
-
-  <!-- Contenedor central vertical (1080x1920) -->
-  <div class="center-vertical">
-
-    <!-- Badge En Breve -->
-    <div class="live-badge">
-      <div class="live-dot"></div>
-      <span class="live-badge-text">🎬 Preparando transmisión</span>
+    <!-- Anillos de energía concéntricos -->
+    <div class="rings-wrap">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
     </div>
 
-    <!-- Isotipo Oficial Sesiones RG con animación de vúmetro y subwoofer -->
-    <div class="vumeter-hero">
-      <div class="vumeter-shockwave"></div>
-      <div class="vumeter-shockwave shockwave-2"></div>
-      <div class="vumeter-shockwave shockwave-3"></div>
-      <img src="branding/Image_4.png" alt="Sesiones RG" class="vumeter-img">
+    <!-- Ornamentos esquinas neón -->
+    <div class="corner-orn c-tl">
+      <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
+    </div>
+    <div class="corner-orn c-tr">
+      <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
+    </div>
+    <div class="corner-orn c-bl">
+      <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
+    </div>
+    <div class="corner-orn c-br">
+      <svg viewBox="0 0 65 65"><path d="M4 61 L4 4 L61 4"/><path d="M4 22 L22 4"/><path d="M4 40 L40 4"/></svg>
     </div>
 
-    <!-- Título y Conductor -->
-    <div class="show-title-tag" data-bind="show-title">SESIONES RG</div>
-    <div class="channel-name" data-bind="host-name">GUTA FLORES</div>
+    <!-- Layout Vertical Estructurado 9:16 -->
+    <div class="vertical-content">
 
-    <div class="gold-line"></div>
+      <!-- 1. HEADER / BADGE DE ESTADO -->
+      <header class="header-section">
+        <div class="live-badge">
+          <div class="live-dot"></div>
+          <span class="live-badge-text">🎬 PREPARANDO TRANSMISIÓN</span>
+        </div>
+      </header>
 
-    <!-- Mensaje Principal -->
-    <div class="main-msg">PRONTO EMPEZAMOS</div>
+      <!-- 2. ISOTIPO OFICIAL & SHOW HERO -->
+      <section class="hero-section">
+        <div class="vumeter-hero">
+          <div class="vumeter-shockwave"></div>
+          <div class="vumeter-shockwave shockwave-2"></div>
+          <div class="vumeter-shockwave shockwave-3"></div>
+          <img src="branding/Image_4.png" alt="Sesiones RG" class="vumeter-img">
+        </div>
 
-    <!-- Subtítulo -->
-    <div class="sub-msg">¡Preparate que arrancamos enseguida! 🎙️</div>
+        <div class="show-title-tag" data-bind="show-title">SESIONES RG</div>
+        <div class="channel-name" data-bind="host-name">GUTA FLORES</div>
+        <div class="gold-line"></div>
 
-    <!-- Motto Banner Vertical -->
-    <div class="motto-banner" data-bind="motto-banner">
-      <div class="motto-text-group">
-        <span class="motto-phrase highlight" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
-        <span class="motto-connector" data-bind="motto-connector">Y</span>
-        <span class="motto-phrase" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
-      </div>
+        <!-- Mensaje de Inicio -->
+        <h1 class="main-msg">PRONTO EMPEZAMOS</h1>
+        <div class="sub-msg" data-bind="show-slogan">En Vivo: Entrevistas en vivo y zapadas con invitados.</div>
+
+        <!-- Barra de Carga Animada -->
+        <div class="progress-wrap">
+          <span class="progress-label">Cargando transmisión en vivo</span>
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. MOTTO BANNER / BRANDING -->
+      <section class="motto-section">
+        <div class="motto-banner" data-bind="motto-banner">
+          <div class="motto-text-group">
+            <span class="motto-phrase highlight" data-bind="motto-phrase1">🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS</span>
+            <span class="motto-connector" data-bind="motto-connector">Y</span>
+            <span class="motto-phrase" data-bind="motto-phrase2">GUITARREAMOS A LA GORRA 🪕</span>
+          </div>
+        </div>
+
+        <!-- Contenedor para Banner de Branding (se activa dinámicamente si el motto se oculta) -->
+        <div class="stage-bottom-branding" style="display: none;">
+          <img src="branding/banner-16x9.png" class="stage-bottom-banner-img" alt="Sesiones RG">
+        </div>
+      </section>
+
+      <!-- 4. CRONOGRAMA / AGENDA DEL STREAM (Datos dinámicos de stream-data.json) -->
+      <section class="agenda-section">
+        <div class="agenda-card">
+          <div class="agenda-card-header">
+            <span class="agenda-badge">📅 PROGRAMA DE HOY</span>
+            <span class="agenda-time-tag">EN VIVO</span>
+          </div>
+          <div class="agenda-list">
+            <div class="agenda-item">
+              <span class="agenda-icon" data-bind="agenda-icon-0">🎙️</span>
+              <div class="agenda-info">
+                <span class="agenda-title" data-bind="agenda-title-0">1. ESCUCHAMOS MÚSICA</span>
+                <span class="agenda-sub" data-bind="agenda-sub-0">MÚSICA A LA CARTA</span>
+              </div>
+            </div>
+            <div class="agenda-item">
+              <span class="agenda-icon" data-bind="agenda-icon-1">🪕</span>
+              <div class="agenda-info">
+                <span class="agenda-title" data-bind="agenda-title-1">2. ENTREVISTA EN VIVO</span>
+                <span class="agenda-sub" data-bind="agenda-sub-1">INVITADOS ESPECIALES</span>
+              </div>
+            </div>
+            <div class="agenda-item">
+              <span class="agenda-icon" data-bind="agenda-icon-2">💬</span>
+              <div class="agenda-info">
+                <span class="agenda-title" data-bind="agenda-title-2">3. CHARLAMOS DE TODO</span>
+                <span class="agenda-sub" data-bind="agenda-sub-2">MÚSICA Y CHARLA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. PARTICIPANTES & REDES SOCIALES (Cards dinámicas sincronizadas) -->
+      <section class="info-grid-section">
+        <div class="cards-grid">
+          <!-- Card Conductor -->
+          <div class="info-card host-card">
+            <div class="label" data-bind="host-role">🎙️ CONDUCTOR</div>
+            <div class="value" data-bind="host-name">Guta Flores</div>
+          </div>
+
+          <!-- Card Co-Host (Condicional según stream-data.json) -->
+          <div class="info-card cohost-card" data-bind="cohost-box" style="display:none;">
+            <div class="label" data-bind="cohost-role">🎙️ CO-HOST</div>
+            <div class="value" data-bind="cohost-name">Raul Domingo</div>
+          </div>
+
+          <!-- Card Invitado (Condicional según stream-data.json) -->
+          <div class="info-card guest-card" data-bind="guest-box" style="display:none;">
+            <div class="label" data-bind="guest-role">💬 INVITADO</div>
+            <div class="value gold" data-bind="guest-name">Edwin Castellanos</div>
+          </div>
+
+          <!-- Card Redes / TikTok Live -->
+          <div class="info-card social-card">
+            <div class="label">📱 TIKTOK LIVE</div>
+            <div class="value highlight" data-bind="social-tiktok">@sesionesrg</div>
+          </div>
+
+          <!-- Card Instagram -->
+          <div class="info-card social-card">
+            <div class="label">📸 INSTAGRAM</div>
+            <div class="value highlight" data-bind="social-instagram">@gutafloresok</div>
+          </div>
+
+          <!-- Card YouTube -->
+          <div class="info-card social-card">
+            <div class="label">📺 YOUTUBE</div>
+            <div class="value highlight" data-bind="social-youtube">@sesionesrg</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. TICKER INFERIOR ANIMADO -->
+      <footer class="footer-section">
+        <div class="ticker-bar-v">
+          <div class="ticker-label">
+            <span class="ticker-dot"></span>
+            ✨ EN BREVE
+          </div>
+          <div class="ticker-track">
+            <div class="ticker-content" data-bind="ticker-content">
+              🎙️ Transmisión en vivo: <span class="highlight" data-bind="host-name">GUTA FLORES</span>
+              <span class="sep">◆</span>
+              🌟 ¡Bienvenidos al stream!
+              <span class="sep">◆</span>
+              🎶 Música, folklore y entretenimiento en vivo
+              <span class="sep">◆</span>
+              💬 ¡Dejá tu comentario y saludá!
+              <span class="sep">◆</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+
     </div>
-
-    <!-- Barra de Carga -->
-    <div class="progress-wrap">
-      <span class="progress-label">Cargando transmisión</span>
-      <div class="progress-bar">
-        <div class="progress-fill"></div>
-      </div>
-    </div>
-
-    <!-- Tarjetas de Info en Grid 2x2 para Vertical -->
-    <div class="show-info-vertical">
-      <div class="info-card">
-        <div class="label">🎙️ Conductor</div>
-        <div class="value" data-bind="host-name">Guta Flores</div>
-      </div>
-      <div class="info-card" data-bind="cohost-box" style="display:none;">
-        <div class="label" data-bind="cohost-role">🎙️ Co-Host</div>
-        <div class="value" data-bind="cohost-name"></div>
-      </div>
-      <div class="info-card" data-bind="guest-box" style="display:none;">
-        <div class="label">💬 Invitado</div>
-        <div class="value gold" data-bind="guest-name"></div>
-      </div>
-      <div class="info-card">
-        <div class="label">📱 Plataforma</div>
-        <div class="value">TikTok Live</div>
-      </div>
-    </div>
-
   </div>
 
+  <!-- Motor de sincronización en tiempo real -->
   <script src="script-overlay.js"></script>
 </body>
 </html>

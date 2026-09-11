@@ -228,7 +228,15 @@
       if (tagsHtml !== '') {
         container.innerHTML = tagsHtml;
       }
-    });
+    // ── 2c. SOCIALS GLOBALES (TIKTOK, INSTAGRAM, YOUTUBE, ETC.) ─────────────
+    if (data.socials) {
+      document.querySelectorAll('[data-bind="social-tiktok"]').forEach(function (el) { el.textContent = data.socials.tiktok || ''; });
+      document.querySelectorAll('[data-bind="social-instagram"]').forEach(function (el) { el.textContent = data.socials.instagram || ''; });
+      document.querySelectorAll('[data-bind="social-youtube"]').forEach(function (el) { el.textContent = data.socials.youtube || ''; });
+      document.querySelectorAll('[data-bind="social-facebook"]').forEach(function (el) { el.textContent = data.socials.facebook || ''; });
+      document.querySelectorAll('[data-bind="social-twitch"]').forEach(function (el) { el.textContent = data.socials.twitch || ''; });
+      document.querySelectorAll('[data-bind="social-kick"]').forEach(function (el) { el.textContent = data.socials.kick || ''; });
+    }
 
     // ── 3. MOTTO BANNER (FRASE DESTACADA) ───────────────────────────────────
     var mottoP1 = (data.motto && data.motto.phrase1) ? data.motto.phrase1 : '🎙️ DIFUNDIENDO ARTISTAS POCOS CONOCIDOS';
