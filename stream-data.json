@@ -14,7 +14,7 @@
     "role": ""
   },
   "guest": {
-    "enabled": true,
+    "enabled": false,
     "name": "Edwin Castellanos",
     "role": "💬 Tupay Bolivia",
     "bio": "Tupay es una de las agrupaciones musicales más importantes del folclore boliviano contemporáneo, fundada en 1996 en Cochabamba por los músicos Edwin Castellanos y Fernando Torrico. Ambos artistas formaron parte durante más de diez años del legendario grupo Los Kjarkas y del proyecto derivado Pacha antes de consolidar este nuevo camino.",
@@ -38,7 +38,7 @@
     ]
   },
   "guest1": {
-    "enabled": true,
+    "enabled": false,
     "name": "Edwin Castellanos",
     "role": "💬 Tupay Bolivia",
     "bio": "Tupay es una de las agrupaciones musicales más importantes del folclore boliviano contemporáneo, fundada en 1996 en Cochabamba por los músicos Edwin Castellanos y Fernando Torrico. Ambos artistas formaron parte durante más de diez años del legendario grupo Los Kjarkas y del proyecto derivado Pacha antes de consolidar este nuevo camino.",
@@ -110,10 +110,10 @@
     ]
   },
   "solo": {
-    "descLabel": "Hoy Invitado Estelar",
-    "bio": "Bienvenidos, hacemos la previa de lo que será la visita estelar de TUPAY",
-    "tags": "#artistasemergentes #nuevamusica #charlemos #musica #universotupay #tupay30años",
-    "handle": "@gutafloresok"
+    "descLabel": "",
+    "bio": "",
+    "tags": "#artistasemergentes #nuevamusica #charlemos #musica",
+    "handle": "@sesionesrg"
   },
   "motto": {
     "phrase1": "INVITADOS ESPECIALES EN VIVO",
@@ -160,11 +160,6 @@
       "highlight": true
     },
     {
-      "prefix": "📲 Seguinos en redes:",
-      "text": "@gutafloresok",
-      "highlight": true
-    },
-    {
       "prefix": "",
       "text": "🎶 Música, folklore y entretenimiento en vivo",
       "highlight": true
@@ -180,12 +175,12 @@
       "highlight": true
     },
     {
-      "prefix": "☕ Alias MP / Cafecito:",
+      "prefix": "☕ Cafecito Saludon:",
       "text": "GUTA.FLORES",
       "highlight": true
     }
   ],
-  "tickerVisible": false,
+  "tickerVisible": true,
   "sponsors": [
     {
       "name": "Milonguita Dev",
