@@ -1709,9 +1709,9 @@
 
         <!-- Render & Capturas -->
         <div class="inner-card">
-          <div class="card-title" style="color: #FFD700;">📸 Generar Imágenes PNG y Videos WebM</div>
+          <div class="card-title" style="color: #FFD700;">📸 Generar Imágenes PNG, WebP y Videos WebM</div>
           <div class="card-subtitle">
-            Exportá capturas de alta calidad con fondos transparentes para OBS o redes sociales (requiere
+            Exportá capturas de alta calidad con fondos transparentes y fondos animados en bucle para OBS o redes sociales (requiere
             <code>node server.js</code>).
           </div>
 
@@ -1727,6 +1727,9 @@
             </button>
             <button type="button" class="btn-action-pill" onclick="recordWebmVideo('likes_animation', 5000)">
               🎥 Grabar Animación Likes WebM
+            </button>
+            <button type="button" class="btn-action-pill" id="btn-record-webp" onclick="recordWebpAnimation('test_bg', 8000)" style="grid-column: span 2; background: linear-gradient(135deg, rgba(255,55,95,0.25), rgba(0,230,200,0.2)); border: 1.5px solid #00E6C8; color: #FFF; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              🌊 Capturar Fondo WebP 16:9 (1080p · 8s Loop)
             </button>
           </div>
         </div>
@@ -2339,6 +2342,28 @@
       });
     }
 
+    // ── Helper para comunicar con el backend Node.js (puerto 3000 o actual) ──
+    async function callNodeApi(pathAndQuery) {
+      try {
+        const res = await fetch(pathAndQuery);
+        if (res.ok) return res;
+      } catch (e) {}
+
+      // Si el panel corre en python server (puerto 8000), intentar directo al puerto 3000 de Node
+      if (window.location.port !== '3000') {
+        try {
+          const res3000 = await fetch(`http://localhost:3000${pathAndQuery}`);
+          if (res3000.ok) return res3000;
+        } catch (e) {}
+        try {
+          const res127 = await fetch(`http://127.0.0.1:3000${pathAndQuery}`);
+          if (res127.ok) return res127;
+        } catch (e) {}
+      }
+
+      throw new Error('Servidor Node.js no disponible');
+    }
+
     // ── Captura y Render con Playwright ─────────────────────────────
     async function captureOverlay(overlayKey) {
       const toast = document.getElementById('toast');
@@ -2347,7 +2372,7 @@
       toast.textContent = '⏳ Generando imagen PNG... por favor esperá...';
 
       try {
-        const response = await fetch(`/api/capture?overlay=${overlayKey}`);
+        const response = await callNodeApi(`/api/capture?overlay=${overlayKey}`);
         if (!response.ok) throw new Error('Servidor Node no disponible');
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
@@ -2372,7 +2397,7 @@
       toast.textContent = `🎥 Grabando video WebM (${durationMs / 1000}s)...`;
 
       try {
-        const response = await fetch(`/api/record-video?overlay=${overlayKey}&duration=${durationMs}`);
+        const response = await callNodeApi(`/api/record-video?overlay=${overlayKey}&duration=${durationMs}`);
         if (!response.ok) throw new Error('Servidor Node no disponible');
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
@@ -2388,6 +2413,45 @@
         toast.textContent = '❌ Para generar PNG/Video ejecutá node server.js';
       }
       setTimeout(() => toast.style.display = 'none', 4000);
+    }
+
+    async function recordWebpAnimation(overlayKey = 'test_bg', durationMs = 8000) {
+      const btn = document.getElementById('btn-record-webp');
+      const toast = document.getElementById('toast');
+      const originalHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+        btn.innerHTML = '⏳ Grabando bucle WebP 1080p...';
+      }
+
+      toast.style.display = 'block';
+      toast.style.background = '#e67e22';
+      toast.textContent = `🌊 Grabando fondo WebP 16:9 1080p (${durationMs / 1000}s)... aguardá unos segundos...`;
+
+      try {
+        const response = await callNodeApi(`/api/record-webp?overlay=${overlayKey}&duration=${durationMs}`);
+        if (!response.ok) throw new Error('Error al generar WebP');
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${overlayKey}_16x9_1080p.webp`;
+        link.click();
+        URL.revokeObjectURL(url);
+        toast.style.background = '#27ae60';
+        toast.textContent = '✅ ¡Fondo WebP 1080p descargado con éxito!';
+      } catch (err) {
+        toast.style.background = '#c0392b';
+        toast.textContent = '❌ Para generar WebP ejecutá node server.js';
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          btn.innerHTML = originalHtml;
+        }
+      }
+      setTimeout(() => toast.style.display = 'none', 4500);
     }
 
     loadData();

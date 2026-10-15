@@ -8,8 +8,12 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
+const util = require('util');
+const execPromise = util.promisify(exec);
 const { chromium } = require('playwright-core');
 const { Jimp } = require('jimp');
+const ffmpeg = require('ffmpeg-static');
 
 let PORT = 3000;
 const DIR = __dirname;
@@ -48,6 +52,7 @@ const OVERLAY_CONFIGS = {
   'banner_kick_1200x134': { file: 'banner-kick.html', width: 1200, height: 134 },
   'overlay_invitacion': { file: 'overlay-invitacion.html', width: 1920, height: 1080 },
   'likes_animation': { file: 'frames/animations/likes.html', width: 1080, height: 1920 },
+  'test_bg': { file: 'test-bg.html', width: 1920, height: 1080 },
 };
 
 async function captureOverlay(overlayKey) {
@@ -172,12 +177,63 @@ async function recordVideo(overlayKey, durationMs = 5000) {
     const video = await page.video();
     await context.close();
 
+    return finalPath;
+  } finally {
+    await browser.close();
+  }
+}
+
+async function recordWebp(overlayKey, durationMs = 8000, fps = 24) {
+  const config = OVERLAY_CONFIGS[overlayKey];
+  if (!config) throw new Error(`Overlay desconocido: ${overlayKey}`);
+
+  const renderDir = path.join(DIR, 'render');
+  if (!fs.existsSync(renderDir)) fs.mkdirSync(renderDir, { recursive: true });
+
+  const browser = await chromium.launch({
+    headless: true,
+    args: [
+      '--disable-gpu-vsync',
+      '--enable-font-antialiasing',
+      '--font-render-hinting=medium'
+    ]
+  });
+  try {
+    const context = await browser.newContext({
+      viewport: { width: config.width, height: config.height },
+      recordVideo: {
+        dir: renderDir,
+        size: { width: config.width, height: config.height }
+      }
+    });
+
+    const page = await context.newPage();
+    const url = `http://localhost:${PORT}/${config.file}`;
+    await page.goto(url, { waitUntil: 'networkidle' });
+
+    await page.evaluate(async () => {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+    });
+
+    console.log(`🎥 Grabando animación de ${config.file} (${durationMs / 1000}s, ${config.width}x${config.height})...`);
+    await page.waitForTimeout(durationMs);
+
+    const video = await page.video();
+    await context.close();
+
     const savedPath = await video.path();
-    const finalFilename = `${overlayKey}_video.webm`;
+    const finalFilename = `${overlayKey}_16x9_1080p.webp`;
     const finalPath = path.join(renderDir, finalFilename);
 
     if (fs.existsSync(finalPath)) fs.unlinkSync(finalPath);
-    fs.renameSync(savedPath, finalPath);
+
+    console.log(`🌀 Codificando a WebP animado (${fps} fps, loop infinito)...`);
+    const cmd = `"${ffmpeg}" -y -i "${savedPath}" -vcodec libwebp -filter:v "fps=${fps}" -lossless 0 -compression_level 4 -q:v 70 -loop 0 -an "${finalPath}"`;
+    await execPromise(cmd);
+
+    if (fs.existsSync(savedPath)) fs.unlinkSync(savedPath);
 
     return finalPath;
   } finally {
@@ -276,6 +332,39 @@ const server = http.createServer(async (req, res) => {
       res.end(fileBuffer);
     } catch (err) {
       console.error('Error al grabar video WebM:', err);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message }));
+    }
+    return;
+  }
+
+  // ─── API: Grabar animación WebP (loop infinito) ──────────────────────────
+  if (pathname === '/api/record-webp' && req.method === 'GET') {
+    const overlayKey = url.searchParams.get('overlay') || 'test_bg';
+    const duration = parseInt(url.searchParams.get('duration') || '8000', 10);
+    const fps = parseInt(url.searchParams.get('fps') || '24', 10);
+
+    if (!OVERLAY_CONFIGS[overlayKey]) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Overlay inválido' }));
+      return;
+    }
+
+    try {
+      console.log(`🌀 Generando WebP animado de ${overlayKey} (${duration / 1000}s, ${fps}fps)...`);
+      const outputPath = await recordWebp(overlayKey, duration, fps);
+      console.log(`✅ WebP animado generado: ${outputPath}`);
+
+      const filename = path.basename(outputPath);
+      const fileBuffer = fs.readFileSync(outputPath);
+      res.writeHead(200, {
+        'Content-Type': 'image/webp',
+        'Content-Disposition': `attachment; filename="${filename}"`,
+        'Content-Length': fileBuffer.length,
+      });
+      res.end(fileBuffer);
+    } catch (err) {
+      console.error('Error al generar WebP animado:', err);
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: err.message }));
     }

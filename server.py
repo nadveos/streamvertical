@@ -40,6 +40,25 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
+        if self.path.startswith('/api/capture') or self.path.startswith('/api/record-video') or self.path.startswith('/api/record-webp'):
+            import urllib.request
+            try:
+                node_url = f"http://127.0.0.1:3000{self.path}"
+                req = urllib.request.Request(node_url)
+                with urllib.request.urlopen(req, timeout=120) as response:
+                    self.send_response(response.status)
+                    for k, v in response.getheaders():
+                        self.send_header(k, v)
+                    self.end_headers()
+                    self.wfile.write(response.read())
+                return
+            except Exception as e:
+                self.send_response(502)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": f"Node server no responde en puerto 3000: {e}"}).encode('utf-8'))
+                return
+
         if self.path == '/api/overlays':
             self.send_response(200)
             self.send_header('Content-Type', 'application/json; charset=utf-8')
